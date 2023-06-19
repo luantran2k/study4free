@@ -5,6 +5,10 @@ import HomePage from '../pages/Home';
 import VocabulariesPage from '../pages/Vocabularies';
 import RootLayout from '../pages/layouts/Root';
 import UserProfilePage from '../pages/UserProfile';
+import AnalyzeResults from '../pages/UserProfile/AnalyzeResults';
+import UserInformation from '../pages/UserProfile/UserInformation';
+import Collection from '../pages/UserProfile/Collection';
+import Reminder from '../pages/UserProfile/Reminder';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -27,8 +31,26 @@ export const mainRoute: RouteObject = {
       element: <GrammarPage />,
     },
     {
-      path: 'users/:id',
+      path: 'users',
       element: <UserProfilePage />,
+      children: [
+        {
+          path: 'analyzeResults',
+          element: <AnalyzeResults />
+        },
+        {
+          path: 'userInformation',
+          element: <UserInformation />
+        },
+        {
+          path: 'collection',
+          element: <Collection />
+        },
+        {
+          path: 'reminder',
+          element: <Reminder />
+        }
+      ]
     },
   ],
 };
