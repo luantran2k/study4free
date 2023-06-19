@@ -1,11 +1,7 @@
 import { NavLink } from 'react-router-dom';
 function NavBar() {
   return (
-<<<<<<< HEAD
-    <Container maxWidth="xl" sx={{ minHeight: '50px' }}>
-=======
     <div className="container">
->>>>>>> a263ed41eeae4cfb0dd1fb5b1e064e76215f7578
       <nav>
         <ul className="flex gap-2 flex-1">
           <li>

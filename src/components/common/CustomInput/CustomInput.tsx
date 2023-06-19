@@ -1,6 +1,7 @@
 type CustomInputProps = {
   label: string;
-  placeholder: string;
+  placeholder?: string;
+  type?: string;
   register?: (name: string) => void;
 };
 
@@ -8,7 +9,10 @@ const CustomInput: React.FC<CustomInputProps> = ({
   label,
   placeholder,
   register,
+  type
 }) => {
+
+  console.log(name)
   return (
     <div className="form-control">
       <label className="label">
@@ -16,7 +20,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
       </label>
       <label className="input-group">
         <input
-          type="text"
+          type={type ? type : "text"}
           placeholder={placeholder}
           className="input input-bordered"
           {...register}
