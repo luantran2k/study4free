@@ -1,8 +1,7 @@
-import { Container } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 function NavBar() {
   return (
-    <Container maxWidth="xl">
+    <div className="container">
       <nav>
         <ul className="flex gap-2 flex-1">
           <li>
@@ -19,7 +18,7 @@ function NavBar() {
           </li>
         </ul>
       </nav>
-    </Container>
+    </div>
   );
 }
 
