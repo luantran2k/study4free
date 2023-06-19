@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import RootLayout from './pages/layouts/Root';
 import HomePage from './pages/Home';
@@ -23,6 +24,14 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
+=======
+import { useRoutes } from 'react-router-dom';
+import { routes } from './routes';
+
+function App() {
+  const routesElement = useRoutes(routes);
+  return <>{routesElement}</>;
+>>>>>>> a263ed41eeae4cfb0dd1fb5b1e064e76215f7578
 }
 
 export default App;
