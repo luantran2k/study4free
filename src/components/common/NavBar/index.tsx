@@ -2,7 +2,7 @@ import { Container } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 function NavBar() {
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ minHeight: '50px' }}>
       <nav>
         <ul className="flex gap-2 flex-1">
           <li>

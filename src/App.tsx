@@ -5,6 +5,7 @@ import ExamsPage from './pages/Exams';
 import VocabulariesPage from './pages/Vocabularies';
 import GrammarPage from './pages/Grammar';
 import AdminLayout from './pages/layouts/Admin';
+import Authentication from './pages/Authentication/Authentication';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         </Route>
         <Route path="/admin" element={<AdminLayout />}></Route>
         <Route path="*" element={<h1>404</h1>} />
+        <Route path="login" element={<Authentication />} />
       </Routes>
     </BrowserRouter>
   );

@@ -4,9 +4,9 @@ import NavBar from '../../../components/common/NavBar';
 
 const RootLayout = () => {
   return (
-    <div>
+    <div className='flex flex-col h-screen'>
       <NavBar />
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{flexGrow: 1}}>
         <Outlet />
       </Container>
     </div>
