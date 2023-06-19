@@ -4,6 +4,7 @@ import HomePage from './pages/Home';
 import ExamsPage from './pages/Exams';
 import VocabulariesPage from './pages/Vocabularies';
 import GrammarPage from './pages/Grammar';
+import AdminLayout from './pages/layouts/Admin';
 
 function App() {
   return (
@@ -14,8 +15,9 @@ function App() {
           <Route path="exams" element={<ExamsPage />} />
           <Route path="vocabularies" element={<VocabulariesPage />} />
           <Route path="grammar" element={<GrammarPage />} />
-          <Route path="*" element={<h1>404</h1>} />
         </Route>
+        <Route path="/admin" element={<AdminLayout />}></Route>
+        <Route path="*" element={<h1>404</h1>} />
       </Routes>
     </BrowserRouter>
   );
