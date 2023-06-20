@@ -67,31 +67,31 @@ function AnalyzeResults() {
             Writing
           </span>
         </div>
-        <div className="grid grid-rows-1 grid-cols-12 px-[70px] pt-[50px] gap-[20px]">
-          <div className="col-span-8">
+        <div className="grid grid-rows-1 grid-cols-12 px-[40px] pt-[50px] gap-[20px]">
+          <div className="col-span-9">
             <div className="mb-[30px]">
-              <Line options={options} data={data} />
+              <Line options={options} data={data}/>
             </div>
-            <div className="flex justify-around">
-              <span className="bg-[#fff] min-w-[180px] text-center px-[10px] py-[20px] rounded-xl shadow-md hover:bg-[#40634d] hover:text-[#fff] cursor-pointer">
+            <div className="flex justify-around gap-[20px]">
+              <span className="bg-[#fff]  text-center px-[10px] py-[20px] rounded-xl shadow-md hover:bg-[#40634d] hover:text-[#fff] cursor-pointer">
                 <p className="text-[20px]">Number of exams done</p>
-                <p className="font-bold text-[40px]">15</p>
+                <p className="font-bold text-[30px]">15</p>
               </span>
-              <span className="bg-[#fff] min-w-[180px] text-center px-[10px] py-[20px] rounded-xl shadow-md hover:bg-[#40634d] hover:text-[#fff] cursor-pointer">
+              <span className="bg-[#fff] text-center px-[10px] py-[20px] rounded-xl shadow-md hover:bg-[#40634d] hover:text-[#fff] cursor-pointer">
                 <p className="text-[20px]">Accuracy</p>
-                <p className="font-bold text-[40px]">64.50%</p>
+                <p className="font-bold text-[30px]">64.50%</p>
               </span>
-              <span className="bg-[#fff] min-w-[180px] text-center px-[10px] py-[20px] rounded-xl shadow-md hover:bg-[#40634d] hover:text-[#fff] cursor-pointer">
+              <span className="bg-[#fff] text-center px-[10px] py-[20px] rounded-xl shadow-md hover:bg-[#40634d] hover:text-[#fff] cursor-pointer">
                 <p className="text-[20px]">Average time</p>
-                <p className="font-bold text-[40px]">02:20:34</p>
+                <p className="font-bold text-[30px]">02:20:34</p>
               </span>
-              <span className="bg-[#fff] min-w-[180px] text-center px-[10px] py-[20px] rounded-xl shadow-md hover:bg-[#40634d] hover:text-[#fff] cursor-pointer">
+              <span className="bg-[#fff] text-center px-[10px] py-[20px] rounded-xl shadow-md hover:bg-[#40634d] hover:text-[#fff] cursor-pointer">
                 <p className="text-[20px]">Average score</p>
-                <p className="font-bold text-[40px]">6.5</p>
+                <p className="font-bold text-[30px]">6.5</p>
               </span>
             </div>
           </div>
-          <table className="col-span-4 shadow-lg table-auto border-collapse border border-slate-500">
+          <table className="col-span-3 shadow-lg table-auto border-collapse border border-slate-500">
             <thead>
               <tr>
                 <th className="border border-slate-600">Exams</th>
