@@ -1,4 +1,4 @@
 export default interface IAnswer {
-  id: number;
+  id: string;
   answer: string;
 }

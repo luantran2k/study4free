@@ -1,14 +1,27 @@
-import IQuestion from './Question';
+import IExamSection from './ExamSection';
 
 export default interface IExam {
-  id: number;
+  id: string;
   title: string;
   description: string;
   duration: number;
   type: string;
   price: number;
   image: string;
-  questions: IQuestion[];
+  sections: {
+    listening: IExamSection;
+    reading: IExamSection;
+    writing: IExamSection;
+    speaking: IExamSection;
+  };
   createdAt: string;
   updatedAt: string;
+}
+
+export interface CreateExamFormData {
+  title: string;
+  description: string;
+  duration: number;
+  type: string;
+  price: number;
 }

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 lockfileVersion: 5.4
+=======
+lockfileVersion: '6.0'
+>>>>>>> develop
 
 specifiers:
   '@hookform/resolvers': ^3.1.1
@@ -38,6 +42,7 @@ specifiers:
   yup: ^1.2.0
 
 dependencies:
+<<<<<<< HEAD
   '@hookform/resolvers': 3.1.1_react-hook-form@7.44.3
   '@reduxjs/toolkit': 1.9.5_f3gfxqpqfo3vym2a7k67mfkzam
   aos: 2.3.4
@@ -49,6 +54,50 @@ dependencies:
   react-redux: 8.1.0_g6rvskwi2sivfkks7wvdm5teii
   react-router-dom: 6.13.0_biqbaboplfbrettd7655fr4n2y
   yup: 1.2.0
+=======
+  '@hookform/resolvers':
+    specifier: ^3.1.1
+    version: 3.1.1(react-hook-form@7.44.3)
+  '@reduxjs/toolkit':
+    specifier: ^1.9.5
+    version: 1.9.5(react-redux@8.1.0)(react@18.2.0)
+  '@types/chart.js':
+    specifier: ^2.9.37
+    version: 2.9.37
+  '@types/react-chartjs-2':
+    specifier: ^2.5.7
+    version: 2.5.7(chart.js@4.3.0)(react@18.2.0)
+  axios:
+    specifier: ^1.4.0
+    version: 1.4.0
+  chart.js:
+    specifier: ^4.3.0
+    version: 4.3.0
+  formik:
+    specifier: ^2.4.2
+    version: 2.4.2(react@18.2.0)
+  react:
+    specifier: ^18.2.0
+    version: 18.2.0
+  react-chartjs-2:
+    specifier: ^5.2.0
+    version: 5.2.0(chart.js@4.3.0)(react@18.2.0)
+  react-dom:
+    specifier: ^18.2.0
+    version: 18.2.0(react@18.2.0)
+  react-hook-form:
+    specifier: ^7.44.3
+    version: 7.44.3(react@18.2.0)
+  react-redux:
+    specifier: ^8.1.0
+    version: 8.1.0(@reduxjs/toolkit@1.9.5)(@types/react-dom@18.0.11)(@types/react@18.0.37)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
+  react-router-dom:
+    specifier: ^6.13.0
+    version: 6.13.0(react-dom@18.2.0)(react@18.2.0)
+  yup:
+    specifier: ^1.2.0
+    version: 1.2.0
+>>>>>>> develop
 
 devDependencies:
   '@storybook/addon-essentials': 7.0.22_biqbaboplfbrettd7655fr4n2y
@@ -3893,7 +3942,17 @@ packages:
       '@types/node': 20.3.1
     dev: true
 
+<<<<<<< HEAD
   /@types/connect/3.4.35:
+=======
+  /@types/chart.js@2.9.37:
+    resolution: {integrity: sha512-9bosRfHhkXxKYfrw94EmyDQcdjMaQPkU1fH2tDxu8DWXxf1mjzWQAV4laJF51ZbC2ycYwNDvIm1rGez8Bug0vg==}
+    dependencies:
+      moment: 2.29.4
+    dev: false
+
+  /@types/connect@3.4.35:
+>>>>>>> develop
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
       '@types/node': 20.3.1
@@ -4050,8 +4109,23 @@ packages:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
     dev: true
 
+<<<<<<< HEAD
   /@types/react-dom/18.2.5:
     resolution: {integrity: sha512-sRQsOS/sCLnpQhR4DSKGTtWFE3FZjpQa86KPVbhUqdYMRZ9FEFcfAytKhR/vUG2rH1oFbOOej6cuD7MFSobDRQ==}
+=======
+  /@types/react-chartjs-2@2.5.7(chart.js@4.3.0)(react@18.2.0):
+    resolution: {integrity: sha512-waqYqiNULIVUqaKO7MGUpFmWrVtH7gVPOzqwV4y4zgUyu/JiDwC005PpveO442HKnby9kLgp3t1SB2sld+ACLw==}
+    deprecated: This is a stub types definition for react-chartjs-2 (https://github.com/gor181/react-chartjs-2). react-chartjs-2 provides its own type definitions, so you don't need @types/react-chartjs-2 installed!
+    dependencies:
+      react-chartjs-2: 5.2.0(chart.js@4.3.0)(react@18.2.0)
+    transitivePeerDependencies:
+      - chart.js
+      - react
+    dev: false
+
+  /@types/react-dom@18.0.11:
+    resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
+>>>>>>> develop
     dependencies:
       '@types/react': 18.2.12
 
@@ -5130,7 +5204,16 @@ packages:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
     dev: true
 
+<<<<<<< HEAD
   /default-browser-id/3.0.0:
+=======
+  /deepmerge@2.2.1:
+    resolution: {integrity: sha512-R9hc1Xa/NOBi9WRVUWg19rl1UB7Tt4kuPd+thNJgFZoxXsTz7ncaPaeIm+40oSGuP33DfMb4sZt1QIGiJzC4EA==}
+    engines: {node: '>=0.10.0'}
+    dev: false
+
+  /default-browser-id@3.0.0:
+>>>>>>> develop
     resolution: {integrity: sha512-OZ1y3y0SqSICtE8DE4S8YOE9UZOJ8wO16fKWVP5J1Qz42kV9jcnMVFrEE/noXb/ss3Q4pZIH79kxofzyNNtUNA==}
     engines: {node: '>=12'}
     dependencies:
@@ -5834,7 +5917,26 @@ packages:
       mime-types: 2.1.35
     dev: false
 
+<<<<<<< HEAD
   /forwarded/0.2.0:
+=======
+  /formik@2.4.2(react@18.2.0):
+    resolution: {integrity: sha512-C6nx0hifW2uENP3M6HpPmnAE6HFWCcd8/sqBZEOHZY6lpHJ5qehsfAy43ktpFLEmkBmhiZDei726utcUB9leqg==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      deepmerge: 2.2.1
+      hoist-non-react-statics: 3.3.2
+      lodash: 4.17.21
+      lodash-es: 4.17.21
+      react: 18.2.0
+      react-fast-compare: 2.0.4
+      tiny-warning: 1.0.3
+      tslib: 2.5.3
+    dev: false
+
+  /forwarded@0.2.0:
+>>>>>>> develop
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
     dev: true
@@ -6816,7 +6918,15 @@ packages:
       p-locate: 5.0.0
     dev: true
 
+<<<<<<< HEAD
   /lodash.debounce/4.0.8:
+=======
+  /lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+    dev: false
+
+  /lodash.debounce@4.0.8:
+>>>>>>> develop
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
   /lodash.merge/4.6.2:
@@ -6829,7 +6939,6 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /log-symbols/4.1.0:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}
@@ -7037,7 +7146,15 @@ packages:
     hasBin: true
     dev: true
 
+<<<<<<< HEAD
   /mri/1.2.0:
+=======
+  /moment@2.29.4:
+    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
+    dev: false
+
+  /mri@1.2.0:
+>>>>>>> develop
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
     dev: true
@@ -7676,7 +7793,21 @@ packages:
       unpipe: 1.0.0
     dev: true
 
+<<<<<<< HEAD
   /react-colorful/5.6.1_biqbaboplfbrettd7655fr4n2y:
+=======
+  /react-chartjs-2@5.2.0(chart.js@4.3.0)(react@18.2.0):
+    resolution: {integrity: sha512-98iN5aguJyVSxp5U3CblRLH67J8gkfyGNbiK3c+l1QI/G4irHMPQw44aEPmjVag+YKTyQ260NcF82GTQ3bdscA==}
+    peerDependencies:
+      chart.js: ^4.1.1
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      chart.js: 4.3.0
+      react: 18.2.0
+    dev: false
+
+  /react-colorful@5.6.1(react-dom@18.2.0)(react@18.2.0):
+>>>>>>> develop
     resolution: {integrity: sha512-1exovf0uGTGyq5mXQT0zgQ80uvj2PCwvF8zY1RN9/vbJVSjSo3fsB/4L3ObbF7u70NduSiK4xu4Y6q1MHoUGEw==}
     peerDependencies:
       react: '>=16.8.0'
@@ -7735,7 +7866,15 @@ packages:
       react-is: 18.1.0
     dev: true
 
+<<<<<<< HEAD
   /react-hook-form/7.44.3_react@18.2.0:
+=======
+  /react-fast-compare@2.0.4:
+    resolution: {integrity: sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==}
+    dev: false
+
+  /react-hook-form@7.44.3(react@18.2.0):
+>>>>>>> develop
     resolution: {integrity: sha512-/tHId6p2ViAka1wECMw8FEPn/oz/w226zehHrJyQ1oIzCBNMIJCaj6ZkQcv+MjDxYh9MWR7RQic7Qqwe4a5nkw==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
@@ -8531,7 +8670,15 @@ packages:
     resolution: {integrity: sha512-Eet/eeMhkO6TX8mnUteS9zgPbUMQa4I6Kkp5ORiBD5476/m+PIRiumP5tmh5ioJpH7k51Kehawy2UDfsnxxY8Q==}
     dev: false
 
+<<<<<<< HEAD
   /tmpl/1.0.5:
+=======
+  /tiny-warning@1.0.3:
+    resolution: {integrity: sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==}
+    dev: false
+
+  /tmpl@1.0.5:
+>>>>>>> develop
     resolution: {integrity: sha512-3f0uOEAQwIqGuWW2MVzYg8fV/QNnc/IpuJNG837rLuczAaLVHslWHZQj4IGiEl5Hs3kkbhwL9Ab7Hrsmuj+Smw==}
     dev: true
 
@@ -8575,7 +8722,6 @@ packages:
 
   /tslib/2.5.3:
     resolution: {integrity: sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==}
-    dev: true
 
   /tsutils/3.21.0_typescript@5.1.3:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
