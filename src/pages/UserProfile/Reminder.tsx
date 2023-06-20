@@ -1,4 +1,5 @@
 function Reminder() {
+ 
     return (
       <div className="py-[20px] px-[30px]">
         <h3 className="text-center text-[40px] font-medium my-[40px]">
@@ -15,6 +16,7 @@ function Reminder() {
                             <ul>
                                 <div className="flex justify-between items-center">
                                     <li className="p-[10px]">Learn Vocabulary Business</li>
+                                    
                                     <button className="btn btn-error text-[#fff] text-[14px]">Delete</button>
                                 </div>
                                 <div className="flex justify-between items-center">
