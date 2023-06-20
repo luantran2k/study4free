@@ -7,8 +7,11 @@ export const routes: RouteObject[] = [
   mainRoute,
   adminRoutes,
   {
+    path: '/login',
+    element: <Authentication />,
+  },
+  {
     path: '*',
-    // element: <Navigate to="login"/>,
-    element: <Authentication />
+    element: <Navigate to="login" />,
   },
 ];
