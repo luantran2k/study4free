@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import CreatePartForm from '../../../../components/admin/Exams/CreatePartForm';
 import Modal from '../../../../components/common/Modal';
 import { useAppSelector } from '../../../../hooks/redux';
+import { Skills } from '../../../../interfaces/Exam';
 
-export const skills = ['Listening', 'Reading', 'Writing', 'Speaking'] as const;
-
-export type Skills = (typeof skills)[number];
 function EditExam() {
   const exam = useAppSelector((state) => state.exam);
   const [currentPart, setCurrentPart] = useState<Skills>(

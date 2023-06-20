@@ -1,5 +1,8 @@
-import { Skills } from '../pages/Admin/Exams/EditExam';
 import IExamSection from './ExamSection';
+
+export const skills = ['Listening', 'Reading', 'Writing', 'Speaking'] as const;
+
+export type Skills = (typeof skills)[number];
 
 export default interface IExam {
   id: string;

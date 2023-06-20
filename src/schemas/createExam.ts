@@ -1,6 +1,5 @@
-import { Skills, skills } from './../pages/Admin/Exams/EditExam/index';
 import * as Yup from 'yup';
-import { CreateExamFormData } from '../interfaces/Exam';
+import { CreateExamFormData, Skills, skills } from '../interfaces/Exam';
 
 export const createExamschema: Yup.ObjectSchema<CreateExamFormData> =
   Yup.object({
