@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { helpItem, sectionItem, webItem } from './index';
 const SectionPage = () => {
   const location = useParams();
   const { section } = location;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <div className="flex flex-col h-full relative mx-auto">

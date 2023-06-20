@@ -24,7 +24,7 @@ Choose a grammar point and start improving your grammar today. Good luck!`,
     to: 'b1-b2-grammar',
     des: 'Are you a learner at B1 (intermediate) or B2 (upper intermediate) English level? In this section, you can improve your grammar with our clear and simple grammar lessons.',
     imgUrl: grammar2,
-    detailDes: `Are you a learner at <NavLink className="text-[#23085a] underline hover:text-fuchsia-500" to="">B1 (elementary)</NavLink> or <NavLink className="text-[#23085a] underline hover:text-fuchsia-500" to="">B2 (pre-intermediate)</NavLink> English level?
+    detailDes: `Are you a learner at <a href="" class="text-[#23085a] underline hover:text-fuchsia-500">B1 (elementary)</a> or <a class="text-[#23085a] underline hover:text-fuchsia-500" href="">B2 (pre-intermediate)</a> English level?
     <br></br>
     In this section you can improve your grammar with our clear and simple grammar lessons. Start with an exercise to test your understanding. Then, read the explanation to improve your grammar knowledge. Finally, test your understanding again to see if you have improved.
     <br></br>
@@ -36,7 +36,7 @@ Choose a grammar point and start improving your grammar today. Good luck!`,
     to: 'c1-grammar',
     des: 'Are you a learner at C1 (advanced) English level? In this section, you can improve your grammar with our clear and simple grammar lessons.',
     imgUrl: grammar3,
-    detailDes: `Are you a learner at <NavLink className="text-[#23085a] underline hover:text-fuchsia-500" to="">C1 (advanced)</NavLink> English level?
+    detailDes: `Are you a learner at <a class="text-[#23085a] underline hover:text-fuchsia-500" href="">C1 (advanced)</a> English level?
     <br></br>
     In this section you can improve your grammar with our clear and simple grammar lessons. Start with an exercise to test your understanding. Then, read the explanation to improve your grammar knowledge. Finally, test your understanding again to see if you have improved.
     <br></br>
