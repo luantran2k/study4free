@@ -1,75 +1,93 @@
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
 import { Line } from 'react-chartjs-2';
-import { useEffect, useRef } from 'react'
 
-function AnalyzeResults() {
-    const chartRef = useRef<any>(null);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-  useEffect(() => {
-    if (chartRef.current) {
-      const chartInstance = chartRef.current.chartInstance;
-      // Perform any necessary chart instance operations here
-    }
-  }, []);
-
-  const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-    datasets: [
-      {
-        label: 'Example Dataset',
-        data: [65, 59, 80, 81, 56, 55],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1,
-      },
-    ],
-  };
-
-  const options = {
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top' as const,
     },
-  };
+    title: {
+      display: true,
+      text: 'Listening results'
+    },
+  },
+};
+
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+const data = {
+  labels,
+  datasets: [
+    {
+      label: '',
+      data: [6.5, 7.0, 4.5, 5.5, 6.0, 5.5, 8.0],
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    },
+  ],
+};
+function AnalyzeResults() {
     return (
       <div>
         <h3 className="text-center text-[40px] font-medium my-[40px]">
-          Analize Results
+          Analyze Results
         </h3>
         <div className="flex justify-around text-[30px]">
-          <span className="bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl cursor-pointer">
+          <span className="bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl cursor-pointer hover:bg-[#40634d] hover:text-[#fff]">
             Listening
           </span>
-          <span className="bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl cursor-pointer">
+          <span className="bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl cursor-pointer hover:bg-[#40634d] hover:text-[#fff]">
             Reading
           </span>
-          <span className="bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl cursor-pointer">
+          <span className="bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl cursor-pointer hover:bg-[#40634d] hover:text-[#fff]">
             Speaking
           </span>
-          <span className="bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl cursor-pointer">
+          <span className="bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl cursor-pointer hover:bg-[#40634d] hover:text-[#fff]">
             Writing
           </span>
         </div>
         <div className="grid grid-rows-1 grid-cols-12 px-[70px] pt-[50px] gap-[20px]">
           <div className="col-span-8">
-            {/* <Line data={data} options={options} ref={chartRef} /> */}
-            <div className="w-[100%] h-[400px] bg-white"></div>
+            <div className="mb-[30px]">
+              <Line options={options} data={data} />
+            </div>
             <div className="flex justify-around">
-              <span className="bg-[#fff] min-w-[180px] text-center px-[10px] py-[20px] rounded-xl shadow-md">
-                <p>Number of exams done</p>
-                <p>15</p>
+              <span className="bg-[#fff] min-w-[180px] text-center px-[10px] py-[20px] rounded-xl shadow-md hover:bg-[#40634d] hover:text-[#fff] cursor-pointer">
+                <p className="text-[20px]">Number of exams done</p>
+                <p className="font-bold text-[40px]">15</p>
               </span>
-              <span className="bg-[#fff] min-w-[180px] text-center px-[10px] py-[20px] rounded-xl shadow-md">
-                <p>Accuracy</p>
-                <p>64.50%</p>
+              <span className="bg-[#fff] min-w-[180px] text-center px-[10px] py-[20px] rounded-xl shadow-md hover:bg-[#40634d] hover:text-[#fff] cursor-pointer">
+                <p className="text-[20px]">Accuracy</p>
+                <p className="font-bold text-[40px]">64.50%</p>
               </span>
-              <span className="bg-[#fff] min-w-[180px] text-center px-[10px] py-[20px] rounded-xl shadow-md">
-                <p>Average time</p>
-                <p>02:20:34</p>
+              <span className="bg-[#fff] min-w-[180px] text-center px-[10px] py-[20px] rounded-xl shadow-md hover:bg-[#40634d] hover:text-[#fff] cursor-pointer">
+                <p className="text-[20px]">Average time</p>
+                <p className="font-bold text-[40px]">02:20:34</p>
               </span>
-              <span className="bg-[#fff] min-w-[180px] text-center px-[10px] py-[20px] rounded-xl shadow-md">
-                <p>Average score</p>
-                <p>6.5</p>
+              <span className="bg-[#fff] min-w-[180px] text-center px-[10px] py-[20px] rounded-xl shadow-md hover:bg-[#40634d] hover:text-[#fff] cursor-pointer">
+                <p className="text-[20px]">Average score</p>
+                <p className="font-bold text-[40px]">6.5</p>
               </span>
             </div>
           </div>
