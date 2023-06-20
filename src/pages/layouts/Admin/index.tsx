@@ -10,7 +10,9 @@ function AdminLayout() {
       </div>
       <div className="flex-1">
         <AdminTopBar />
-        <Outlet />
+        <div className="p-4">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
