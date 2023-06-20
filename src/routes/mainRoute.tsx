@@ -9,6 +9,7 @@ import AnalyzeResults from '../pages/UserProfile/AnalyzeResults';
 import UserInformation from '../pages/UserProfile/UserInformation';
 import Collection from '../pages/UserProfile/Collection';
 import Reminder from '../pages/UserProfile/Reminder';
+import SectionPage from '../pages/Grammar/SectionPage';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -31,8 +32,12 @@ export const mainRoute: RouteObject = {
       element: <GrammarPage />,
     },
     {
+      path: 'grammar/:section',
+      element: <SectionPage />
+    },
+    {
       path: 'users',
-      element: <UserProfilePage/>,
+      element: <UserProfilePage />,
       children: [
         {
           path: 'analyzeResults',

@@ -1,4 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup'
 
 interface LoginInputs {
   username: string;
@@ -6,16 +8,23 @@ interface LoginInputs {
 }
 
 
+const loginSchema = Yup.object().shape({
+  username: Yup.string().required('Username is required'),
+  password: Yup.string().required('Password is required'),
+}).required();
+
 const Login = () => {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<LoginInputs>();
+  } = useForm<LoginInputs>(
+    { resolver: yupResolver(loginSchema) }
+  );
   const handleLogin: SubmitHandler<LoginInputs> = (data) => console.log(data);
 
-  
+
 
   return (
     <form
@@ -36,7 +45,7 @@ const Login = () => {
             />
           </label>
         </div>
-        {errors.username && <span>Username is required</span>}
+        {errors.username?.message && <p className='text-xl italic text-pink-300'>{errors.username?.message}</p>}
 
         <div className="flex flex-col gap-5 mb-6">
           <div className="form-control">
@@ -52,7 +61,7 @@ const Login = () => {
               />
             </label>
           </div>
-          {errors.password && <span>Password is required</span>}
+          {errors.password?.message && <p className='text-xl italic text-pink-300'>{errors.password?.message}</p>}
         </div>
       </div>
       <button type='submit' className='px-8 bg-green-500 hover:bg-green-400 transition-colors text-white rounded-md shadow-md py-2 text-lg font-semibold'>Login</button>

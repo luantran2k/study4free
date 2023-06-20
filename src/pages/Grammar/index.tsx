@@ -2,7 +2,15 @@ import grammarBg from '../../assets/images/grammar-bg.jpeg';
 import grammar1 from '../../assets/images/grammar-1.jpg';
 import grammar2 from '../../assets/images/grammar-2.jpg';
 import grammar3 from '../../assets/images/grammar-3.jpg';
-import grammar4 from '../../assets/images/grammar-4.jpg';
+import item11 from "../../assets/images/grammar-1-item-1.jpg"
+import item12 from "../../assets/images/grammar-1-item-2.jpg"
+import item13 from "../../assets/images/grammar-1-item-3.jpg"
+import item21 from "../../assets/images/grammar-2-item-1.jpg"
+import item22 from "../../assets/images/grammar-2-item-2.jpg"
+import item23 from "../../assets/images/grammar-2-item-3.jpg"
+import item31 from "../../assets/images/grammar-3-item-1.jpg"
+import item32 from "../../assets/images/grammar-3-item-2.jpg"
+import item33 from "../../assets/images/grammar-3-item-3.jpg"
 import { NavLink } from 'react-router-dom';
 
 export const sectionItem = [
@@ -17,6 +25,32 @@ export const sectionItem = [
     In this section you can improve your grammar with our clear and simple grammar lessons. Start with an exercise to test your understanding. Then, read the explanation to improve your grammar knowledge. Finally, test your understanding again to see if you have improved.
     <br></br>
 Choose a grammar point and start improving your grammar today. Good luck!`,
+    lessons: [
+      {
+        id: "adj-prep",
+        lesson: 'Adjectives and prepositions',
+        descript: "Do you know how to use adjectives with prepositions like interested in or similar to? Test what you know with interactive exercises and read the explanation to help you.",
+        comment: 384,
+        imgUrl: item11,
+        to: ''
+      },
+      {
+        id: "adj-ed-ing",
+        lesson: "Adjectives ending in '-ed' and '-ing'",
+        descript: "Do you know the difference between bored and boring? Test what you know with interactive exercises and read the explanation to help you.",
+        comment: 169,
+        imgUrl: item12,
+        to: ''
+      },
+      {
+        id: "a-an-the",
+        lesson: "Articles: 'a', 'an', 'the'",
+        descript: "Do you know how to use a, an and the? Test what you know with interactive exercises and read the explanation to help you.",
+        comment: 193,
+        imgUrl: item13,
+        to: ''
+      }
+    ]
   },
   {
     id: 2,
@@ -29,6 +63,32 @@ Choose a grammar point and start improving your grammar today. Good luck!`,
     In this section you can improve your grammar with our clear and simple grammar lessons. Start with an exercise to test your understanding. Then, read the explanation to improve your grammar knowledge. Finally, test your understanding again to see if you have improved.
     <br></br>
 Choose a grammar point and start improving your grammar today. Good luck!`,
+    lessons: [
+      {
+        id: "adj",
+        lesson: 'Adjectives: gradable and non-gradable',
+        descript: `Do you know how to use adjectives in phrases like <span class="italic"> a bit cold, really cold</span> and <span class="italic">absolutely freezing</span>? Test what you know with interactive exercises and read the explanation to help you.`,
+        comment: 51,
+        imgUrl: item21,
+        to: ''
+      },
+      {
+        id: "brit-ameri",
+        lesson: 'British English and American English',
+        descript: "Do you know any differences between British and American English? Test what you know with interactive exercises and read the explanation to help you.",
+        comment: 53,
+        imgUrl: item22,
+        to: ''
+      },
+      {
+        id: "capital",
+        lesson: 'Capital letters and apostrophes',
+        descript: "Do you know how to use capital letters and apostrophes correctly? Test what you know with interactive exercises and read the explanation to help you.",
+        comment: 58,
+        imgUrl: item23,
+        to: ""
+      }
+    ]
   },
   {
     id: 3,
@@ -41,18 +101,32 @@ Choose a grammar point and start improving your grammar today. Good luck!`,
     In this section you can improve your grammar with our clear and simple grammar lessons. Start with an exercise to test your understanding. Then, read the explanation to improve your grammar knowledge. Finally, test your understanding again to see if you have improved.
     <br></br>
 Choose a grammar point and start improving your grammar today. Good luck!`,
-  },
-  {
-    id: 4,
-    title: 'English grammar reference',
-    to: 'grammar-reference',
-    des: 'This grammar section explains English grammar in a clear and simple way. There are example sentences to show how the language is used and there are interactive exercises so you can practise what you learn.',
-    imgUrl: grammar4,
-    detailDes: `Read clear grammar explanations and example sentences to help you understand how the language is used. Then, put your grammar knowledge into practice by doing the exercises.  
-    <br></br>
-    Our English grammar was written especially for LearnEnglish by author and grammarian Dave Willis.
-    <br></br>
-    Choose a section below and start improving your English grammar today!`,
+    lessons: [
+      {
+        id: "avoid-rep",
+        lesson: 'Avoiding repetition in a text',
+        descript: `Do you know how to use words like <span class="italic">this, that, such</span> and so to avoid repetition in a text? Read the explanation to find out and do the interactive exercises to practise.`,
+        comment: 0,
+        imgUrl: item31,
+        to: ''
+      },
+      {
+        id: "ellip",
+        lesson: 'Ellipsis',
+        descript: "Do you know how to leave out words to make your English sound more natural? Test what you know about ellipsis with interactive exercises and read the explanation to help you.",
+        comment: 1,
+        imgUrl: item32,
+        to: ''
+      },
+      {
+        id: "emphasis",
+        lesson: 'Emphasis: cleft sentences, inversion and auxiliaries',
+        descript: "Do you know how to add emphasis using cleft sentences, inversion or auxiliaries? Test what you know with interactive exercises and read the explanation to help you.",
+        comment: 0,
+        imgUrl: item33,
+        to: ''
+      }
+    ]
   },
 ];
 
@@ -72,18 +146,18 @@ export const helpItem = [
 
 const GrammarPage = () => {
   return (
-    <div className="flex flex-col h-full relative mx-auto">
+    <div className="flex flex-col h-full relative">
       <div className="w-full lg:mb-32 mb-5">
         <img src={grammarBg} className="w-full h-auto" />
       </div>
-      <div className="bg-white lg:w-[600px] lg:py-8 lg:px-10 left-[15vw] lg:absolute 2xl:top-[400px] xl:top-[300px] lg:top-[200px] rounded-tr-3xl mb-5 lg:mb-0 px-2 sm:px-0">
+      <div className="bg-white lg:w-[600px] lg:py-8 lg:px-10 left-[15vw] lg:absolute 2xl:top-[400px] xl:top-[300px] lg:top-[200px] rounded-tr-3xl rounded-bl-3xl mb-5 lg:mb-0 px-2 sm:px-0 container mx-auto">
         <h5 className="text- font-bold text-4xl mb-5">Grammar</h5>
         <h6 className="text-3xl mb-3">
           Revise and practise your grammar to help you increase your confidence
           and improve your language level.
         </h6>
       </div>
-      <div className="flex flex-row">
+      <div className="flex flex-row container mx-auto mb-10">
         <div className="lg:w-2/3 w-full px-2 sm:px-0">
           <p className="mb-4 text-2xl ">
             Practise your English grammar with clear grammar explanations and
@@ -153,7 +227,7 @@ const GrammarPage = () => {
           </p>
         </div>
 
-        <div className="w-1/3 hidden lg:block h-full relative">
+        <div className="w-1/3 hidden lg:block relative">
           <div className="sticky flex flex-col top-0 gap-3">
             <div className="border-[10px] border-gray-200 p-6 rounded-tr-3xl rounded-bl-3xl flex flex-col items-start gap-3 w-3/4 mx-auto">
               {sectionItem.map((section) => (

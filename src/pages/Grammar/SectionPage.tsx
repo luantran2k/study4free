@@ -1,20 +1,24 @@
 import React, { useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { helpItem, sectionItem, webItem } from './index';
+import commentIcon from "../../assets/icons/comment.svg"
 const SectionPage = () => {
   const location = useParams();
   const { section } = location;
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [section]);
 
   return (
-    <div className="flex flex-col h-full relative mx-auto">
+    <div className="flex flex-col h-full relative mx-auto container">
       {sectionItem
         .filter((sec) => sec.to === section)
         .map((sec) => (
-          <div className="flex flex-row">
+          <div className="flex flex-row mb-10" key={section}>
             <div className="lg:w-2/3 w-full px-2 sm:px-0">
               <p className="text-md mb-6">
                 <NavLink
@@ -43,25 +47,29 @@ const SectionPage = () => {
               </p>
 
               <div className="mb-20">
-                {sectionItem.map((section) => (
+                {sec.lessons.map(({ lesson, id, to, imgUrl, descript, comment }) => (
                   <div
                     className=" flex flex-row relative pb-10 sm:mb-10 mb-24"
-                    key={section.id}
+                    key={id}
                   >
-                    <NavLink to={section.to} className="w-full">
+                    <NavLink to={`${to}`} className="w-full">
                       <img
-                        src={section.imgUrl}
+                        src={imgUrl}
                         className="h-full w-full sm:w-3/5"
                       />
                     </NavLink>
                     <div className=" bg-white w-[90vw]  sm:w-[350px] lg:w-[400px] h-3/4 xl:w-[500px] p-6 lg:p-10 absolute bottom-[-70px] right-0 left-0 m-auto sm:m-0 sm:left-auto sm:bottom-0 sm:right-[100px] md:rounded-tl-3xl rounded-3xl">
                       <NavLink
-                        to={section.to}
+                        to={`${to}`}
                         className="mb-1 lg:mb-3 block text-2xl font-bold text-[#23085a] hover:underline hover:text-green-400"
                       >
-                        {section.title}
+                        {lesson}
                       </NavLink>
-                      <p className="mb-4 xl:text-lg">{section.des}</p>
+                      <p className="mb-4 xl:text-lg" dangerouslySetInnerHTML={{ __html: descript }} />
+                      <div className='hidden lg:flex flex-row items-center gap-3'>
+                        <img src={commentIcon} />
+                        <p>{comment}</p>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -69,7 +77,7 @@ const SectionPage = () => {
               <p className="mb-4 text-3xl font-bold text-[#23085a]">
                 Learn to use grammar correctly and confidently
               </p>
-              <p className="mb-4 text-base sm:text-lg font-medium">
+              <p className="mb-4 text-2xl">
                 Our online English classes feature lots of useful learning
                 materials and activities to help you improve your understanding
                 of grammar in a safe and inclusive learning environment.
@@ -81,7 +89,7 @@ const SectionPage = () => {
               </p>
             </div>
 
-            <div className="w-1/3 hidden lg:block h-full relative">
+            <div className="w-1/3 hidden lg:block  relative">
               <div className="sticky flex flex-col top-0 gap-3">
                 <div className="border-[10px] border-gray-200 p-6 rounded-tr-3xl rounded-bl-3xl flex flex-col items-start gap-3 w-3/4 mx-auto">
                   {sectionItem.map((section) => (
@@ -118,7 +126,7 @@ const SectionPage = () => {
                         </g>
                       </svg>
                       <NavLink
-                        to={section.to}
+                        to={`/grammar/${section.to}`}
                         className="text-md text-[#23085a] hover:underline hover:text-green-400"
                       >
                         {section.title}

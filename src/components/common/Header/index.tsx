@@ -4,7 +4,7 @@ import { MenuIcon } from '../../../assets/icons/menuIcon';
 
 export const Header = () => {
   return (
-    <nav className="bg-transparent w-[80%] border-gray-200 dark:bg-gray-900 dark:border-gray-700  z-40 m-auto">
+    <nav className="bg-transparent container border-gray-200 dark:bg-gray-900 dark:border-gray-700  z-40 mx-auto">
       <div className=" flex flex-wrap items-center justify-between mx-auto p-4 w-full">
         <NavLink to={'/'} className="flex items-center">
           <img src={LogoIcon} className="w-[10rem] mr-3" alt="Flowbite Logo" />

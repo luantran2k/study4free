@@ -7,3 +7,4 @@ export const accountSchema: Yup.ObjectSchema<Account> = Yup.object({
     .required('Username is required'),
   password: Yup.string().required('Password is required'),
 });
+
