@@ -5,6 +5,7 @@ export const adminRoutes: RouteObject = {
   path: '/admin',
   element: <AdminLayout />,
   children: [
+    { index: true, element: <h1>Dashboard</h1> },
     {
       path: 'users',
       element: <h1>Users</h1>,
