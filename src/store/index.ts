@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { examReducer } from './slices/examSlice';
 
 export const store = configureStore({
-  reducer: {},
+  reducer: { exam: examReducer },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

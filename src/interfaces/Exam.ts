@@ -1,3 +1,4 @@
+import { Skills } from '../pages/Admin/Exams/EditExam';
 import IExamSection from './ExamSection';
 
 export default interface IExam {
@@ -9,10 +10,10 @@ export default interface IExam {
   price: number;
   image: string;
   sections: {
-    listening: IExamSection;
-    reading: IExamSection;
-    writing: IExamSection;
-    speaking: IExamSection;
+    listening?: IExamSection;
+    reading?: IExamSection;
+    writing?: IExamSection;
+    speaking?: IExamSection;
   };
   createdAt: string;
   updatedAt: string;
@@ -24,4 +25,5 @@ export interface CreateExamFormData {
   duration: number;
   type: string;
   price: number;
+  sections: Skills[];
 }

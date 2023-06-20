@@ -1,8 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { CreatePartFormData, createPartSchema } from '../../../../schemas/part';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../../../hooks/redux';
+import { setExamInfo } from '../../../../store/slices/examSlice';
 
 function CreatePartForm() {
+  const navigate = useNavigate();
+  const dispath = useAppDispatch();
   const {
     register,
     handleSubmit,
