@@ -17,3 +17,11 @@ export default interface IExam {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface CreateExamFormData {
+  title: string;
+  description: string;
+  duration: number;
+  type: string;
+  price: number;
+}

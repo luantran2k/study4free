@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import EditIcon from '../../../assets/icons/Edit';
 import TrashIcon from '../../../assets/icons/Trash';
 import Pagination from '../../../components/common/Pagination';
 import { exams } from '../../../mocks/exams';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../../../components/common/Modal';
+import CreateExamForm from '../../../components/admin/Exams/CreateExamForm';
 
 function ExamsAdminPage() {
   const navigate = useNavigate();
+  const createExamModalId = useId();
   const [currentPage, setCurrentPage] = useState(0);
   const [quantity, setQuantity] = useState(2);
   const totalPage = Math.ceil(exams.length / quantity);
@@ -20,12 +23,16 @@ function ExamsAdminPage() {
     <>
       <div className="flex justify-between mb-8 mt-4">
         <h1 className="text-3xl font-medium">ExamsAdminPage</h1>
-        <button
-          className="btn bg-blue-500 text-white hover:bg-blue-500"
-          onClick={() => navigate('/admin/exams/new')}
+        <Modal
+          trigger={
+            <button className="btn bg-blue-500 text-white hover:bg-blue-500">
+              New Exam
+            </button>
+          }
+          modalId={createExamModalId}
         >
-          New Exam
-        </button>
+          <CreateExamForm />
+        </Modal>
       </div>
       <div className="overflow-x-auto ">
         <table className="table table-zebra table-pin-rows">
