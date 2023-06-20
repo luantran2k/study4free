@@ -17,7 +17,6 @@ import { FacebookIcon } from '../../assets/icons/facebookIcon';
 function HomePage() {
   return (
     <>
-      <Header />
       <section
         id="slide-introduction"
         style={{
@@ -406,8 +405,6 @@ function HomePage() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </>
   );
 }
