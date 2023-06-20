@@ -1,4 +1,5 @@
 import { useState } from "react";
+import TrashIcon from "../../assets/icons/Trash";
 
 interface VocabType {
     word: string,
@@ -64,7 +65,7 @@ function Collection() {
         <h3 className="text-center text-[40px] font-medium my-[40px]">
           Collection
         </h3>
-        <div className="grid grid-rows-1 grid-cols-12">
+        <div className="grid grid-rows-1 grid-cols-12 gap-[40px]">
           <div className="col-span-8 flex flex-col justify-center items-center text-center">
             <div className="bg-[#fff] mb-[20px] px-[90px] py-[70px] rounded-2xl shadow-xl w-[692px] h-[376px]">
               <h2 className="text-[40px] font-medium">{vocabs[currentIndex].word}</h2>
@@ -84,14 +85,14 @@ function Collection() {
               <button className="btn btn-accent min-w-[100px] text-[#fff]" onClick={handleNext}>Next</button>
             </div>
           </div>
-          <div className="col-span-3 bg-[#fff] p-[20px] rounded-xl shadow-xl">
+          <div className="col-span-4 bg-[#fff] p-[20px] rounded-xl shadow-xl">
                 <h2 className="text-[30px] font-medium pb-[5px] border-b-[2px] border-[#ccc] mb-[20px]">Word list</h2>
                 {
                     vocabs.map((item, index) => {
                         return (
                             <div className="flex justify-between mb-[10px]">
                                 <p key={index} className="text-[24px]">{item.word}</p>
-                                <button className="btn btn-error text-[#fff]">Delete</button>
+                                <button className="btn btn-error text-[#fff]"><TrashIcon /></button>
                             </div>
                         )
                     })

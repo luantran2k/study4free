@@ -8,7 +8,7 @@ function UserInformation() {
         <h3 className="text-center text-[40px] font-medium mb-[40px]">
           Personal Information
         </h3>
-        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-rows-3">
+        <form className="grid grid-rows-3">
           <div className="grid gap-[40px] grid-cols-12">
             <div className="col-span-6">
               <label className="mb-[10px] block" htmlFor="firstName">

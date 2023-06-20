@@ -8,7 +8,7 @@ function UserProfilePage() {
       navigate('analyzeResults')
     }, [])
     return (
-      <div className="grid grid-rows-1 grid-cols-12 h-[100vh]">
+      <div className="grid grid-rows-1 grid-cols-12">
         <div className="col-span-3 p-[10px] relative">
           <div className="flex items-center flex-col gap-4 p-[10px] mb-[20px]">
             <div className="w-[120px] h-[120px] mb-[10px]">
