@@ -1,15 +1,20 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import Avatar from "../../assets/images/avataruser.png"
+import { useEffect } from "react";
 
 function UserProfilePage() {
+    const navigate = useNavigate()
+    useEffect(() => {
+      navigate('analyzeResults')
+    }, [])
     return (
       <div className="grid grid-rows-1 grid-cols-12 h-[100vh]">
-        <div className="col-span-3 p-[10px]">
+        <div className="col-span-3 p-[10px] relative">
           <div className="flex items-center flex-col gap-4 p-[10px] mb-[20px]">
             <div className="w-[120px] h-[120px] mb-[10px]">
               <img className="w-[100%] object-cover" src={Avatar} alt="" />
             </div>
-            <h4 className="font-medium">User</h4>
+            <h4 className="font-medium text-[26px]">User</h4>
           </div>
           <div>
             <ul>
@@ -59,7 +64,7 @@ function UserProfilePage() {
                   };
                 }}
               >
-                Canlendar/ Reminder
+                Calendar/ Reminder
               </NavLink>
               <NavLink
                 to="*"
@@ -75,7 +80,7 @@ function UserProfilePage() {
               </NavLink>
             </ul>
           </div>
-          <div>
+          <div className="absolute" style={{bottom: '50px'}}>
             <span className="ms-[10px] text-[20px] cursor-pointer text-[#40634d]">
               Log out
             </span>

@@ -1,4 +1,4 @@
-import { RouteObject } from 'react-router-dom';
+import { Navigate, RouteObject } from 'react-router-dom';
 import ExamsPage from '../pages/Exams';
 import GrammarPage from '../pages/Grammar';
 import HomePage from '../pages/Home';
@@ -32,7 +32,7 @@ export const mainRoute: RouteObject = {
     },
     {
       path: 'users',
-      element: <UserProfilePage />,
+      element: <UserProfilePage/>,
       children: [
         {
           path: 'analyzeResults',
