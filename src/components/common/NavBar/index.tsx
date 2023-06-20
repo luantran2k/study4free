@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 function NavBar() {
   return (
-    <div className="container">
+    <div className="container h-[50px] flex flex-col justify-center">
       <nav>
         <ul className="flex gap-2 flex-1">
           <li>

@@ -1,28 +1,14 @@
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-
-type FormData = {
-  title: string;
-  type: string;
-  numberOfQuestions: number;
-  totalPoint: number;
-};
-
-const schema = yup.object({
-  title: yup.string().min(2).required(),
-  type: yup.string().required(),
-  numberOfQuestions: yup.number().required(),
-  totalPoint: yup.number().required(),
-});
+import { useForm } from 'react-hook-form';
+import { CreatePartFormData, createPartSchema } from '../../../../schemas/part';
 
 function CreatePartForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
-    resolver: yupResolver(schema),
+  } = useForm<CreatePartFormData>({
+    resolver: yupResolver(createPartSchema),
     reValidateMode: 'onBlur',
   });
   const onSubmit = handleSubmit((data) => console.log(data));
@@ -35,7 +21,21 @@ function CreatePartForm() {
       <div>
         <label>Title</label>
         <input className="input input-bordered" {...register('title')} />
-        <p>{errors.title?.message}</p>
+        <p className="text-error">{errors.title?.message}</p>
+      </div>
+      <div>
+        <label>Description</label>
+        <input className="input input-bordered" {...register('description')} />
+        <p className="text-error">{errors.description?.message}</p>
+      </div>
+      <div>
+        <label>Duration</label>
+        <input
+          type="number"
+          className="input input-bordered"
+          {...register('duration')}
+        />
+        <p className="text-error">{errors.duration?.message}</p>
       </div>
       <div>
         <label>Type</label>
@@ -49,18 +49,19 @@ function CreatePartForm() {
           <option value="Sentence completion">Sentence completion</option>
           <option value="Summary completion">Summary completion</option>
         </select>
+        <p className="text-error">{errors.type?.message}</p>
       </div>
-      <div>
-        <label>Number of Questions</label>
-        <input
-          className="input input-bordered"
-          {...register('numberOfQuestions')}
-        />
-      </div>
+
       <div>
         <label>Total Point</label>
-        <input className="input input-bordered" {...register('totalPoint')} />
+        <input
+          type="number"
+          className="input input-bordered"
+          {...register('totalPoints')}
+        />
+        <p className="text-error">{errors.totalPoints?.message}</p>
       </div>
+      <button className="btn btn-primary">Create</button>
     </form>
   );
 }
