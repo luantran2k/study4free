@@ -1,8 +1,8 @@
-import { Outlet, useLocation, Link, useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
+import Logo from '../../assets/images/logo.png';
 import Thumb from '../../assets/images/thumbEnglish.jpg';
 import Pagination from '../../components/common/Pagination';
-import Logo from '../../assets/images/logo.png';
-import React, { useEffect } from 'react';
 
 const vocabList: string[] = [
   'Family',
@@ -30,10 +30,10 @@ const newPag = {
   currentPage: 1,
   quantity: 40,
   quantityOptions: [1, 2, 3],
-  onChangePage: (page: number) => {
+  onChangePage: () => {
     return;
   },
-  onChangeQuantity: (quantity: number) => {
+  onChangeQuantity: () => {
     return;
   },
   onNextClick: () => {
@@ -45,7 +45,7 @@ const newPag = {
 };
 
 function VocabulariesPage() {
-  const { state, pathname } = useLocation();
+  const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo({
       top: 0,

@@ -1,6 +1,6 @@
+import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 import { NavigationTest } from '../commonComponent/navigationTest';
 import { NoteInfo } from '../commonComponent/noteInfo';
-import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 
 export const Speaking = () => {
   const exams = {
@@ -51,7 +51,7 @@ export const Speaking = () => {
             <img src={exams?.task[0].imageTopic} alt="" />
           </div>
           <div className="xl:col-span-5 col-span-12 flex flex-col p-[1rem]">
-            <NoteInfo />
+            <NoteInfo index={0} />
             <div className="my-[1rem]">
               <AudioRecorder
                 onRecordingComplete={addAudioElement}
@@ -68,7 +68,12 @@ export const Speaking = () => {
           </div>
         </div>
         <div className="col-span-12 md:col-span-3 ">
-          <NavigationTest />
+          <NavigationTest
+            handleTask={function (): void {
+              throw new Error('Function not implemented.');
+            }}
+            defaultIndex={0}
+          />
         </div>
       </div>
     </div>

@@ -1,20 +1,19 @@
 import { RouteObject } from 'react-router-dom';
 import ExamsPage from '../pages/Exams';
+import DetailExam from '../pages/Exams/DetailExam/DetailExam';
+import { Writing } from '../pages/Exams/Writing';
 import GrammarPage from '../pages/Grammar';
+import SectionPage from '../pages/Grammar/SectionPage';
 import HomePage from '../pages/Home';
-import VocabulariesPage from '../pages/Vocabularies';
-import RootLayout from '../pages/layouts/Root';
+import { Payment } from '../pages/Payment/Payment';
 import UserProfilePage from '../pages/UserProfile';
 import AnalyzeResults from '../pages/UserProfile/AnalyzeResults';
-import UserInformation from '../pages/UserProfile/UserInformation';
 import Collection from '../pages/UserProfile/Collection';
 import Reminder from '../pages/UserProfile/Reminder';
-import SectionPage from '../pages/Grammar/SectionPage';
+import UserInformation from '../pages/UserProfile/UserInformation';
+import VocabulariesPage from '../pages/Vocabularies';
 import VocabularyDetail from '../pages/Vocabularies/VocabularyDetail';
-import { Writing } from '../pages/Exams/Writing';
-import { Speaking } from '../pages/Exams/Speaking';
-import { Payment } from '../pages/Payment/Payment';
-import DetailExam from '../pages/Exams/DetailExam/DetailExam';
+import RootLayout from '../pages/layouts/Root';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -35,7 +34,7 @@ export const mainRoute: RouteObject = {
         {
           path: ':exam/:part/:section',
           element: <Writing />,
-        }
+        },
         // {
         //   path: 'writing/:id',
         //   element: <Writing />,

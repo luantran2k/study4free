@@ -42,7 +42,7 @@ export const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
   }, [time]);
   const handleSunmit = () => {
     if (time > 0) {
-      const realTime: any = Date.now();
+      const realTime = Date.now();
       if (confirm('Do you want to submit answers?')) {
         console.log('ss');
       }
@@ -84,7 +84,7 @@ export const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
         Note: you can click on the question number in the article to mark the
         review
       </p>
-      {exams.task.map((item, index) => {
+      {exams.task.map((_, index) => {
         return (
           <div
             key={index}

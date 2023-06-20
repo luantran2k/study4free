@@ -25,7 +25,7 @@ const vocabs = [
 ];
 
 function VocabularyDetail() {
-  const { state, pathname } = useLocation();
+  const { state } = useLocation();
   return (
     <div>
       <h2 className="text-center font-medium text-[40px] mb-[50px] border-[#ccc] border-b-[1px] pb-2">

@@ -1,13 +1,12 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import { useRegisterMutation } from '../../../services/authApi';
 import { useEffect } from 'react';
-import { NOTIFICATION_TYPE, notify } from '../../../utils/notify';
-import { setUser } from '../../../store/slices/authSlice';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import * as Yup from 'yup';
 import { useAppDispatch } from '../../../hooks/redux';
-import { useNavigate } from 'react-router-dom';
 import { SignUpInputs } from '../../../interfaces/Auth';
+import { useRegisterMutation } from '../../../services/authApi';
+import { setUser } from '../../../store/slices/authSlice';
+import { NOTIFICATION_TYPE, notify } from '../../../utils/notify';
 
 type SignUpProps = {
   handleChange: (newValue: number) => void;
@@ -28,19 +27,11 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<SignUpInputs>({ resolver: yupResolver(signUpSchema) });
 
-  const [
-    registerUser,
-    {
-      data: registerData,
-      isSuccess: isRegisterSuccess,
-      isError: isRegisterError,
-      error: registerError,
-    },
-  ] = useRegisterMutation();
+  const [registerUser, { data: registerData, isSuccess: isRegisterSuccess }] =
+    useRegisterMutation();
   const handleSignup: SubmitHandler<SignUpInputs> = async (data) => {
     const username = data.username;
     const password = data.password;

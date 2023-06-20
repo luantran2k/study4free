@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useId, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import ArrowLeft from '../../../../assets/icons/ArrowLeft';
 import Sections, {
   SectionType,
 } from '../../../../components/admin/Exams/Sections';
-import { ExamSection, Skills, skills } from '../../../../interfaces/Exam';
+import { ExamSection } from '../../../../interfaces/Exam';
 import { useGetExamByIdQuery } from '../../../../store/queries/exams';
-import ArrowLeft from '../../../../assets/icons/ArrowLeft';
 
 function EditExam() {
   const { id } = useParams();

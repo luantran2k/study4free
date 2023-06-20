@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import { helpItem, sectionItem, webItem } from './index';
 import CommentIcon from '../../assets/icons/CommentIcon';
+import { helpItem, sectionItem, webItem } from './index';
 const SectionPage = () => {
   const location = useParams();
   const { section } = location;
@@ -177,7 +177,7 @@ const SectionPage = () => {
                       </svg>
                       <NavLink
                         to={section.to}
-                       className="text-md text-[#23085a] hover:underline hover:text-green-400"
+                        className="text-md text-[#23085a] hover:underline hover:text-green-400"
                       >
                         {section.title}
                       </NavLink>
@@ -222,7 +222,7 @@ const SectionPage = () => {
                       <NavLink
                         key={section.id}
                         to={section.to}
-                       className="text-md text-[#23085a] hover:underline hover:text-green-400"
+                        className="text-md text-[#23085a] hover:underline hover:text-green-400"
                       >
                         {section.title}
                       </NavLink>

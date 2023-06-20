@@ -54,7 +54,7 @@ function Question({ questionId, section }: Props) {
                 title: e.target.value,
               }));
             }}
-            onBlur={(e) => {
+            onBlur={() => {
               const { id, ...data } = question;
               updateQuestionById({ questionId, section, data });
             }}
