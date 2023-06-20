@@ -40,7 +40,7 @@ function EditExam() {
         >
           <CreatePartForm />
         </Modal>
-        <Link to="/admin/exams" className="btn ">
+        <Link to="/admin/exams" className="btn">
           Back
         </Link>
       </div>
