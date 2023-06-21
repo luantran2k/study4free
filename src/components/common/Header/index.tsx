@@ -1,8 +1,10 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import LogoIcon from '../../../assets/images/logo.png';
 import { MenuIcon } from '../../../assets/icons/menuIcon';
 
 export const Header = () => {
+  const location = useLocation();
+  console.log(location.key, location.pathname);
   return (
     <nav className="bg-transparent container border-gray-200 dark:bg-gray-900 dark:border-gray-700  z-40 mx-auto">
       <div className=" flex flex-wrap items-center justify-between mx-auto p-4 w-full">
@@ -27,7 +29,9 @@ export const Header = () => {
               <NavLink
                 to={'/'}
                 className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent"
-                aria-current="page"
+                // className={({ isActive, isPending }) =>
+                //   isPending ? 'pending' : isActive ? 'active' : ''
+                // }
               >
                 Home
               </NavLink>
