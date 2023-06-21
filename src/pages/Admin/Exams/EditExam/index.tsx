@@ -1,6 +1,7 @@
 import { useId, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CreatePartForm from '../../../../components/admin/Exams/CreatePartForm';
+import Part from '../../../../components/admin/Exams/Part';
 import Modal from '../../../../components/common/Modal';
 import { useAppSelector } from '../../../../hooks/redux';
 import { Skills } from '../../../../interfaces/Exam';
@@ -28,17 +29,13 @@ function EditExam() {
         ))}
       </div>
 
+      <Part
+        currentSkill={currentSkill}
+        totalPart={exam.sections?.[currentSkill]?.parts.length || 0}
+        modalId={modalId}
+      />
+
       <div className="flex gap-3 mt-8 ">
-        <Modal
-          trigger={
-            <button className="btn bg-blue-500 text-white hover:bg-blue-500">
-              Create Part
-            </button>
-          }
-          modalId={modalId}
-        >
-          <CreatePartForm currentSkill={currentSkill} modalId={modalId} />
-        </Modal>
         <Link to="/admin/exams" className="btn">
           Back
         </Link>
