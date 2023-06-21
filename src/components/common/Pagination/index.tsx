@@ -38,7 +38,7 @@ const Pagination = (props: Props) => {
               currentPage === index ? 'btn-active' : ''
             }`}
             onClick={() => {
-              onChangePage(index + 1);
+              onChangePage(index);
             }}
           >
             {index + 1}

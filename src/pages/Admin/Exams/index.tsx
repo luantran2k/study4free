@@ -80,8 +80,8 @@ function ExamsAdminPage() {
             totalPage={totalPage}
             currentPage={currentPage}
             quantity={quantity}
-            onChangePage={() => {
-              return;
+            onChangePage={(page) => {
+              setCurrentPage(page);
             }}
             onChangeQuantity={(quantity: number) => {
               setQuantity(quantity);
