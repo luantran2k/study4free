@@ -6,8 +6,8 @@ import { useAppSelector } from '../../../../hooks/redux';
 import { Skills } from '../../../../interfaces/Exam';
 
 function EditExam() {
-  const exam = useAppSelector((state) => state.exam);
-  const [currentPart, setCurrentPart] = useState<Skills>(
+  const exam = useAppSelector((state) => state.exams);
+  const [currentSkill, setCurrentSkill] = useState<Skills>(
     Object.keys(exam.sections || {})[0] as Skills
   );
   const modalId = useId();
@@ -18,12 +18,12 @@ function EditExam() {
         {Object.keys(exam.sections || {}).map((skill) => (
           <div
             className={`rounded-box px-4 py-2 cursor-pointer ${
-              currentPart === skill ? 'bg-blue-500 text-white' : 'bg-base-200'
+              currentSkill === skill ? 'bg-blue-500 text-white' : 'bg-base-200'
             } `}
-            onClick={() => setCurrentPart(skill as Skills)}
+            onClick={() => setCurrentSkill(skill as Skills)}
             key={skill}
           >
-            {skill}
+            {skill[0].toUpperCase() + skill.slice(1)}
           </div>
         ))}
       </div>
@@ -37,7 +37,7 @@ function EditExam() {
           }
           modalId={modalId}
         >
-          <CreatePartForm />
+          <CreatePartForm currentSkill={currentSkill} modalId={modalId} />
         </Modal>
         <Link to="/admin/exams" className="btn">
           Back

@@ -1,6 +1,6 @@
 import IExamSection from './ExamSection';
 
-export const skills = ['Listening', 'Reading', 'Writing', 'Speaking'] as const;
+export const skills = ['listening', 'reading', 'writing', 'speaking'] as const;
 
 export type Skills = (typeof skills)[number];
 

@@ -31,7 +31,10 @@ function Modal(props: Props) {
         </button>
       )}
       <dialog id={modalId} className="modal">
-        <div className="modal-box">{children}</div>
+        <div className="modal-box ">
+          {children}
+          <div className="modal-action"> </div>
+        </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
         </form>
