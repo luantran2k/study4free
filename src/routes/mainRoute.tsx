@@ -1,4 +1,4 @@
-import { Navigate, RouteObject } from 'react-router-dom';
+import { RouteObject } from 'react-router-dom';
 import ExamsPage from '../pages/Exams';
 import GrammarPage from '../pages/Grammar';
 import HomePage from '../pages/Home';
@@ -9,6 +9,7 @@ import AnalyzeResults from '../pages/UserProfile/AnalyzeResults';
 import UserInformation from '../pages/UserProfile/UserInformation';
 import Collection from '../pages/UserProfile/Collection';
 import Reminder from '../pages/UserProfile/Reminder';
+import { Writing } from '../pages/Exams/Writing';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -21,6 +22,12 @@ export const mainRoute: RouteObject = {
     {
       path: 'exams',
       element: <ExamsPage />,
+      children: [
+        {
+          path: 'writing',
+          element: <Writing />,
+        },
+      ],
     },
     {
       path: 'vocabularies',
@@ -32,25 +39,25 @@ export const mainRoute: RouteObject = {
     },
     {
       path: 'users',
-      element: <UserProfilePage/>,
+      element: <UserProfilePage />,
       children: [
         {
           path: 'analyzeResults',
-          element: <AnalyzeResults />
+          element: <AnalyzeResults />,
         },
         {
           path: 'userInformation',
-          element: <UserInformation />
+          element: <UserInformation />,
         },
         {
           path: 'collection',
-          element: <Collection />
+          element: <Collection />,
         },
         {
           path: 'reminder',
-          element: <Reminder />
-        }
-      ]
+          element: <Reminder />,
+        },
+      ],
     },
   ],
 };
