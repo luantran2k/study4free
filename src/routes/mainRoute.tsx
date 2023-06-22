@@ -27,11 +27,11 @@ export const mainRoute: RouteObject = {
       element: <ExamsPage />,
       children: [
         {
-          path: 'writing',
+          path: 'writing/:id',
           element: <Writing />,
         },
         {
-          path: 'speaking',
+          path: 'speaking/:id',
           element: <Speaking />,
         },
       ],
