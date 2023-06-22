@@ -11,6 +11,7 @@ import Collection from '../pages/UserProfile/Collection';
 import Reminder from '../pages/UserProfile/Reminder';
 import SectionPage from '../pages/Grammar/SectionPage';
 import VocabularyDetail from '../pages/Vocabularies/VocabularyDetail';
+import { Fragment } from 'react';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -61,6 +62,10 @@ export const mainRoute: RouteObject = {
         {
           path: 'reminder',
           element: <Reminder />
+        },
+        {
+          path: 'payment',
+          element: <Fragment />
         }
       ]
     },

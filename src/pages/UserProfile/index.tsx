@@ -142,6 +142,18 @@ function UserProfilePage() {
                 Calendar/ Reminder
               </NavLink>
               <NavLink
+                to="/payment"
+                className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
+                style={({ isActive }) => {
+                  return {
+                    color: isActive ? '#fff' : '#40634d',
+                    backgroundColor: isActive ? '#40634d' : '',
+                  };
+                }}
+              >
+                Upgrade Account
+              </NavLink>
+              <NavLink
                 to="*"
                 className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
                 style={({ isActive }) => {
