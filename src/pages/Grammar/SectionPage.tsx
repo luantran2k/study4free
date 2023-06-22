@@ -178,7 +178,7 @@ const SectionPage = () => {
                       </svg>
                       <NavLink
                         to={section.to}
-                        className="text-md text-[#23085a] hover:underline hover:text-green-400"
+                       className="text-md text-[#23085a] hover:underline hover:text-green-400"
                       >
                         {section.title}
                       </NavLink>
@@ -223,7 +223,7 @@ const SectionPage = () => {
                       <NavLink
                         key={section.id}
                         to={section.to}
-                        className="text-md text-[#23085a] hover:underline hover:text-green-400"
+                       className="text-md text-[#23085a] hover:underline hover:text-green-400"
                       >
                         {section.title}
                       </NavLink>

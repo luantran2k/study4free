@@ -18,7 +18,7 @@ const ExamCard = (props: IMock) => {
         {props.sections.map((section) => (
           <NavLink
             key={section.id}
-            to={section.id}
+            to={`${section.type}/${section.id}`}
             className="bg-white rounded-2xl hover:shadow-xl shadow-md w-full hover:-translate-y-2 transition-all p-4 mt-4 flex flex-col justify-between"
           >
             <div className="flex flex-col">

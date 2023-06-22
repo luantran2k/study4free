@@ -34,6 +34,14 @@ export const mainRoute: RouteObject = {
           path: 'speaking/:id',
           element: <Speaking />,
         },
+        {
+          path: 'listening/:id',
+          element: <h1>Not Available</h1>,
+        },
+        {
+          path: 'reading/:id',
+          element: <h1>Not Available</h1>,
+        },
       ],
     },
     {
