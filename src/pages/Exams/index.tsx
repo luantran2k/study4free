@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import Thumb from '../../assets/images/thumbEnglish.jpg';
 import ExamCard from '../../components/common/ExamCard/ExamCard';
 
@@ -188,12 +188,11 @@ export interface IMock {
 }
 
 function ExamsPage() {
-  const location = useParams();
+  const location = useLocation();
+  console.log(location.pathname);
   return (
     <React.Fragment>
-      {location.pathname ? (
-        <Outlet />
-      ) : (
+      {location.pathname === '/exams' ? (
         <>
           <div className="py-[40px] mb-[10px] text-white text-center font-bold text-[40px] bg-gradient-to-r from-cyan-500 to-blue-500">
             <h2 className="uppercase">Examination</h2>
@@ -224,6 +223,8 @@ function ExamsPage() {
             </div>
           </div>
         </>
+      ) : (
+        <Outlet />
       )}
     </React.Fragment>
   );

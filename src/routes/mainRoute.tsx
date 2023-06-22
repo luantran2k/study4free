@@ -49,10 +49,12 @@ export const mainRoute: RouteObject = {
     {
       path: 'grammar',
       element: <GrammarPage />,
-    },
-    {
-      path: 'grammar/:section',
-      element: <SectionPage />,
+      children: [
+        {
+          path: ':section',
+          element: <SectionPage />,
+        },
+      ],
     },
     {
       path: 'users',
