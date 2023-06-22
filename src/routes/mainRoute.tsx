@@ -1,4 +1,5 @@
 import { RouteObject } from 'react-router-dom';
+import { RouteObject } from 'react-router-dom';
 import ExamsPage from '../pages/Exams';
 import GrammarPage from '../pages/Grammar';
 import HomePage from '../pages/Home';
@@ -11,6 +12,8 @@ import Collection from '../pages/UserProfile/Collection';
 import Reminder from '../pages/UserProfile/Reminder';
 import SectionPage from '../pages/Grammar/SectionPage';
 import VocabularyDetail from '../pages/Vocabularies/VocabularyDetail';
+import { Writing } from '../pages/Exams/Writing';
+import { Speaking } from '../pages/Exams/Speaking';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -23,6 +26,16 @@ export const mainRoute: RouteObject = {
     {
       path: 'exams',
       element: <ExamsPage />,
+      children: [
+        {
+          path: 'writing',
+          element: <Writing />,
+        },
+        {
+          path: 'speaking',
+          element: <Speaking />,
+        },
+      ],
     },
     {
       path: 'vocabularies',
@@ -30,9 +43,9 @@ export const mainRoute: RouteObject = {
       children: [
         {
           path: ':id',
-          element: <VocabularyDetail />
-        }
-      ]
+          element: <VocabularyDetail />,
+        },
+      ],
     },
     {
       path: 'grammar',
@@ -40,7 +53,7 @@ export const mainRoute: RouteObject = {
     },
     {
       path: 'grammar/:section',
-      element: <SectionPage />
+      element: <SectionPage />,
     },
     {
       path: 'users',
@@ -48,21 +61,21 @@ export const mainRoute: RouteObject = {
       children: [
         {
           path: 'analyzeResults',
-          element: <AnalyzeResults />
+          element: <AnalyzeResults />,
         },
         {
           path: 'userInformation',
-          element: <UserInformation />
+          element: <UserInformation />,
         },
         {
           path: 'collection',
-          element: <Collection />
+          element: <Collection />,
         },
         {
           path: 'reminder',
-          element: <Reminder />
-        }
-      ]
+          element: <Reminder />,
+        },
+      ],
     },
   ],
 };
