@@ -1,9 +1,12 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 interface Props {
   handleTask: (task: number) => void;
+  defaultIndex: number;
 }
-export const NavigationTest = ({ handleTask }: Props) => {
+export const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
+  const [time, setTime] = useState<number>(3600);
+  const ref = useRef<NodeJS.Timer | null>(null);
   const exams = {
     id: 1,
     cambridge: 14,
@@ -21,17 +24,55 @@ export const NavigationTest = ({ handleTask }: Props) => {
       },
     ],
   };
+
   const getIndex = (e: ChangeEvent<HTMLInputElement>) => {
     handleTask(Number(e.target.value));
   };
+  useEffect(() => {
+    ref.current = setInterval(() => {
+      setTime((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(ref.current as NodeJS.Timer);
+  }, [time]);
+  useEffect(() => {
+    if (time === 0) {
+      clearInterval(ref.current as NodeJS.Timer);
+    }
+  }, [time]);
   const handleSunmit = () => {
-    console.log('confirm');
+    if (time > 0) {
+      const realTime: any = Date.now();
+      if (confirm('Do you want to submit answers?')) {
+        console.log('ss');
+      }
+      const realTime2 = Date.now();
+      const subtract = Math.floor((realTime2 - realTime) / 1000);
+      if (time > subtract) {
+        setTime((prev) => prev - subtract);
+      } else {
+        setTime(0);
+      }
+    } else {
+      console.log('ss');
+    }
   };
   return (
     <div className="rounded-xl shadow-2xl p-[2rem] flex flex-col ">
       <div className="flex flex-row md:flex-col items-center my-[.75rem]">
         <div className="">Time left :</div>
-        <span className="font-bold text-[1.5rem]">10.30</span>
+        <span className="font-bold text-[1.5rem]">
+          {' '}
+          <div id={`seconds `} className={`${time < 5 ? 'warning' : ''}`}>
+            {time === 0 ? (
+              <span className="end">End!</span>
+            ) : (
+              `${Math.floor(time / 60)}:${time % 60 < 10 ? '0' : ''}${
+                time % 60
+              }`
+            )}
+          </div>
+        </span>
       </div>
       <button
         onClick={handleSunmit}
@@ -59,6 +100,7 @@ export const NavigationTest = ({ handleTask }: Props) => {
                 name="task"
                 onChange={getIndex}
                 value={index}
+                checked={index === defaultIndex}
               />
             </label>
           </div>

@@ -1,13 +1,27 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { NavigationTest } from '../commonComponent/navigationTest';
 import { NoteInfo } from '../commonComponent/noteInfo';
 
 export const Writing = () => {
   const [index, setIndex] = useState<number>(0);
+  const [essay, setEssay] = useState<string[]>([]);
+  const [countWord, setCountWord] = useState<number>(0);
+
   const handleTask = (task: number) => {
     setIndex(task);
   };
-  console.log(index);
+  const handleWritingEssay = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const updatedArr = [...(essay || [])];
+    updatedArr[index] = e.target.value;
+    setEssay(updatedArr);
+    const a = e.target.value
+      .trim()
+      .split(' ')
+
+      .filter((item: string) => item !== '');
+
+    setCountWord(a.length);
+  };
 
   const exams = {
     id: 1,
@@ -50,22 +64,26 @@ export const Writing = () => {
             <img src={exams?.task[index].imageTopic} alt="" />
           </div>
           <div className="xl:col-span-5 col-span-12 flex flex-col p-[1rem]">
-            <NoteInfo />
+            <NoteInfo index={index} />
             <div className="my-[1rem]">
               <textarea
                 className="border-2 rounded-lg p-[1rem]"
                 placeholder="Write your essay here"
                 name=""
                 id=""
+                onChange={handleWritingEssay}
                 cols={36}
                 rows={12}
+                value={
+                  essay.length && essay[index] !== undefined ? essay[index] : ''
+                }
               ></textarea>
-              <p>Word count : 0</p>
+              <p>Word count : {countWord}</p>
             </div>
           </div>
         </div>
         <div className="col-span-12 md:col-span-3 ">
-          <NavigationTest handleTask={handleTask} />
+          <NavigationTest handleTask={handleTask} defaultIndex={index} />
         </div>
       </div>
     </div>

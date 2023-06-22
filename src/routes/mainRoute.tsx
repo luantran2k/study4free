@@ -10,6 +10,7 @@ import UserInformation from '../pages/UserProfile/UserInformation';
 import Collection from '../pages/UserProfile/Collection';
 import Reminder from '../pages/UserProfile/Reminder';
 import { Writing } from '../pages/Exams/Writing';
+import { Speaking } from '../pages/Exams/Speaking';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -26,6 +27,10 @@ export const mainRoute: RouteObject = {
         {
           path: 'writing',
           element: <Writing />,
+        },
+        {
+          path: 'speaking',
+          element: <Speaking />,
         },
       ],
     },
