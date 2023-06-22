@@ -2,7 +2,7 @@ import { Outlet, useLocation, Link, useParams } from "react-router-dom";
 import  Thumb  from '../../assets/images/thumbEnglish.jpg'
 import Pagination from "../../components/common/Pagination";
 import Logo from '../../assets/images/logo.png'
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 const vocabList: string[] = [
   'Family',
@@ -46,7 +46,7 @@ function VocabulariesPage() {
   }, [pathname]);
 
     return (
-      <div>
+      <React.Fragment>
         <div className="py-[40px] mb-[10px] text-white text-center font-bold text-[40px] bg-gradient-to-r from-cyan-500 to-blue-500">
           <h2>VOCABULARY</h2>
         </div>
@@ -86,7 +86,7 @@ function VocabulariesPage() {
               <Pagination {...newPag}/>
             </div>
         </div>
-      </div>
+      </React.Fragment>
     );
 }
 
