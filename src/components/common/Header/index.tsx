@@ -4,14 +4,14 @@ import { MenuIcon } from '../../../assets/icons/menuIcon';
 import { useState } from 'react';
 
 export const Header = () => {
-  const [ isOpenNavBar, setOpenNavBar ] = useState<boolean>(false)
+  const [isOpenNavBar, setOpenNavBar] = useState<boolean>(false);
   const toggleNavBar = () => {
-    setOpenNavBar(!isOpenNavBar)
-  }
+    setOpenNavBar(!isOpenNavBar);
+  };
 
   const closeNavBar = () => {
-    setOpenNavBar(false)
-  }
+    setOpenNavBar(false);
+  };
 
   return (
     <nav className="bg-transparent border-gray-200 dark:bg-gray-900 dark:border-gray-700  z-40 mx-auto shadow-lg">
@@ -30,7 +30,9 @@ export const Header = () => {
           <MenuIcon width={'16px'} height={'16px'} fill={'currentColor'} />
         </button>
         <div
-          className= {`${isOpenNavBar ? 'block' : 'hidden'} w-full md:block md:w-auto max-md:absolute bottom-[-279%] left-0 bg-white transition-all z-10`}
+          className={`${
+            isOpenNavBar ? 'block' : 'hidden'
+          } w-full md:block md:w-auto max-md:absolute bottom-[-279%] left-0 bg-white transition-all z-10`}
           id="navbar-dropdown "
         >
           <ul className="flex flex-col mt-0 uppercase font-semibold text-[#000] p-4 md:p-0 border text-[1rem]  md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
@@ -39,12 +41,6 @@ export const Header = () => {
                 onClick={closeNavBar}
                 to={'/'}
                 className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent"
-                style={({ isActive }) => {
-                  return {
-                    color: isActive ? 'text-white' : '',
-                    backgroundColor: isActive ? 'bg-blue-700' : '',
-                  };
-                }}
               >
                 Home
               </NavLink>
