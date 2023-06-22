@@ -197,7 +197,7 @@ function ExamsPage() {
           <div className="py-[40px] mb-[10px] text-white text-center font-bold text-[40px] bg-gradient-to-r from-cyan-500 to-blue-500">
             <h2 className="uppercase">Examination</h2>
           </div>
-          <div className="flex flex-col h-full relative ">
+          <div className="flex flex-col h-full relative p-[3rem]">
             <div className="bg-transparent container mx-auto">
               <h3 className="text-4xl text-black font-bold my-8">
                 Exam Libraries
