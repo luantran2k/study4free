@@ -66,37 +66,57 @@ function Collection() {
           Collection
         </h3>
         <div className="grid grid-rows-1 grid-cols-12 gap-[40px]">
-          <div className="col-span-8 flex flex-col justify-center items-center text-center">
-            <div className="bg-[#fff] mb-[20px] px-[90px] py-[70px] rounded-2xl shadow-xl w-[692px] h-[376px]">
-              <h2 className="text-[40px] font-medium">{vocabs[currentIndex].word}</h2>
+          <div className="col-span-8 flex flex-col justify-center items-center text-center max-lg:col-span-12 max-md:col-span-9 max-md:pe-2">
+            <div
+              className="bg-[#fff] mb-[20px] max-lg:px-[40px] px-[90px] max-lg:py-[40px] py-[70px] 
+            rounded-2xl shadow-xl w-[692px] h-[376px] max-lg:w-[100%] max-lg:h-[340px] max-md:h-fit"
+            >
+              <h2 className="text-[40px] font-medium">
+                {vocabs[currentIndex].word}
+              </h2>
               <p className="text-[20px]">{vocabs[currentIndex].spelling}</p>
               <div className="text-left mt-[50px]">
-                <p><strong>Định nghĩa:</strong></p>
                 <p>
-                  {vocabs[currentIndex].define.english}
+                  <strong>Định nghĩa:</strong>
                 </p>
-                <p>
-                    {vocabs[currentIndex].define.vietnamese}
-                </p>
+                <p>{vocabs[currentIndex].define.english}</p>
+                <p>{vocabs[currentIndex].define.vietnamese}</p>
               </div>
             </div>
-            <div>
-              <button className="btn btn-secondary me-[10px] min-w-[100px]" onClick={handlePrevious}>Previous</button>
-              <button className="btn btn-accent min-w-[100px] text-[#fff]" onClick={handleNext}>Next</button>
+            <div className="mb-6">
+              <button
+                className="btn btn-secondary me-[10px] min-w-[100px]"
+                onClick={handlePrevious}
+              >
+                Previous
+              </button>
+              <button
+                className="btn btn-accent min-w-[100px] text-[#fff]"
+                onClick={handleNext}
+              >
+                Next
+              </button>
             </div>
           </div>
-          <div className="col-span-4 bg-[#fff] p-[20px] rounded-xl shadow-xl">
-                <h2 className="text-[30px] font-medium pb-[5px] border-b-[2px] border-[#ccc] mb-[20px]">Word list</h2>
-                {
-                    vocabs.map((item, index) => {
-                        return (
-                            <div className="flex justify-between mb-[10px]">
-                                <p key={index} className="text-[24px]">{item.word}</p>
-                                <button className="btn btn-error text-[#fff]"><TrashIcon /></button>
-                            </div>
-                        )
-                    })
-                }
+          <div className="col-span-4 bg-[#fff] p-[20px] rounded-xl shadow-xl max-lg:col-span-12 max-md:col-span-9 max-md:pe-3">
+            <h2 className="text-[30px] font-medium pb-[5px] border-b-[2px] border-[#ccc] mb-[20px]">
+              Word list
+            </h2>
+            {vocabs.map((item, index) => {
+              return (
+                <div className="flex justify-between mb-[10px]">
+                  <p key={index} className="text-[24px]">
+                    {item.word}
+                  </p>
+                  <div
+                    className="cursor-pointer text-error hover:[&_svg]:scale-150 
+                                active:[&_svg]:scale-125 [&_svg]:transition-all"
+                  >
+                    <TrashIcon />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
