@@ -1,5 +1,12 @@
+import { Outlet, useLocation } from 'react-router-dom';
+
 function ExamsPage() {
-  return <div className="text-red-500">ExamsPage</div>;
+  const location = useLocation();
+  return (
+    <div className="">
+      <Outlet />
+    </div>
+  );
 }
 
 export default ExamsPage;

@@ -4,17 +4,26 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import './index.css';
-import { persistor, store } from './store/index.ts';
-import { PersistGate } from 'redux-persist/integration/react';
+import { store } from './store/index.ts';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
+const initialOptions = {
+  clientId:
+    'AT-ItDfkViOYl_1sIqrltcSmzXgk-haZJoDv1okc2_zKaiXfVNOuoVizpVmuj0Drr62Imp8yvmAn58wq',
+  currency: 'USD',
+  intent: 'capture',
+};
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
+    <PayPalScriptProvider deferLoading={true} options={initialOptions}>
+      <Provider store={store}>
+        <ToastContainer />
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </PersistGate>
-    </Provider>
+      </Provider>
+    </PayPalScriptProvider>
   </React.StrictMode>
 );
