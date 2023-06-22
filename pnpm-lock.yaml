@@ -35,6 +35,9 @@ dependencies:
   react:
     specifier: ^18.2.0
     version: 18.2.0
+  react-audio-voice-recorder:
+    specifier: ^1.2.1
+    version: 1.2.1(react-dom@18.2.0)(react@18.2.0)
   react-chartjs-2:
     specifier: ^5.2.0
     version: 5.2.0(chart.js@4.3.0)(react@18.2.0)
@@ -7918,6 +7921,27 @@ packages:
       iconv-lite: 0.4.24
       unpipe: 1.0.0
     dev: true
+
+  /react-audio-visualize@1.1.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-O6xnok5iKwPgTBohFB0XNHf/JUNFGS8POh/5PdqwumwC1EXaL1fZgeuTuBlnUOuwlJamCu+W/c4OSrwyvh1Esg==}
+    peerDependencies:
+      react: '>=16.2.0'
+      react-dom: '>=16.2.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react-audio-voice-recorder@1.2.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-k1W9xAH1FIDGulaAkzKxJ56QRPW/xP9GjFo35jyOSNpl6QFONE6ooyGOwfIL+TFDnf8TAts1bbCANcVpmnVWjw==}
+    peerDependencies:
+      react: '>=16.2.0'
+      react-dom: '>=16.2.0'
+    dependencies:
+      react: 18.2.0
+      react-audio-visualize: 1.1.0(react-dom@18.2.0)(react@18.2.0)
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /react-chartjs-2@5.2.0(chart.js@4.3.0)(react@18.2.0):
     resolution: {integrity: sha512-98iN5aguJyVSxp5U3CblRLH67J8gkfyGNbiK3c+l1QI/G4irHMPQw44aEPmjVag+YKTyQ260NcF82GTQ3bdscA==}

@@ -1,4 +1,4 @@
-import { Navigate, RouteObject } from 'react-router-dom';
+import { RouteObject } from 'react-router-dom';
 import ExamsPage from '../pages/Exams';
 import GrammarPage from '../pages/Grammar';
 import HomePage from '../pages/Home';
@@ -10,6 +10,7 @@ import UserInformation from '../pages/UserProfile/UserInformation';
 import Collection from '../pages/UserProfile/Collection';
 import Reminder from '../pages/UserProfile/Reminder';
 import SectionPage from '../pages/Grammar/SectionPage';
+import VocabularyDetail from '../pages/Vocabularies/VocabularyDetail';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -26,6 +27,12 @@ export const mainRoute: RouteObject = {
     {
       path: 'vocabularies',
       element: <VocabulariesPage />,
+      children: [
+        {
+          path: ':id',
+          element: <VocabularyDetail />
+        }
+      ]
     },
     {
       path: 'grammar',
