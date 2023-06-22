@@ -1,5 +1,4 @@
 import { RouteObject } from 'react-router-dom';
-import { RouteObject } from 'react-router-dom';
 import ExamsPage from '../pages/Exams';
 import GrammarPage from '../pages/Grammar';
 import HomePage from '../pages/Home';
