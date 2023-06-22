@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import LogoIcon from '../../../assets/images/logo.png';
 import { MenuIcon } from '../../../assets/icons/menuIcon';
 import { useState } from 'react';
@@ -40,7 +40,17 @@ export const Header = () => {
               <NavLink
                 onClick={closeNavBar}
                 to={'/'}
-                className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent"
+                style={{
+                  display: 'block',
+                  padding: '8px 0.75rem',
+                }}
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? 'pending'
+                    : isActive
+                    ? 'bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent rounded-xl'
+                    : 'text-black'
+                }
               >
                 Home
               </NavLink>
@@ -50,13 +60,17 @@ export const Header = () => {
               <NavLink
                 onClick={closeNavBar}
                 to={'exams'}
-                className="block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                style={({ isActive }) => {
-                  return {
-                    color: isActive ? 'text-white' : '',
-                    backgroundColor: isActive ? 'bg-blue-700' : '',
-                  };
+                style={{
+                  display: 'block',
+                  padding: '8px 0.75rem',
                 }}
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? 'pending'
+                    : isActive
+                    ? 'bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent rounded-xl'
+                    : 'text-black'
+                }
               >
                 Examinations
               </NavLink>
@@ -65,13 +79,17 @@ export const Header = () => {
               <NavLink
                 onClick={closeNavBar}
                 to={'/vocabularies'}
-                className="block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                style={({ isActive }) => {
-                  return {
-                    color: isActive ? 'text-white' : '',
-                    backgroundColor: isActive ? 'bg-blue-700' : '',
-                  };
+                style={{
+                  display: 'block',
+                  padding: '8px 0.75rem',
                 }}
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? 'pending'
+                    : isActive
+                    ? 'bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent rounded-xl'
+                    : 'text-black'
+                }
               >
                 Vocabulary
               </NavLink>
@@ -80,13 +98,17 @@ export const Header = () => {
               <NavLink
                 onClick={closeNavBar}
                 to={'/grammar'}
-                className="block py-2 pl-3 pr-4  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                style={({ isActive }) => {
-                  return {
-                    color: isActive ? 'text-white' : '',
-                    backgroundColor: isActive ? 'bg-blue-700' : '',
-                  };
+                style={{
+                  display: 'block',
+                  padding: '8px 0.75rem',
                 }}
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? 'pending'
+                    : isActive
+                    ? 'bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent rounded-xl'
+                    : 'text-black'
+                }
               >
                 Grammar
               </NavLink>
@@ -95,13 +117,17 @@ export const Header = () => {
               <NavLink
                 onClick={closeNavBar}
                 to={'/login'}
-                className="block py-2 pl-3 pr-4 text-bold  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                style={({ isActive }) => {
-                  return {
-                    color: isActive ? 'text-white' : '',
-                    backgroundColor: isActive ? 'bg-blue-700' : '',
-                  };
+                style={{
+                  display: 'block',
+                  padding: '8px 0.75rem',
                 }}
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? 'pending'
+                    : isActive
+                    ? 'bg-blue-700 text-white md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent rounded-xl'
+                    : 'text-black'
+                }
               >
                 Login
               </NavLink>
