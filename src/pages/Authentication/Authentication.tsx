@@ -16,28 +16,28 @@ const Authentication = () => {
 
           <div className="tabs mx-8 mt-8">
             <a
-              className={`tab tab-lifted ${value === 0 && 'tab-active text-xl font-semibold text-blue-400'
-                } text-md`}
+              className={`tab tab-lifted  ${value === 0 && 'tab-active text-2xl font-bold'
+                } text-lg text-blue-400 `}
               onClick={() => handleChange(0)}
             >
               Login
             </a>
             <a
-              className={`tab tab-lifted ${value === 1 && 'tab-active text-xl font-semibold text-red-400'
-                } text-md`}
+              className={`tab tab-lifted ${value === 1 && 'tab-active text-2xl font-bold'
+                } text-lg text-red-400`}
               onClick={() => handleChange(1)}
             >
               Sign up
             </a>
           </div>
-          <div className='md:w-[40vw]'>
+          <div className='lg:w-[40vw] w-[80vw] mx-auto lg:mx-0 transition-all'>
             {value === 0 && <Login />}
             {value === 1 && <SignUp />}
           </div>
 
         </div>
       </div>
-      <div className="lg:w-[60vw] w-full h-screen absolute lg:static top-0 left-0 right-0 bottom-0 z-[-1] bg-no-repeat lg:bg-top flex justify-center items-center" style={{ backgroundImage: `url(${loginBg})` }}>
+      <div className="lg:w-[60vw] w-full h-screen absolute lg:static top-0 left-0 right-0 bottom-0 z-[-1] bg-no-repeat lg:bg-top flex justify-center items-center transition-all" style={{ backgroundImage: `url(${loginBg})` }}>
         <h3 className='text-center italic font-serif text-5xl hidden lg:block text-white'>Welcome Back</h3>
       </div>
     </div>

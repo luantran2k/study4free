@@ -9,6 +9,8 @@ import AnalyzeResults from '../pages/UserProfile/AnalyzeResults';
 import UserInformation from '../pages/UserProfile/UserInformation';
 import Collection from '../pages/UserProfile/Collection';
 import Reminder from '../pages/UserProfile/Reminder';
+import SectionPage from '../pages/Grammar/SectionPage';
+import VocabularyDetail from '../pages/Vocabularies/VocabularyDetail';
 import { Writing } from '../pages/Exams/Writing';
 
 export const mainRoute: RouteObject = {
@@ -32,10 +34,20 @@ export const mainRoute: RouteObject = {
     {
       path: 'vocabularies',
       element: <VocabulariesPage />,
+      children: [
+        {
+          path: ':id',
+          element: <VocabularyDetail />,
+        },
+      ],
     },
     {
       path: 'grammar',
       element: <GrammarPage />,
+    },
+    {
+      path: 'grammar/:section',
+      element: <SectionPage />,
     },
     {
       path: 'users',

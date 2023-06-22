@@ -9,8 +9,8 @@ function UserInformation() {
           Personal Information
         </h3>
         <form className="grid grid-rows-3">
-          <div className="grid gap-[40px] grid-cols-12">
-            <div className="col-span-6">
+          <div className="grid gap-[40px] grid-cols-12 max-md:gap-0">
+            <div className="col-span-6 max-md:col-span-12">
               <label className="mb-[10px] block" htmlFor="firstName">
                 First Name
               </label>
@@ -21,7 +21,7 @@ function UserInformation() {
                 id="firstName"
               />
             </div>
-            <div className="col-span-6">
+            <div className="col-span-6 max-md:col-span-12">
               <label className="mb-[10px] block" htmlFor="">
                 Last Name
               </label>
@@ -32,8 +32,8 @@ function UserInformation() {
               />
             </div>
           </div>
-          <div className="grid grid-cols-12 gap-[40px]">
-            <div className="col-span-6">
+          <div className="grid grid-cols-12 gap-[40px] max-md:gap-0">
+            <div className="col-span-6 max-md:col-span-12">
               <label className="mb-[10px] block" htmlFor="">
                 Email
               </label>
@@ -43,7 +43,7 @@ function UserInformation() {
                 {...register('email', { required: true })}
               />
             </div>
-            <div className="col-span-6">
+            <div className="col-span-6 max-md:col-span-12">
               <label className="mb-[10px] block" htmlFor="">
                 Phone number
               </label>
@@ -54,8 +54,8 @@ function UserInformation() {
               />
             </div>
           </div>
-          <div className="grid grid-cols-12 gap-[40px]">
-            <div className="col-span-6">
+          <div className="grid grid-cols-12 gap-[40px] max-md:gap-0">
+            <div className="col-span-6 max-md:col-span-12">
               <label className="mb-[10px] block" htmlFor="">
                 Company
               </label>
@@ -65,7 +65,7 @@ function UserInformation() {
                 {...register('company', { required: true })}
               />
             </div>
-            <div className="col-span-6">
+            <div className="col-span-6 max-md:col-span-12">
               <label className="mb-[10px] block" htmlFor="">
                 Location
               </label>

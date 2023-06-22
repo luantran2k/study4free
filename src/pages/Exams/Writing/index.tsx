@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { NavigationTest } from '../commonComponent/navigationTest';
 import { NoteInfo } from '../commonComponent/noteInfo';
+import { Payment } from '../../Payment/Payment';
 
 export const Writing = () => {
   const [index, setIndex] = useState<number>(0);
@@ -68,6 +69,7 @@ export const Writing = () => {
           <NavigationTest handleTask={handleTask} />
         </div>
       </div>
+      <Payment />
     </div>
   );
 };

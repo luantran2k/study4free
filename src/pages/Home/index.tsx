@@ -378,6 +378,7 @@ function HomePage() {
           </div>
         </div>
       </section>
+      <section id="payment" className=""></section>
       <section id="subcribe-email " className="bg-[#2c75e4] ">
         <div className="w-[80%] m-auto flex flex-col md:flex-row gap-[3rem] text-[#fff] py-[3.5rem] px-[1rem]">
           <div className="flex flex-col flex-1">

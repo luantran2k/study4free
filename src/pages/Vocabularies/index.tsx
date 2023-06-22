@@ -1,5 +1,93 @@
+import { Outlet, useLocation, Link, useParams } from "react-router-dom";
+import  Thumb  from '../../assets/images/thumbEnglish.jpg'
+import Pagination from "../../components/common/Pagination";
+import Logo from '../../assets/images/logo.png'
+import { useEffect } from "react";
+
+const vocabList: string[] = [
+  'Family',
+  'Business',
+  'Marketing',
+  'Family',
+  'Business',
+  'Marketing',
+  'Family',
+  'Business',
+  'Marketing',
+  'Family',
+  'Business',
+  'Marketing',
+  'Family',
+  'Business',
+  'Marketing',
+  'Family',
+  'Business',
+  'Marketing',
+];
+
+const newPag = {
+  totalPage: 5,
+  currentPage: 1,
+  quantity: 40,
+  quantityOptions: [1, 2, 3],
+  onChangePage: (page: number) => {return},
+  onChangeQuantity: (quantity: number) => {return},
+  onNextClick: () => {return},
+  onPreviousClick: () => {return},
+};
+
 function VocabulariesPage() {
-  return <div>VocabulariesPage</div>;
+  const { state, pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
+
+    return (
+      <div>
+        <div className="py-[40px] mb-[10px] text-white text-center font-bold text-[40px] bg-gradient-to-r from-cyan-500 to-blue-500">
+          <h2>VOCABULARY</h2>
+        </div>
+        <div className="container mx-auto">
+            <img src= {Thumb} alt="" className="w-[100%]"/>
+            <div className="my-[20px] grid grid-cols-12 gap-[30px] max-sm:px-[10px]">
+              {
+                pathname === '/vocabularies' ?
+                 vocabList.map((item, index) => {
+                   return (
+                     <div
+                       key={index}
+                       className="max-md:col-span-6 max-sm:col-span-12 p-[20px] bg-[#f8f9fa] col-span-3 font-medium text-[18px] cursor-pointer 
+                       rounded-xl shadow-md hover:shadow-lg transition-all"
+                     >
+                       <Link to= ':id' state={vocabList[index]}>
+                        <span>{item}</span>
+                        <p className="text-[15px] opacity-[0.8]">100 words</p>
+                        <div className="w-[60px] h-[60px] my-[20px]">
+                          <img
+                            className="w-[100%] h-[100%] object-contain"
+                            src={Logo}
+                            alt=""
+                          />
+                        </div>
+                       </Link>
+                     </div>
+                   );
+                 }) : 
+                 <div className="col-span-12">
+                  <Outlet />
+                 </div>
+              }
+            </div>
+
+            <div className="flex my-[30px] justify-center">
+              <Pagination {...newPag}/>
+            </div>
+        </div>
+      </div>
+    );
 }
 
 export default VocabulariesPage;
