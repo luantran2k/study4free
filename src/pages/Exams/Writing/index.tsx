@@ -10,6 +10,7 @@ export const Writing = () => {
   const handleTask = (task: number) => {
     setIndex(task);
   };
+
   const handleWritingEssay = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const updatedArr = [...(essay || [])];
     updatedArr[index] = e.target.value;
