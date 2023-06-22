@@ -15,7 +15,6 @@ export const Payment = () => {
   };
 
   const handleDenied = async () => {
-    // toast.warn('Bạn đã dừng thanh toán');
     console.log('Stop payment');
   };
 

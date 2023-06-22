@@ -28,12 +28,20 @@ export const mainRoute: RouteObject = {
       element: <ExamsPage />,
       children: [
         {
-          path: 'writing',
+          path: 'writing/:id',
           element: <Writing />,
         },
         {
-          path: 'speaking',
+          path: 'speaking/:id',
           element: <Speaking />,
+        },
+        {
+          path: 'listening/:id',
+          element: <h1>Not Available</h1>,
+        },
+        {
+          path: 'reading/:id',
+          element: <h1>Not Available</h1>,
         },
       ],
     },
@@ -50,10 +58,12 @@ export const mainRoute: RouteObject = {
     {
       path: 'grammar',
       element: <GrammarPage />,
-    },
-    {
-      path: 'grammar/:section',
-      element: <SectionPage />,
+      children: [
+        {
+          path: ':section',
+          element: <SectionPage />,
+        },
+      ],
     },
     {
       path: 'users',
