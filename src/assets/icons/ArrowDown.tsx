@@ -9,7 +9,7 @@ const ArrowDown = ({ width, height, fill }: IIcon) => {
       width={width}
       height={height}
       xmlns="http://www.w3.org/2000/svg"
-      className='rotate-180'
+      className="rotate-180"
     >
       <title>arrow_down [#338]</title>
       <desc>Created with Sketch.</desc>
@@ -17,9 +17,9 @@ const ArrowDown = ({ width, height, fill }: IIcon) => {
       <g
         id="Page-1"
         stroke="none"
-        stroke-width="1"
+        strokeWidth="1"
         fill="none"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       >
         <g
           id="Dribbble-Light-Preview"

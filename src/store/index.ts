@@ -11,6 +11,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { examReducer } from './slices/examSlice';
+import { dictionaryReducer } from './slices/dictionarySlice';
 
 const persistConfig = {
   key: 'root',
@@ -20,6 +21,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   exams: examReducer,
+  dictionary:dictionaryReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
