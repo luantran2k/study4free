@@ -6,7 +6,7 @@ import SearchIcon from '../../../assets/icons/SearchIcon';
 const Tools = () => {
   const [clicked, setClicked] = useState(false)
   return (
-    <div className="fixed flex flex-col justify-center top-0 bottom-0 right-0 h-screen bg-transparent z-10">
+    <div className="fixed flex flex-col justify-center top-[40vh] bottom-0 right-0 h-fit bg-transparent z-10">
       <div className="bg-gray-300 rounded-xl w-full p-3 relative">
         <button className="text-sm flex flex-col gap-3 items-center border-b-2 mb-2" onClick={() => setClicked(!clicked)}>
           <Dictionary width="30px" height="30px" />

@@ -51,7 +51,7 @@ export const ButtonPayment = ({
     <>
       {isPending ? <div className="spinner" /> : null}
         <PayPalButtons
-          className='w-[500px]'
+          className='w-[500px] max-sm:w-[300px] z-0'
           style={{layout: 'horizontal'}}
           disabled={false}
           forceReRender={[amount, currency]}

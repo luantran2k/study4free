@@ -1,8 +1,8 @@
 function VisaIcon() {
     return (
       <svg
-        width="200px"
-        height="200px"
+        width="100px"
+        height="100px"
         viewBox="0 -11 70 70"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
