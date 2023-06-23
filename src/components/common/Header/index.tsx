@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { MenuIcon } from '../../../assets/icons/MenuIcon';
 import { useInView } from 'react-intersection-observer';
 import Tools from '../Tools';
+import Chat from '../Chat';
 
 export const Header = () => {
   const [isOpenNavBar, setOpenNavBar] = useState<boolean>(false);
@@ -147,6 +148,7 @@ export const Header = () => {
         </div>
       </nav>
       <Tools />
+      <Chat />
     </>
   );
 };

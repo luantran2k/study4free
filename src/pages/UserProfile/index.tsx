@@ -7,6 +7,7 @@ import CollectionIcon from "../../assets/icons/collectionIcon";
 import ReminderIcon from "../../assets/icons/reminderIcon";
 import LogoutIcon from "../../assets/icons/logoutIcon";
 import DeletedUserIcon from "../../assets/icons/deletedUserIcon";
+import UpgradeUserIcon from "../../assets/icons/upgradeUserIcon";
 
 function UserProfilePage() {
     const navigate = useNavigate()
@@ -23,11 +24,13 @@ function UserProfilePage() {
     return (
       <div className="grid grid-rows-1 grid-cols-12">
         <div className="col-span-1 hidden max-lg:block min-h-[93vh] max-md:col-span-2">
-          <div className="p-3">
+          <div className="p-3 mt-2">
             <img src={Avatar} alt="" />
           </div>
-          <div className="flex flex-col justify-center items-center mt-10">
-            <NavLink to="analyzeResults" className="text-[24px] w-[100%] flex justify-center py-5"
+          <div className="flex flex-col justify-center items-center mt-6">
+            <NavLink
+              to="analyzeResults"
+              className="text-[24px] w-[100%] flex justify-center py-5"
               style={({ isActive }) => {
                 return {
                   color: isActive ? '#fff' : '#40634d',
@@ -35,51 +38,78 @@ function UserProfilePage() {
                 };
               }}
             >
-                <AnalyzeIcon />
+              <AnalyzeIcon />
             </NavLink>
-            <NavLink to="userInformation" className="text-[24px] w-[100%] flex justify-center py-5"
-            style={({ isActive }) => {
-              return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
-              };
-            }}>
+            <NavLink
+              to="userInformation"
+              className="text-[24px] w-[100%] flex justify-center py-5"
+              style={({ isActive }) => {
+                return {
+                  color: isActive ? '#fff' : '#40634d',
+                  backgroundColor: isActive ? '#40634d' : '',
+                };
+              }}
+            >
               <UserIcon />
             </NavLink>
-            <NavLink to="collection" className="text-[24px] w-[100%] flex justify-center py-5"
-            style={({ isActive }) => {
-              return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
-              };
-            }}>
+            <NavLink
+              to="collection"
+              className="text-[24px] w-[100%] flex justify-center py-5"
+              style={({ isActive }) => {
+                return {
+                  color: isActive ? '#fff' : '#40634d',
+                  backgroundColor: isActive ? '#40634d' : '',
+                };
+              }}
+            >
               <CollectionIcon />
             </NavLink>
-            <NavLink to="reminder" className="text-[24px] w-[100%] flex justify-center py-5"
-            style={({ isActive }) => {
-              return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
-              };
-            }}>
+            <NavLink
+              to="reminder"
+              className="text-[24px] w-[100%] flex justify-center py-5"
+              style={({ isActive }) => {
+                return {
+                  color: isActive ? '#fff' : '#40634d',
+                  backgroundColor: isActive ? '#40634d' : '',
+                };
+              }}
+            >
               <ReminderIcon />
             </NavLink>
-            <NavLink to="*" className="text-[24px] w-[100%] flex justify-center py-5"
-            style={({ isActive }) => {
-              return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
-              };
-            }}>
+            <NavLink
+              to="payment"
+              className="text-[24px] w-[100%] flex justify-center py-5 text-center"
+              style={({ isActive }) => {
+                return {
+                  color: isActive ? '#fff' : '#40634d',
+                  backgroundColor: isActive ? '#40634d' : '',
+                };
+              }}
+            >
+              <UpgradeUserIcon />
+            </NavLink>
+            <NavLink
+              to="*"
+              className="text-[24px] w-[100%] flex justify-center py-5"
+              style={({ isActive }) => {
+                return {
+                  color: isActive ? '#fff' : '#40634d',
+                  backgroundColor: isActive ? '#40634d' : '',
+                };
+              }}
+            >
               <DeletedUserIcon />
             </NavLink>
-            <NavLink to="/login" className="text-[24px] w-[100%] flex justify-center py-5"
-            style={({ isActive }) => {
-              return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
-              };
-            }}>
+            <NavLink
+              to="/login"
+              className="text-[24px] w-[100%] flex justify-center py-5"
+              style={({ isActive }) => {
+                return {
+                  color: isActive ? '#fff' : '#40634d',
+                  backgroundColor: isActive ? '#40634d' : '',
+                };
+              }}
+            >
               <LogoutIcon />
             </NavLink>
           </div>
@@ -140,6 +170,18 @@ function UserProfilePage() {
                 }}
               >
                 Calendar/ Reminder
+              </NavLink>
+              <NavLink
+                to="payment"
+                className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
+                style={({ isActive }) => {
+                  return {
+                    color: isActive ? '#fff' : '#40634d',
+                    backgroundColor: isActive ? '#40634d' : '',
+                  };
+                }}
+              >
+                Upgrade Account
               </NavLink>
               <NavLink
                 to="*"

@@ -62,11 +62,15 @@ function Collection() {
 
     return (
       <div className="p-[20px]">
-        <h3 className="text-center text-[40px] font-medium my-[40px]">
+        <h3 className="text-center text-[40px] font-medium my-[25px]">
           Collection
         </h3>
+        <div className="mb-2">
+          <button className="btn btn-primary me-2">Review</button>
+          <button className="btn btn-neutral">Practice</button>
+        </div>
         <div className="grid grid-rows-1 grid-cols-12 gap-[40px]">
-          <div className="col-span-8 flex flex-col justify-center items-center text-center max-lg:col-span-12 max-md:col-span-9 max-md:pe-2">
+          <div data-aos="flip-left" className="col-span-8 flex flex-col justify-center items-center text-center max-lg:col-span-12 max-md:col-span-12 max-sm:col-span-9 max-md:pe-2">
             <div
               className="bg-[#fff] mb-[20px] max-lg:px-[40px] px-[90px] max-lg:py-[40px] py-[70px] 
             rounded-2xl shadow-xl w-[692px] h-[376px] max-lg:w-[100%] max-lg:h-[340px] max-md:h-fit"
@@ -98,7 +102,7 @@ function Collection() {
               </button>
             </div>
           </div>
-          <div className="col-span-4 bg-[#fff] p-[20px] rounded-xl shadow-xl max-lg:col-span-12 max-md:col-span-9 max-md:pe-3">
+          <div data-aos="flip-left" className="col-span-4 bg-[#fff] p-[20px] rounded-xl shadow-xl max-lg:col-span-12 max-md:col-span-12 max-md:pe-3 max-sm:col-span-9">
             <h2 className="text-[30px] font-medium pb-[5px] border-b-[2px] border-[#ccc] mb-[20px]">
               Word list
             </h2>

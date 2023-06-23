@@ -13,6 +13,7 @@ import SectionPage from '../pages/Grammar/SectionPage';
 import VocabularyDetail from '../pages/Vocabularies/VocabularyDetail';
 import { Writing } from '../pages/Exams/Writing';
 import { Speaking } from '../pages/Exams/Speaking';
+import { Payment } from '../pages/Payment/Payment';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -82,9 +83,13 @@ export const mainRoute: RouteObject = {
         },
         {
           path: 'reminder',
-          element: <Reminder />,
+          element: <Reminder />
         },
-      ],
+        {
+          path: 'payment',
+          element: <Payment />
+        }
+      ]
     },
   ],
 };

@@ -50,29 +50,30 @@ export const ButtonPayment = ({
   return (
     <>
       {isPending ? <div className="spinner" /> : null}
-      <PayPalButtons
-        style={{ layout: 'horizontal' }}
-        disabled={false}
-        forceReRender={[amount, currency]}
-        fundingSource={undefined}
-        createOrder={(data, actions) => {
-          return actions.order.create({
-            purchase_units: [
-              {
-                amount: {
-                  currency_code: currency,
-                  value: amount,
+        <PayPalButtons
+          className='w-[500px] max-sm:w-[300px] z-0'
+          style={{layout: 'horizontal'}}
+          disabled={false}
+          forceReRender={[amount, currency]}
+          fundingSource={undefined}
+          createOrder={(data, actions) => {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    currency_code: currency,
+                    value: amount,
+                  },
                 },
-              },
-            ],
-          });
-        }}
-        onApprove={onAccept}
-        onShippingChange={async (data, actions) => {
-          console.log(data);
-        }}
-        onCancel={onDenied}
-      />
+              ],
+            });
+          }}
+          onApprove={onAccept}
+          onShippingChange={async (data, actions) => {
+            console.log(data);
+          }}
+          onCancel={onDenied}
+        />
     </>
   );
 };
