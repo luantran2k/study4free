@@ -3,6 +3,9 @@ import { useGetUserByIdQuery, useUpdateInforMutation } from "../../store/queries
 import Avatar from "../../assets/images/avataruser.png"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+import { NOTIFICATION_TYPE, notify } from "../../utils/notify";
+import PencilIcon from "../../assets/icons/PencilIcon";
+import { useState } from "react";
 interface IFormInput {
     username: string,
     email: string,
@@ -26,25 +29,42 @@ const schema = yup
   .required()
 
 function UserInformation() {
-    const { data } = useGetUserByIdQuery('6495dfe83d98bcaa6a70ad9a')
+    const dataStorage = JSON.parse(localStorage.getItem('user') as string).userInfo
+    const { data, isSuccess } = useGetUserByIdQuery(dataStorage.id)
+    const [ imageChange, setImageChange ] = useState<string>(data.avatar)
     const [ updateInfor ] = useUpdateInforMutation()
+
+    const handleChangeImage = (e: any) => {
+      setImageChange(URL.createObjectURL(e.target.files[0]));
+    }
+
     const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>({
       defaultValues: {
-        username: data.username,
-        email: data.email,
-        gender: data.gender,
-        avatar: data.avatar,
-        phone: data.phone,
-        company: data.company,
-        location: data.location
+        username: isSuccess && data.username || dataStorage.username,
+        email: isSuccess && data.email || dataStorage.email,
+        gender: isSuccess && data.gender || dataStorage.gender,
+        avatar: isSuccess && data.avatar || dataStorage.avatar,
+        phone: isSuccess && data.phone || dataStorage.phone,
+        company: isSuccess && data.company || dataStorage.company,
+        location: isSuccess && data.location || dataStorage.location
       },
       resolver: yupResolver(schema)
     });
     const onSubmit = handleSubmit((dataForm) => {
-      updateInfor({
-        newdata: {...dataForm},
-        id: data.id
+      console.log({
+        ...dataForm,
+        avatar: imageChange
       })
+      if(isSuccess) {
+        notify(NOTIFICATION_TYPE.SUCCESS, 'Update Successfully')
+        updateInfor({
+          newdata: {
+            ...dataForm,
+            avatar: imageChange
+          },
+          id: data.id
+        })
+      }
     })
     return (
       <div className="p-[50px]">
@@ -52,12 +72,16 @@ function UserInformation() {
           Personal Information
         </h3>
         <div className="flex justify-center mb-5">
-          <div className="w-[200px] h-[200px] rounded-[50%]">
+          <div className="w-[200px] h-[200px] rounded-[50%] relative">
             <img
-              src={data?.avatar || Avatar}
+              src={imageChange || Avatar}
               alt=""
-              className="rounded-[50%]"
+              className="rounded-[50%] w-[100%] h-[100%] object-cover"
             />
+            <label htmlFor="file-upload" className="cursor-pointer absolute -bottom-1 right-7 -rotate-90 bg-white rounded-[50%]">
+              <PencilIcon />
+              <input id="file-upload" type="file" className="hidden" onChange={handleChangeImage}/>
+            </label>
           </div>
         </div>
         <form className="grid grid-rows-3" onSubmit={onSubmit}>
@@ -72,7 +96,9 @@ function UserInformation() {
                 {...register('username', { required: true })}
                 id="username"
               />
-              <p className="text-error font-medium mb-[20px]">{errors.username?.message}</p>
+              <p className="text-error font-medium mb-[20px]">
+                {errors.username?.message}
+              </p>
             </div>
             <div className="col-span-6 max-md:col-span-12">
               <label className="mb-[10px] block" htmlFor="gender">
@@ -88,7 +114,9 @@ function UserInformation() {
                 <option value="woman">Male</option>
                 <option value="other">Other</option>
               </select>
-              <p className="text-error font-medium mb-[20px]">{errors.gender?.message}</p>
+              <p className="text-error font-medium mb-[20px]">
+                {errors.gender?.message}
+              </p>
             </div>
           </div>
           <div className="grid grid-cols-12 gap-[40px] max-md:gap-0">
@@ -101,7 +129,9 @@ function UserInformation() {
                 className=" py-[8px] px-[8px] rounded-lg text-[16px] border-[#ccc] border-[1px]"
                 {...register('email', { required: true })}
               />
-              <p className="text-error font-medium mb-[20px]">{errors.email?.message}</p>
+              <p className="text-error font-medium mb-[20px]">
+                {errors.email?.message}
+              </p>
             </div>
             <div className="col-span-6 max-md:col-span-12">
               <label className="mb-[10px] block" htmlFor="phone">
@@ -113,7 +143,9 @@ function UserInformation() {
                 className=" py-[8px] px-[8px] rounded-lg text-[16px] border-[#ccc] border-[1px]"
                 {...register('phone', { required: true })}
               />
-              <p className="text-error font-medium mb-[20px]">{errors.phone?.message}</p>
+              <p className="text-error font-medium mb-[20px]">
+                {errors.phone?.message}
+              </p>
             </div>
           </div>
           <div className="grid grid-cols-12 gap-[40px] max-md:gap-0">
@@ -127,7 +159,9 @@ function UserInformation() {
                 className=" py-[8px] px-[8px] rounded-lg text-[16px] border-[#ccc] border-[1px]"
                 {...register('company', { required: true })}
               />
-              <p className="text-error font-medium mb-[20px]">{errors.company?.message}</p>
+              <p className="text-error font-medium mb-[20px]">
+                {errors.company?.message}
+              </p>
             </div>
             <div className="col-span-6 max-md:col-span-12">
               <label className="mb-[10px] block" htmlFor="location">
@@ -139,7 +173,9 @@ function UserInformation() {
                 className=" py-[8px] px-[8px] rounded-lg text-[16px] border-[#ccc] border-[1px]"
                 {...register('location', { required: true })}
               />
-              <p className="text-error font-medium mb-[20px]">{errors.location?.message}</p>
+              <p className="text-error font-medium mb-[20px]">
+                {errors.location?.message}
+              </p>
             </div>
           </div>
           <div className="mt-[10px]">

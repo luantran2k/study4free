@@ -83,13 +83,13 @@ export const mainRoute: RouteObject = {
         },
         {
           path: 'reminder',
-          element: <Reminder />
+          element: <Reminder />,
         },
         {
           path: 'payment',
-          element: <Payment />
-        }
-      ]
+          element: <Payment />,
+        },
+      ],
     },
   ],
 };
