@@ -18,7 +18,7 @@ const ExamCard = (props: IMock) => {
         {props.sections.map((section) => (
           <NavLink
             key={section.id}
-            to={`${section.type}/${section.id}`}
+            to={`${props.id}/${section.id}`}
             className="bg-white rounded-2xl hover:shadow-xl shadow-md w-full hover:-translate-y-2 transition-all p-4 mt-4 flex flex-col justify-between"
           >
             <div className="flex flex-col">
@@ -64,13 +64,11 @@ const ExamCard = (props: IMock) => {
             <div className="flex flex-col">
               <div className="flex flex-row gap-2 flex-wrap mb-8">
                 {section.tag.map((t, i) => (
-                  <NavLink
-                    key={i}
-                    to={t}
+                  <button
                     className="text-blue-500 w-fit rounded-xl p-2 bg-blue-100 text-sm "
                   >
                     #{t}
-                  </NavLink>
+                  </button>
                 ))}
               </div>
             </div>

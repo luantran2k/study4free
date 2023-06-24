@@ -13,6 +13,7 @@ export const Header = () => {
   const [isOpenNavBar, setOpenNavBar] = useState<boolean>(false);
   const { name } = useAppSelector(selectAuth);
 
+  const [intersection, setIntersection] = useState<boolean>(false);
   const toggleNavBar = () => {
     setOpenNavBar(!isOpenNavBar);
   };
@@ -29,7 +30,7 @@ export const Header = () => {
     if (!inView) {
       // Intersection occurred, perform your desired action here
       console.log('Reached target element');
-    }
+    } else setIntersection(false);
   }, [inView]);
 
   return (
@@ -181,7 +182,7 @@ export const Header = () => {
           </div>
         </div>
       </nav>
-      <Tools />
+      <Tools intersection={intersection} />
       <Chat />
     </>
   );
