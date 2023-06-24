@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { helpItem, sectionItem, webItem } from './index';
-import commentIcon from '../../assets/icons/comment.svg';
 import CommentIcon from '../../assets/icons/CommentIcon';
 const SectionPage = () => {
   const location = useParams();
