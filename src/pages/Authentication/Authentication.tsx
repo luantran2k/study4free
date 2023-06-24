@@ -7,8 +7,8 @@ const Authentication = () => {
   const [value, setValue] = React.useState(0);
   const handleChange = (newValue: number) => {
     setValue(newValue);
-    console.log(newValue);
   };
+
   return (
     <div className="w-full flex flex-col lg:flex-row h-screen relative transition-all">
       <div className="flex flex-col items-start gap-5 h-screen">
@@ -33,7 +33,7 @@ const Authentication = () => {
           </div>
           <div className="lg:w-[40vw] w-[80vw] mx-auto lg:mx-0 transition-all">
             {value === 0 && <Login />}
-            {value === 1 && <SignUp />}
+            {value === 1 && <SignUp handleChange={handleChange} />}
           </div>
         </div>
       </div>
