@@ -18,7 +18,6 @@ export const DictionaryComponent = ({ clicked }: Props) => {
     try {
       const response = await axios.get(`${API_DICTIONARY_URL}${keyWord}`);
 
-      console.log(response.data);
       setWord(response.data);
     } catch (error) {
       console.error(error);
@@ -26,22 +25,14 @@ export const DictionaryComponent = ({ clicked }: Props) => {
   };
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      try {
-        const response = await axios.get(`${API_DICTIONARY_URL}${keyWord}`);
-
-        console.log(response.data);
-        setWord(response.data);
-      } catch (error) {
-        console.error(error);
-      }
+      handleRenderWord();
     }
   };
-  console.log(word);
 
   return (
     <div
       className={`fixed min-w-[400px] min-h-[400px] bg-gray-100 z-20 rounded-2xl p-5 top-[50%] -translate-y-[50%]  transition-all ${
-        clicked ? 'right-[-430px]' : 'right-[8rem]'
+        !clicked ? 'right-[-430px]' : 'right-[8rem]'
       }`}
     >
       <div className="relative mb-5">
