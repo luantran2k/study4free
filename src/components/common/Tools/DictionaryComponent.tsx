@@ -51,7 +51,7 @@ export const DictionaryComponent = ({ clicked }: Props) => {
         </div>
       </div>
       {word.length !== 0 ? (
-        <div className="absolute top-[64px] overflow-y-scroll h-[70%]">
+        <div className="absolute top-[80px] overflow-y-scroll h-[70%]">
           <div>
             <div className="font-bold ">Pronunciation:</div>
             {word &&

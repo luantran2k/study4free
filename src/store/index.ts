@@ -12,6 +12,10 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { examReducer } from './slices/examSlice';
 import { examsApi } from './queries/exams';
+import { authApi } from '../services/authApi';
+import { setupListeners } from '@reduxjs/toolkit/query/react';
+import { authReducer, authSlice } from './slices/authSlice';
+import { userApi } from './queries/users';
 
 const persistConfig = {
   key: 'root',
@@ -22,18 +26,21 @@ const persistConfig = {
 const rootReducer = combineReducers({
   exams: examReducer,
   [examsApi.reducerPath]: examsApi.reducer,
+  auth: authReducer,
+  [authApi.reducerPath]: authApi.reducer,
+  [userApi.reducerPath]: userApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(examsApi.middleware),
+    }).concat(authApi.middleware, userApi.middleware, examsApi.middleware),
 });
 
 export const persistor = persistStore(store);
@@ -42,3 +49,4 @@ export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
+setupListeners(store.dispatch);
