@@ -8,22 +8,13 @@ import ReminderIcon from "../../assets/icons/reminderIcon";
 import LogoutIcon from "../../assets/icons/logoutIcon";
 import DeletedUserIcon from "../../assets/icons/deletedUserIcon";
 import UpgradeUserIcon from "../../assets/icons/upgradeUserIcon";
-import axios from "axios";
+import { useGetUserByIdQuery } from "../../store/queries/users";
+
 
 function UserProfilePage() {
+    const { data } = useGetUserByIdQuery('6495dfe83d98bcaa6a70ad9a')
     const navigate = useNavigate()
-    const { state, pathname } = useLocation()
-    const getUserById = async () => {
-      try {
-        const response = await axios.get(
-          'https://study4free-api.onrender.com/users/6495dfe83d98bcaa6a70ad9a'
-        )
-        console.log(response)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    console.log(getUserById())
+    const { pathname } = useLocation()
     useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -37,7 +28,7 @@ function UserProfilePage() {
       <div className="grid grid-rows-1 grid-cols-12">
         <div className="col-span-1 hidden max-lg:block min-h-[93vh] max-md:col-span-2">
           <div className="p-3 mt-2">
-            <img src={Avatar} alt="" />
+            <img src={data?.avatar} alt="" />
           </div>
           <div className="flex flex-col justify-center items-center mt-6">
             <NavLink
@@ -129,9 +120,9 @@ function UserProfilePage() {
         <div className="col-span-3 p-[10px] relative min-h-[93vh] max-lg:hidden">
           <div className="flex items-center flex-col gap-4 p-[10px] mb-[20px]">
             <div className="w-[120px] h-[120px] mb-[10px]">
-              <img className="w-[100%] object-cover" src={Avatar} alt="" />
+              <img className="w-[100%] object-cover" src={data?.avatar} alt="" />
             </div>
-            <h4 className="font-medium text-[26px]">User</h4>
+            <h4 className="font-medium text-[26px]">{data?.username}</h4>
           </div>
           <div>
             <ul>
