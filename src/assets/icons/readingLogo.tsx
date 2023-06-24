@@ -5,7 +5,7 @@ export const ReadingIcon = ({ width, height, fill }: IIcon) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       id="Capa_1"
-      enable-background="new 0 0 504.519 504.519"
+      enableBackground="new 0 0 504.519 504.519"
       viewBox="0 0 504.519 504.519"
       height={height}
       width={width}

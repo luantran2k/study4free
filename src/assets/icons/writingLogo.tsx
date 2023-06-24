@@ -5,7 +5,7 @@ export const WritingIcon = ({ width, height, fill }: IIcon) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       id="Layer_5"
-      enable-background="new 0 0 64 64"
+      enableBackground="new 0 0 64 64"
       height={height}
       viewBox="0 0 64 64"
       width={width}
