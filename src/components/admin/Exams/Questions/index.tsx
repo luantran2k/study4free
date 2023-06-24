@@ -1,51 +1,81 @@
-import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
-import { Skills } from '../../../../interfaces/Exam';
-import { questionSelector } from '../../../../store/selectors/exam';
-import { addQuestion } from '../../../../store/slices/examSlice';
-import { v4 as uuid } from 'uuid';
+import { useEffect, useState } from 'react';
+import AddIcon from '../../../../assets/icons/Add';
+import TrashIcon from '../../../../assets/icons/Trash';
+import {
+  useCreateQuestionMutation,
+  useRemoveQuestionMutation,
+} from '../../../../store/queries/exams';
+import Question from '../Question';
+import { SectionType } from '../Sections';
 
 type Props = {
-  currentSkill: Skills;
-  partIndex: number;
+  partId: string;
+  section: SectionType;
+  questionIds: string[];
 };
 
-function Questions(props: Props) {
-  const { currentSkill, partIndex } = props;
+function Questions({ partId, questionIds, section }: Props) {
   const [questionIndex, setQuestionIndex] = useState(0);
-  const dispatch = useAppDispatch();
-  const questions = useAppSelector(questionSelector(currentSkill, partIndex));
-  const question = questions?.[questionIndex];
+  const [removeQuestion] = useRemoveQuestionMutation();
+  const [createQuestion] = useCreateQuestionMutation();
 
-  const handleAddQuestion = () => {
-    dispatch(
-      addQuestion({
-        currentSkill,
-        partIndex,
-        question: {
-          answer: [{ answer: '', id: uuid() }],
-          id: uuid(),
-          question: '',
-        },
-      })
-    );
-  };
-  if (!questions || questions.length === 0) {
-    return (
-      <div>
-        <p className="text-danger text-2xl">No questions</p>
-      </div>
-    );
-  }
+  useEffect(() => {
+    setQuestionIndex(0);
+  }, [partId]);
+
+  useEffect(() => {
+    if (questionIds.length == 0) {
+      setQuestionIndex(0);
+    } else if (questionIds.length <= questionIndex) {
+      setQuestionIndex((pre) => pre - 1);
+    }
+  }, [questionIds]);
   return (
-    <div>
-      <button
-        onClick={handleAddQuestion}
-        className="btn  bg-blue-500 hover:bg-blue-500 text-white"
-      >
-        Add question
-      </button>
-    </div>
+    <>
+      <div className="flex gap-2 items-center">
+        <p className="text-xl font-medium">Question: </p>
+        {questionIds.map((id, index) => (
+          <button
+            key={id}
+            onClick={() => {
+              setQuestionIndex(index);
+            }}
+            className={`active:translate-y-1 transition-all relative cursor-pointer  bg-base-200 w-8 h-8 rounded-box flex justify-center items-center ${
+              index === questionIndex ? 'bg-blue-500 text-white' : ''
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+
+        <button
+          className={`active:translate-y-1 transition-all relative cursor-pointer text-white bg-red-500 w-8 h-8 rounded-box flex justify-center items-center `}
+          onClick={() =>
+            removeQuestion({ questionId: questionIds[questionIndex], section })
+          }
+        >
+          <TrashIcon />
+        </button>
+
+        <button
+          className={`active:translate-y-1 transition-all cursor-pointer bg-blue-500 text-white w-8 h-8 rounded-box flex justify-center items-center`}
+          onClick={() => {
+            createQuestion({
+              section,
+              partId,
+            });
+          }}
+        >
+          <AddIcon />
+        </button>
+      </div>
+      {questionIds[questionIndex] ||
+      questionIds[questionIndex]?.length === 0 ? (
+        <Question section={section} questionId={questionIds[questionIndex]} />
+      ) : (
+        <p>No question in this part</p>
+      )}
+    </>
   );
 }
 

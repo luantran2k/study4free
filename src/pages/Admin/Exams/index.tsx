@@ -1,24 +1,53 @@
 import { useEffect, useId, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import EditIcon from '../../../assets/icons/Edit';
 import TrashIcon from '../../../assets/icons/Trash';
-import Pagination from '../../../components/common/Pagination';
-import { exams } from '../../../mocks/exams';
-import { useNavigate } from 'react-router-dom';
-import Modal from '../../../components/common/Modal';
 import CreateExamForm from '../../../components/admin/Exams/CreateExamForm';
+import Modal from '../../../components/common/Modal';
+import Pagination from '../../../components/common/Pagination';
+import {
+  useCountExamsQuery,
+  useGetExamsQuery,
+  useRemoveExamMutation,
+} from '../../../store/queries/exams';
 
 function ExamsAdminPage() {
+  const QuantityOption = [10, 15, 20];
   const navigate = useNavigate();
+
   const createExamModalId = useId();
   const [currentPage, setCurrentPage] = useState(0);
-  const [quantity, setQuantity] = useState(2);
-  const totalPage = Math.ceil(exams.length / quantity);
+  const [quantity, setQuantity] = useState(QuantityOption[0]);
+  const {
+    data: exams,
+    isError,
+    isLoading,
+  } = useGetExamsQuery({
+    page: currentPage,
+    quantity,
+  });
+  const {
+    data: count,
+    isLoading: isCountLoading,
+    isError: isCountError,
+  } = useCountExamsQuery({});
   useEffect(() => {
     setCurrentPage(0);
   }, [quantity]);
-  const getExams = () => {
-    return exams.slice(currentPage * quantity, (currentPage + 1) * quantity);
-  };
+  const [removeExam, { isError: isRemoveError }] = useRemoveExamMutation();
+  useEffect(() => {
+    if (exams?.length === 0 && currentPage !== 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  }, [exams, currentPage]);
+
+  if (isLoading && isCountLoading) {
+    return <p>Loading...</p>;
+  }
+  if (isError && isCountError && isRemoveError) {
+    return <p>Error</p>;
+  }
+
   return (
     <>
       <div className="flex justify-between mb-8 mt-4">
@@ -31,45 +60,49 @@ function ExamsAdminPage() {
           }
           modalId={createExamModalId}
         >
-          <CreateExamForm />
+          <CreateExamForm modalId={createExamModalId} />
         </Modal>
       </div>
-      <div className="overflow-x-auto ">
+      <div className="overflow-auto ">
         <table className="table table-zebra table-pin-rows">
           <thead>
             <tr className="bg-blue-200 [&>th]:text-black">
               <th></th>
-              <th>Id</th>
               <th>Title</th>
               <th>Type</th>
               <th>Description</th>
               <th>Duration(minutes)</th>
-              <th>Price($)</th>
+              <th>Is Paid</th>
               <th>Upload Date</th>
               <th></th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {getExams().map((exam, index) => (
+            {exams?.map((exam, index) => (
               <tr key={exam.id}>
                 <td className="font-bold">
                   {quantity * currentPage + index + 1}
                 </td>
-                <td>{exam.id}</td>
                 <td>{exam.title}</td>
                 <td>{exam.type}</td>
                 <td>{exam.description}</td>
                 <td>{exam.duration}</td>
-                <td>{exam.price.toFixed(2)}</td>
+                <td>No</td>
                 <td>
                   {new Date(Number(exam.createdAt)).toLocaleDateString('vi-VN')}
                 </td>
-                <td className="text-blue-500 cursor-pointer hover:[&_svg]:scale-150 active:[&_svg]:scale-125 [&_svg]:transition-all ">
-                  <EditIcon />
+                <td className="text-blue-500 cursor-pointer  active:[&_svg]:translate-y-1 [&_svg]:transition-all ">
+                  <button
+                    onClick={() => navigate(`/admin/exams/edit/${exam.id}`)}
+                  >
+                    <EditIcon />
+                  </button>
                 </td>
-                <td className="text-red-500 cursor-pointer hover:[&_svg]:scale-150 active:[&_svg]:scale-125 [&_svg]:transition-all ">
-                  <TrashIcon />
+                <td className="text-red-500 cursor-pointer  active:[&_svg]:translate-y-1 [&_svg]:transition-all ">
+                  <button onClick={() => removeExam(exam.id)}>
+                    <TrashIcon />
+                  </button>
                 </td>
               </tr>
             ))}
@@ -77,7 +110,7 @@ function ExamsAdminPage() {
         </table>
         <div className="mt-5 mx-auto w-fit">
           <Pagination
-            totalPage={totalPage}
+            totalPage={count?.count ? Math.ceil(count?.count / quantity) : 0}
             currentPage={currentPage}
             quantity={quantity}
             onChangePage={(page) => {
@@ -86,7 +119,7 @@ function ExamsAdminPage() {
             onChangeQuantity={(quantity: number) => {
               setQuantity(quantity);
             }}
-            quantityOptions={[2, 4, 6]}
+            quantityOptions={QuantityOption}
             onNextClick={() => {
               setCurrentPage(currentPage + 1);
             }}

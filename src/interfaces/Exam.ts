@@ -1,6 +1,6 @@
 import IExamSection from './ExamSection';
 
-export const skills = ['listening', 'reading', 'writing', 'speaking'] as const;
+export const skills = ['Listening', 'Reading', 'Writing', 'Speaking'] as const;
 
 export type Skills = (typeof skills)[number];
 
@@ -10,14 +10,10 @@ export default interface IExam {
   description?: string;
   duration: number;
   type?: string;
-  price?: number;
+  isNeedPaid?: boolean;
+  tags?: string[];
   image?: string;
-  sections: {
-    listening?: IExamSection;
-    reading?: IExamSection;
-    writing?: IExamSection;
-    speaking?: IExamSection;
-  };
+  sections: ExamSection;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -27,6 +23,13 @@ export interface CreateExamFormData {
   description: string;
   duration: number;
   type: string;
-  price: number;
+  isNeedPaid: boolean;
   sections: Skills[];
+}
+
+export interface ExamSection {
+  listening?: IExamSection;
+  reading?: IExamSection;
+  writing?: IExamSection;
+  speaking?: IExamSection;
 }

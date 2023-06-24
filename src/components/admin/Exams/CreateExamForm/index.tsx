@@ -1,26 +1,40 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../../hooks/redux';
 import { CreateExamFormData } from '../../../../interfaces/Exam';
-import { createExamschema } from '../../../../schemas/createExam';
-import { setExamInfo } from '../../../../store/slices/examSlice';
+import { createExamSchema } from '../../../../schemas/createExam';
+import { useCreateExamMutation } from '../../../../store/queries/exams';
+import { NOTIFICATION_TYPE, notify } from '../../../../utils/notify';
+import LoadingButton from '../../../common/LoadingButton';
+import { hideModal } from '../../../../utils/modal';
 
-function CreateExamForm() {
+function CreateExamForm({ modalId }: { modalId: string }) {
   const navigate = useNavigate();
-  const dispath = useAppDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<CreateExamFormData>({
-    resolver: yupResolver(createExamschema),
+    resolver: yupResolver(createExamSchema),
+    defaultValues: {
+      isNeedPaid: false,
+    },
   });
 
+  const [createExam, { isLoading, isError }] = useCreateExamMutation();
+
   const onSubmit = handleSubmit((data) => {
-    dispath(setExamInfo(data));
-    navigate('/admin/exams/create');
+    createExam(data)
+      .unwrap()
+      .then((newExam) => navigate(`/admin/exams/edit/${newExam.id}`))
+      .catch((e) => {
+        notify(NOTIFICATION_TYPE.ERROR, e.data.message, {
+          position: 'top-right',
+        });
+        hideModal(modalId);
+      });
   });
+
   return (
     <>
       <form
@@ -64,21 +78,31 @@ function CreateExamForm() {
             {...register('sections')}
             multiple
           >
-            <option value="listening">Listening</option>
-            <option value="reading">Reading</option>
-            <option value="writing">Writing</option>
-            <option value="speaking">Speaking</option>
+            <option value="Listening">Listening</option>
+            <option value="Reading">Reading</option>
+            <option value="Writing">Writing</option>
+            <option value="Speaking">Speaking</option>
           </select>
           <p className="text-error">{errors.sections?.message}</p>
         </div>
         <div>
-          <label htmlFor="">Price</label>
-          <input type="number" {...register('price')} />
-          <p className="text-error">{errors.price?.message}</p>
+          <label htmlFor="">Paid</label>
+          <select
+            className="select select-bordered"
+            {...register('isNeedPaid')}
+          >
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
+          <p className="text-error">{errors.isNeedPaid?.message}</p>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <LoadingButton
+          type="submit"
+          className="btn btn-primary w-full"
+          isLoading={isLoading}
+        >
           Create
-        </button>
+        </LoadingButton>
       </form>
     </>
   );
