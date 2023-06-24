@@ -7,7 +7,7 @@ export const userApi = createApi({
     baseUrl: 'https://study4free-api.onrender.com/',
     prepareHeaders: (headers, { getState }) => {
       const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDk2NDdhOTdkZWFmODY4MmRlYTdjZDIiLCJ1c2VybmFtZSI6InVzZXIxIiwiaWF0IjoxNjg3NjE5MTA3LCJleHAiOjE2ODc2MjI3MDd9.nZazJM5vtopDJ5Xb3rqPPdO_4HdVfZCO5TjALkLrViU';
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDk1ZDM1N2U2NjI2MWMzZDZjZmE2OGUiLCJ1c2VybmFtZSI6ImFkbWluMSIsImlhdCI6MTY4NzYyNDQ1NCwiZXhwIjoxNjg3NjI4MDU0fQ.pBOg9KZKmpFpGzxOs6oJselTKMDTsqHyBMAY9mCR8VI';
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
       }
