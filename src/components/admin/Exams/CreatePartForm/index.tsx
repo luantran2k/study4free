@@ -1,19 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useAppDispatch } from '../../../../hooks/redux';
-import { Skills } from '../../../../interfaces/Exam';
 import { CreatePartFormData, createPartSchema } from '../../../../schemas/part';
-import { addPart } from '../../../../store/slices/examSlice';
-import { hideModal } from '../../../../helper/modal';
+import { useCreatePartMutation } from '../../../../store/queries/exams';
+import { hideModal } from '../../../../utils/modal';
+import { SectionType } from '../Sections';
 
 type Props = {
-  currentSkill: Skills;
+  section: SectionType;
   modalId: string;
+  sectionId: string;
 };
 
 function CreatePartForm(props: Props) {
-  const { currentSkill, modalId } = props;
-  const dispath = useAppDispatch();
+  const { section, modalId, sectionId } = props;
   const {
     register,
     handleSubmit,
@@ -22,8 +21,10 @@ function CreatePartForm(props: Props) {
   } = useForm<CreatePartFormData>({
     resolver: yupResolver(createPartSchema),
   });
+  const [createPart, { isLoading }] = useCreatePartMutation();
+
   const onSubmit = handleSubmit((data) => {
-    dispath(addPart({ data, currentSkill }));
+    createPart({ section, sectionId, data });
     hideModal(modalId);
     reset();
   });
@@ -72,15 +73,27 @@ function CreatePartForm(props: Props) {
         </div>
 
         <div>
-          <label>Total Point</label>
+          <label htmlFor="file-input">Image</label>
           <input
-            type="number"
-            className="input input-bordered"
-            {...register('totalPoints')}
+            type="file"
+            className="file-input file-input-bordered w-full"
           />
-          <p className="text-error">{errors.totalPoints?.message}</p>
         </div>
-        <button className="btn btn-primary">Create</button>
+        <div>
+          <label htmlFor="file-input">Audio</label>
+          <input
+            type="file"
+            className="file-input file-input-bordered w-full"
+          />
+        </div>
+
+        <button className="btn btn-primary " disabled={isLoading}>
+          {isLoading ? (
+            <span className="loading loading-spinner loading-md"></span>
+          ) : (
+            'Create'
+          )}
+        </button>
       </form>
     </>
   );

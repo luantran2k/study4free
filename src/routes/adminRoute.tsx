@@ -17,7 +17,28 @@ export const adminRoutes: RouteObject = {
       element: <ExamsAdminPage />,
       children: [{ path: ':id', element: <h1>Exam id</h1> }],
     },
-    { path: 'exams/create', element: <EditExam /> },
+    {
+      path: 'exams/edit/:id',
+      element: <EditExam />,
+      children: [
+        {
+          path: ':section',
+          element: <h1>Section</h1>,
+          children: [
+            {
+              path: ':partId',
+              element: <h1>Part</h1>,
+              children: [
+                {
+                  path: ':questionId',
+                  element: <h1>Part</h1>,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
 
     { path: 'vocabularies', element: <h1>Vocabularies</h1> },
   ],

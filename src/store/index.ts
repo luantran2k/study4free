@@ -11,6 +11,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { examReducer } from './slices/examSlice';
+import { examsApi } from './queries/exams';
 import { authApi } from '../services/authApi';
 import { setupListeners } from '@reduxjs/toolkit/query/react';
 import { authReducer, authSlice } from './slices/authSlice';
@@ -24,9 +25,10 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   exams: examReducer,
+  [examsApi.reducerPath]: examsApi.reducer,
   auth: authReducer,
   [authApi.reducerPath]: authApi.reducer,
-  [userApi.reducerPath]: userApi.reducer
+  [userApi.reducerPath]: userApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -38,7 +40,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware, userApi.middleware),
+    }).concat(authApi.middleware, userApi.middleware, examsApi.middleware),
 });
 
 export const persistor = persistStore(store);

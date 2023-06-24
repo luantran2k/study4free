@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { CreateExamFormData, Skills, skills } from '../interfaces/Exam';
 
-export const createExamschema: Yup.ObjectSchema<CreateExamFormData> =
+export const createExamSchema: Yup.ObjectSchema<CreateExamFormData> =
   Yup.object({
     title: Yup.string()
       .typeError('Please enter a title. The field cannot be left blank.')
@@ -18,10 +18,7 @@ export const createExamschema: Yup.ObjectSchema<CreateExamFormData> =
     type: Yup.string()
       .typeError('Please select a  type. The field cannot be left blank.')
       .required('Type is required'),
-    price: Yup.number()
-      .min(0, "Price can't be negative")
-      .typeError('Price must be a number.')
-      .required(),
+    isNeedPaid: Yup.boolean().required(),
     sections: Yup.array()
       .of(Yup.mixed<Skills>().oneOf(skills).required())
       .required()

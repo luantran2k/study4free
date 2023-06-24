@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import IPart from '../interfaces/Part';
 export type CreatePartFormData = Pick<
   IPart,
-  'title' | 'description' | 'type' | 'totalPoints'
+  'title' | 'description' | 'type' | 'audio' | 'image'
 >;
 export const createPartSchema: Yup.ObjectSchema<CreatePartFormData> =
   Yup.object({
@@ -11,8 +11,6 @@ export const createPartSchema: Yup.ObjectSchema<CreatePartFormData> =
       .required('Title points is required'),
     description: Yup.string().required('Description is required'),
     type: Yup.string().required(),
-    totalPoints: Yup.number()
-      .typeError('Please enter a total points. The field cannot be left blank.')
-      .positive('Must be a positive number.')
-      .required('Total points is required'),
+    audio: Yup.string().optional(),
+    image: Yup.string().optional(),
   });
