@@ -8,10 +8,22 @@ import ReminderIcon from "../../assets/icons/reminderIcon";
 import LogoutIcon from "../../assets/icons/logoutIcon";
 import DeletedUserIcon from "../../assets/icons/deletedUserIcon";
 import UpgradeUserIcon from "../../assets/icons/upgradeUserIcon";
+import axios from "axios";
 
 function UserProfilePage() {
     const navigate = useNavigate()
     const { state, pathname } = useLocation()
+    const getUserById = async () => {
+      try {
+        const response = await axios.get(
+          'https://study4free-api.onrender.com/users/6495dfe83d98bcaa6a70ad9a'
+        )
+        console.log(response)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    console.log(getUserById())
     useEffect(() => {
     window.scrollTo({
       top: 0,
