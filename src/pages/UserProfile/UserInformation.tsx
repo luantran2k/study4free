@@ -27,7 +27,6 @@ const schema = yup
 
 function UserInformation() {
     const { data } = useGetUserByIdQuery('6495dfe83d98bcaa6a70ad9a')
-    console.log(data)
     const [ updateInfor ] = useUpdateInforMutation()
     const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>({
       defaultValues: {

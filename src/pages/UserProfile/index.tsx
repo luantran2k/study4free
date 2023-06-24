@@ -15,6 +15,7 @@ function UserProfilePage() {
     const { data } = useGetUserByIdQuery('6495dfe83d98bcaa6a70ad9a')
     const navigate = useNavigate()
     const { pathname } = useLocation()
+    console.log(data)
     useEffect(() => {
     window.scrollTo({
       top: 0,
