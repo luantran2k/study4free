@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import Thumb from '../../assets/images/thumbEnglish.jpg';
 import ExamCard from '../../components/common/ExamCard/ExamCard';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-const mockDataExam: IMock[] = [
+export const mockDataExam: IMock[] = [
   {
-    id: 'C18-1',
+    id: '1000',
     title: 'IELTS C18 Full Test 1',
     sections: [
       {
@@ -51,7 +52,7 @@ const mockDataExam: IMock[] = [
     ],
   },
   {
-    id: 'C18-2',
+    id: '1001',
     title: 'IELTS C18 Full Test 2',
     sections: [
       {
@@ -97,7 +98,7 @@ const mockDataExam: IMock[] = [
     ],
   },
   {
-    id: 'C18-3',
+    id: '1003',
     title: 'IELTS C18 Full Test 3',
     sections: [
       {
@@ -143,7 +144,7 @@ const mockDataExam: IMock[] = [
     ],
   },
   {
-    id: 'C18-4',
+    id: '1004',
     title: 'IELTS C18 Full Test 4',
     sections: [
       {
@@ -189,24 +190,49 @@ const mockDataExam: IMock[] = [
     ],
   },
 ];
+
+export interface ISections {
+  id: string;
+  name: string;
+  parts: number;
+  type: string;
+  questions: number;
+  participates: number;
+  comment: number;
+  tag: string[];
+}
 export interface IMock {
   id: string;
   title: string;
-  sections: {
-    id: string;
-    name: string;
-    parts: number;
-    type: string;
-    questions: number;
-    participates: number;
-    comment: number;
-    tag: string[];
-  }[];
+  sections: ISections[];
+}
+
+
+interface ISearch {
+  keyword: string
 }
 
 function ExamsPage() {
   const location = useLocation();
-  console.log(location.pathname);
+
+  const [filteredData, setFilteredData] = useState<IMock[]>(mockDataExam);
+  const [search, setSearch] = useState<string>('');
+  const { register, handleSubmit } = useForm<ISearch>();
+
+  const handleSearch: SubmitHandler<ISearch> = (data) => setSearch(data.keyword.toLowerCase())
+
+  useEffect(() => {
+    const filteredItem = mockDataExam.filter((data) => data.title.toLowerCase().includes(search))
+    setFilteredData(filteredItem)
+  }, [search])
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [location.pathname]);
+
   return (
     <React.Fragment>
       {location.pathname === '/exams' ? (
@@ -215,29 +241,35 @@ function ExamsPage() {
             <h2 className="uppercase">Examination</h2>
           </div>
           <div className="flex flex-col h-full relative p-[3rem]">
+            <div className="container mx-auto mb-10">
+              <img src={Thumb} alt="" className="w-[100%]" />
+            </div>
             <div className="bg-transparent container mx-auto">
               <h3 className="text-4xl text-black font-bold my-8">
                 Exam Libraries
               </h3>
-              <div className="flex flex-row items-center gap-3 mb-8">
+              <form onSubmit={handleSubmit(handleSearch)} className="flex flex-row items-center gap-3 mb-8">
                 <input
                   type="text"
                   placeholder="Input keyword you want to search"
                   className="input input-bordered w-full max-w-xs"
+                  {...register("keyword")}
+
                 />
-                <button className="btn bg-blue-400 text-white hover:bg-blue-500">
+                <button type='submit' className="btn bg-blue-400 text-white hover:bg-blue-500">
                   Search
                 </button>
-              </div>
+              </form>
             </div>
             <div className="flex-grow-[1] container mx-auto">
-              {mockDataExam.map((mock) => (
-                <ExamCard {...mock} />
-              ))}
+              {filteredData.length ? (
+                <>
+                  {filteredData.map((mock) => (
+                    <ExamCard {...mock} />
+                  ))}</>
+              ) : <h3 className='text-3xl text-center mx-auto mb-10 font-serif font-semibold text-sky-600'>No Data Found!!!</h3>}
             </div>
-            <div className="container mx-auto mb-10">
-              <img src={Thumb} alt="" className="w-[100%]" />
-            </div>
+
           </div>
         </>
       ) : (

@@ -7,7 +7,6 @@ const Authentication = () => {
   const [value, setValue] = React.useState(0);
   const handleChange = (newValue: number) => {
     setValue(newValue);
-    console.log(newValue);
   };
   return (
     <div className="w-full flex flex-col lg:flex-row h-screen relative transition-all">

@@ -154,16 +154,16 @@ export const helpItem = [
 
 const GrammarPage = () => {
   const param = useParams();
-  console.log(param)
+
   return (
     <React.Fragment>
       {param.section ? (
         <Outlet />
       ) : (
         <div className="flex flex-col h-full relative">
-          <div className="w-full lg:mb-32 mb-5">
-            <img src={grammarBg} className="w-full h-auto" />
-          </div>
+          <figure className="w-full lg:mb-32 mb-5">
+            <img src={grammarBg} className="w-full h-auto" alt="Grammar Background" />
+          </figure>
           <div className="bg-white lg:w-[600px] lg:py-8 lg:px-10 left-[15vw] lg:absolute 2xl:top-[400px] xl:top-[300px] lg:top-[200px] rounded-tr-3xl rounded-bl-3xl mb-5 lg:mb-0 px-2 sm:px-0 container mx-auto">
             <h5 className="text- font-bold text-4xl mb-5">Grammar</h5>
             <h6 className="text-3xl mb-3">
@@ -172,7 +172,7 @@ const GrammarPage = () => {
             </h6>
           </div>
           <div className="flex flex-row container mx-auto mb-10">
-            <div className="lg:w-2/3 w-full px-2 sm:px-0">
+            <article className="lg:w-2/3 w-full px-2 sm:px-0">
               <p className="mb-4 text-2xl ">
                 Practise your English grammar with clear grammar explanations
                 and practice exercises to test your understanding. The learning
@@ -203,7 +203,7 @@ const GrammarPage = () => {
 
               <div className="mb-20">
                 {sectionItem.map((section) => (
-                  <div
+                  <section
                     className=" flex flex-row relative pb-10 sm:mb-10 mb-24"
                     key={section.id}
                   >
@@ -222,7 +222,7 @@ const GrammarPage = () => {
                       </NavLink>
                       <p className="mb-4 xl:text-lg">{section.des}</p>
                     </div>
-                  </div>
+                  </section>
                 ))}
               </div>
               <p className="mb-4 text-4xl font-bold text-[#23085a]">
@@ -239,13 +239,13 @@ const GrammarPage = () => {
                 one-to-one lessons or practise grammar by yourself at your own
                 pace with a self-study course.
               </p>
-            </div>
+            </article>
 
-            <div className="w-1/3 hidden lg:block relative">
+            <aside className="w-1/3 hidden lg:block relative">
               <div className="sticky flex flex-col top-0 gap-3">
                 <div className="border-[10px] border-gray-200 p-6 rounded-tr-3xl rounded-bl-3xl flex flex-col items-start gap-3 w-3/4 mx-auto">
                   {sectionItem.map((section) => (
-                    <div
+                    <section
                       key={`${section.title}-${section.id}`}
                       className="flex flex-row justify-center items-center gap-x-2"
                     >
@@ -283,7 +283,7 @@ const GrammarPage = () => {
                       >
                         {section.title}
                       </NavLink>
-                    </div>
+                    </section>
                   ))}
                 </div>
                 <div className="border-[10px] border-gray-200 p-6 rounded-tl-3xl rounded-br-3xl flex flex-col items-start gap-3 w-3/4 mx-auto">
@@ -291,7 +291,7 @@ const GrammarPage = () => {
                     Our websites
                   </p>
                   {webItem.map((section) => (
-                    <div
+                    <section
                       key={`${section.title}-${section.id}`}
                       className="flex flex-row justify-center items-center gap-x-2"
                     >
@@ -329,13 +329,13 @@ const GrammarPage = () => {
                       >
                         {section.title}
                       </NavLink>
-                    </div>
+                    </section>
                   ))}
                 </div>
                 <div className="border-[10px] border-gray-200 p-6 rounded-tr-3xl rounded-bl-3xl flex flex-col items-start gap-3 w-3/4 mx-auto">
                   <p className="text-[#23085a]  text-xl font-bold">Help</p>
                   {helpItem.map((section) => (
-                    <div
+                    <section
                       key={`${section.title}-${section.id}`}
                       className="flex flex-row justify-center items-center gap-x-2"
                     >
@@ -374,11 +374,11 @@ const GrammarPage = () => {
                       >
                         {section.title}
                       </NavLink>
-                    </div>
+                    </section>
                   ))}
                 </div>
               </div>
-            </div>
+            </aside>
           </div>
         </div>
       )}

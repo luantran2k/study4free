@@ -9,6 +9,7 @@ import Chat from '../Chat';
 
 export const Header = () => {
   const [isOpenNavBar, setOpenNavBar] = useState<boolean>(false);
+  const [intersection, setIntersection] = useState<boolean>(false)
   const toggleNavBar = () => {
     setOpenNavBar(!isOpenNavBar);
   };
@@ -24,8 +25,9 @@ export const Header = () => {
   useEffect(() => {
     if (!inView) {
       // Intersection occurred, perform your desired action here
-      console.log('Reached target element');
+      setIntersection(true)
     }
+    else setIntersection(false)
   }, [inView])
 
   return (
@@ -147,7 +149,7 @@ export const Header = () => {
           </div>
         </div>
       </nav>
-      <Tools />
+      <Tools intersection={intersection} />
       <Chat />
     </>
   );
