@@ -1,5 +1,4 @@
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import Avatar from '../../assets/images/avataruser.png';
 import { useEffect } from 'react';
 import AnalyzeIcon from '../../assets/icons/analyzeIcon';
 import UserIcon from '../../assets/icons/User';
@@ -12,6 +11,8 @@ import { useAppDispatch } from '../../hooks/redux';
 import { logOut } from '../../store/slices/authSlice';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 import { useGetUserByIdQuery } from '../../store/queries/users';
+import VipImage from '../../assets/images/vipImg.png';
+import avatarUser from '../../assets/images/avatars.png';
 
 function UserProfilePage() {
   const navigate = useNavigate();
@@ -21,6 +22,8 @@ function UserProfilePage() {
     localStorage.getItem('user') as string
   ).userInfo;
   const { data } = useGetUserByIdQuery(dataStorage?.id);
+  console.log(dataStorage);
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -136,15 +139,22 @@ function UserProfilePage() {
       </div>
       <div className="col-span-3 p-[10px] relative min-h-[93vh] max-lg:hidden">
         <div className="flex items-center flex-col gap-4 p-[10px] mb-[20px]">
-          <div className="w-[120px] h-[120px] mb-[10px]">
+          <div className="min-w-[120px] min-h-[120px] mb-[10px]">
             <img
-              className="w-[100%] h-[100%] object-cover rounded-full"
-              src={data?.avatar || dataStorage.avatar}
+              className="w-[100%] aspect-square object-cover rounded-full relative shadow-2xl"
+              src={data?.user ? data?.avatar : avatarUser}
               alt=""
             />
+            {dataStorage.payment && (
+              <img
+                className="absolute 	w-[7rem]  top-0 right-[3rem]"
+                src={VipImage}
+                alt=""
+              />
+            )}
           </div>
           <h4 className="font-medium text-[26px]">
-            {data?.username || dataStorage.username}
+            {data?.username || dataStorage?.username}
           </h4>
         </div>
         <div>
@@ -225,7 +235,7 @@ function UserProfilePage() {
         </div>
         <div
           onClick={onLogOut}
-          className=" absolute bottom-[4rem] bg-[#dc3545] text-[#fff] px-[1rem] py-[0.5rem] rounded-full shadow-2xl right-[50%] translate-x-[50%]"
+          className="   bg-[#dc3545] text-[#fff] px-[1rem] py-[0.5rem] rounded-full shadow-2xl text-center"
         >
           <span className=" text-[20px] cursor-pointer  ">Log out</span>
         </div>

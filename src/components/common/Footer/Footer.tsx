@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <div className="bg-[#273044] py-[2rem]">
+    <div className="bg-[#273044] p-[2rem]">
       <div className="container  hx-auto mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1rem] text-[#fff]">
         <div className="">
           <div className="text-[1.25rem] font-bold uppercase">About</div>

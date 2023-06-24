@@ -35,12 +35,14 @@ function UserInformation() {
   const dataStorage = JSON.parse(
     localStorage.getItem('user') as string
   ).userInfo;
-  const { data, isSuccess } = useGetUserByIdQuery(dataStorage.id);
-  const [imageChange, setImageChange] = useState<string>(data.avatar);
+  const { data, isSuccess } = useGetUserByIdQuery(dataStorage?.id);
+  const [imageChange, setImageChange] = useState<string>(data?.avatar);
   const [updateInfor] = useUpdateInforMutation();
 
-  const handleChangeImage = (e: any) => {
-    setImageChange(URL.createObjectURL(e.target.files[0]));
+  const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement> | null) => {
+    if (e?.target.files && e.target.files.length > 0) {
+      setImageChange(URL.createObjectURL(e.target.files[0]));
+    }
   };
 
   const {
