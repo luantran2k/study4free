@@ -5,7 +5,7 @@ export const SpeakingIcon = ({ width, height, fill }: IIcon) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       id="Capa_1"
-      enable-background="new 0 0 512.059 512.059"
+      enableBackground="new 0 0 512.059 512.059"
       viewBox="0 0 512.059 512.059"
       height={height}
       width={width}
