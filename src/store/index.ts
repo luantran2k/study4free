@@ -14,6 +14,7 @@ import { examReducer } from './slices/examSlice';
 import { authApi } from '../services/authApi';
 import { setupListeners } from '@reduxjs/toolkit/query/react';
 import { authReducer, authSlice } from './slices/authSlice';
+import { userApi } from './queries/users';
 
 const persistConfig = {
   key: 'root',
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   exams: examReducer,
   auth: authReducer,
   [authApi.reducerPath]: authApi.reducer,
+  [userApi.reducerPath]: userApi.reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -36,7 +38,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware),
+    }).concat(authApi.middleware, userApi.middleware),
 });
 
 export const persistor = persistStore(store);

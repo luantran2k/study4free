@@ -26,6 +26,7 @@ export const authSlice = createSlice({
         JSON.stringify({
           name: action.payload.name,
           token: action.payload.token,
+          userInfo: action.payload.userInfo
         })
       );
       state.name = action.payload.name;

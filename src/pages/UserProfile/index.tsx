@@ -11,12 +11,14 @@ import UpgradeUserIcon from '../../assets/icons/upgradeUserIcon';
 import { useAppDispatch } from '../../hooks/redux';
 import { logOut } from '../../store/slices/authSlice';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
+import { useGetUserByIdQuery } from '../../store/queries/users';
 
 function UserProfilePage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { state, pathname } = useLocation();
-
+  const { pathname } = useLocation();
+  const dataStorage = JSON.parse(localStorage.getItem('user') as string).userInfo
+  const { data } = useGetUserByIdQuery(dataStorage.id)
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -36,7 +38,7 @@ function UserProfilePage() {
     <div className="grid grid-rows-1 grid-cols-12">
       <div className="col-span-1 hidden max-lg:block min-h-[93vh] max-md:col-span-2">
         <div className="p-3 mt-2">
-          <img src={Avatar} alt="" />
+          <img src={data?.avatar || dataStorage.avatar} alt="" />
         </div>
         <div className="flex flex-col justify-center items-center mt-6">
           <NavLink
@@ -129,9 +131,9 @@ function UserProfilePage() {
       <div className="col-span-3 p-[10px] relative min-h-[93vh] max-lg:hidden">
         <div className="flex items-center flex-col gap-4 p-[10px] mb-[20px]">
           <div className="w-[120px] h-[120px] mb-[10px]">
-            <img className="w-[100%] object-cover" src={Avatar} alt="" />
+            <img className="w-[100%] h-[100%] object-cover" src={data?.avatar || dataStorage.avatar} alt="" />
           </div>
-          <h4 className="font-medium text-[26px]">User</h4>
+          <h4 className="font-medium text-[26px]">{data?.username || dataStorage.username}</h4>
         </div>
         <div>
           <ul>
