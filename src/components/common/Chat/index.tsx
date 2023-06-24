@@ -13,22 +13,22 @@ function Chat() {
 
   const [messageValue, setMessageValue] = useState<string>('');
 
-  const socket = io('http://localhost:3000');
+  // const socket = io('http://localhost:3000');
 
-  const onSendMessage = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      try {
-        console.log(refMessage.current.value);
-        await socket.emit('send_msg', {
-          message: refMessage.current.value,
+  // const onSendMessage = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === 'Enter') {
+  //     try {
+  //       console.log(refMessage.current.value);
+  //       await socket.emit('send_msg', {
+  //         message: refMessage.current.value,
 
-          to: '6376f1cced1e5d49d84de006',
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
+  //         to: '6376f1cced1e5d49d84de006',
+  //       });
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  // };
 
   const [hiddenMessage, setHiddenMessage] = useState<boolean>(false);
   const [hiddenContactMethods, setHiddenContactMethods] =
@@ -153,7 +153,7 @@ function Chat() {
                 onChange={(e) => {
                   setMessageValue(e.target.value);
                 }}
-                onKeyDown={onSendMessage}
+                // onKeyDown={onSendMessage}
               />
             </div>
           </div>
