@@ -101,7 +101,6 @@ function UserProfilePage() {
           </NavLink>
           <NavLink
             to="*"
-            onClick={onLogOut}
             className="text-[24px] w-[100%] flex justify-center py-5"
             style={({ isActive }) => {
               return {
@@ -113,7 +112,8 @@ function UserProfilePage() {
             <DeletedUserIcon />
           </NavLink>
           <NavLink
-            to="/login"
+            to="/"
+            onClick={onLogOut}
             className="text-[24px] w-[100%] flex justify-center py-5"
             style={({ isActive }) => {
               return {
