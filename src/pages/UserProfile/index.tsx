@@ -8,15 +8,18 @@ import ReminderIcon from '../../assets/icons/reminderIcon';
 import LogoutIcon from '../../assets/icons/logoutIcon';
 import DeletedUserIcon from '../../assets/icons/deletedUserIcon';
 import UpgradeUserIcon from '../../assets/icons/upgradeUserIcon';
-import { useAppDispatch } from '../../hooks/redux';
-import { logOut } from '../../store/slices/authSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { logOut, userInfo } from '../../store/slices/authSlice';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
+import { useSelector } from 'react-redux';
 
 function UserProfilePage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { state, pathname } = useLocation();
-
+  const userInfor = useSelector(userInfo)
+  
+  console.log(userInfor)
   useEffect(() => {
     window.scrollTo({
       top: 0,
