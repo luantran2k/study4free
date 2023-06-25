@@ -10,7 +10,7 @@ import BitpayIcon from '../../assets/icons/bitpayIcon';
 import CathocIcon from '../../assets/icons/cadhocIcon';
 import { useUpdateInforMutation } from '../../store/queries/users';
 
-export const Payment = () => {
+const Payment = () => {
   const [money, setMoney] = useState(10);
   const currency = 'USD';
   const [updateInfor] = useUpdateInforMutation();
@@ -84,3 +84,6 @@ export const Payment = () => {
     </div>
   );
 };
+
+
+export default Payment

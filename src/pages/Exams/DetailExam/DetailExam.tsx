@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { NavLink, Navigate, useNavigate, useParams } from 'react-router-dom'
-import { IMock, mockDataExam, ISections } from '..';
+import { NavLink, useParams } from 'react-router-dom'
+import { mockDataExam, ISections } from '..';
 import ClockIcon from '../../../assets/icons/Clock';
 import WriteIcon from '../../../assets/icons/Write';
+
 import LightOn from '../../../assets/icons/LightOn';
-import { Writing } from '../Writing';
+
+
 const DetailExam = () => {
     const params = useParams();
     const [selectedExam, setSelectedExam] = useState<ISections[]>([])
     const [value, setValue] = React.useState(0);
     const ref = useRef<HTMLDivElement | null>(null);
-    const navigate = useNavigate();
     const { exam, part } = params;
 
     const handleChange = (newValue: number) => {

@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import AdminSideBar from '../../../components/admin/Sidebar';
-import AdminTopBar from '../../../components/admin/TopBar';
+const AdminSideBar = lazy(() => import('../../../components/admin/Sidebar'));
+const AdminTopBar = lazy(() => import('../../../components/admin/TopBar'));
+import { lazy } from 'react';
 
 function AdminLayout() {
   return (

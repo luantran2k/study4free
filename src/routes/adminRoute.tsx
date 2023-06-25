@@ -1,7 +1,6 @@
 import { RouteObject } from 'react-router-dom';
-import ExamsAdminPage from '../pages/Admin/Exams';
-import EditExam from '../pages/Admin/Exams/EditExam';
-import AdminLayout from '../pages/layouts/Admin';
+import { AdminLayout, EditExam, ExamsAdminPage } from './imports';
+
 
 export const adminRoutes: RouteObject = {
   path: '/admin',

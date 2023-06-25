@@ -1,6 +1,6 @@
-import React from 'react';
-import Login from '../../components/common/Login/Login';
-import SignUp from '../../components/common/SignUp/SignUp';
+import React, { lazy } from 'react';
+const Login = lazy(() => import('../../components/common/Login/Login'));
+const SignUp = lazy(() => import('../../components/common/SignUp/SignUp'));
 import loginBg from '../../assets/images/bg-login.jpg';
 
 const Authentication = () => {
@@ -15,17 +15,15 @@ const Authentication = () => {
         <div className=" m-auto md:mx-8 md:w-auto">
           <div className="tabs mx-8 mt-8">
             <a
-              className={`tab tab-lifted tab-lg  ${
-                value === 0 && 'tab-active text-2xl font-bold'
-              } text-lg text-blue-400 `}
+              className={`tab tab-lifted tab-lg  ${value === 0 && 'tab-active text-2xl font-bold'
+                } text-lg text-blue-400 `}
               onClick={() => handleChange(0)}
             >
               Login
             </a>
             <a
-              className={`tab tab-lifted ${
-                value === 1 && 'tab-active tab-lg text-2xl font-bold'
-              } text-lg text-red-400`}
+              className={`tab tab-lifted ${value === 1 && 'tab-active tab-lg text-2xl font-bold'
+                } text-lg text-red-400`}
               onClick={() => handleChange(1)}
             >
               Sign up

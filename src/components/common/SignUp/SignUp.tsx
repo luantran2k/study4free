@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 import { NOTIFICATION_TYPE, notify } from '../../../utils/notify';
 import { setUser } from '../../../store/slices/authSlice';
 import { useAppDispatch } from '../../../hooks/redux';
-import { useNavigate } from 'react-router-dom';
 import { SignUpInputs } from '../../../interfaces/Auth';
 
 type SignUpProps = {

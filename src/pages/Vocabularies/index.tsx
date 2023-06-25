@@ -1,8 +1,9 @@
 import { Outlet, useLocation, Link, useParams } from 'react-router-dom';
 import Thumb from '../../assets/images/thumbEnglish.jpg';
-import Pagination from '../../components/common/Pagination';
 import Logo from '../../assets/images/logo.png';
-import React, { useEffect } from 'react';
+import React, { lazy, useEffect } from 'react';
+
+const Pagination = lazy(() => import('../../components/common/Pagination'));
 
 const vocabList: string[] = [
   'Family',

@@ -1,13 +1,13 @@
 import SearchIcon from '../../../assets/icons/SearchIcon';
-import { useState } from 'react';
+import { lazy, useState } from 'react';
 import axios from 'axios';
 import { API_DICTIONARY_URL } from '../../../api';
-import { LoadingAnimate } from '../LoadingAnimate';
+const LoadingAnimate  = lazy(() => import('../LoadingAnimate'));
 interface Props {
   clicked: boolean;
 }
 
-export const DictionaryComponent = ({ clicked }: Props) => {
+const DictionaryComponent = ({ clicked }: Props) => {
   const [keyWord, setKeyWord] = useState('false');
   const [word, setWord] = useState<any>([]);
 
@@ -97,3 +97,5 @@ export const DictionaryComponent = ({ clicked }: Props) => {
     </div>
   );
 };
+
+export default DictionaryComponent

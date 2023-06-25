@@ -1,7 +1,8 @@
 import Dictionary from '../../../assets/icons/Dictionary';
 import ArrowDown from '../../../assets/icons/ArrowDown';
-import {  useState } from 'react';
-import { DictionaryComponent } from './DictionaryComponent';
+import { lazy, useState } from 'react';
+
+const DictionaryComponent = lazy(() => import('./DictionaryComponent'));
 
 interface ITools {
   intersection: boolean
@@ -9,7 +10,7 @@ interface ITools {
 
 const Tools = (props: ITools) => {
   const [clicked, setClicked] = useState(false);
-
+  console.log(props.intersection)
   return (
     <div className="fixed flex flex-col justify-center top-[40vh] bottom-0 right-3 h-fit bg-transparent z-10">
       <div className="bg-gray-300 rounded-xl w-[88px] p-3 relative">

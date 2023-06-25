@@ -1,8 +1,8 @@
 import { useRoutes } from 'react-router-dom';
-import { routes } from './routes';
 import { useAppDispatch } from './hooks/redux';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { setUser } from './store/slices/authSlice';
+import { routes } from './routes';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -11,7 +11,7 @@ function App() {
     dispatch(setUser(user));
   }, []);
   const routesElement = useRoutes(routes);
-  return <>{routesElement}</>;
+  return <Suspense fallback={<h1>Loading...</h1>}>{routesElement}</Suspense>
 }
 
 export default App;

@@ -1,10 +1,12 @@
-import { useCallback, useEffect, useId, useState } from 'react';
+import { lazy, useCallback, useEffect, useId, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Sections, {
-  SectionType,
+import {
+  SectionType
 } from '../../../../components/admin/Exams/Sections';
 import { ExamSection, Skills, skills } from '../../../../interfaces/Exam';
 import { useGetExamByIdQuery } from '../../../../store/queries/exams';
+
+const Sections = lazy(() => import('../../../../components/admin/Exams/Sections'))
 
 function EditExam() {
   const { id } = useParams();
