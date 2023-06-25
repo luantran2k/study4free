@@ -23,21 +23,25 @@ const ourTeams = [
     name: 'LongDT29',
     role: 'Team leader',
     avatar: avatarUser,
+    animate: 'zoom-out-left',
   },
   {
     name: 'LuanTV9',
     role: 'Team member',
     avatar: avatarUser,
+    animate: 'zoom-out-up',
   },
   {
     name: 'MinhDV9',
     role: 'Team member',
     avatar: avatarUser,
+    animate: 'zoom-out-down',
   },
   {
     name: 'HuanNH6',
     role: 'Team member',
     avatar: avatarUser,
+    animate: 'zoom-out-right',
   },
 ];
 
@@ -54,6 +58,7 @@ const paymentBoard = [
       'Score your answer',
       'Static your result',
     ],
+    animate: 'fade-left',
   },
   {
     package: 'Best seller',
@@ -67,6 +72,7 @@ const paymentBoard = [
       'Score your answer',
       'Static your result',
     ],
+    animate: 'fade-up',
   },
   {
     package: 'Ultra package',
@@ -80,6 +86,7 @@ const paymentBoard = [
       'Score your answer',
       'Static your result',
     ],
+    animate: 'fade-right',
   },
 ];
 function HomePage() {
@@ -159,7 +166,7 @@ function HomePage() {
             data-aos="zoom-in"
             data-aos-offset="50"
             data-aos-duration="500"
-            data-aos-delay="300"
+            data-aos-delay="800"
             className="m-auto cursor-pointer hover-scale flex flex-col px-[40px] py-[24px] bg-white rounded-full"
           >
             <ListeningIcon width={'6rem'} height={'6rem'} fill="" />
@@ -302,7 +309,7 @@ function HomePage() {
           data-aos="zoom-in"
           data-aos-offset="50"
           data-aos-duration="500"
-          data-aos-delay="300"
+          data-aos-delay="800"
           className="text-[2rem] font-bold mb-[1rem]"
         >
           OUR TEAMS ACHIEVEMENTS
@@ -311,7 +318,7 @@ function HomePage() {
           data-aos="zoom-out"
           data-aos-offset="50"
           data-aos-duration="500"
-          data-aos-delay="300"
+          data-aos-delay="800"
           className="my-[rem]"
         >
           Here you can review some statistics about our Education Center
@@ -372,7 +379,13 @@ function HomePage() {
         </div>
       </section>
       <section id="our-teams" className="p-[2rem]">
-        <h2 className="text-[3rem] font-bold uppercase text-center ">
+        <h2
+          data-aos="zoom-out"
+          data-aos-offset="50"
+          data-aos-duration="500"
+          data-aos-delay="800"
+          className="text-[3rem] font-bold uppercase text-center w-fit mx-au"
+        >
           Our teams
         </h2>
         <div className="grid lg:grid-cols-4 py-[32px] md:grid-cols-2 grid-cols-1 gap-4 w-[80%] mx-auto">
@@ -380,7 +393,7 @@ function HomePage() {
             return (
               <div
                 key={index}
-                data-aos="fade-left"
+                data-aos={items.animate}
                 data-aos-offset="50"
                 data-aos-duration="500"
                 data-aos-delay="800"
@@ -411,16 +424,32 @@ function HomePage() {
         id="payment"
         className="bg-[#f3f6fb] flex flex-col justify-center items-center py-[3rem]"
       >
-        <h3 className="text-[3rem] font-bold uppercase">
+        <h3
+          data-aos="flip-left"
+          data-aos-offset="50"
+          data-aos-duration="500"
+          data-aos-delay="800"
+          className="text-[3rem] font-bold uppercase"
+        >
           Ready to be our teams ?
         </h3>
-        <p className="text-[#888b9c] text-[1.5rem] py-[2rem]">
+        <p
+          data-aos="flip-right"
+          data-aos-offset="50"
+          data-aos-duration="500"
+          data-aos-delay="800"
+          className="text-[#888b9c] text-[1.5rem] py-[2rem]"
+        >
           Choose your suitable price
         </p>
-        <div className="grid md:grid-cols-3 gap-[1rem]">
+        <div className="grid md:grid-cols-3 gap-[1rem] w-[80%]">
           {paymentBoard.map((item, index) => {
             return (
               <div
+                data-aos={item.animate}
+                data-aos-offset="50"
+                data-aos-duration="500"
+                data-aos-delay="800"
                 key={index}
                 className={` px-[2rem] py-[2rem] rounded-2xl ${
                   index == 2 ? 'bg-[#183d83] text-[#fff]' : 'bg-[#fff]'

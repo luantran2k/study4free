@@ -22,7 +22,7 @@ function UserProfilePage() {
     localStorage.getItem('user') as string
   ).userInfo;
   const { data } = useGetUserByIdQuery(dataStorage?.id);
-  console.log(dataStorage);
+  console.log(data);
 
   useEffect(() => {
     window.scrollTo({
@@ -139,15 +139,15 @@ function UserProfilePage() {
       </div>
       <div className="col-span-3 p-[10px] relative min-h-[93vh] max-lg:hidden">
         <div className="flex items-center flex-col gap-4 p-[10px] mb-[20px]">
-          <div className="min-w-[120px] min-h-[120px] mb-[10px]">
+          <div className=" mb-[10px] relative">
             <img
-              className="w-[100%] aspect-square object-cover rounded-full relative shadow-2xl"
+              className="w-[100%] aspect-square object-cover rounded-full  shadow-2xl"
               src={data?.user ? data?.avatar : avatarUser}
               alt=""
             />
             {dataStorage.payment && (
               <img
-                className="absolute 	w-[7rem]  top-0 right-[3rem]"
+                className="absolute top-0  translate-x-[50%] right-0 -translate-y-[30%]	w-[7rem] "
                 src={VipImage}
                 alt=""
               />
@@ -157,59 +157,67 @@ function UserProfilePage() {
             {data?.username || dataStorage?.username}
           </h4>
         </div>
-        <div>
-          <ul>
-            <NavLink
-              to="analyzeResults"
-              className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
-              style={({ isActive }) => {
-                return {
-                  color: isActive ? '#fff' : '#40634d',
-                  backgroundColor: isActive ? '#40634d' : '',
-                };
-              }}
-            >
-              Analyze results
-            </NavLink>
-            <NavLink
-              to="userInformation"
-              className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
-              style={({ isActive }) => {
-                return {
-                  color: isActive ? '#fff' : '#40634d',
-                  backgroundColor: isActive ? '#40634d' : '',
-                };
-              }}
-            >
-              Personal Information
-            </NavLink>
-            <NavLink
-              to="collection"
-              className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
-              style={({ isActive }) => {
-                return {
-                  color: isActive ? '#fff' : '#40634d',
-                  backgroundColor: isActive ? '#40634d' : '',
-                };
-              }}
-            >
-              Collection
-            </NavLink>
-            <NavLink
-              to="reminder"
-              className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
-              style={({ isActive }) => {
-                return {
-                  color: isActive ? '#fff' : '#40634d',
-                  backgroundColor: isActive ? '#40634d' : '',
-                };
-              }}
-            >
-              Calendar/ Reminder
-            </NavLink>
+        <div className="flex flex-col">
+          <NavLink
+            to="analyzeResults"
+            className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
+            style={({ isActive }) => {
+              return {
+                color: isActive ? '#fff' : '#40634d',
+                backgroundColor: isActive ? '#40634d' : '',
+              };
+            }}
+          >
+            Analyze results
+          </NavLink>
+          <NavLink
+            to="userInformation"
+            className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
+            style={({ isActive }) => {
+              return {
+                color: isActive ? '#fff' : '#40634d',
+                backgroundColor: isActive ? '#40634d' : '',
+              };
+            }}
+          >
+            Personal Information
+          </NavLink>
+          <NavLink
+            to="collection"
+            className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
+            style={({ isActive }) => {
+              return {
+                color: isActive ? '#fff' : '#40634d',
+                backgroundColor: isActive ? '#40634d' : '',
+              };
+            }}
+          >
+            Collection
+          </NavLink>
+          <NavLink
+            to="reminder"
+            className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
+            style={({ isActive }) => {
+              return {
+                color: isActive ? '#fff' : '#40634d',
+                backgroundColor: isActive ? '#40634d' : '',
+              };
+            }}
+          >
+            Calendar/ Reminder
+          </NavLink>
+
+          {dataStorage?.payment ? (
             <NavLink
               to="payment"
-              className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
+              className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block pointer-events-none bg-gradient-to-r from-[#110f0e] to-[#f1e8bf] text-[#fff] font-semibold"
+            >
+              You was VIP member
+            </NavLink>
+          ) : (
+            <NavLink
+              to="payment"
+              className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block "
               style={({ isActive }) => {
                 return {
                   color: isActive ? '#fff' : '#40634d',
@@ -219,25 +227,25 @@ function UserProfilePage() {
             >
               Upgrade Account
             </NavLink>
-            <NavLink
-              to="*"
-              className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
-              style={({ isActive }) => {
-                return {
-                  color: isActive ? '#fff' : '#40634d',
-                  backgroundColor: isActive ? '#40634d' : '',
-                };
-              }}
-            >
-              Delete Account
-            </NavLink>
-          </ul>
-        </div>
-        <div
-          onClick={onLogOut}
-          className="   bg-[#dc3545] text-[#fff] px-[1rem] py-[0.5rem] rounded-full shadow-2xl text-center"
-        >
-          <span className=" text-[20px] cursor-pointer  ">Log out</span>
+          )}
+          <NavLink
+            to="*"
+            className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
+            style={({ isActive }) => {
+              return {
+                color: isActive ? '#fff' : '#40634d',
+                backgroundColor: isActive ? '#40634d' : '',
+              };
+            }}
+          >
+            Delete Account
+          </NavLink>
+          <div
+            onClick={onLogOut}
+            className="   bg-[#dc3545] text-[#fff] px-[1rem] py-[0.5rem] rounded-full shadow-2xl text-center mt-[4rem] font-semibold"
+          >
+            <span className=" text-[20px] cursor-pointer  ">Log out</span>
+          </div>
         </div>
       </div>
       <div className="col-span-9 bg-[#f0f4f3] max-lg:col-span-11 max-md:col-span-10">
