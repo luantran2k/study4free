@@ -1,12 +1,4 @@
 import BgImage1 from '../../assets/images/becomepro.jpg';
-import { EarthIcon } from '../../assets/icons/earthIcon';
-import { BellIcon } from '../../assets/icons/bellIcon';
-import { MultiUsersIcon } from '../../assets/icons/multiUsersIcon';
-import BagIcon from '../../assets/icons/bagIcon';
-import { ListeningIcon } from '../../assets/icons/listeningLogo';
-import { ReadingIcon } from '../../assets/icons/readingLogo';
-import { WritingIcon } from '../../assets/icons/writingLogo';
-import { SpeakingIcon } from '../../assets/icons/speakingLogi';
 import EarthImg from '../../assets/images/earthImg.png';
 import { InstaIcon } from '../../assets/icons/instaIcon';
 import { YoutubeIcon } from '../../assets/icons/youtubeIcon';
@@ -16,79 +8,8 @@ import { CheckIcon } from '../../assets/icons/checkIcon';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
-import avatarUser from '../../assets/images/avatars.png';
+import { achievementArr, ourTeams, paymentBoard, skillArr } from './data';
 
-const ourTeams = [
-  {
-    name: 'LongDT29',
-    role: 'Team leader',
-    avatar: avatarUser,
-    animate: 'zoom-out-left',
-  },
-  {
-    name: 'LuanTV9',
-    role: 'Team member',
-    avatar: avatarUser,
-    animate: 'zoom-out-up',
-  },
-  {
-    name: 'MinhDV9',
-    role: 'Team member',
-    avatar: avatarUser,
-    animate: 'zoom-out-down',
-  },
-  {
-    name: 'HuanNH6',
-    role: 'Team member',
-    avatar: avatarUser,
-    animate: 'zoom-out-right',
-  },
-];
-
-const paymentBoard = [
-  {
-    package: 'Regular',
-    subtitle: 'Easy to get start',
-    price: 9.99,
-    period: 'week',
-    benifits: [
-      'Doing writing and speaking exams',
-      'Use our dictionary',
-      'Create your own vocab collection',
-      'Score your answer',
-      'Static your result',
-    ],
-    animate: 'fade-left',
-  },
-  {
-    package: 'Best seller',
-    subtitle: 'Best choice for you',
-    price: 19.99,
-    period: 'month',
-    benifits: [
-      'Doing writing and speaking exams',
-      'Use our dictionary',
-      'Create your own vocab collection',
-      'Score your answer',
-      'Static your result',
-    ],
-    animate: 'fade-up',
-  },
-  {
-    package: 'Ultra package',
-    subtitle: 'Suitable for hard student',
-    price: 99.99,
-    period: 'year',
-    benifits: [
-      'Doing writing and speaking exams',
-      'Use our dictionary',
-      'Create your own vocab collection',
-      'Score your answer',
-      'Static your result',
-    ],
-    animate: 'fade-right',
-  },
-];
 function HomePage() {
   const navigate = useNavigate();
 
@@ -152,64 +73,33 @@ function HomePage() {
       </section>
       <section
         id="ielts-skills"
-        className="bg-[yellow] bg-cover w-full py-[50px]"
+        className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-cover w-full py-[50px] shadow-2xl"
       >
         <div
           data-aos="fade-up"
           data-aos-offset="0"
           className="home-title w-full text-center font-extrabold text-8xl "
         >
-          <h1>Choose your skill</h1>
+          <h1>Choose your favorite skill</h1>
         </div>
         <div className="grid md:grid-cols-4 py-[32px] grid-cols-2 gap-4">
-          <div
-            data-aos="zoom-in"
-            data-aos-offset="50"
-            data-aos-duration="500"
-            data-aos-delay="800"
-            className="m-auto cursor-pointer hover-scale flex flex-col px-[40px] py-[24px] bg-white rounded-full"
-          >
-            <ListeningIcon width={'6rem'} height={'6rem'} fill="" />
-            <div className="text-center text-[24px] font-bold text-orange-500">
-              Listening
-            </div>
-          </div>
-          <div
-            data-aos="zoom-in"
-            data-aos-offset="-50"
-            data-aos-duration="500"
-            data-aos-delay="500"
-            className="m-auto cursor-pointer hover-scale flex flex-col px-[40px] py-[24px] bg-white rounded-full"
-          >
-            <ReadingIcon width={'6rem'} height={'6rem'} fill="" />
-            <div className="text-center text-[24px] font-bold text-orange-500">
-              Reading
-            </div>
-          </div>
-          <div
-            data-aos="zoom-in"
-            data-aos-offset="-50"
-            data-aos-duration="500"
-            data-aos-delay="700"
-            className="m-auto cursor-pointer hover-scale flex flex-col px-[40px] py-[24px] bg-white rounded-full"
-          >
-            <WritingIcon width={'6rem'} height={'6rem'} fill="" />
-            <div className="text-center text-[24px] font-bold text-orange-500">
-              Writing
-            </div>
-          </div>
-          <div
-            data-aos="zoom-in"
-            data-aos-offset="-50"
-            data-aos-duration="500"
-            data-aos-delay="900"
-            className="m-auto cursor-pointer hover-scale flex flex-col px-[40px] py-[24px] bg-white rounded-full"
-          >
-            <SpeakingIcon width={'6rem'} height={'6rem'} fill="" />
-            <div className="text-center text-[24px] font-bold text-orange-500">
-              Speaking
-            </div>
-          </div>
+          {skillArr.map((item, index) => {
+            return (
+              <div
+                key={index}
+                data-aos={item.animate}
+                data-aos-offset="50"
+                data-aos-duration="500"
+                data-aos-delay="800"
+                className="m-auto cursor-pointer hover-scale flex flex-col px-[40px] py-[24px] bg-white rounded-full"
+              >
+                {item.component}
+                <div className="text-center text-[24px] font-bold text-orange-500">
+                  {item.name}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
       <section id="ielts-levels" className="py-[30px]">
@@ -314,6 +204,7 @@ function HomePage() {
         >
           OUR TEAMS ACHIEVEMENTS
         </div>
+
         <div
           data-aos="zoom-out"
           data-aos-offset="50"
@@ -323,59 +214,26 @@ function HomePage() {
         >
           Here you can review some statistics about our Education Center
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[4rem] py-[2rem]">
-          <div
-            data-aos="fade-right"
-            data-aos-offset="50"
-            data-aos-duration="500"
-            data-aos-delay="800"
-            className="flex flex-col justify-center items-center"
-          >
-            <EarthIcon width={'4rem'} height="4rem" fill="#fff" />
-            <span className="text-[#eab830] text-[3rem] font-semibold ">
-              94532
-            </span>
-            <p className="uppercase font-medium">Foreign Follower</p>
-          </div>
-          <div
-            data-aos="fade-up"
-            data-aos-offset="50"
-            data-aos-duration="500"
-            data-aos-delay="800"
-            className="flex flex-col justify-center items-center"
-          >
-            <BellIcon width={'4rem'} height="4rem" fill="#fff" />
-            <span className="text-[#eab830] text-[3rem] font-semibold ">
-              11223
-            </span>
-            <p className="uppercase font-medium">Examinations</p>
-          </div>
-          <div
-            data-aos="fade-down"
-            data-aos-offset="50"
-            data-aos-duration="500"
-            data-aos-delay="800"
-            className="flex flex-col justify-center items-center"
-          >
-            <MultiUsersIcon width={'4rem'} height="4rem" fill="#fff" />
-            <span className="text-[#eab830] text-[3rem] font-semibold ">
-              415163
-            </span>
-            <p className="uppercase font-medium">Student enrolled</p>
-          </div>
-          <div
-            data-aos="fade-left"
-            data-aos-offset="50"
-            data-aos-duration="500"
-            data-aos-delay="800"
-            className="flex flex-col justify-center items-center"
-          >
-            <BagIcon width={'4rem'} height="4rem" fill="#fff" />
-            <span className="text-[#eab830] text-[3rem] font-semibold ">
-              69
-            </span>
-            <p className="uppercase font-medium">Certified teachers</p>
-          </div>
+          {achievementArr.map((item, index) => {
+            return (
+              <div
+                key={index}
+                data-aos={item.animate}
+                data-aos-offset="50"
+                data-aos-duration="500"
+                data-aos-delay="800"
+                className="flex flex-col justify-center items-center"
+              >
+                {item.icon}
+                <span className="text-[#eab830] text-[3rem] font-semibold ">
+                  {item.quantity}
+                </span>
+                <p className="uppercase font-medium">{item.subtitle}</p>
+              </div>
+            );
+          })}
         </div>
       </section>
       <section id="our-teams" className="p-[2rem]">
@@ -384,9 +242,9 @@ function HomePage() {
           data-aos-offset="50"
           data-aos-duration="500"
           data-aos-delay="800"
-          className="text-[3rem] font-bold uppercase text-center w-fit mx-au"
+          className="text-[3rem] font-bold uppercase text-center w-fit mx-auto"
         >
-          Our teams
+          Our team
         </h2>
         <div className="grid lg:grid-cols-4 py-[32px] md:grid-cols-2 grid-cols-1 gap-4 w-[80%] mx-auto">
           {ourTeams.map((items, index) => {
@@ -451,8 +309,9 @@ function HomePage() {
                 data-aos-duration="500"
                 data-aos-delay="800"
                 key={index}
-                className={` px-[2rem] py-[2rem] rounded-2xl ${index == 2 ? 'bg-[#183d83] text-[#fff]' : 'bg-[#fff]'
-                  }`}
+                className={` px-[2rem] py-[2rem] rounded-2xl ${
+                  index == 2 ? 'bg-[#183d83] text-[#fff]' : 'bg-[#fff]'
+                }`}
               >
                 <div className="text-[2rem] font-bold">{item.package}</div>
                 <div className="text-[#b7b7b8]">{item.subtitle}</div>
