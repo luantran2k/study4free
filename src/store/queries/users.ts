@@ -4,7 +4,7 @@ import { RootState } from '..';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  tagTypes: ['user', 'id'],
+  tagTypes: ['User', 'Collection', 'Vocab'],
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://study4free-api.onrender.com/',
     prepareHeaders: (headers, { getState }) => {
@@ -19,7 +19,7 @@ export const userApi = createApi({
   endpoints: (builder) => ({
     getUserById: builder.query<any, string>({
       query: (id) => `users/${id}`,
-      providesTags: () => ['user'],
+      providesTags: () => ['User'],
     }),
     updateInfor: builder.mutation({
       query: (data) => ({
@@ -27,13 +27,15 @@ export const userApi = createApi({
         method: 'PATCH',
         body: data.newdata,
       }),
-      invalidatesTags: () => ['user'],
+      invalidatesTags: () => ['User'],
     }),
     getAllCollecton: builder.query({
-        query: () => 'collections/?quantity=100'
+        query: () => 'collections/?quantity=100',
+        providesTags: () => ['Collection']
     }),
     getCollectionById: builder.query({
-        query: (id) => `collections/${id}`
+        query: (id) => `collections/${id}`,
+        providesTags: () => ['Collection', 'Vocab']
     }),
     addNewCollection: builder.mutation({
       query: (data) => ({
@@ -41,7 +43,7 @@ export const userApi = createApi({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: () => ['user'],
+      invalidatesTags: () => ['Collection'],
     }),
     addNewVocabulary: builder.mutation({
       query: (data) => ({
@@ -49,6 +51,7 @@ export const userApi = createApi({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: () => ['Collection', 'Vocab']
     }),
   }),
 });

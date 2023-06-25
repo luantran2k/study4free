@@ -4,6 +4,7 @@ import IVocabulary from '../../interfaces/Vocabulary';
 import ICollection from '../../interfaces/Collection';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 
 const vocabs: IVocabulary [] = [
   {
@@ -42,11 +43,12 @@ function VocabularyDetail() {
   ).userInfo;
   const { state } = useLocation();
   const { data, isSuccess } = useGetUserByIdQuery(dataStorage.id);
-  const [ AddVocab, ] = useAddNewVocabularyMutation()
+  const [ AddVocab ] = useAddNewVocabularyMutation()
   const [ AddCollection ] = useAddNewCollectionMutation()
   const myCollections = data?.collections
   const { data: dataVocab, isSuccess: isSuccessVocab } = useGetCollectionByIdQuery(state.id)
   const listVocabs: IVocabulary [] = dataVocab?.vocabularies
+      console.log('render')
   if(isSuccessVocab) {
     console.log(listVocabs)
   }
@@ -76,7 +78,8 @@ function VocabularyDetail() {
         await AddCollection({
           title: state.title,
           image: ''
-        }).unwrap().then((data) => console.log(data))
+        })
+        // .unwrap().then((data) => console.log(data))
         const newCollections = data.collections
         newCollections.forEach(async (value: ICollection) => {
           if(value.title === state.title) {
@@ -96,7 +99,16 @@ function VocabularyDetail() {
     formState: { errors },
   } = useForm()
   const onSubmit = handleSubmit((dataForm) => {
-    console.log(dataForm)
+    console.log({
+      ...dataForm,
+      synonyms: [dataForm.synonyms],
+      collectionId: state.id
+    })
+    AddVocab({
+      ...dataForm,
+      synonyms: [dataForm.synonyms],
+      collectionId: state.id
+    })
   })
 
   return (
@@ -104,13 +116,10 @@ function VocabularyDetail() {
       <h2 className="text-center font-medium text-[40px] mb-[50px] border-[#ccc] border-b-[1px] pb-2">
         Vocabulary: {state.title} (20 words)
       </h2>
-      <button
-        className="btn btn-primary"
-        onClick={() => window.my_modal_1.showModal()}
-      >
+      <button className="btn btn-primary" onClick={() => window.my_modal_2.showModal()}>
         Add new word
       </button>
-      <dialog id="my_modal_1" className="modal">
+      <dialog id="my_modal_2" className="modal">
         <form method="dialog" className="modal-box" onSubmit={onSubmit}>
           <h3 className="font-bold text-lg mb-3">Hello! Let's add new word.</h3>
           <div>
@@ -174,27 +183,12 @@ function VocabularyDetail() {
               </p>
             </div>
           </div>
-          <div className="modal-action">
-            {/* if there is a button in form, it will close the modal */}
-            <button type='submit' className='btn btn-secondary'>Add</button>
-            <button type='button' className="btn">Close</button>
-          </div>
+          <button type='submit' className='btn btn-secondary'>Add</button>
+        </form>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
         </form>
       </dialog>
-      {/* <div className="max-sm:px-[10px] p-[3rem] flex gap-3 flex-col items-start">
-        <div className="w-[100%]">
-          <label className="font-bold text-lg" htmlFor="collection">
-            Title:
-          </label>
-          <br />
-          <input
-            type="text"
-            id="collection"
-            className="border-[#ccc] border-[1px] p-2 rounded-lg w-[50%]"
-          />
-        </div>
-        
-      </div> */}
       <div>
         <div className="grid grid-cols-12 gap-[40px] mt-[10px] max-sm:pe-[8px] ">
           {isSuccessVocab &&
@@ -205,9 +199,12 @@ function VocabularyDetail() {
                   className="max-sm:col-span-11 max-md:col-span-12 col-span-6 mb-[10px] bg-[#f8f9fa] shadow-lg cursor-pointer rounded-2xl p-[20px] hover:shadow-xl transition-all"
                 >
                   <div className="flex justify-between items-center">
-                    <p className="text-[20px] font-medium mb-[10px]">
-                      {vocab.spelling} /əˈbændən/
-                    </p>
+                    <div className="text-[20px] font-medium mb-[10px] flex gap-2">
+                      <p>{vocab.vocabulary}</p>
+                      <p>
+                        {vocab.spelling}
+                      </p>
+                    </div>
                     <button
                       className="btn btn-accent text-white max-md:text-[12px]"
                       onClick={() => {
