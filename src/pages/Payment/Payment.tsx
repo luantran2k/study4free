@@ -49,7 +49,6 @@ export const Payment = () => {
         NOTIFICATION_TYPE.SUCCESS,
         'You have successfully paid, you are now a member of our VIP, enjoy the great functions we bring to you'
       );
-
       updateInfor({
         newdata: {
           payment: true,
