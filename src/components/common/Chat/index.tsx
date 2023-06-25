@@ -52,7 +52,13 @@ function Chat() {
     setHiddenChat(true);
   };
   return (
-    <div className="fixed bottom-10 right-3 z-10">
+    <div
+      data-aos="fade-left"
+      data-aos-offset="50"
+      data-aos-duration="500"
+      data-aos-delay="3000"
+      className="fixed bottom-10 right-3 z-10"
+    >
       <div>
         <div className="cursor-pointer" onClick={toggleContactMethod}>
           <ChatImage />

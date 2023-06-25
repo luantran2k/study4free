@@ -28,8 +28,8 @@ export const Header = () => {
 
   useEffect(() => {
     if (!inView) {
-      // Intersection occurred, perform your desired action here
       console.log('Reached target element');
+      setIntersection(true);
     } else setIntersection(false);
   }, [inView]);
 
