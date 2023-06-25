@@ -22,7 +22,6 @@ function UserProfilePage() {
     localStorage.getItem('user') as string
   ).userInfo;
   const { data } = useGetUserByIdQuery(dataStorage?.id);
-  console.log(data.payment);
 
   useEffect(() => {
     window.scrollTo({
@@ -97,7 +96,7 @@ function UserProfilePage() {
           <NavLink
             to="payment"
             className={`text-[24px] w-[100%] flex justify-center py-5 text-center ${
-              data.payment
+              data?.payment
                 ? 'bg-gradient-to-r from-[#110f0e] to-[#f1e8bf] text-[#fff] pointer-events-none font-bold'
                 : ''
             }`}
@@ -108,10 +107,10 @@ function UserProfilePage() {
               };
             }}
           >
-            {data.payment ? 'VIP' : <UpgradeUserIcon />}
+            {data?.payment ? 'VIP' : <UpgradeUserIcon />}
           </NavLink>
           <NavLink
-            to="*"
+            to="delete"
             className="text-[24px] w-[100%] flex justify-center py-5"
             style={({ isActive }) => {
               return {
@@ -145,7 +144,7 @@ function UserProfilePage() {
               src={data?.user ? data?.avatar : avatarUser}
               alt=""
             />
-            {data.payment && (
+            {data?.payment && (
               <img
                 className="absolute top-0  translate-x-[50%] right-0 -translate-y-[30%]	w-[7rem] "
                 src={VipImage}

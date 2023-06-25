@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  tagTypes: ['user', 'id'],
+  tagTypes: ['User', 'Collection', 'Vocab'],
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://study4free-api.onrender.com/',
     prepareHeaders: (headers, { getState }) => {
@@ -18,7 +18,7 @@ export const userApi = createApi({
   endpoints: (builder) => ({
     getUserById: builder.query<any, string>({
       query: (id) => `users/${id}`,
-      providesTags: () => ['user'],
+      providesTags: () => ['User'],
     }),
     updateInfor: builder.mutation({
       query: (data) => ({
@@ -26,7 +26,15 @@ export const userApi = createApi({
         method: 'PATCH',
         body: data.newdata,
       }),
-      invalidatesTags: () => ['user'],
+      invalidatesTags: () => ['User'],
+    }),
+    getAllCollecton: builder.query({
+      query: () => 'collections?page=0&quantity=100',
+      providesTags: () => ['Collection'],
+    }),
+    getCollectionById: builder.query({
+      query: (id) => `collections/${id}`,
+      providesTags: () => ['Collection', 'Vocab'],
     }),
     addNewCollection: builder.mutation({
       query: (data) => ({
@@ -34,6 +42,7 @@ export const userApi = createApi({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: () => ['Collection'],
     }),
     addNewVocabulary: builder.mutation({
       query: (data) => ({
@@ -41,6 +50,7 @@ export const userApi = createApi({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: () => ['Collection', 'Vocab'],
     }),
   }),
 });
@@ -48,6 +58,8 @@ export const userApi = createApi({
 export const {
   useGetUserByIdQuery,
   useUpdateInforMutation,
+  useGetAllCollectonQuery,
+  useGetCollectionByIdQuery,
   useAddNewCollectionMutation,
   useAddNewVocabularyMutation,
 } = userApi;
