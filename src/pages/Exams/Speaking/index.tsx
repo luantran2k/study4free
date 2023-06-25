@@ -1,8 +1,12 @@
+import { lazy } from 'react';
 import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
-import { NavigationTest } from '../commonComponent/navigationTest';
-import { NoteInfo } from '../commonComponent/noteInfo';
 
-export const Speaking = () => {
+
+const NavigationTest = lazy(() => import('../commonComponent/navigationTest'));
+const NoteInfo = lazy(() => import('../commonComponent/noteInfo'));
+
+
+const Speaking = () => {
   const exams = {
     id: 1,
     cambridge: 14,
@@ -74,8 +78,12 @@ export const Speaking = () => {
             }}
             defaultIndex={0}
           />
-        </div>
-      </div>
-    </div>
+        </div >
+      </div >
+    </div >
   );
 };
+
+
+
+export default Speaking

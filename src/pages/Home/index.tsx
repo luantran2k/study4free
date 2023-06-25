@@ -2,7 +2,7 @@ import BgImage1 from '../../assets/images/becomepro.jpg';
 import { EarthIcon } from '../../assets/icons/earthIcon';
 import { BellIcon } from '../../assets/icons/bellIcon';
 import { MultiUsersIcon } from '../../assets/icons/multiUsersIcon';
-import { BagIcon } from '../../assets/icons/bagIcon';
+import BagIcon from '../../assets/icons/bagIcon';
 import { ListeningIcon } from '../../assets/icons/listeningLogo';
 import { ReadingIcon } from '../../assets/icons/readingLogo';
 import { WritingIcon } from '../../assets/icons/writingLogo';
@@ -451,9 +451,8 @@ function HomePage() {
                 data-aos-duration="500"
                 data-aos-delay="800"
                 key={index}
-                className={` px-[2rem] py-[2rem] rounded-2xl ${
-                  index == 2 ? 'bg-[#183d83] text-[#fff]' : 'bg-[#fff]'
-                }`}
+                className={` px-[2rem] py-[2rem] rounded-2xl ${index == 2 ? 'bg-[#183d83] text-[#fff]' : 'bg-[#fff]'
+                  }`}
               >
                 <div className="text-[2rem] font-bold">{item.package}</div>
                 <div className="text-[#b7b7b8]">{item.subtitle}</div>

@@ -1,14 +1,16 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import Logo from '../../assets/images/logo.png';
 import Thumb from '../../assets/images/thumbEnglish.jpg';
-import Pagination from '../../components/common/Pagination';
-import React, { useEffect, useState } from 'react';
+import Logo from '../../assets/images/logo.png';
+import React, { lazy, useEffect, useState } from 'react';
 import {
   useAddNewCollectionMutation,
   useGetAllCollectonQuery,
 } from '../../store/queries/users';
 import ICollection from '../../interfaces/Collection';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
+
+
+const Pagination = lazy(() => import('../../components/common/Pagination'));
 
 const vocabList: string[] = [
   'Family',

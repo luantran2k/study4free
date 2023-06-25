@@ -1,6 +1,6 @@
 import { IIcon } from '../../interfaces';
 
-export const BagIcon = ({ width, height, fill }: IIcon) => {
+const BagIcon = ({ width, height, fill }: IIcon) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,3 +13,6 @@ export const BagIcon = ({ width, height, fill }: IIcon) => {
     </svg>
   );
 };
+
+
+export default BagIcon

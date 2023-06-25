@@ -1,7 +1,8 @@
 import Dictionary from '../../../assets/icons/Dictionary';
 import ArrowDown from '../../../assets/icons/ArrowDown';
-import { useState } from 'react';
-import { DictionaryComponent } from './DictionaryComponent';
+import { lazy, useState } from 'react';
+
+const DictionaryComponent = lazy(() => import('./DictionaryComponent'));
 
 interface ITools {
   intersection: boolean;
@@ -9,7 +10,7 @@ interface ITools {
 
 const Tools = (props: ITools) => {
   const [clicked, setClicked] = useState(false);
-
+  console.log(props.intersection)
   return (
     <div
       data-aos="zoom-in"

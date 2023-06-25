@@ -1,8 +1,8 @@
-import { ChangeEvent, useState } from 'react';
-import { NavigationTest } from '../commonComponent/navigationTest';
-import { NoteInfo } from '../commonComponent/noteInfo';
+import { ChangeEvent, lazy, useState } from 'react';
+const NavigationTest = lazy(() => import('../commonComponent/navigationTest'));
+const NoteInfo = lazy(() => import('../commonComponent/noteInfo'));
 
-export const Writing = () => {
+const Writing = () => {
   const [index, setIndex] = useState<number>(0);
   const [essay, setEssay] = useState<string[]>([]);
   const [countWord, setCountWord] = useState<number>(0);
@@ -90,3 +90,6 @@ export const Writing = () => {
     </div>
   );
 };
+
+
+export default Writing

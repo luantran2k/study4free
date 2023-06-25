@@ -21,7 +21,7 @@ import { ChangeEvent, useState } from 'react';
 interface Props {
   index: number;
 }
-export const NoteInfo = ({ index }: Props) => {
+const NoteInfo = ({ index }: Props) => {
   const [isOpenNotes, setIsOpenNote] = useState<boolean>(false);
   const [note, setNote] = useState<string[]>();
 
@@ -59,3 +59,5 @@ export const NoteInfo = ({ index }: Props) => {
     </div>
   );
 };
+
+export default NoteInfo

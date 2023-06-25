@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { Outlet, useLocation } from 'react-router-dom';
+import React, { FormEvent, lazy, useEffect, useState } from 'react';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import Thumb from '../../assets/images/thumbEnglish.jpg';
-import ExamCard from '../../components/common/ExamCard/ExamCard';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+const ExamCard = lazy(() => import('../../components/common/ExamCard/ExamCard'));
 
 export const mockDataExam: IMock[] = [
   {

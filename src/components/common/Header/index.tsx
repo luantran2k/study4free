@@ -1,15 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import LogoIcon from '../../../assets/images/logo.png';
-
-import { useEffect, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { MenuIcon } from '../../../assets/icons/MenuIcon';
 import { useInView } from 'react-intersection-observer';
-import Tools from '../Tools';
-import Chat from '../Chat';
 import { useAppSelector } from '../../../hooks/redux';
 import { selectAuth } from '../../../store/slices/authSlice';
 
-export const Header = () => {
+const Tools = lazy(() => import('../Tools'));
+const Chat = lazy(() => import('../Chat'))
+
+const Header = () => {
   const { name } = useAppSelector(selectAuth);
   const [isOpenNavBar, setOpenNavBar] = useState<boolean>(false);
   const [intersection, setIntersection] = useState<boolean>(false);
@@ -28,7 +28,7 @@ export const Header = () => {
   useEffect(() => {
     if (!inView) {
       // Intersection occurred, perform your desired action here
-      setIntersection(true);
+      setIntersection(true)
     } else setIntersection(false);
   }, [inView]);
 
@@ -57,9 +57,8 @@ export const Header = () => {
             <MenuIcon width={'16px'} height={'16px'} fill={'currentColor'} />
           </button>
           <div
-            className={`${
-              isOpenNavBar ? 'block' : 'hidden'
-            } w-full md:block md:w-auto max-md:absolute bottom-[-279%] left-0 bg-white transition-all z-10`}
+            className={`${isOpenNavBar ? 'block' : 'hidden'
+              } w-full md:block md:w-auto max-md:absolute bottom-[-279%] left-0 bg-white transition-all z-10`}
             id="navbar-dropdown "
           >
             <ul
@@ -77,8 +76,8 @@ export const Header = () => {
                     isPending
                       ? 'pending'
                       : isActive
-                      ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
-                      : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
+                        ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
+                        : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
                   }
                 >
                   Home
@@ -96,8 +95,8 @@ export const Header = () => {
                     isPending
                       ? 'pending'
                       : isActive
-                      ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
-                      : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
+                        ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
+                        : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
                   }
                 >
                   Examinations
@@ -115,8 +114,8 @@ export const Header = () => {
                     isPending
                       ? 'pending'
                       : isActive
-                      ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
-                      : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
+                        ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
+                        : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
                   }
                 >
                   Vocabulary
@@ -133,8 +132,8 @@ export const Header = () => {
                     isPending
                       ? 'pending'
                       : isActive
-                      ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
-                      : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
+                        ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
+                        : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
                   }
                 >
                   Grammar
@@ -152,8 +151,8 @@ export const Header = () => {
                       isPending
                         ? 'pending'
                         : isActive
-                        ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
-                        : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
+                          ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
+                          : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
                     }
                   >
                     {name}
@@ -169,8 +168,8 @@ export const Header = () => {
                       isPending
                         ? 'pending'
                         : isActive
-                        ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
-                        : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
+                          ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
+                          : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
                     }
                   >
                     Login
@@ -186,3 +185,6 @@ export const Header = () => {
     </>
   );
 };
+
+
+export default Header

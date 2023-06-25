@@ -1,15 +1,15 @@
-import { useEffect, useId, useState } from 'react';
+import { lazy, useEffect, useId, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '../../../assets/icons/Edit';
 import TrashIcon from '../../../assets/icons/Trash';
-import CreateExamForm from '../../../components/admin/Exams/CreateExamForm';
-import Modal from '../../../components/common/Modal';
-import Pagination from '../../../components/common/Pagination';
 import {
   useCountExamsQuery,
   useGetExamsQuery,
   useRemoveExamMutation,
 } from '../../../store/queries/exams';
+const CreateExamForm = lazy(() => import('../../../components/admin/Exams/CreateExamForm'))
+const Modal = lazy(() => import('../../../components/common/Modal'))
+const Pagination = lazy(() => import('../../../components/common/Pagination'))
 
 function ExamsAdminPage() {
   const QuantityOption = [10, 15, 20];

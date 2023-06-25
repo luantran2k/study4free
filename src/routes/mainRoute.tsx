@@ -1,20 +1,6 @@
 import { RouteObject } from 'react-router-dom';
-import ExamsPage from '../pages/Exams';
-import DetailExam from '../pages/Exams/DetailExam/DetailExam';
-import { Writing } from '../pages/Exams/Writing';
-import GrammarPage from '../pages/Grammar';
-import SectionPage from '../pages/Grammar/SectionPage';
-import HomePage from '../pages/Home';
-import { Payment } from '../pages/Payment/Payment';
-import UserProfilePage from '../pages/UserProfile';
-import AnalyzeResults from '../pages/UserProfile/AnalyzeResults';
-import Collection from '../pages/UserProfile/Collection';
-import Reminder from '../pages/UserProfile/Reminder';
-import UserInformation from '../pages/UserProfile/UserInformation';
-import VocabulariesPage from '../pages/Vocabularies';
-import VocabularyDetail from '../pages/Vocabularies/VocabularyDetail';
-import RootLayout from '../pages/layouts/Root';
-import DeleteAccount from '../pages/UserProfile/DeleteAccount';
+
+import { AnalyzeResults, Collection, DetailExam, ExamsPage, GrammarPage, HomePage, Payment, Reminder, SectionPage, UserInformation, UserProfilePage, VocabulariesPage, VocabularyDetail, Writing, DeleteAccount, RootLayout } from './imports';
 
 export const mainRoute: RouteObject = {
   path: '/',
