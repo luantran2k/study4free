@@ -1,7 +1,14 @@
-import { Outlet, useLocation, Link, useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import Thumb from '../../assets/images/thumbEnglish.jpg';
 import Logo from '../../assets/images/logo.png';
-import React, { lazy, useEffect } from 'react';
+import React, { lazy, useEffect, useState } from 'react';
+import {
+  useAddNewCollectionMutation,
+  useGetAllCollectonQuery,
+} from '../../store/queries/users';
+import ICollection from '../../interfaces/Collection';
+import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
+
 
 const Pagination = lazy(() => import('../../components/common/Pagination'));
 
@@ -31,10 +38,10 @@ const newPag = {
   currentPage: 1,
   quantity: 40,
   quantityOptions: [1, 2, 3],
-  onChangePage: (page: number) => {
+  onChangePage: () => {
     return;
   },
-  onChangeQuantity: (quantity: number) => {
+  onChangeQuantity: () => {
     return;
   },
   onNextClick: () => {
@@ -46,7 +53,31 @@ const newPag = {
 };
 
 function VocabulariesPage() {
-  const { state, pathname } = useLocation();
+  const { pathname } = useLocation();
+  const { data, isSuccess } = useGetAllCollectonQuery();
+  if (isSuccess) console.log(data);
+
+  const [addNewCollectionHook] = useAddNewCollectionMutation();
+  const [inputContent, setInputContent] = useState<string>('');
+
+  const handleInputTitle = (e: any) => {
+    // setInputContent(e.target.value)
+    setInputContent(e.target.value);
+  };
+
+  const addNewCollection = async () => {
+    if (inputContent.trim() !== '') {
+      if (isSuccess) {
+        notify(NOTIFICATION_TYPE.SUCCESS, 'Add new library successfully');
+        await addNewCollectionHook({
+          title: inputContent,
+          image: '',
+        })
+          .unwrap()
+          .then((data) => console.log(data));
+      }
+    }
+  };
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -61,17 +92,38 @@ function VocabulariesPage() {
       </div>
       <div className="container mx-auto">
         <img src={Thumb} alt="" className="w-[100%]" />
-        <div className="my-[20px] grid grid-cols-12 gap-[30px] max-sm:px-[10px] p-[3rem]">
+        {pathname === '/vocabularies' ? (
+          <div className="max-sm:px-[10px] p-[3rem] flex gap-3 flex-col items-start">
+            <div className="w-[100%]">
+              <label className="font-bold text-lg" htmlFor="collection">
+                Title:
+              </label>
+              <br />
+              <input
+                type="text"
+                id="collection"
+                className="border-[#ccc] border-[1px] p-2 rounded-lg w-[50%]"
+                onChange={handleInputTitle}
+              />
+            </div>
+            <button className="btn btn-secondary" onClick={addNewCollection}>
+              Make new vocabulary library
+            </button>
+          </div>
+        ) : (
+          ''
+        )}
+        <div className="mb-[20px] grid grid-cols-12 gap-[30px] max-sm:px-[10px] p-[3rem]">
           {pathname === '/vocabularies' ? (
-            vocabList.map((item, index) => {
+            data?.map((item: ICollection, index: number) => {
               return (
                 <div
                   key={index}
                   className="max-md:col-span-6 max-sm:col-span-12 p-[20px] bg-[#f8f9fa] col-span-3 font-medium text-[18px] cursor-pointer 
                        rounded-xl shadow-md hover:shadow-lg transition-all"
                 >
-                  <Link to=":id" state={vocabList[index]}>
-                    <span>{item}</span>
+                  <Link to={item.title} state={item}>
+                    <span>{item.title}</span>
                     <p className="text-[15px] opacity-[0.8]">100 words</p>
                     <div className="w-[60px] h-[60px] my-[20px]">
                       <img

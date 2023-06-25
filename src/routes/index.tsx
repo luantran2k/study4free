@@ -3,6 +3,8 @@ import { adminRoutes } from './adminRoute';
 import { mainRoute } from './mainRoute';
 import { Authentication } from './imports';
 
+
+
 export const routes: RouteObject[] = [
   mainRoute,
   adminRoutes,

@@ -1,12 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import ChatImage from '../../../assets/icons/ChatImage';
 import DeleteIcon from '../../../assets/icons/deleteIcon';
-import PhoneIcon from '../../../assets/icons/phoneIcon';
 import MessageIcon from '../../../assets/icons/messageIcon';
 import MinusIcon from '../../../assets/icons/minusIcon';
+import PhoneIcon from '../../../assets/icons/phoneIcon';
 import PlusIcon from '../../../assets/icons/plusIcon';
-import { io } from 'socket.io-client';
-import { log } from 'console';
 
 function Chat() {
   const refMessage = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -52,7 +50,13 @@ function Chat() {
     setHiddenChat(true);
   };
   return (
-    <div className="fixed bottom-10 right-3 z-10">
+    <div
+      data-aos="fade-left"
+      data-aos-offset="50"
+      data-aos-duration="500"
+      data-aos-delay="3000"
+      className="fixed bottom-10 right-3 z-10"
+    >
       <div>
         <div className="cursor-pointer" onClick={toggleContactMethod}>
           <ChatImage />

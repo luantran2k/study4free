@@ -87,7 +87,10 @@ function CreatePartForm(props: Props) {
           />
         </div>
 
-        <button className="btn btn-primary " disabled={isLoading}>
+        <button
+          className="btn bg-blue-500 hover:bg-blue-500 text-white "
+          disabled={isLoading}
+        >
           {isLoading ? (
             <span className="loading loading-spinner loading-md"></span>
           ) : (

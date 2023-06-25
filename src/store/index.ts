@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { setupListeners } from '@reduxjs/toolkit/query/react';
 import {
   FLUSH,
   PAUSE,
@@ -6,32 +7,25 @@ import {
   PURGE,
   REGISTER,
   REHYDRATE,
-  persistReducer,
   persistStore,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { examReducer } from './slices/examSlice';
-import { examsApi } from './queries/exams';
 import { authApi } from '../services/authApi';
-import { setupListeners } from '@reduxjs/toolkit/query/react';
-import { authReducer, authSlice } from './slices/authSlice';
+import { examsApi } from './queries/exams';
 import { userApi } from './queries/users';
+import { authReducer } from './slices/authSlice';
 
-const persistConfig = {
-  key: 'root',
-  storage,
-  whitelist: ['exams'],
-};
+// const persistConfig = {
+//   key: 'root',
+//   storage,
+//   whitelist: ['exams'],
+// };
 
 const rootReducer = combineReducers({
-  exams: examReducer,
   [examsApi.reducerPath]: examsApi.reducer,
   auth: authReducer,
   [authApi.reducerPath]: authApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
 });
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: rootReducer,

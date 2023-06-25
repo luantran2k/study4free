@@ -1,13 +1,12 @@
-
 import { IIcon } from '../../interfaces';
 
-const Dictionary = ({ width, height, fill }: IIcon) => {
-
+const Dictionary = ({ width, height }: IIcon) => {
   return (
     <svg
       height={width}
       width={height}
       viewBox="0 0 100 100"
+      fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
     >

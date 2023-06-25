@@ -1,3 +1,4 @@
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { useEffect, useState } from 'react';
 import AddIcon from '../../../../assets/icons/Add';
 import TrashIcon from '../../../../assets/icons/Trash';
@@ -18,6 +19,7 @@ function Questions({ partId, questionIds, section }: Props) {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [removeQuestion] = useRemoveQuestionMutation();
   const [createQuestion] = useCreateQuestionMutation();
+  const [parent] = useAutoAnimate();
 
   useEffect(() => {
     setQuestionIndex(0);
@@ -32,7 +34,7 @@ function Questions({ partId, questionIds, section }: Props) {
   }, [questionIds]);
   return (
     <>
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center my-8" ref={parent}>
         <p className="text-xl font-medium">Question: </p>
         {questionIds.map((id, index) => (
           <button

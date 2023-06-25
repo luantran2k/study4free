@@ -1,13 +1,13 @@
-import React from 'react';
 import { IIcon } from '../../interfaces';
 
-const ArrowDown = ({ width, height, fill }: IIcon) => {
+const ArrowDown = ({ width, height }: IIcon) => {
   return (
     <svg
       viewBox="0 -4.5 20 20"
       version="1.1"
       width={width}
       height={height}
+      fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       className="rotate-180"
     >

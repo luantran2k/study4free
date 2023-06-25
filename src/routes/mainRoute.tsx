@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom';
-import { AnalyzeResults, Collection, DetailExam, ExamsPage, GrammarPage, HomePage, Payment, Reminder, RootLayout, SectionPage, UserInformation, UserProfilePage, VocabulariesPage, VocabularyDetail, Writing } from './imports';
 
+import { AnalyzeResults, Collection, DetailExam, ExamsPage, GrammarPage, HomePage, Payment, Reminder, SectionPage, UserInformation, UserProfilePage, VocabulariesPage, VocabularyDetail, Writing, DeleteAccount, RootLayout } from './imports';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -21,7 +21,7 @@ export const mainRoute: RouteObject = {
         {
           path: ':exam/:part/:section',
           element: <Writing />,
-        }
+        },
         // {
         //   path: 'writing/:id',
         //   element: <Writing />,
@@ -83,6 +83,10 @@ export const mainRoute: RouteObject = {
         {
           path: 'payment',
           element: <Payment />,
+        },
+        {
+          path: 'delete',
+          element: <DeleteAccount />,
         },
       ],
     },

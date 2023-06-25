@@ -10,9 +10,8 @@ const Tools = lazy(() => import('../Tools'));
 const Chat = lazy(() => import('../Chat'))
 
 const Header = () => {
-  const [isOpenNavBar, setOpenNavBar] = useState<boolean>(false);
   const { name } = useAppSelector(selectAuth);
-
+  const [isOpenNavBar, setOpenNavBar] = useState<boolean>(false);
   const [intersection, setIntersection] = useState<boolean>(false);
   const toggleNavBar = () => {
     setOpenNavBar(!isOpenNavBar);

@@ -1,8 +1,10 @@
 import { lazy } from 'react';
+import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
+
+
 const NavigationTest = lazy(() => import('../commonComponent/navigationTest'));
 const NoteInfo = lazy(() => import('../commonComponent/noteInfo'));
 
-import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 
 const Speaking = () => {
   const exams = {
@@ -70,12 +72,15 @@ const Speaking = () => {
           </div>
         </div>
         <div className="col-span-12 md:col-span-3 ">
-          <NavigationTest handleTask={function (task: number): void {
-            throw new Error('Function not implemented.');
-          }} defaultIndex={0} />
-        </div>
-      </div>
-    </div>
+          <NavigationTest
+            handleTask={function (): void {
+              throw new Error('Function not implemented.');
+            }}
+            defaultIndex={0}
+          />
+        </div >
+      </div >
+    </div >
   );
 };
 

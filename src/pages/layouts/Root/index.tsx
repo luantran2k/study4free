@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
+import { lazy } from 'react';
 const Header = lazy(() => import('../../../components/common/Header'));
 const Footer= lazy(() => import('../../../components/common/Footer'));
-import { lazy } from 'react';
+
 const RootLayout = () => {
   return (
     <div className="h-full relative">

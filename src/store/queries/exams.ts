@@ -1,16 +1,19 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { RootState } from '..';
 import { SectionType } from '../../components/admin/Exams/Sections';
+import IAnswer from '../../interfaces/Answer';
 import IExam, { CreateExamFormData } from '../../interfaces/Exam';
 import IPart from '../../interfaces/Part';
+import IQuestion from '../../interfaces/Question';
 import BaseFilter from '../../interfaces/common/BaseFilter';
 import { CreatePartFormData } from '../../schemas/part';
-import IQuestion from '../../interfaces/Question';
-import { RootState } from '..';
 
 export const examsApi = createApi({
   reducerPath: 'examsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://study4free-api.onrender.com',
+    baseUrl:
+      import.meta.env.VITE_BASE_API_URL ||
+      'https://study4free-api.onrender.com',
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
       if (token) {
@@ -19,7 +22,7 @@ export const examsApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Exams', 'Exam', 'Part', 'CountExam', 'CountPart'],
+  tagTypes: ['Exams', 'Exam', 'Part', 'CountExam', 'CountPart', 'Question'],
   endpoints: (builder) => ({
     getExams: builder.query<IExam[], BaseFilter>({
       query: ({ page, quantity, search }) => ({
@@ -114,6 +117,7 @@ export const examsApi = createApi({
       query: ({ questionId, section }) => ({
         url: `/questions/${section}/${questionId}`,
       }),
+      providesTags: () => ['Question'],
     }),
     removeQuestion: builder.mutation<
       IQuestion,
@@ -133,7 +137,7 @@ export const examsApi = createApi({
       {
         questionId: string;
         section: SectionType;
-        data: CreatePartFormData;
+        data: Partial<IQuestion>;
       }
     >({
       query: ({ questionId, section, data }) => ({
@@ -141,6 +145,39 @@ export const examsApi = createApi({
         method: 'PATCH',
         body: data,
       }),
+      invalidatesTags: () => ['Question'],
+    }),
+    createAnswer: builder.mutation<
+      IAnswer,
+      { questionId: string; section: SectionType }
+    >({
+      query: ({ questionId, section }) => ({
+        url: `/answers/${section}/${questionId}`,
+        method: 'POST',
+        body: { value: '' },
+      }),
+      invalidatesTags: () => ['Question'],
+    }),
+    updateAnswer: builder.mutation<
+      IAnswer,
+      { answerId: string; section: SectionType; data: Partial<IAnswer> }
+    >({
+      query: ({ answerId, section, data }) => ({
+        url: `/answers/${section}/${answerId}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: () => ['Question'],
+    }),
+    removeAnswer: builder.mutation<
+      IAnswer,
+      { answerId: string; section: SectionType }
+    >({
+      query: ({ answerId, section }) => ({
+        url: `/answers/${section}/${answerId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: () => ['Question'],
     }),
   }),
 });
@@ -159,4 +196,7 @@ export const {
   useCreateQuestionMutation,
   useRemoveQuestionMutation,
   useUpdateQuestionByIdMutation,
+  useCreateAnswerMutation,
+  useUpdateAnswerMutation,
+  useRemoveAnswerMutation,
 } = examsApi;

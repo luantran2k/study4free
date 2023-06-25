@@ -208,9 +208,8 @@ export interface IMock {
   sections: ISections[];
 }
 
-
 interface ISearch {
-  keyword: string
+  keyword: string;
 }
 
 function ExamsPage() {
@@ -220,12 +219,15 @@ function ExamsPage() {
   const [search, setSearch] = useState<string>('');
   const { register, handleSubmit } = useForm<ISearch>();
 
-  const handleSearch: SubmitHandler<ISearch> = (data) => setSearch(data.keyword.toLowerCase())
+  const handleSearch: SubmitHandler<ISearch> = (data) =>
+    setSearch(data.keyword.toLowerCase());
 
   useEffect(() => {
-    const filteredItem = mockDataExam.filter((data) => data.title.toLowerCase().includes(search))
-    setFilteredData(filteredItem)
-  }, [search])
+    const filteredItem = mockDataExam.filter((data) =>
+      data.title.toLowerCase().includes(search)
+    );
+    setFilteredData(filteredItem);
+  }, [search]);
 
   useEffect(() => {
     window.scrollTo({
@@ -249,15 +251,20 @@ function ExamsPage() {
               <h3 className="text-4xl text-black font-bold my-8">
                 Exam Libraries
               </h3>
-              <form onSubmit={handleSubmit(handleSearch)} className="flex flex-row items-center gap-3 mb-8">
+              <form
+                onSubmit={handleSubmit(handleSearch)}
+                className="flex flex-row items-center gap-3 mb-8"
+              >
                 <input
                   type="text"
                   placeholder="Input keyword you want to search"
                   className="input input-bordered w-full max-w-xs"
-                  {...register("keyword")}
-
+                  {...register('keyword')}
                 />
-                <button type='submit' className="btn bg-blue-400 text-white hover:bg-blue-500">
+                <button
+                  type="submit"
+                  className="btn bg-blue-400 text-white hover:bg-blue-500"
+                >
                   Search
                 </button>
               </form>
@@ -267,10 +274,14 @@ function ExamsPage() {
                 <>
                   {filteredData.map((mock) => (
                     <ExamCard {...mock} />
-                  ))}</>
-              ) : <h3 className='text-3xl text-center mx-auto mb-10 font-serif font-semibold text-sky-600'>No Data Found!!!</h3>}
+                  ))}
+                </>
+              ) : (
+                <h3 className="text-3xl text-center mx-auto mb-10 font-serif font-semibold text-sky-600">
+                  No Data Found!!!
+                </h3>
+              )}
             </div>
-
           </div>
         </>
       ) : (

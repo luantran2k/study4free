@@ -1,7 +1,6 @@
 import { RouteObject } from 'react-router-dom';
 import { AdminLayout, EditExam, ExamsAdminPage } from './imports';
 
-
 export const adminRoutes: RouteObject = {
   path: '/admin',
   element: <AdminLayout />,
@@ -19,24 +18,6 @@ export const adminRoutes: RouteObject = {
     {
       path: 'exams/edit/:id',
       element: <EditExam />,
-      children: [
-        {
-          path: ':section',
-          element: <h1>Section</h1>,
-          children: [
-            {
-              path: ':partId',
-              element: <h1>Part</h1>,
-              children: [
-                {
-                  path: ':questionId',
-                  element: <h1>Part</h1>,
-                },
-              ],
-            },
-          ],
-        },
-      ],
     },
 
     { path: 'vocabularies', element: <h1>Vocabularies</h1> },
