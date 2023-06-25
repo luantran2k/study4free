@@ -152,3 +152,24 @@
     transform: rotate(360deg);
   }
 }
+
+::-webkit-scrollbar {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 1rem;
+  background: #bfdbfe;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 1rem;
+  border: 3px solid #bfdbfe;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  border-radius: 1rem;
+  background: #3b82f6;
+}

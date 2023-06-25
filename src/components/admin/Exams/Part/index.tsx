@@ -1,3 +1,4 @@
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import {
   useCreateQuestionMutation,
   useGetPartByIdQuery,
@@ -18,6 +19,7 @@ function Part({ partId, section }: Props) {
   } = useGetPartByIdQuery({ partId: partId, section });
 
   const [createQuestion] = useCreateQuestionMutation();
+  const [parent] = useAutoAnimate();
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -27,7 +29,7 @@ function Part({ partId, section }: Props) {
   }
 
   return (
-    <div className="my-4">
+    <div className="my-4" ref={parent}>
       <h3 className="text-2xl">{part?.title}</h3>
       <p>{part?.description}</p>
       {part?.questions && part.questions.length > 0 ? (

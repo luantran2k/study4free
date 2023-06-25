@@ -10,6 +10,7 @@ import CreatePartForm from '../CreatePartForm';
 import Part from '../Part';
 import { SectionType } from '../Sections';
 import NotExistPart from './NotExistPart';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 type Props = {
   section: SectionType;
@@ -26,6 +27,7 @@ function Parts({ section, modalId, sectionId }: Props) {
   });
 
   const [removePart] = useRemovePartMutation();
+  const [parent] = useAutoAnimate();
 
   useEffect(() => {
     setPartIndex(0);
@@ -55,7 +57,7 @@ function Parts({ section, modalId, sectionId }: Props) {
 
   return (
     <div>
-      <div className="flex gap-2 mt-6 items-center">
+      <div className="flex gap-2 mt-6 items-center" ref={parent}>
         <p className="text-3xl font-medium">Part: </p>
         {partIds.map((id, index) => (
           <button
