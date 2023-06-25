@@ -29,12 +29,19 @@ export const userApi = createApi({
       }),
       invalidatesTags: () => ['user'],
     }),
+    getAllCollecton: builder.query({
+        query: () => 'collections/?quantity=100'
+    }),
+    getCollectionById: builder.query({
+        query: (id) => `collections/${id}`
+    }),
     addNewCollection: builder.mutation({
       query: (data) => ({
         url: `collections`,
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: () => ['user'],
     }),
     addNewVocabulary: builder.mutation({
       query: (data) => ({
@@ -49,6 +56,8 @@ export const userApi = createApi({
 export const {
   useGetUserByIdQuery,
   useUpdateInforMutation,
+  useGetAllCollectonQuery,
+  useGetCollectionByIdQuery,
   useAddNewCollectionMutation,
   useAddNewVocabularyMutation,
 } = userApi;

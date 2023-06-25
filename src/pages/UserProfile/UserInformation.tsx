@@ -36,7 +36,7 @@ function UserInformation() {
     localStorage.getItem('user') as string
   ).userInfo;
   const { data, isSuccess } = useGetUserByIdQuery(dataStorage.id);
-  const [imageChange, setImageChange] = useState<string>(data.avatar);
+  const [imageChange, setImageChange] = useState<string>(data?.avatar);
   const [updateInfor] = useUpdateInforMutation();
 
   const handleChangeImage = (e: any) => {
