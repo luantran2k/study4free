@@ -38,7 +38,7 @@ export const Payment = () => {
     localStorage.getItem('user') as string
   ).userInfo;
   const { data, isSuccess } = useGetUserByIdQuery(dataStorage?.id);
-  console.log(data, isSuccess);
+  console.log('data', data, 'id', data.id);
 
   const handlePrice = (price: number) => {
     setMoney(price);
@@ -49,11 +49,12 @@ export const Payment = () => {
         NOTIFICATION_TYPE.SUCCESS,
         'You have successfully paid, you are now a member of our VIP, enjoy the great functions we bring to you'
       );
+
       updateInfor({
         newdata: {
-          ...data,
           payment: true,
         },
+        id: data.id,
       });
     }
   };
@@ -80,7 +81,7 @@ export const Payment = () => {
                 }`}
               >
                 <div className="text-[3rem] text-[#c4cedb]">$</div>
-                <div className="text-[3rem] ">{item.price}</div>
+                <div className="text-[3rem] ">{item.price}/</div>
                 <div>{item.period}</div>
               </div>
             );
