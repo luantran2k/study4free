@@ -98,7 +98,7 @@ function CreateExamForm({ modalId }: { modalId: string }) {
         </div>
         <LoadingButton
           type="submit"
-          className="btn btn-primary w-full"
+          className="btn bg-blue-500 hover:bg-blue-500 text-white  w-full"
           isLoading={isLoading}
         >
           Create

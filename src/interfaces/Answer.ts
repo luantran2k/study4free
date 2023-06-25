@@ -1,4 +1,6 @@
 export default interface IAnswer {
   id: string;
-  answer: string;
+  value: string;
+  image?: string;
+  audio?: string;
 }
