@@ -10,9 +10,8 @@ import { useAppSelector } from '../../../hooks/redux';
 import { selectAuth } from '../../../store/slices/authSlice';
 
 export const Header = () => {
-  const [isOpenNavBar, setOpenNavBar] = useState<boolean>(false);
   const { name } = useAppSelector(selectAuth);
-
+  const [isOpenNavBar, setOpenNavBar] = useState<boolean>(false);
   const [intersection, setIntersection] = useState<boolean>(false);
   const toggleNavBar = () => {
     setOpenNavBar(!isOpenNavBar);
@@ -28,7 +27,7 @@ export const Header = () => {
 
   useEffect(() => {
     if (!inView) {
-      console.log('Reached target element');
+      // Intersection occurred, perform your desired action here
       setIntersection(true);
     } else setIntersection(false);
   }, [inView]);

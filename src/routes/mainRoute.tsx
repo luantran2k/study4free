@@ -14,6 +14,7 @@ import UserInformation from '../pages/UserProfile/UserInformation';
 import VocabulariesPage from '../pages/Vocabularies';
 import VocabularyDetail from '../pages/Vocabularies/VocabularyDetail';
 import RootLayout from '../pages/layouts/Root';
+import DeleteAccount from '../pages/UserProfile/DeleteAccount';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -96,6 +97,10 @@ export const mainRoute: RouteObject = {
         {
           path: 'payment',
           element: <Payment />,
+        },
+        {
+          path: 'delete',
+          element: <DeleteAccount />,
         },
       ],
     },
