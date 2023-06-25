@@ -30,7 +30,7 @@ export const userApi = createApi({
       invalidatesTags: () => ['User'],
     }),
     getAllCollecton: builder.query({
-        query: () => 'collections/?quantity=100',
+        query: () => 'collections?page=0&quantity=100',
         providesTags: () => ['Collection']
     }),
     getCollectionById: builder.query({

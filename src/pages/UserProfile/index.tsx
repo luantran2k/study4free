@@ -108,7 +108,7 @@ function UserProfilePage() {
             <UpgradeUserIcon />
           </NavLink>
           <NavLink
-            to="*"
+            to="delete"
             className="text-[24px] w-[100%] flex justify-center py-5"
             style={({ isActive }) => {
               return {
@@ -210,7 +210,7 @@ function UserProfilePage() {
               Upgrade Account
             </NavLink>
             <NavLink
-              to="*"
+              to="delete"
               className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
               style={({ isActive }) => {
                 return {

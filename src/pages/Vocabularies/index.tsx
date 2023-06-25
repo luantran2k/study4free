@@ -50,7 +50,7 @@ const newPag = {
 function VocabulariesPage() {
   const { pathname } = useLocation();
   const { data, isSuccess } = useGetAllCollectonQuery()
-    console.log(data)
+    if(isSuccess) console.log(data)
 
   const [ addNewCollectionHook ] = useAddNewCollectionMutation()
   const [ inputContent, setInputContent ] = useState<string>('')

@@ -15,6 +15,7 @@ import { Writing } from '../pages/Exams/Writing';
 import { Speaking } from '../pages/Exams/Speaking';
 import { Payment } from '../pages/Payment/Payment';
 import DetailExam from '../pages/Exams/DetailExam/DetailExam';
+import DeleteAccount from '../pages/UserProfile/DeleteAccount';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -97,6 +98,10 @@ export const mainRoute: RouteObject = {
         {
           path: 'payment',
           element: <Payment />,
+        },
+        {
+          path: 'delete',
+          element: <DeleteAccount />,
         },
       ],
     },
