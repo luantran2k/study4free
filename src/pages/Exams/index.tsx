@@ -1,5 +1,5 @@
-import React, { FormEvent, lazy, useEffect, useState } from 'react';
-import { Outlet, useLocation, useParams } from 'react-router-dom';
+import React, { lazy, useEffect, useState } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 import Thumb from '../../assets/images/thumbEnglish.jpg';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -243,7 +243,7 @@ function ExamsPage() {
           <div className="py-[40px] mb-[10px] text-white text-center font-bold text-[40px] bg-gradient-to-r from-cyan-500 to-blue-500">
             <h2 className="uppercase">Examination</h2>
           </div>
-          <div className="flex flex-col h-full relative p-[3rem]">
+          <div className="flex flex-col h-full relative py-[3rem]">
             <div className="container mx-auto mb-10">
               <img src={Thumb} alt="" className="w-[100%]" />
             </div>

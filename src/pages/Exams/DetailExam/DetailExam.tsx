@@ -4,7 +4,7 @@ import { mockDataExam, ISections } from '..';
 import ClockIcon from '../../../assets/icons/Clock';
 import WriteIcon from '../../../assets/icons/Write';
 
-import LightOn from '../../../assets/icons/LightOn';
+// import LightOn from '../../../assets/icons/LightOn';
 
 
 const DetailExam = () => {

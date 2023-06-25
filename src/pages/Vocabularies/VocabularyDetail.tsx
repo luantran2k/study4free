@@ -9,17 +9,17 @@ import IVocabulary from '../../interfaces/Vocabulary';
 import ICollection from '../../interfaces/Collection';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
 
-const vocabs: IVocabulary[] = [
-  {
-    vocabulary: 'abandon',
-    meaning: 'từ bỏ, đầu hàng, không làm nữa dù chưa xong',
-    image: '',
-    spelling: '/əˈbændən/',
-    synonyms: ['to stop doing an activity before you have finished it'],
-  },
-];
+
+// const vocabs: IVocabulary[] = [
+//   {
+//     vocabulary: 'abandon',
+//     meaning: 'từ bỏ, đầu hàng, không làm nữa dù chưa xong',
+//     image: '',
+//     spelling: '/əˈbændən/',
+//     synonyms: ['to stop doing an activity before you have finished it'],
+//   },
+// ];
 
 // 'ability',
 // 'able',

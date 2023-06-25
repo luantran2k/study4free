@@ -12,26 +12,26 @@ import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 
 const Pagination = lazy(() => import('../../components/common/Pagination'));
 
-const vocabList: string[] = [
-  'Family',
-  'Business',
-  'Marketing',
-  'Family',
-  'Business',
-  'Marketing',
-  'Family',
-  'Business',
-  'Marketing',
-  'Family',
-  'Business',
-  'Marketing',
-  'Family',
-  'Business',
-  'Marketing',
-  'Family',
-  'Business',
-  'Marketing',
-];
+// const vocabList: string[] = [
+//   'Family',
+//   'Business',
+//   'Marketing',
+//   'Family',
+//   'Business',
+//   'Marketing',
+//   'Family',
+//   'Business',
+//   'Marketing',
+//   'Family',
+//   'Business',
+//   'Marketing',
+//   'Family',
+//   'Business',
+//   'Marketing',
+//   'Family',
+//   'Business',
+//   'Marketing',
+// ];
 
 const newPag = {
   totalPage: 5,
@@ -87,10 +87,10 @@ function VocabulariesPage() {
 
   return (
     <React.Fragment>
-      <div className="py-[40px] mb-[10px] text-white text-center font-bold text-[40px] bg-gradient-to-r from-cyan-500 to-blue-500">
+      <div className="py-[40px] mb-[10px] text-white text-center font-bold text-[40px] bg-gradient-to-r from-cyan-500 to-blue-500 ">
         <h2>VOCABULARY</h2>
       </div>
-      <div className="container mx-auto">
+      <div className="container mx-auto py-[3rem]">
         <img src={Thumb} alt="" className="w-[100%]" />
         {pathname === '/vocabularies' ? (
           <div className="max-sm:px-[10px] p-[3rem] flex gap-3 flex-col items-start">
