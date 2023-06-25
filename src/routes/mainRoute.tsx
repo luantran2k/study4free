@@ -14,6 +14,7 @@ import VocabularyDetail from '../pages/Vocabularies/VocabularyDetail';
 import { Writing } from '../pages/Exams/Writing';
 import { Speaking } from '../pages/Exams/Speaking';
 import { Payment } from '../pages/Payment/Payment';
+import DetailExam from '../pages/Exams/DetailExam/DetailExam';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -28,21 +29,29 @@ export const mainRoute: RouteObject = {
       element: <ExamsPage />,
       children: [
         {
-          path: 'writing/:id',
+          path: ':exam/:part',
+          element: <DetailExam />,
+        },
+        {
+          path: ':exam/:part/:section',
           element: <Writing />,
-        },
-        {
-          path: 'speaking/:id',
-          element: <Speaking />,
-        },
-        {
-          path: 'listening/:id',
-          element: <h1>Not Available</h1>,
-        },
-        {
-          path: 'reading/:id',
-          element: <h1>Not Available</h1>,
-        },
+        }
+        // {
+        //   path: 'writing/:id',
+        //   element: <Writing />,
+        // },
+        // {
+        //   path: 'speaking/:id',
+        //   element: <Speaking />,
+        // },
+        // {
+        //   path: 'listening/:id',
+        //   element: <h1>Not Available</h1>,
+        // },
+        // {
+        //   path: 'reading/:id',
+        //   element: <h1>Not Available</h1>,
+        // },
       ],
     },
     {

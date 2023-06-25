@@ -42,7 +42,7 @@ function VocabularyDetail() {
   const { data, isSuccess } = useGetUserByIdQuery(dataStorage.id);
   const [ AddVocab, ] = useAddNewVocabularyMutation()
   const [ AddCollection ] = useAddNewCollectionMutation()
-  const myCollections = data.collections
+  const myCollections = data?.collections
   console.log(myCollections)
   const { state } = useLocation();
 
@@ -61,7 +61,7 @@ function VocabularyDetail() {
       if (isSuccess) {
         notify(NOTIFICATION_TYPE.SUCCESS, 'Add to collections Successfully');
         await AddVocab({
-            vocab,
+            ...vocab,
             collectionId: duplicateCollection
         });
       }
@@ -72,12 +72,12 @@ function VocabularyDetail() {
         await AddCollection({
           title: state,
           image: ''
-        })
+        }).unwrap().then((data) => console.log(data))
         const newCollections = data.collections
         newCollections.forEach(async (value: ICollection) => {
           if(value.title === state) {
             await AddVocab({
-              vocab,
+              ...vocab,
               collectionId: value.id,
             });
           }

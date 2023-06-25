@@ -1,4 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { RootState } from '..';
+
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -6,8 +8,7 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://study4free-api.onrender.com/',
     prepareHeaders: (headers, { getState }) => {
-      const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDk2NDdhOTdkZWFmODY4MmRlYTdjZDIiLCJ1c2VybmFtZSI6InVzZXIxIiwiaWF0IjoxNjg3NjI1NzU3LCJleHAiOjE2ODc2MjkzNTd9.kDOojERZUu35PL9OYQgQDjyxJYXbi0pPneUK7JALjHE';
+      const token = (getState() as RootState).auth.token
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
       }
