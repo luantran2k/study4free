@@ -38,7 +38,6 @@ export const Payment = () => {
     localStorage.getItem('user') as string
   ).userInfo;
   const { data, isSuccess } = useGetUserByIdQuery(dataStorage?.id);
-  console.log('data', data, 'id', data.id);
 
   const handlePrice = (price: number) => {
     setMoney(price);
