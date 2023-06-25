@@ -5,13 +5,14 @@ import IPart from '../../interfaces/Part';
 import BaseFilter from '../../interfaces/common/BaseFilter';
 import { CreatePartFormData } from '../../schemas/part';
 import IQuestion from '../../interfaces/Question';
+import { RootState } from '..';
 
 export const examsApi = createApi({
   reducerPath: 'examsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_BASE_API_URL,
-    prepareHeaders: (headers) => {
-      const token = import.meta.env.VITE_ACCESS_TOKEN;
+    baseUrl: 'https://study4free-api.onrender.com',
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as RootState).auth.token;
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
       }
@@ -127,6 +128,20 @@ export const examsApi = createApi({
       }),
       invalidatesTags: () => ['Part'],
     }),
+    updateQuestionById: builder.mutation<
+      IQuestion,
+      {
+        questionId: string;
+        section: SectionType;
+        data: CreatePartFormData;
+      }
+    >({
+      query: ({ questionId, section, data }) => ({
+        url: `/questions/${section}/${questionId}`,
+        method: 'PATCH',
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -143,4 +158,5 @@ export const {
   useGetQuestionByIdQuery,
   useCreateQuestionMutation,
   useRemoveQuestionMutation,
+  useUpdateQuestionByIdMutation,
 } = examsApi;

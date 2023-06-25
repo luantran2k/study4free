@@ -1,4 +1,7 @@
-import { useGetPartByIdQuery } from '../../../../store/queries/exams';
+import {
+  useCreateQuestionMutation,
+  useGetPartByIdQuery,
+} from '../../../../store/queries/exams';
 import Questions from '../Questions';
 import { SectionType } from '../Sections';
 
@@ -13,6 +16,9 @@ function Part({ partId, section }: Props) {
     isLoading,
     isError,
   } = useGetPartByIdQuery({ partId: partId, section });
+
+  const [createQuestion] = useCreateQuestionMutation();
+
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -24,19 +30,22 @@ function Part({ partId, section }: Props) {
     <div className="my-4">
       <h3 className="text-2xl">{part?.title}</h3>
       <p>{part?.description}</p>
-      <div className="flex gap-2 my-4">
-        <button className="btn bg-blue-500 hover:bg-blue-500 text-white btn-sm">
-          Add Question
-        </button>
-        <button className="btn  bg-red-500 hover:bg-red-500 text-white btn-sm">
-          Remove Question
-        </button>
-      </div>
-      <Questions
-        section={section}
-        questionIds={part?.questions.map((question) => question.id) || []}
-        partId={partId}
-      />
+      {part?.questions && part.questions.length > 0 ? (
+        <Questions
+          section={section}
+          questionIds={part?.questions.map((question) => question.id) || []}
+          partId={partId}
+        />
+      ) : (
+        <div className="flex gap-2 my-4">
+          <button
+            className="btn bg-blue-500 hover:bg-blue-500 text-white btn-sm"
+            onClick={() => createQuestion({ partId, section })}
+          >
+            Add Question
+          </button>
+        </div>
+      )}
     </div>
   );
 }
