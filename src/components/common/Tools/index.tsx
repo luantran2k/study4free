@@ -10,7 +10,6 @@ interface ITools {
 
 const Tools = (props: ITools) => {
   const [clicked, setClicked] = useState(false);
-  console.log(props.intersection)
   return (
     <div
       data-aos="zoom-in"

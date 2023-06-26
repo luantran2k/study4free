@@ -2,6 +2,7 @@ import { RouteObject } from 'react-router-dom';
 
 import { AnalyzeResults, Collection, DetailExam, ExamsPage, GrammarPage, HomePage, Payment, Reminder, SectionPage, UserInformation, UserProfilePage, VocabulariesPage, VocabularyDetail, Writing, DeleteAccount, RootLayout } from './imports';
 import NotFoundPage from '../pages/NotFound';
+import Speaking from '../pages/Exams/Speaking';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -24,14 +25,14 @@ export const mainRoute: RouteObject = {
           // element: <Writing />,
           element: <NotFoundPage/>
         },
-        // {
-        //   path: 'writing/:id',
-        //   element: <Writing />,
-        // },
-        // {
-        //   path: 'speaking/:id',
-        //   element: <Speaking />,
-        // },
+        {
+          path: ':exam/:part/writing',
+          element: <Writing />,
+        },
+        {
+          path: ':exam/:part/speaking',
+          element: <Speaking />,
+        },
         // {
         //   path: 'listening/:id',
         //   element: <h1>Not Available</h1>,

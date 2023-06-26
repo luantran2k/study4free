@@ -122,9 +122,9 @@ const DetailExam = () => {
                     Ready to start taking the full test? To get the best
                     results, you need to spend 40 minutes on this test.
                   </div>
-                  <button className="btn btn-success text-white" onClick={() => navigate("/404")}>
+                  <NavLink className="btn btn-success text-white" to={test.tag[1]}>
                     Start Exam
-                  </button>
+                  </NavLink>
                 </React.Fragment>
               ) : (
                 <h2>!</h2>

@@ -57,14 +57,14 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
   return (
     <form
       onSubmit={handleSubmit(handleSignup)}
-      className="px-16 py-12  border-2 rounded-md shadow-lg bg-red-300"
+      className="px-16 py-12  border-2 rounded-xl shadow-2xl bg-white"
     >
-      <div className="flex flex-col gap-5 mb-6">
+      <div className="flex flex-col gap-5 mb-8">
         <div className="flex flex-col md:flex-row gap-5">
           <div className="w-full md:w-1/2">
             <div className="form-control">
               <label className="label">
-                <p className="label-text text-md text-white uppercase">
+                <p className="label-text text-md text-black font-semibold uppercase">
                   Username
                 </p>
               </label>
@@ -78,7 +78,7 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
               </label>
             </div>
             {errors.username?.message && (
-              <p className="mt-2 text-xl italic text-green-600">
+              <p className="mt-2 text-lg italic text-red-400">
                 {errors.username?.message}
               </p>
             )}
@@ -86,7 +86,7 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
           <div className="w-full md:w-1/2">
             <div className="form-control">
               <label className="label">
-                <p className="label-text text-md text-white uppercase">
+                <p className="label-text text-md text-black font-semibold uppercase">
                   E-mail
                 </p>
               </label>
@@ -100,7 +100,7 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
               </label>
             </div>
             {errors.email?.message && (
-              <p className="mt-2 text-xl italic text-green-600">
+              <p className="mt-2 text-lg italic text-red-400">
                 {errors.email?.message}
               </p>
             )}
@@ -111,7 +111,7 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
           <div className="w-full md:w-1/2">
             <div className="form-control">
               <label className="label">
-                <p className="label-text text-md text-white uppercase">
+                <p className="label-text text-md text-black font-semibold uppercase">
                   Password
                 </p>
               </label>
@@ -125,7 +125,7 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
               </label>
             </div>
             {errors.password?.message && (
-              <p className="mt-2 text-xl italic text-green-600">
+              <p className="mt-2 text-lg italic text-red-400">
                 {errors.password?.message}
               </p>
             )}
@@ -133,7 +133,7 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
           <div className="w-full md:w-1/2">
             <div className="form-control">
               <label className="label">
-                <p className="label-text text-md text-white uppercase">
+                <p className="label-text text-md text-black font-semibold uppercase">
                   Password Again{' '}
                 </p>
               </label>
@@ -147,7 +147,7 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
               </label>
             </div>
             {errors.repassword?.message && (
-              <p className="mt-2 text-xl italic text-green-600">
+              <p className="mt-2 text-lg italic text-red-400">
                 {errors.repassword?.message}
               </p>
             )}
@@ -156,7 +156,7 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
       </div>
       <button
         type="submit"
-        className="px-8  transition-colors text-white bg-red-400 hover:bg-red-500 rounded-md hover:shadow-md py-2 text-lg font-semibold"
+        className="px-8  transition-colors text-white font-semibold bg-blue-400 hover:bg-blue-500 rounded-md hover:shadow-md py-2 text-lg w-full"
       >
         Register
       </button>
