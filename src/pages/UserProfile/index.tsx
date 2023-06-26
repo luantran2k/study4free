@@ -226,7 +226,7 @@ function UserProfilePage() {
             </NavLink>
           )}
           <NavLink
-            to="*"
+            to="delete"
             className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
             style={({ isActive }) => {
               return {
