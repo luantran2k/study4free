@@ -140,11 +140,21 @@ export const examsApi = createApi({
         data: Partial<IQuestion>;
       }
     >({
-      query: ({ questionId, section, data }) => ({
-        url: `/questions/${section}/${questionId}`,
-        method: 'PATCH',
-        body: data,
-      }),
+      query: ({ questionId, section, data }) => {
+        const formData = new FormData();
+        Object.keys(data).forEach((key) => {
+          formData.append(
+            key,
+            data[key as keyof Partial<IQuestion>] as string | Blob
+          );
+        });
+        return {
+          url: `/questions/${section}/${questionId}`,
+          method: 'PATCH',
+          body: formData,
+          formData: true,
+        };
+      },
       invalidatesTags: () => ['Question'],
     }),
     createAnswer: builder.mutation<
