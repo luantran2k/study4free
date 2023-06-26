@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import TrashIcon from '../../../../assets/icons/Trash';
 import { useAppSelector } from '../../../../hooks/redux';
 import IAnswer from '../../../../interfaces/Answer';
@@ -25,7 +25,6 @@ function Answer({
   const [value, setValue] = useState(defaultValue);
   const [updateAnswer] = useUpdateAnswerMutation();
   const [removeAnswer] = useRemoveAnswerMutation();
-
   const { partType, questionId } = useAppSelector(
     (state) => state.exam.examEditInfo
   );
@@ -57,7 +56,7 @@ function Answer({
           type="checkbox"
           name={questionId}
           className="checkbox"
-          defaultChecked={isTrue}
+          checked={isTrue}
           onChange={(e) => {
             updateAnswer({
               answerId: id,

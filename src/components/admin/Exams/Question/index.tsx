@@ -9,6 +9,7 @@ import {
   useUpdateQuestionByIdMutation,
 } from '../../../../store/queries/exams';
 import { updateExamEditInfo } from '../../../../store/slices/examSlice';
+import TextEditor from '../../../common/TextEditor';
 import Answer from '../Answer';
 import AudioUploadPreview from '../AudioUploadPreview';
 import ImageUploadPreview from '../ImageUploadPreview';
@@ -55,27 +56,20 @@ function Question({ questionId, section }: Props) {
   return (
     <div className="flex gap-6">
       <div className="w-5/12 flex flex-col [&>div]:flex [&>div]:flex-col [&>div]:gap-2 gap-4">
-        <div>
+        <div className="mb-12">
           <label htmlFor="">Title</label>
-          <input
-            value={question?.title}
-            type="text"
-            className="input input-bordered"
-            onChange={(e) => {
-              setQuestion((question) => ({
-                ...question,
-                title: e.target.value,
-              }));
-            }}
-            onBlur={(e) => {
+          <TextEditor
+            defaultValue={question?.title as string}
+            onBlur={(value) => {
               updateTitle({
                 questionId,
                 section,
-                data: { title: e.target.value },
+                data: { title: value },
               });
             }}
           />
         </div>
+
         {section === 'Listening' && (
           <div>
             <label htmlFor="">Audio</label>
