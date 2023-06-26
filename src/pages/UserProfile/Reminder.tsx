@@ -2,15 +2,19 @@ import { useSelector } from 'react-redux';
 import TrashIcon from '../../assets/icons/Trash';
 import PlusIcon from '../../assets/icons/plusIcon';
 import { RootState } from '../../store';
-import { useAddNewTodoMutation, useDeleteToDoMutation, useGetUserByIdQuery } from '../../store/queries/users';
+import {
+  useAddNewTodoMutation,
+  useDeleteToDoMutation,
+  useGetUserByIdQuery,
+} from '../../store/queries/users';
 import { useForm } from 'react-hook-form';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 
 function Reminder() {
-  const user = useSelector((state: RootState) => state.auth.userInformation)
-  const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id)
-  const [ addNewToDo ] = useAddNewTodoMutation()
-  const [ deleteToDoList ] = useDeleteToDoMutation()
+  const user = useSelector((state: RootState) => state.auth.userInformation);
+  const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id);
+  const [addNewToDo] = useAddNewTodoMutation();
+  const [deleteToDoList] = useDeleteToDoMutation();
 
   const {
     register,
@@ -19,23 +23,23 @@ function Reminder() {
   } = useForm();
   const onSubmit = handleSubmit((dataForm) => {
     console.log({
-      ...dataForm
+      ...dataForm,
     });
-    addNewToDo(dataForm)
-    notify(NOTIFICATION_TYPE.SUCCESS, 'Add new to-do successfully')
+    addNewToDo(dataForm);
+    notify(NOTIFICATION_TYPE.SUCCESS, 'Add new to-do successfully');
   });
 
-  if(isLoading) {
-    return <div>Loading...</div>
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
   const deleteToDo = (value: any) => {
-      console.log(value.id)
-      notify(NOTIFICATION_TYPE.SUCCESS, 'Delete successfully')
-      deleteToDoList(value.id)
-  } 
+    console.log(value.id);
+    notify(NOTIFICATION_TYPE.SUCCESS, 'Delete successfully');
+    deleteToDoList(value.id);
+  };
 
-  if(isSuccess) {
+  if (isSuccess) {
     return (
       <div className="py-[20px] px-[30px]">
         <h3 className="text-center text-[40px] font-medium my-[30px]">
@@ -85,15 +89,25 @@ function Reminder() {
 
         <div className="mt-[20px] flex flex-row ms-3 gap-3 flex-wrap">
           {data.todos.map((value: any, index: number) => {
+            const date = new Date(value.time);
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1; // Tháng trong JavaScript đếm từ 0, nên cần cộng 1
+            const day = date.getDate();
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            const seconds = date.getSeconds();
             return (
               <div key={index} className="bg-white p-3 rounded-2xl shadow-md">
                 <p className="text-warning font-medium text-[20px] mb-5">
-                  {value.time}
+                  {`${day}-${month}-${year}    ${hours}:${minutes}`}
                 </p>
                 <div className="flex justify-between items-center min-w-[250px]">
                   <p>{value.todo}</p>
-                  <div className="cursor-pointer text-error hover:[&_svg]:scale-150 
-                  active:[&_svg]:scale-125 [&_svg]:transition-all" onClick={() => deleteToDo(value)}>
+                  <div
+                    className="cursor-pointer text-error hover:[&_svg]:scale-150 
+                  active:[&_svg]:scale-125 [&_svg]:transition-all"
+                    onClick={() => deleteToDo(value)}
+                  >
                     <TrashIcon />
                   </div>
                 </div>
