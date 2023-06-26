@@ -1,83 +1,109 @@
+import { useSelector } from 'react-redux';
 import TrashIcon from '../../assets/icons/Trash';
 import PlusIcon from '../../assets/icons/plusIcon';
+import { RootState } from '../../store';
+import { useAddNewTodoMutation, useDeleteToDoMutation, useGetUserByIdQuery } from '../../store/queries/users';
+import { useForm } from 'react-hook-form';
+import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 
 function Reminder() {
-  return (
-    <div className="py-[20px] px-[30px]">
-      <h3 className="text-center text-[40px] font-medium my-[30px]">
-        Calendar/ Reminder
-      </h3>
-      <div className="grid grid-cols-12">
-        <h2 className="col-span-12 row-span-1 text-[20px]">
-          <strong>From</strong> <input type="date" /> <strong>to</strong>{' '}
-          <input type="date" />
-          <button className="btn btn-primary ms-3">
-            <PlusIcon />
-          </button>
-        </h2>
-        <div className="mt-[20px] grid grid-rows-1 grid-cols-12 col-span-12 gap-[15px]">
-          <div className="col-span-3 max-lg:col-span-6 max-md:col-span-12">
-            <h2 className="text-[20px]">Monday</h2>
-            <div className="bg-[#fff] p-[10px] mt-[15px] rounded-lg shadow-lg">
-              <div className="flex justify-between gap-1">
-                <input
-                  type="text"
-                  className="border-[#ccc] border-[1px] rounded-md ps-2"
-                />
-                <div className="text-white bg-primary flex items-center p-3 rounded-md cursor-pointer">
-                  <PlusIcon />
+  const user = useSelector((state: RootState) => state.auth.userInformation)
+  const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id)
+  const [ addNewToDo ] = useAddNewTodoMutation()
+  const [ deleteToDoList ] = useDeleteToDoMutation()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = handleSubmit((dataForm) => {
+    console.log({
+      ...dataForm
+    });
+    addNewToDo(dataForm)
+    notify(NOTIFICATION_TYPE.SUCCESS, 'Add new to-do successfully')
+  });
+
+  if(isLoading) {
+    return <div>Loading...</div>
+  }
+
+  const deleteToDo = (value: any) => {
+      console.log(value.id)
+      notify(NOTIFICATION_TYPE.SUCCESS, 'Delete successfully')
+      deleteToDoList(value.id)
+  } 
+
+  if(isSuccess) {
+    return (
+      <div className="py-[20px] px-[30px]">
+        <h3 className="text-center text-[40px] font-medium my-[30px]">
+          Calendar/ Reminder
+        </h3>
+        <button
+          className="btn btn-primary ms-3"
+          onClick={() => window.my_modal_2.showModal()}
+        >
+          Add new to-do list <PlusIcon />
+        </button>
+        <dialog id="my_modal_2" className="modal">
+          <form method="dialog" className="modal-box" onSubmit={onSubmit}>
+            <p className="font-bold text-lg mb-4">
+              Hello!!! Let's make your new to-do list
+            </p>
+            <div>
+              <label htmlFor="time">Time</label>
+              <br />
+              <input
+                {...register('time', { required: true })}
+                type="datetime-local"
+                style={{ width: '100%' }}
+                className=" py-[8px] px-[8px] rounded-lg text-[16px] border-[#ccc] border-[1px] mb-5"
+                id="time"
+              />
+            </div>
+            <div>
+              <label htmlFor="todo">Things to do</label>
+              <br />
+              <input
+                {...register('todo', { required: true })}
+                type="text"
+                style={{ width: '100%' }}
+                className=" py-[8px] px-[8px] rounded-lg text-[16px] border-[#ccc] border-[1px] mb-5"
+                id="todo"
+              />
+            </div>
+            <button type="submit" className="btn btn-secondary">
+              Add
+            </button>
+          </form>
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+
+        <div className="mt-[20px] flex flex-row ms-3 gap-3 flex-wrap">
+          {data.todos.map((value: any, index: number) => {
+            return (
+              <div key={index} className="bg-white p-3 rounded-2xl shadow-md">
+                <p className="text-warning font-medium text-[20px] mb-5">
+                  {value.time}
+                </p>
+                <div className="flex justify-between items-center min-w-[250px]">
+                  <p>{value.todo}</p>
+                  <div className="cursor-pointer text-error hover:[&_svg]:scale-150 
+                  active:[&_svg]:scale-125 [&_svg]:transition-all" onClick={() => deleteToDo(value)}>
+                    <TrashIcon />
+                  </div>
                 </div>
               </div>
-              <div>
-                <ul>
-                  <div className="flex justify-between items-center">
-                    <li className="p-[10px]">Learn Vocabulary Business</li>
-                    <div
-                      className="cursor-pointer text-error hover:[&_svg]:scale-150 
-                                active:[&_svg]:scale-125 [&_svg]:transition-all"
-                    >
-                      <TrashIcon />
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <li className="p-[10px]">Learn Vocabulary Business</li>
-                    <div
-                      className="cursor-pointer text-error hover:[&_svg]:scale-150 
-                                active:[&_svg]:scale-125 [&_svg]:transition-all"
-                    >
-                      <TrashIcon />
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <li className="p-[10px]">Learn Vocabulary Business</li>
-                    <div
-                      className="cursor-pointer text-error hover:[&_svg]:scale-150 
-                                active:[&_svg]:scale-125 [&_svg]:transition-all"
-                    >
-                      <TrashIcon />
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <li className="p-[10px]">Learn Vocabulary Business</li>
-                    <div
-                      className="cursor-pointer text-error hover:[&_svg]:scale-150 
-                                active:[&_svg]:scale-125 [&_svg]:transition-all"
-                    >
-                      <TrashIcon />
-                    </div>
-                  </div>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex gap-[10px] mt-[14px] col-span-12 justify-start">
-          <button className="btn btn-primary">Add</button>
-          <button className="btn btn-warning">Delete</button>
+            );
+          })}
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Reminder;
