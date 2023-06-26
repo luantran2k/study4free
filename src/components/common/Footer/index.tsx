@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <div className="bg-[#273044] py-[2rem]">
-      <div className="container px-2 sm:px-0 hx-auto mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1rem] text-[#fff]">
+      <div className="w-[80%] px-2 sm:px-0 hx-auto mx-auto  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1rem] text-[#fff]">
         <div className="">
           <div className="text-[1.25rem] font-bold uppercase">About</div>
           <p>
@@ -51,21 +51,37 @@ const Footer = () => {
         </div>
         <div className="flex flex-col gap-[0.5rem]">
           <div className="text-[1.25rem] font-bold uppercase ">Pages</div>
-          <div className="border-b-2 border-b-[#525969] py-[0.5rem] hover:text-[#d17643]">
+          <a
+            href="#slide-introduction"
+            className="border-b-2 border-b-[#525969] py-[0.5rem] hover:text-[#d17643]"
+          >
+            Introduction
+          </a>
+          <a
+            href="#ielts-levels"
+            className="border-b-2 border-b-[#525969] py-[0.5rem] hover:text-[#d17643]"
+          >
+            English level
+          </a>
+
+          <a
+            href="#team-achievements"
+            className="border-b-2 border-b-[#525969] py-[0.5rem] hover:text-[#d17643]"
+          >
+            Our achievement
+          </a>
+          <a
+            href="#our-teams"
+            className="border-b-2 border-b-[#525969] py-[0.5rem] hover:text-[#d17643]"
+          >
             About us
-          </div>
-          <div className="border-b-2 border-b-[#525969] py-[0.5rem] hover:text-[#d17643]">
-            Blog
-          </div>
-          <div className="border-b-2 border-b-[#525969] py-[0.5rem] hover:text-[#d17643]">
-            Contact us
-          </div>
-          <div className="border-b-2 border-b-[#525969] py-[0.5rem] hover:text-[#d17643]">
-            Shop
-          </div>
-          <div className="border-b-2 border-b-[#525969] py-[0.5rem] hover:text-[#d17643]">
-            Membership plans
-          </div>
+          </a>
+          <a
+            href="#payment"
+            className="border-b-2 border-b-[#525969] py-[0.5rem] hover:text-[#d17643]"
+          >
+            Become VIP member
+          </a>
         </div>
         <div className="flex flex-col gap-[1rem]">
           <div className="text-[1.25rem] font-bold uppercase">Contacts</div>
@@ -79,5 +95,4 @@ const Footer = () => {
   );
 };
 
-
-export default Footer
+export default Footer;

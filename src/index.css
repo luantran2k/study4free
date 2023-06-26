@@ -9,6 +9,10 @@
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
+html {
+  scroll-behavior: smooth;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -36,30 +40,6 @@
   }
   to {
     transform: rotate(360deg) translateX(150px);
-  }
-}
-
-.home-title h1 {
-  margin: 0;
-  padding: 0;
-  color: #262626;
-  background-image: linear-gradient(to right, #f00, #ff0, #0ff, #0f0, #00f);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: changeTextColor 20s linear infinite;
-  background-size: 1000%;
-}
-
-@keyframes changeTextColor {
-  0% {
-    background-position: 0% 100%;
-  }
-  50% {
-    background-position: 100% 0%;
-  }
-  100% {
-    background-position: 0% 100%;
   }
 }
 

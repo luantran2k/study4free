@@ -22,9 +22,6 @@ function Reminder() {
     // formState: { errors },
   } = useForm();
   const onSubmit = handleSubmit((dataForm) => {
-    console.log({
-      ...dataForm,
-    });
     addNewToDo(dataForm);
     notify(NOTIFICATION_TYPE.SUCCESS, 'Add new to-do successfully');
   });
@@ -34,7 +31,6 @@ function Reminder() {
   }
 
   const deleteToDo = (value: any) => {
-    console.log(value.id);
     notify(NOTIFICATION_TYPE.SUCCESS, 'Delete successfully');
     deleteToDoList(value.id);
   };
@@ -91,7 +87,7 @@ function Reminder() {
           {data.todos.map((value: any, index: number) => {
             const date = new Date(value.time);
             const year = date.getFullYear();
-            const month = date.getMonth() + 1; // Tháng trong JavaScript đếm từ 0, nên cần cộng 1
+            const month = date.getMonth() + 1;
             const day = date.getDate();
             const hours = date.getHours();
             const minutes = date.getMinutes();

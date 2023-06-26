@@ -2,7 +2,13 @@ import SearchIcon from '../../../assets/icons/SearchIcon';
 import { lazy, useState } from 'react';
 import axios from 'axios';
 import { API_DICTIONARY_URL } from '../../../api';
-const LoadingAnimate  = lazy(() => import('../LoadingAnimate'));
+import {
+  IAudioData,
+  IDefinition,
+  IPartOfSpeech,
+  IPhonetics,
+} from '../../../interfaces/DictionaryData';
+const LoadingAnimate = lazy(() => import('../LoadingAnimate'));
 interface Props {
   clicked: boolean;
 }
@@ -55,17 +61,17 @@ const DictionaryComponent = ({ clicked }: Props) => {
           <div>
             <div className="font-bold ">Pronunciation:</div>
             {word &&
-              word[0]?.phonetics.map((spelling: any, index: number) => {
+              word[0]?.phonetics.map((spelling: IAudioData, index: number) => {
                 return <div key={`spelling ${index}`}>{spelling.text}</div>;
               })}
           </div>
           {word &&
-            word[0]?.meanings.map((mean: any, index: number) => {
+            word[0]?.meanings.map((mean: IPartOfSpeech, index: number) => {
               return (
                 <div key={`word ${index}`}>
                   <div className="font-bold">{mean?.partOfSpeech}:</div>
                   <div>
-                    {mean?.definitions.map((define: any) => {
+                    {mean?.definitions.map((define: IDefinition) => {
                       return <div>{define.definition}</div>;
                     })}
                   </div>
@@ -73,7 +79,7 @@ const DictionaryComponent = ({ clicked }: Props) => {
               );
             })}
           {word &&
-            word[0]?.phonetics.map((voice: any, index: number) => {
+            word[0]?.phonetics.map((voice: IPhonetics, index: number) => {
               return (
                 <div className="my-[16px]" key={`voice ${index}`}>
                   {voice.audio != '' && (
@@ -98,4 +104,4 @@ const DictionaryComponent = ({ clicked }: Props) => {
   );
 };
 
-export default DictionaryComponent
+export default DictionaryComponent;

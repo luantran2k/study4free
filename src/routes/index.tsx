@@ -4,8 +4,6 @@ import { mainRoute } from './mainRoute';
 import { Authentication } from './imports';
 import NotFoundPage from '../pages/NotFound';
 
-
-
 export const routes: RouteObject[] = [
   mainRoute,
   adminRoutes,
