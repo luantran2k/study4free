@@ -1,15 +1,19 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { useEffect, useState } from 'react';
 import AddIcon from '../../../../assets/icons/Add';
+import { useAppDispatch } from '../../../../hooks/redux';
 import IQuestion from '../../../../interfaces/Question';
 import {
   useCreateAnswerMutation,
   useGetQuestionByIdQuery,
   useUpdateQuestionByIdMutation,
 } from '../../../../store/queries/exams';
-import Answers from '../Answer';
-import { SectionType } from '../Sections';
+import { updateExamEditInfo } from '../../../../store/slices/examSlice';
+import TextEditor from '../../../common/TextEditor';
+import Answer from '../Answer';
+import AudioUploadPreview from '../AudioUploadPreview';
 import ImageUploadPreview from '../ImageUploadPreview';
+import { SectionType } from '../Sections';
 
 type Props = {
   section: SectionType;
@@ -21,24 +25,29 @@ function Question({ questionId, section }: Props) {
     questionId,
     section,
   });
-
+  const dispatch = useAppDispatch();
   const [question, setQuestion] = useState<Partial<IQuestion>>({ title: '' });
   const [updateTitle] = useUpdateQuestionByIdMutation();
-  // const [updateAudio] = useUpdateQuestionByIdMutation();
   const [updateImage, { isLoading: isImageLoading, isError: isImageError }] =
     useUpdateQuestionByIdMutation();
-
+  const [updateAudio, { isLoading: isAudioLoading, isError: isAudioError }] =
+    useUpdateQuestionByIdMutation();
   const [createAnswer] = useCreateAnswerMutation();
   const [parent] = useAutoAnimate();
 
   useEffect(() => {
     if (data) {
       setQuestion(data);
+      dispatch(
+        updateExamEditInfo({
+          questionId: data.id,
+        })
+      );
     }
   }, [data]);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <span className="loading loading-dots"></span>;
   }
   if (isError) {
     return <p className="text-error">Error</p>;
@@ -47,35 +56,43 @@ function Question({ questionId, section }: Props) {
   return (
     <div className="flex gap-6">
       <div className="w-5/12 flex flex-col [&>div]:flex [&>div]:flex-col [&>div]:gap-2 gap-4">
-        <div>
+        <div className="mb-12">
           <label htmlFor="">Title</label>
-          <input
-            value={question?.title}
-            type="text"
-            className="input input-bordered"
-            onChange={(e) => {
-              setQuestion((question) => ({
-                ...question,
-                title: e.target.value,
-              }));
-            }}
-            onBlur={(e) => {
+          <TextEditor
+            defaultValue={question?.title as string}
+            onBlur={(value) => {
               updateTitle({
                 questionId,
                 section,
-                data: { title: e.target.value },
+                data: { title: value },
               });
             }}
           />
         </div>
+
         {section === 'Listening' && (
           <div>
             <label htmlFor="">Audio</label>
-            <input
-              type="file"
-              className="file-input file-input-bordered w-full"
-              accept="audio/*"
-              // onChange={(e) => setAudio(e.target.files?.[0])}
+            <AudioUploadPreview
+              isAudioLoading={isAudioLoading}
+              isAudioError={isAudioError}
+              audioUrl={
+                typeof question?.audio === 'string' ? question.audio : undefined
+              }
+              onChange={(e) => {
+                updateAudio({
+                  questionId,
+                  section,
+                  data: { audio: e.target.files?.[0] },
+                });
+              }}
+              onDelete={() => {
+                updateAudio({
+                  questionId,
+                  section,
+                  data: { audio: '' },
+                });
+              }}
             />
           </div>
         )}
@@ -148,10 +165,11 @@ function Question({ questionId, section }: Props) {
             </div>
             <ul ref={parent} className="list-none flex flex-col gap-3">
               {question.answers?.map((answer, index) => (
-                <Answers
+                <Answer
                   index={index}
                   key={answer.id}
-                  answer={answer}
+                  {...answer}
+                  answers={question?.answers || []}
                   section={section}
                 />
               ))}

@@ -5,7 +5,7 @@ const AdminSideBar = lazy(() => import('../../../components/admin/Sidebar'));
 const AdminTopBar = lazy(() => import('../../../components/admin/TopBar'));
 function AdminLayout() {
   return (
-    <Suspense fallback={<h1>Loading....</h1>}>
+    <Suspense fallback={<span className="loading loading-dots"></span>}>
       <div className="flex h-screen ">
         <div className=" basis-1/4 md:basis-1/6 border-r-2">
           <AdminSideBar />
@@ -18,8 +18,6 @@ function AdminLayout() {
         </div>
       </div>
     </Suspense>
-
-
   );
 }
 
