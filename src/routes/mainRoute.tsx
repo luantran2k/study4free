@@ -2,6 +2,7 @@ import { RouteObject } from 'react-router-dom';
 
 import { AnalyzeResults, Collection, DetailExam, ExamsPage, GrammarPage, HomePage, Payment, Reminder, SectionPage, UserInformation, UserProfilePage, VocabulariesPage, VocabularyDetail, Writing, DeleteAccount, RootLayout } from './imports';
 import NotFoundPage from '../pages/NotFound';
+import Speaking from '../pages/Exams/Speaking';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -19,10 +20,18 @@ export const mainRoute: RouteObject = {
           path: ':exam/:part',
           element: <DetailExam />,
         },
+        // {
+        //   path: ':exam/:part/:section',
+        //   element: <Writing />,
+        //   // element: <NotFoundPage/>
+        // },
         {
-          path: ':exam/:part/:section',
-          // element: <Writing />,
-          element: <NotFoundPage/>
+          path: ':exam/:part/writing',
+          element: <Writing />,
+        },
+        {
+          path: ':exam/:part/speaking',
+          element: <Speaking />,
         },
         // {
         //   path: 'writing/:id',
