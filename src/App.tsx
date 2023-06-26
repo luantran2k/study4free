@@ -4,6 +4,7 @@ import { Suspense, useEffect } from 'react';
 import { setUser } from './store/slices/authSlice';
 import { routes } from './routes';
 import LoadingAnimate from './components/common/LoadingAnimate';
+import { NOTIFICATION_TYPE, notify } from './utils/notify';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -19,7 +20,18 @@ function App() {
     ) {
       navigate('/admin');
     }
-  }, [location]);
+    if (
+      user &&
+      !user?.userInfo?.roles.includes('ADMIN') &&
+      location?.pathname?.includes('admin')
+    ) {
+      navigate('/');
+      notify(
+        NOTIFICATION_TYPE.INFO,
+        'Sorry normal user can not access admin page'
+      );
+    }
+  }, []);
 
   const routesElement = useRoutes(routes);
   return (
