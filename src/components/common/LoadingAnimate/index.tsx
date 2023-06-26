@@ -1,4 +1,4 @@
-export const LoadingAnimate = () => {
+const LoadingAnimate = () => {
   return (
     <div className="lds-roller top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">
       <div></div>
@@ -12,3 +12,6 @@ export const LoadingAnimate = () => {
     </div>
   );
 };
+
+
+export default LoadingAnimate

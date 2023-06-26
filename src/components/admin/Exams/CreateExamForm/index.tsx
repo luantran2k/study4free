@@ -21,7 +21,7 @@ function CreateExamForm({ modalId }: { modalId: string }) {
     },
   });
 
-  const [createExam, { isLoading, isError }] = useCreateExamMutation();
+  const [createExam, { isLoading }] = useCreateExamMutation();
 
   const onSubmit = handleSubmit((data) => {
     createExam(data)

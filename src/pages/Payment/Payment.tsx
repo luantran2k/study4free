@@ -29,8 +29,8 @@ const priceBoard = [
   },
 ];
 
-export const Payment = () => {
-  const [money, setMoney] = useState(19.99);
+const Payment = () => {
+  const [money, setMoney] = useState(10);
   const currency = 'USD';
   const [updateInfor] = useUpdateInforMutation();
 
@@ -38,7 +38,6 @@ export const Payment = () => {
     localStorage.getItem('user') as string
   ).userInfo;
   const { data, isSuccess } = useGetUserByIdQuery(dataStorage?.id);
-  console.log('data', data, 'id', data.id);
 
   const handlePrice = (price: number) => {
     setMoney(price);
@@ -139,3 +138,6 @@ export const Payment = () => {
     </div>
   );
 };
+
+
+export default Payment

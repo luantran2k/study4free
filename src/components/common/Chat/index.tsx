@@ -1,12 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import ChatImage from '../../../assets/icons/ChatImage';
 import DeleteIcon from '../../../assets/icons/deleteIcon';
-import PhoneIcon from '../../../assets/icons/phoneIcon';
 import MessageIcon from '../../../assets/icons/messageIcon';
 import MinusIcon from '../../../assets/icons/minusIcon';
+import PhoneIcon from '../../../assets/icons/phoneIcon';
 import PlusIcon from '../../../assets/icons/plusIcon';
-import { io } from 'socket.io-client';
-import { log } from 'console';
 
 function Chat() {
   const refMessage = useRef() as React.MutableRefObject<HTMLInputElement>;

@@ -1,8 +1,30 @@
-import React, { FormEvent, useEffect, useState } from 'react';
-import { Outlet, useLocation, useParams } from 'react-router-dom';
+import React, { lazy, useEffect, useState } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 import Thumb from '../../assets/images/thumbEnglish.jpg';
-import ExamCard from '../../components/common/ExamCard/ExamCard';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import Pagination from '../../components/common/Pagination';
+
+const ExamCard = lazy(() => import('../../components/common/ExamCard/ExamCard'));
+
+
+const newPag = {
+  totalPage: 5,
+  currentPage: 1,
+  quantity: 40,
+  quantityOptions: [1, 2, 3],
+  onChangePage: () => {
+    return;
+  },
+  onChangeQuantity: () => {
+    return;
+  },
+  onNextClick: () => {
+    return;
+  },
+  onPreviousClick: () => {
+    return;
+  },
+};
 
 export const mockDataExam: IMock[] = [
   {
@@ -10,7 +32,7 @@ export const mockDataExam: IMock[] = [
     title: 'IELTS C18 Full Test 1',
     sections: [
       {
-        id: 'C18-1listening',
+        id: 'C18-1-listening',
         name: '18 IELTS listening test 1',
         parts: 4,
         type: 'listening',
@@ -20,7 +42,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Listening'],
       },
       {
-        id: 'C18-1reading',
+        id: 'C18-1-reading',
         name: '18 IELTS reading test 1',
         parts: 3,
         type: 'reading',
@@ -30,7 +52,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Reading'],
       },
       {
-        id: 'C18-1writing',
+        id: 'C18-1-writing',
         name: '18 IELTS writing test 1',
         parts: 2,
         type: 'writing',
@@ -40,7 +62,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Writing'],
       },
       {
-        id: 'C18-1speaking',
+        id: 'C18-1-speaking',
         name: '18 IELTS speaking test 1',
         parts: 3,
         type: 'speaking',
@@ -56,7 +78,7 @@ export const mockDataExam: IMock[] = [
     title: 'IELTS C18 Full Test 2',
     sections: [
       {
-        id: 'C18-1listening',
+        id: 'C18-1-listening',
         name: '18 IELTS listening test 2',
         parts: 4,
         type: 'listening',
@@ -66,7 +88,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Listening'],
       },
       {
-        id: 'C18-2reading',
+        id: 'C18-2-reading',
         name: '18 IELTS reading test 2',
         parts: 3,
         type: 'reading',
@@ -76,7 +98,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Reading'],
       },
       {
-        id: 'C18-2writing',
+        id: 'C18-2-writing',
         name: '18 IELTS writing test 2',
         parts: 2,
         type: 'writing',
@@ -86,7 +108,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Writing'],
       },
       {
-        id: 'C18-2speaking',
+        id: 'C18-2-speaking',
         name: '18 IELTS speaking test 2',
         parts: 3,
         type: 'speaking',
@@ -102,7 +124,7 @@ export const mockDataExam: IMock[] = [
     title: 'IELTS C18 Full Test 3',
     sections: [
       {
-        id: 'C18-3listening',
+        id: 'C18-3-listening',
         name: '18 IELTS listening test 3',
         parts: 4,
         type: 'listening',
@@ -112,7 +134,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Listening'],
       },
       {
-        id: 'C18-3reading',
+        id: 'C18-3-reading',
         name: '18 IELTS reading test 3',
         parts: 3,
         type: 'reading',
@@ -122,7 +144,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Reading'],
       },
       {
-        id: 'C18-3writing',
+        id: 'C18-3-writing',
         name: '18 IELTS writing test 3',
         parts: 2,
         type: 'writing',
@@ -132,7 +154,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Writing'],
       },
       {
-        id: 'C18-3speaking',
+        id: 'C18-3-speaking',
         name: '18 IELTS speaking test 3',
         parts: 3,
         type: 'speaking',
@@ -148,7 +170,7 @@ export const mockDataExam: IMock[] = [
     title: 'IELTS C18 Full Test 4',
     sections: [
       {
-        id: 'C18-4listening',
+        id: 'C18-4-listening',
         name: '18 IELTS listening test 4',
         parts: 4,
         type: 'listen',
@@ -158,7 +180,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Listening'],
       },
       {
-        id: 'C18-4reading',
+        id: 'C18-4-reading',
         name: '18 IELTS reading test 4',
         parts: 3,
         type: 'reading',
@@ -168,7 +190,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Reading'],
       },
       {
-        id: 'C18-4writing',
+        id: 'C18-4-writing',
         name: '18 IELTS writing test 4',
         parts: 2,
         type: 'writing',
@@ -178,7 +200,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Writing'],
       },
       {
-        id: 'C18-4speaking',
+        id: 'C18-4-speaking',
         name: '18 IELTS speaking test 4',
         parts: 3,
         type: 'speaking',
@@ -207,9 +229,8 @@ export interface IMock {
   sections: ISections[];
 }
 
-
 interface ISearch {
-  keyword: string
+  keyword: string;
 }
 
 function ExamsPage() {
@@ -219,12 +240,15 @@ function ExamsPage() {
   const [search, setSearch] = useState<string>('');
   const { register, handleSubmit } = useForm<ISearch>();
 
-  const handleSearch: SubmitHandler<ISearch> = (data) => setSearch(data.keyword.toLowerCase())
+  const handleSearch: SubmitHandler<ISearch> = (data) =>
+    setSearch(data.keyword.toLowerCase());
 
   useEffect(() => {
-    const filteredItem = mockDataExam.filter((data) => data.title.toLowerCase().includes(search))
-    setFilteredData(filteredItem)
-  }, [search])
+    const filteredItem = mockDataExam.filter((data) =>
+      data.title.toLowerCase().includes(search)
+    );
+    setFilteredData(filteredItem);
+  }, [search]);
 
   useEffect(() => {
     window.scrollTo({
@@ -240,7 +264,7 @@ function ExamsPage() {
           <div className="py-[40px] mb-[10px] text-white text-center font-bold text-[40px] bg-gradient-to-r from-cyan-500 to-blue-500">
             <h2 className="uppercase">Examination</h2>
           </div>
-          <div className="flex flex-col h-full relative p-[3rem]">
+          <div className="flex flex-col h-full relative py-[3rem]">
             <div className="container mx-auto mb-10">
               <img src={Thumb} alt="" className="w-[100%]" />
             </div>
@@ -248,15 +272,20 @@ function ExamsPage() {
               <h3 className="text-4xl text-black font-bold my-8">
                 Exam Libraries
               </h3>
-              <form onSubmit={handleSubmit(handleSearch)} className="flex flex-row items-center gap-3 mb-8">
+              <form
+                onSubmit={handleSubmit(handleSearch)}
+                className="flex flex-row items-center gap-3 mb-8"
+              >
                 <input
                   type="text"
                   placeholder="Input keyword you want to search"
                   className="input input-bordered w-full max-w-xs"
-                  {...register("keyword")}
-
+                  {...register('keyword')}
                 />
-                <button type='submit' className="btn bg-blue-400 text-white hover:bg-blue-500">
+                <button
+                  type="submit"
+                  className="btn bg-blue-400 text-white hover:bg-blue-500"
+                >
                   Search
                 </button>
               </form>
@@ -265,11 +294,16 @@ function ExamsPage() {
               {filteredData.length ? (
                 <>
                   {filteredData.map((mock) => (
-                    <ExamCard {...mock} />
-                  ))}</>
-              ) : <h3 className='text-3xl text-center mx-auto mb-10 font-serif font-semibold text-sky-600'>No Data Found!!!</h3>}
+                    <ExamCard {...mock} key={mock.id}/>
+                  ))}
+                  <Pagination {...newPag}/>
+                </>
+              ) : (
+                <h3 className="text-3xl text-center mx-auto mb-10 font-serif font-semibold text-sky-600">
+                  No Data Found!!!
+                </h3>
+              )}
             </div>
-
           </div>
         </>
       ) : (

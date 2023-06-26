@@ -1,20 +1,8 @@
 import { RouteObject } from 'react-router-dom';
-import ExamsPage from '../pages/Exams';
-import GrammarPage from '../pages/Grammar';
-import HomePage from '../pages/Home';
-import VocabulariesPage from '../pages/Vocabularies';
-import RootLayout from '../pages/layouts/Root';
-import UserProfilePage from '../pages/UserProfile';
-import AnalyzeResults from '../pages/UserProfile/AnalyzeResults';
-import UserInformation from '../pages/UserProfile/UserInformation';
-import Collection from '../pages/UserProfile/Collection';
-import Reminder from '../pages/UserProfile/Reminder';
-import SectionPage from '../pages/Grammar/SectionPage';
-import VocabularyDetail from '../pages/Vocabularies/VocabularyDetail';
-import { Writing } from '../pages/Exams/Writing';
-import { Speaking } from '../pages/Exams/Speaking';
-import { Payment } from '../pages/Payment/Payment';
-import DetailExam from '../pages/Exams/DetailExam/DetailExam';
+
+import { AnalyzeResults, Collection, DetailExam, ExamsPage, GrammarPage, HomePage, Payment, Reminder, SectionPage, UserInformation, UserProfilePage, VocabulariesPage, VocabularyDetail, Writing, DeleteAccount, RootLayout } from './imports';
+import NotFoundPage from '../pages/NotFound';
+import Speaking from '../pages/Exams/Speaking';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -32,10 +20,19 @@ export const mainRoute: RouteObject = {
           path: ':exam/:part',
           element: <DetailExam />,
         },
+        // {
+        //   path: ':exam/:part/:section',
+        //   element: <Writing />,
+        //   // element: <NotFoundPage/>
+        // },
         {
-          path: ':exam/:part/:section',
+          path: ':exam/:part/writing',
           element: <Writing />,
-        }
+        },
+        {
+          path: ':exam/:part/speaking',
+          element: <Speaking />,
+        },
         // {
         //   path: 'writing/:id',
         //   element: <Writing />,
@@ -97,6 +94,10 @@ export const mainRoute: RouteObject = {
         {
           path: 'payment',
           element: <Payment />,
+        },
+        {
+          path: 'delete',
+          element: <DeleteAccount />,
         },
       ],
     },

@@ -1,13 +1,21 @@
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { useEffect, useState } from 'react';
 
+type Props = {
+  amount: number;
+  currency: string;
+  showSpinner: boolean;
+  onAccept: () => Promise<void>;
+  onDenied: () => Promise<void>;
+};
+
 export const ButtonPayment = ({
   amount,
   currency,
   showSpinner,
   onAccept,
   onDenied,
-}) => {
+}: Props) => {
   const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
@@ -20,9 +28,9 @@ export const ButtonPayment = ({
     });
   }, [currency, showSpinner]);
 
-  const openPayPalWindow = () => {
-    setIsOpen(true);
-  };
+  // const openPayPalWindow = () => {
+  //   setIsOpen(true);
+  // };
 
   const handlePayPalWindowClose = () => {
     setIsOpen(false);
@@ -50,30 +58,30 @@ export const ButtonPayment = ({
   return (
     <>
       {isPending ? <div className="spinner" /> : null}
-        <PayPalButtons
-          className='w-[500px] max-sm:w-[300px] z-0'
-          style={{layout: 'horizontal'}}
-          disabled={false}
-          forceReRender={[amount, currency]}
-          fundingSource={undefined}
-          createOrder={(data, actions) => {
-            return actions.order.create({
-              purchase_units: [
-                {
-                  amount: {
-                    currency_code: currency,
-                    value: amount,
-                  },
+      <PayPalButtons
+        className="w-[500px] max-sm:w-[300px] z-0"
+        style={{ layout: 'horizontal' }}
+        disabled={false}
+        forceReRender={[amount, currency]}
+        fundingSource={undefined}
+        createOrder={(_, actions) => {
+          return actions.order.create({
+            purchase_units: [
+              {
+                amount: {
+                  currency_code: currency,
+                  value: amount + '', // Need string type
                 },
-              ],
-            });
-          }}
-          onApprove={onAccept}
-          onShippingChange={async (data, actions) => {
-            console.log(data);
-          }}
-          onCancel={onDenied}
-        />
+              },
+            ],
+          });
+        }}
+        onApprove={onAccept}
+        onShippingChange={async (data) => {
+          console.log(data);
+        }}
+        onCancel={onDenied}
+      />
     </>
   );
 };

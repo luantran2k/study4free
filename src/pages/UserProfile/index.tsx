@@ -22,7 +22,6 @@ function UserProfilePage() {
     localStorage.getItem('user') as string
   ).userInfo;
   const { data } = useGetUserByIdQuery(dataStorage?.id);
-  console.log(data);
 
   useEffect(() => {
     window.scrollTo({
@@ -43,11 +42,7 @@ function UserProfilePage() {
     <div className="grid grid-rows-1 grid-cols-12">
       <div className="col-span-1 hidden max-lg:block min-h-[93vh] max-md:col-span-2">
         <div className="p-3 mt-2">
-          <img
-            src={data?.avatar || dataStorage?.avatar}
-            alt=""
-            className="rounded-[50%]"
-          />
+          <img src={data?.avatar} alt="" className="rounded-[50%]" />
         </div>
         <div className="flex flex-col justify-center items-center mt-6">
           <NavLink
@@ -100,7 +95,11 @@ function UserProfilePage() {
           </NavLink>
           <NavLink
             to="payment"
-            className="text-[24px] w-[100%] flex justify-center py-5 text-center"
+            className={`text-[24px] w-[100%] flex justify-center py-5 text-center ${
+              data?.payment
+                ? 'bg-gradient-to-r from-[#110f0e] to-[#f1e8bf] text-[#fff] pointer-events-none font-bold'
+                : ''
+            }`}
             style={({ isActive }) => {
               return {
                 color: isActive ? '#fff' : '#40634d',
@@ -108,10 +107,10 @@ function UserProfilePage() {
               };
             }}
           >
-            <UpgradeUserIcon />
+            {data?.payment ? 'VIP' : <UpgradeUserIcon />}
           </NavLink>
           <NavLink
-            to="*"
+            to="delete"
             className="text-[24px] w-[100%] flex justify-center py-5"
             style={({ isActive }) => {
               return {
@@ -145,7 +144,7 @@ function UserProfilePage() {
               src={data?.user ? data?.avatar : avatarUser}
               alt=""
             />
-            {dataStorage.payment && (
+            {data?.payment && (
               <img
                 className="absolute top-0  translate-x-[50%] right-0 -translate-y-[30%]	w-[7rem] "
                 src={VipImage}
@@ -153,9 +152,7 @@ function UserProfilePage() {
               />
             )}
           </div>
-          <h4 className="font-medium text-[26px]">
-            {data?.username || dataStorage?.username}
-          </h4>
+          <h4 className="font-medium text-[26px]">{data?.username}</h4>
         </div>
         <div className="flex flex-col">
           <NavLink
@@ -207,12 +204,12 @@ function UserProfilePage() {
             Calendar/ Reminder
           </NavLink>
 
-          {dataStorage?.payment ? (
+          {data?.payment ? (
             <NavLink
               to="payment"
               className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block pointer-events-none bg-gradient-to-r from-[#110f0e] to-[#f1e8bf] text-[#fff] font-semibold"
             >
-              You was VIP member
+              You are VIP member
             </NavLink>
           ) : (
             <NavLink
@@ -229,7 +226,7 @@ function UserProfilePage() {
             </NavLink>
           )}
           <NavLink
-            to="*"
+            to="delete"
             className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
             style={({ isActive }) => {
               return {

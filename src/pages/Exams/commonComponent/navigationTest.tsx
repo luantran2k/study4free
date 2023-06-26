@@ -4,7 +4,7 @@ interface Props {
   handleTask: (task: number) => void;
   defaultIndex: number;
 }
-export const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
+const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
   const [time, setTime] = useState<number>(3600);
   const ref = useRef<NodeJS.Timer | null>(null);
   const exams = {
@@ -42,7 +42,7 @@ export const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
   }, [time]);
   const handleSunmit = () => {
     if (time > 0) {
-      const realTime: any = Date.now();
+      const realTime = Date.now();
       if (confirm('Do you want to submit answers?')) {
         console.log('ss');
       }
@@ -67,8 +67,7 @@ export const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
             {time === 0 ? (
               <span className="end">End!</span>
             ) : (
-              `${Math.floor(time / 60)}:${time % 60 < 10 ? '0' : ''}${
-                time % 60
+              `${Math.floor(time / 60)}:${time % 60 < 10 ? '0' : ''}${time % 60
               }`
             )}
           </div>
@@ -84,7 +83,7 @@ export const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
         Note: you can click on the question number in the article to mark the
         review
       </p>
-      {exams.task.map((item, index) => {
+      {exams.task.map((_, index) => {
         return (
           <div
             key={index}
@@ -109,3 +108,6 @@ export const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
     </div>
   );
 };
+
+
+export default NavigationTest

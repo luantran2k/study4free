@@ -1,13 +1,13 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import { useLoginUserMutation } from '../../../services/authApi';
 import { useEffect } from 'react';
-import { NOTIFICATION_TYPE, notify } from '../../../utils/notify';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
 import { useAppDispatch } from '../../../hooks/redux';
-import { setUser } from '../../../store/slices/authSlice';
 import { LoginInputs } from '../../../interfaces/Auth';
+import { useLoginUserMutation } from '../../../services/authApi';
+import { setUser } from '../../../store/slices/authSlice';
+import { NOTIFICATION_TYPE, notify } from '../../../utils/notify';
 
 const loginSchema = Yup.object()
   .shape({
@@ -22,19 +22,11 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<LoginInputs>({ resolver: yupResolver(loginSchema) });
 
-  const [
-    loginUser,
-    {
-      data: loginData,
-      isSuccess: isLoginSuccess,
-      isError: isLoginError,
-      error: loginError,
-    },
-  ] = useLoginUserMutation();
+  const [loginUser, { data: loginData, isSuccess: isLoginSuccess }] =
+    useLoginUserMutation();
   const handleLogin: SubmitHandler<LoginInputs> = async (data) => {
     // if (data.username.trim() != '' && data.password!.trim() != '')
 
