@@ -13,6 +13,7 @@ import { authApi } from '../services/authApi';
 import { examsApi } from './queries/exams';
 import { userApi } from './queries/users';
 import { authReducer } from './slices/authSlice';
+import { examReducer } from './slices/examSlice';
 
 // const persistConfig = {
 //   key: 'root',
@@ -21,6 +22,7 @@ import { authReducer } from './slices/authSlice';
 // };
 
 const rootReducer = combineReducers({
+  exam: examReducer,
   [examsApi.reducerPath]: examsApi.reducer,
   auth: authReducer,
   [authApi.reducerPath]: authApi.reducer,

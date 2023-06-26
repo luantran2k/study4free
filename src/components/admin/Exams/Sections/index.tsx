@@ -1,4 +1,6 @@
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
+import { useAppDispatch } from '../../../../hooks/redux';
+import { updateExamEditInfo } from '../../../../store/slices/examSlice';
 import Parts from '../Parts';
 
 export type SectionType = 'Listening' | 'Reading' | 'Writing' | 'Speaking';
@@ -10,6 +12,18 @@ type Props = {
 function Sections({ sections }: Props) {
   const [currentSection, setCurrentSection] = useState(sections[0]);
   const modalId = useId();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (currentSection?.id && currentSection?.name) {
+      dispatch(
+        updateExamEditInfo({
+          sectionId: currentSection.id,
+          section: currentSection.name,
+        })
+      );
+    }
+  }, [currentSection]);
 
   return (
     <>

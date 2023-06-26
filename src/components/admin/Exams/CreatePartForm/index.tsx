@@ -53,6 +53,7 @@ function CreatePartForm(props: Props) {
           <label>Type</label>
           <select className="input input-bordered" {...register('type')}>
             <option value="Multiple Choice<">Multiple Choice</option>
+            <option value="Gap filling">Gap filling</option>
             <option disabled value="Information identification">
               Information identification
             </option>
@@ -71,7 +72,7 @@ function CreatePartForm(props: Props) {
           </select>
           <p className="text-error">{errors.type?.message}</p>
         </div>
-
+        {/* 
         <div>
           <label htmlFor="file-input">Image</label>
           <input
@@ -85,7 +86,7 @@ function CreatePartForm(props: Props) {
             type="file"
             className="file-input file-input-bordered w-full"
           />
-        </div>
+        </div> */}
 
         <button
           className="btn bg-blue-500 hover:bg-blue-500 text-white "

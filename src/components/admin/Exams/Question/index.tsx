@@ -10,6 +10,9 @@ import {
 import Answers from '../Answer';
 import { SectionType } from '../Sections';
 import ImageUploadPreview from '../ImageUploadPreview';
+import AudioUploadPreview from '../AudioUploadPreview';
+import { useAppDispatch } from '../../../../hooks/redux';
+import { updateExamEditInfo } from '../../../../store/slices/examSlice';
 
 type Props = {
   section: SectionType;
@@ -21,19 +24,24 @@ function Question({ questionId, section }: Props) {
     questionId,
     section,
   });
-
+  const dispatch = useAppDispatch();
   const [question, setQuestion] = useState<Partial<IQuestion>>({ title: '' });
   const [updateTitle] = useUpdateQuestionByIdMutation();
-  // const [updateAudio] = useUpdateQuestionByIdMutation();
   const [updateImage, { isLoading: isImageLoading, isError: isImageError }] =
     useUpdateQuestionByIdMutation();
-
+  const [updateAudio, { isLoading: isAudioLoading, isError: isAudioError }] =
+    useUpdateQuestionByIdMutation();
   const [createAnswer] = useCreateAnswerMutation();
   const [parent] = useAutoAnimate();
 
   useEffect(() => {
     if (data) {
       setQuestion(data);
+      dispatch(
+        updateExamEditInfo({
+          questionId: data.id,
+        })
+      );
     }
   }, [data]);
 
@@ -71,11 +79,26 @@ function Question({ questionId, section }: Props) {
         {section === 'Listening' && (
           <div>
             <label htmlFor="">Audio</label>
-            <input
-              type="file"
-              className="file-input file-input-bordered w-full"
-              accept="audio/*"
-              // onChange={(e) => setAudio(e.target.files?.[0])}
+            <AudioUploadPreview
+              isAudioLoading={isAudioLoading}
+              isAudioError={isAudioError}
+              audioUrl={
+                typeof question?.audio === 'string' ? question.audio : undefined
+              }
+              onChange={(e) => {
+                updateAudio({
+                  questionId,
+                  section,
+                  data: { audio: e.target.files?.[0] },
+                });
+              }}
+              onDelete={() => {
+                updateAudio({
+                  questionId,
+                  section,
+                  data: { audio: '' },
+                });
+              }}
             />
           </div>
         )}

@@ -5,6 +5,9 @@ import {
 } from '../../../../store/queries/exams';
 import Questions from '../Questions';
 import { SectionType } from '../Sections';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../../../hooks/redux';
+import { updateExamEditInfo } from '../../../../store/slices/examSlice';
 
 type Props = {
   section: SectionType;
@@ -17,9 +20,20 @@ function Part({ partId, section }: Props) {
     isLoading,
     isError,
   } = useGetPartByIdQuery({ partId: partId, section });
-
   const [createQuestion] = useCreateQuestionMutation();
   const [parent] = useAutoAnimate();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (part?.id) {
+      dispatch(
+        updateExamEditInfo({
+          partId: part.id,
+          partType: part.type,
+        })
+      );
+    }
+  }, [part]);
 
   if (isLoading) {
     return <p>Loading...</p>;

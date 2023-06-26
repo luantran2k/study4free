@@ -1,47 +1,49 @@
 import { ChangeEventHandler, useId, useRef } from 'react';
-import TrashIcon from '../../../../assets/icons/Trash';
-import styles from './style.module.css';
 import EditIcon from '../../../../assets/icons/Edit';
+import TrashIcon from '../../../../assets/icons/Trash';
 
 type Props = {
-  isImageLoading: boolean;
-  isImageError: boolean;
-  imageUrl?: string;
+  isAudioLoading: boolean;
+  isAudioError: boolean;
+  audioUrl?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onDelete?: () => void;
 };
 
-function ImageUploadPreview(props: Props) {
-  const { imageUrl, isImageError, isImageLoading, onChange, onDelete } = props;
+function AudioUploadPreview(props: Props) {
+  const { audioUrl, isAudioError, isAudioLoading, onChange, onDelete } = props;
   const imageInputId = useId();
   const input = useRef<HTMLInputElement>(null);
   return (
     <>
-      {isImageLoading ? (
+      {isAudioLoading ? (
         <p>
           <span className="loading loading-dots loading-lg"></span>
         </p>
-      ) : imageUrl != '' && imageUrl != null ? (
-        <div className={`relative w-full  ${styles.box}`}>
-          <img
-            src={imageUrl}
-            alt=""
+      ) : audioUrl != '' && audioUrl != null ? (
+        <div className="flex gap-2">
+          <audio
+            src={audioUrl}
             className="block object-cover w-full h-full"
+            controls
           />
-          <button
-            onClick={onDelete}
-            className="btn border-none btn-sm text-white hover:bg-red-500 opacity-0 absolute top-2 transition-all right-2 bg-red-600 "
-          >
-            <TrashIcon />
-          </button>
-
           <button
             onClick={() => {
               input.current?.click();
             }}
-            className="btn border-none btn-sm text-white hover:bg-blue-500 opacity-0 transition-all absolute top-2 right-12 bg-blue-500 "
+            className="btn border-none btn-sm text-white hover:bg-blue-500 transition-all bg-blue-500 "
           >
             <EditIcon />
+          </button>
+          <button
+            onClick={() => {
+              if (confirm('Are you sure you want to delete this audio?')) {
+                onDelete && onDelete();
+              }
+            }}
+            className="btn border-none btn-sm text-white hover:bg-red-500  transition-all bg-red-600 "
+          >
+            <TrashIcon />
           </button>
 
           <input
@@ -54,12 +56,12 @@ function ImageUploadPreview(props: Props) {
         </div>
       ) : (
         <>
-          {isImageError && <p>Error</p>}
+          {isAudioError && <p>Error</p>}
           <input
             id={imageInputId}
             type="file"
             className="file-input file-input-bordered w-full"
-            accept="image/*"
+            accept="audio/*"
             onChange={onChange}
           />
         </>
@@ -68,4 +70,4 @@ function ImageUploadPreview(props: Props) {
   );
 }
 
-export default ImageUploadPreview;
+export default AudioUploadPreview;

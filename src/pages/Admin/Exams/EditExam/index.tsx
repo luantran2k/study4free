@@ -1,17 +1,31 @@
-import { lazy } from 'react';
+import { lazy, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ArrowLeft from '../../../../assets/icons/ArrowLeft';
-import {
-  SectionType
-} from '../../../../components/admin/Exams/Sections';
+import { SectionType } from '../../../../components/admin/Exams/Sections';
 import { ExamSection } from '../../../../interfaces/Exam';
 import { useGetExamByIdQuery } from '../../../../store/queries/exams';
+import { useAppDispatch } from '../../../../hooks/redux';
+import { updateExamEditInfo } from '../../../../store/slices/examSlice';
 
-const Sections = lazy(() => import('../../../../components/admin/Exams/Sections'))
+const Sections = lazy(
+  () => import('../../../../components/admin/Exams/Sections')
+);
 
 function EditExam() {
+  const dispatch = useAppDispatch();
   const { id } = useParams();
   const { data: exam, isLoading, isError } = useGetExamByIdQuery(id || '');
+
+  useEffect(() => {
+    if (exam?.id) {
+      dispatch(
+        updateExamEditInfo({
+          examId: exam.id,
+        })
+      );
+    }
+  }, [exam]);
+
   if (isLoading) {
     return <p>Loading...</p>;
   }
