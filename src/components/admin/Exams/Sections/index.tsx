@@ -14,7 +14,7 @@ function Sections({ sections }: Props) {
   return (
     <>
       <ul className="flex gap-2 list-style-none">
-        {sections.map((section) => (
+        {sections.map((section, index) => (
           <li
             className={`rounded-box px-4 py-2 cursor-pointer active:translate-y-1 transition-all ${
               section.name === currentSection.name
@@ -24,7 +24,7 @@ function Sections({ sections }: Props) {
             onClick={() => setCurrentSection(section)}
             key={section.name}
           >
-            {sections[0].name}
+            {sections[index].name}
           </li>
         ))}
       </ul>
