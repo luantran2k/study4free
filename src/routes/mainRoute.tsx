@@ -1,7 +1,24 @@
 import { RouteObject } from 'react-router-dom';
 
-import { AnalyzeResults, Collection, DetailExam, ExamsPage, GrammarPage, HomePage, Payment, Reminder, SectionPage, UserInformation, UserProfilePage, VocabulariesPage, VocabularyDetail, Writing, DeleteAccount, RootLayout } from './imports';
-import NotFoundPage from '../pages/NotFound';
+import {
+  AnalyzeResults,
+  Collection,
+  DetailExam,
+  ExamsPage,
+  GrammarPage,
+  HomePage,
+  Payment,
+  Reminder,
+  SectionPage,
+  UserInformation,
+  UserProfilePage,
+  VocabulariesPage,
+  VocabularyDetail,
+  Writing,
+  DeleteAccount,
+  RootLayout,
+} from './imports';
+// import NotFoundPage from '../pages/NotFound';
 import Speaking from '../pages/Exams/Speaking';
 
 export const mainRoute: RouteObject = {

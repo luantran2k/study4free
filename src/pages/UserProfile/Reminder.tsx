@@ -19,7 +19,7 @@ function Reminder() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
   const onSubmit = handleSubmit((dataForm) => {
     console.log({

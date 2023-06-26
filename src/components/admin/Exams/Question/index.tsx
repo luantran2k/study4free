@@ -21,12 +21,10 @@ function Question({ questionId, section }: Props) {
     questionId,
     section,
   });
-  const [audio, setAudio] = useState<File>();
-  const [image, setImage] = useState<File>();
 
   const [question, setQuestion] = useState<Partial<IQuestion>>({ title: '' });
   const [updateTitle] = useUpdateQuestionByIdMutation();
-  const [updateAudio] = useUpdateQuestionByIdMutation();
+  // const [updateAudio] = useUpdateQuestionByIdMutation();
   const [updateImage, { isLoading: isImageLoading, isError: isImageError }] =
     useUpdateQuestionByIdMutation();
 
@@ -77,7 +75,7 @@ function Question({ questionId, section }: Props) {
               type="file"
               className="file-input file-input-bordered w-full"
               accept="audio/*"
-              onChange={(e) => setAudio(e.target.files?.[0])}
+              // onChange={(e) => setAudio(e.target.files?.[0])}
             />
           </div>
         )}

@@ -84,7 +84,7 @@ const dataForPie = {
 
 function AnalyzeResults() {
   const user = useSelector((state: RootState) => state.auth.userInformation);
-  const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id);
+  const { data } = useGetUserByIdQuery(user?.id);
   return (
     <div>
       {!data?.payment ? (

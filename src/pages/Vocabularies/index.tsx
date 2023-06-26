@@ -9,7 +9,6 @@ import {
 import ICollection from '../../interfaces/Collection';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 
-
 const Pagination = lazy(() => import('../../components/common/Pagination'));
 
 // const vocabList: string[] = [
@@ -54,7 +53,7 @@ const newPag = {
 
 function VocabulariesPage() {
   const { pathname } = useLocation();
-  const { data, isSuccess } = useGetAllCollectonQuery();
+  const { data, isSuccess } = useGetAllCollectonQuery({});
   if (isSuccess) console.log(data);
 
   const [addNewCollectionHook] = useAddNewCollectionMutation();
