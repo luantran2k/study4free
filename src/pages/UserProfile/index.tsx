@@ -209,7 +209,7 @@ function UserProfilePage() {
               to="payment"
               className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block pointer-events-none bg-gradient-to-r from-[#110f0e] to-[#f1e8bf] text-[#fff] font-semibold"
             >
-              You was VIP member
+              You are VIP member
             </NavLink>
           ) : (
             <NavLink

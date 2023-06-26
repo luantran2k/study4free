@@ -95,7 +95,6 @@ function Reminder() {
             const day = date.getDate();
             const hours = date.getHours();
             const minutes = date.getMinutes();
-            const seconds = date.getSeconds();
             return (
               <div key={index} className="bg-white p-3 rounded-2xl shadow-md">
                 <p className="text-warning font-medium text-[20px] mb-5">
