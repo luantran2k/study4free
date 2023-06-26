@@ -15,21 +15,18 @@ function Collection() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const user = useSelector((state: RootState) => state.auth.userInformation);
   const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id);
-  console.log(data);
+
   let myCollection: IVocabulary[] = [];
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
   if (isSuccess) {
-    console.log(data);
     data.collections.forEach((value: ICollection) => {
       const { data: dataVocab, isSuccess: isSuccessVocabs } =
         useGetCollectionByIdQuery(value.id);
       if (isSuccessVocabs) {
-        // console.log(dataVocab)
         myCollection = [...myCollection, ...dataVocab.vocabularies];
-        console.log(myCollection);
       }
     });
   }

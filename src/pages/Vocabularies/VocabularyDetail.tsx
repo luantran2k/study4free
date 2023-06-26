@@ -10,7 +10,6 @@ import ICollection from '../../interfaces/Collection';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 import { useForm } from 'react-hook-form';
 
-
 // const vocabs: IVocabulary[] = [
 //   {
 //     vocabulary: 'abandon',
@@ -54,12 +53,11 @@ function VocabularyDetail() {
   const { data: dataVocab, isSuccess: isSuccessVocab } =
     useGetCollectionByIdQuery(state.id);
   const listVocabs: IVocabulary[] = dataVocab?.vocabularies;
-  console.log('render');
+
   if (isSuccessVocab) {
     console.log(listVocabs);
   }
   const addToCollections = async (vocab: IVocabulary) => {
-    console.log(data);
     let checkExistTopic = false;
     let duplicateCollection = '';
     myCollections.forEach((value: ICollection) => {
@@ -69,7 +67,6 @@ function VocabularyDetail() {
       }
     });
     if (checkExistTopic) {
-      console.log('isExist');
       if (isSuccess) {
         notify(NOTIFICATION_TYPE.SUCCESS, 'Add to collections Successfully');
         await AddVocab({
@@ -78,14 +75,13 @@ function VocabularyDetail() {
         });
       }
     } else {
-      console.log('new Collection');
       if (isSuccess) {
         notify(NOTIFICATION_TYPE.SUCCESS, 'Add to collections Successfully');
         await AddCollection({
           title: state.title,
           image: '',
         });
-        // .unwrap().then((data) => console.log(data))
+
         const newCollections = data.collections;
         newCollections.forEach(async (value: ICollection) => {
           if (value.title === state.title) {
@@ -105,11 +101,6 @@ function VocabularyDetail() {
     formState: { errors },
   } = useForm();
   const onSubmit = handleSubmit((dataForm) => {
-    console.log({
-      ...dataForm,
-      synonyms: [dataForm.synonyms],
-      collectionId: state.id,
-    });
     AddVocab({
       ...dataForm,
       synonyms: [dataForm.synonyms],

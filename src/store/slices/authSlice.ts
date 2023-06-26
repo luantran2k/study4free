@@ -26,13 +26,12 @@ export const authSlice = createSlice({
         JSON.stringify({
           name: action.payload.name,
           token: action.payload.token,
-          userInfo: action.payload.userInfo
+          userInfo: action.payload.userInfo,
         })
       );
       state.name = action.payload.name;
       state.token = action.payload.token;
       state.userInformation = action.payload.userInfo;
-      console.log(state.userInformation);
     },
     logOut: (state) => {
       localStorage.removeItem('user');
@@ -46,3 +45,4 @@ export const authSlice = createSlice({
 export const selectAuth = (state: RootState) => state.auth;
 export const { setUser, logOut } = authSlice.actions;
 export const authReducer = authSlice.reducer;
+export const userInformation = (state: RootState) => state.auth.userInformation;

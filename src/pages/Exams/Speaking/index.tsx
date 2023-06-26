@@ -1,10 +1,8 @@
 import { lazy } from 'react';
 import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 
-
 const NavigationTest = lazy(() => import('../commonComponent/navigationTest'));
 const NoteInfo = lazy(() => import('../commonComponent/noteInfo'));
-
 
 const Speaking = () => {
   const exams = {
@@ -32,7 +30,6 @@ const Speaking = () => {
     audio.src = url;
     audio.controls = true;
     document.body.appendChild(audio);
-    console.log(audio);
   };
   return (
     <div className="bg-[#f8f9fa]">
@@ -78,12 +75,10 @@ const Speaking = () => {
             }}
             defaultIndex={0}
           />
-        </div >
-      </div >
-    </div >
+        </div>
+      </div>
+    </div>
   );
 };
 
-
-
-export default Speaking
+export default Speaking;
