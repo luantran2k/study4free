@@ -63,7 +63,7 @@ const Login = () => {
   return (
     <form
       onSubmit={handleSubmit(handleLogin)}
-      className="px-16 py-12  border-2 rounded-xl shadow-2xl bg-white"
+      className="px-16 py-12  border-2 rounded-xl w-full shadow-lg bg-white shadow-green-300"
     >
       <div className="flex flex-col gap-5">
         <div className="form-control">
@@ -74,7 +74,7 @@ const Login = () => {
             <input
               type="text"
               placeholder="Enter Username"
-              className="input input-bordered w-full"
+              className={`input input-bordered focus:outline-none w-full ${errors.username?.message ? "border-red-400" :"border-green-400"}`}
               {...register('username')}
             />
           </label>
@@ -96,7 +96,7 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="Enter password"
-                className="input input-bordered w-full"
+                className={`input input-bordered focus:outline-none w-full ${errors.password?.message ? "border-red-400" :"border-green-400"}`}
                 {...register('password')}
               />
             </label>

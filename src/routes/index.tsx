@@ -13,7 +13,7 @@ export const routes: RouteObject[] = [
     path: '/login',
     element: <Authentication />,
   },
-  { path: '/404', element: <NotFoundPage /> },
+  { path: '/404', element: <NotFoundPage title="404" subTitle="Upsie daisy" descript='the page you are looking for is not available' /> },
   {
     path: '*',
     element: <Navigate to="404" />,

@@ -23,7 +23,7 @@ export const mainRoute: RouteObject = {
         {
           path: ':exam/:part/:section',
           // element: <Writing />,
-          element: <NotFoundPage/>
+          element: <NotFoundPage title="404" subTitle="Upsie daisy" descript='the section you are looking for is not available' />
         },
         {
           path: ':exam/:part/writing',

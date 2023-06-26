@@ -18,8 +18,8 @@ const Authentication = () => {
           <div className="flex flex-col h-full items-center justify-center">
             <div className="tabs mx-8">
               <a
-                className={`tab tab-lifted tab-lg text-green-500 border-none text-lg ${
-                  value === 0 && 'text-2xl font-bold bg-white'
+                className={`tab tab-lifted tab-lg text-green-500 text-lg ${
+                  value === 0 && 'text-2xl font-bold bg-white '
                 }`}
                 onClick={() => handleChange(0)}
               >
