@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, useParams, useNavigate } from 'react-router-dom'
 import { mockDataExam, ISections } from '..';
 import ClockIcon from '../../../assets/icons/Clock';
 import WriteIcon from '../../../assets/icons/Write';
@@ -13,7 +13,7 @@ const DetailExam = () => {
   const [value, setValue] = React.useState(0);
   const ref = useRef<HTMLDivElement | null>(null);
   const { exam, part } = params;
-
+  const navigate = useNavigate();
   const handleChange = (newValue: number) => {
     setValue(newValue);
   };
@@ -122,9 +122,9 @@ const DetailExam = () => {
                     Ready to start taking the full test? To get the best
                     results, you need to spend 40 minutes on this test.
                   </div>
-                  <NavLink className="btn btn-success text-white" to="writing">
+                  <button className="btn btn-success text-white" onClick={() => navigate("/404")}>
                     Start Exam
-                  </NavLink>
+                  </button>
                 </React.Fragment>
               ) : (
                 <h2>!</h2>

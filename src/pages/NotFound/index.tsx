@@ -2,8 +2,8 @@ import { NavLink } from "react-router-dom";
 
 function NotFoundPage() {
   return (
-    <section className="flex flex-col h-full relative py-[3rem]">
-      <div className="flex flex-col h-full">
+    <section className="flex flex-col h-screen w-full relative py-[3rem]">
+      <div className="flex flex-col h-full justify-center items-center" >
         <div className="text-center">
           <div className="min-h-[400px] bg-center bg-no-repeat" style={{
             backgroundImage: "url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif)"
