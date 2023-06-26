@@ -1,13 +1,17 @@
 import IQuestion from './Question';
 
-export type PartType =
-  | 'Multiple Choice'
-  | 'Gap filling'
-  | 'Information identification'
-  | 'Information matching'
-  | 'Head Matching'
-  | 'Sentence completion'
-  | 'Summary completion';
+export const partTypes = [
+  'Single choice',
+  'Multiple choice',
+  'Gap filling',
+  'Information identification',
+  'Information matching',
+  'Head Matching',
+  'Sentence completion',
+  'Summary completion',
+] as const;
+
+export type PartType = (typeof partTypes)[number];
 
 export default interface IPart {
   id: string;

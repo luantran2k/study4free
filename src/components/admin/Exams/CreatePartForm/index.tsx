@@ -52,7 +52,8 @@ function CreatePartForm(props: Props) {
         <div>
           <label>Type</label>
           <select className="input input-bordered" {...register('type')}>
-            <option value="Multiple Choice<">Multiple Choice</option>
+            <option value="Single choice">Single choice</option>
+            <option value="Multiple choice">Multiple Choice</option>
             <option value="Gap filling">Gap filling</option>
             <option disabled value="Information identification">
               Information identification

@@ -1,18 +1,18 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { useEffect, useState } from 'react';
 import AddIcon from '../../../../assets/icons/Add';
+import { useAppDispatch } from '../../../../hooks/redux';
 import IQuestion from '../../../../interfaces/Question';
 import {
   useCreateAnswerMutation,
   useGetQuestionByIdQuery,
   useUpdateQuestionByIdMutation,
 } from '../../../../store/queries/exams';
-import Answers from '../Answer';
-import { SectionType } from '../Sections';
-import ImageUploadPreview from '../ImageUploadPreview';
-import AudioUploadPreview from '../AudioUploadPreview';
-import { useAppDispatch } from '../../../../hooks/redux';
 import { updateExamEditInfo } from '../../../../store/slices/examSlice';
+import Answer from '../Answer';
+import AudioUploadPreview from '../AudioUploadPreview';
+import ImageUploadPreview from '../ImageUploadPreview';
+import { SectionType } from '../Sections';
 
 type Props = {
   section: SectionType;
@@ -46,7 +46,7 @@ function Question({ questionId, section }: Props) {
   }, [data]);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <span className="loading loading-dots"></span>;
   }
   if (isError) {
     return <p className="text-error">Error</p>;
@@ -171,10 +171,11 @@ function Question({ questionId, section }: Props) {
             </div>
             <ul ref={parent} className="list-none flex flex-col gap-3">
               {question.answers?.map((answer, index) => (
-                <Answers
+                <Answer
                   index={index}
                   key={answer.id}
-                  answer={answer}
+                  {...answer}
+                  answers={question?.answers || []}
                   section={section}
                 />
               ))}
