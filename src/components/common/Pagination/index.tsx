@@ -55,7 +55,6 @@ const Pagination = (props: Props) => {
         className="select w-full max-w-xs"
         value={quantity}
         onChange={(e) => {
-          console.log(e.target.value);
           onChangeQuantity(Number(e.target.value));
         }}
       >

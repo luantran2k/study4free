@@ -5,20 +5,18 @@ import { YoutubeIcon } from '../../assets/icons/youtubeIcon';
 import { GoogleIcon } from '../../assets/icons/googleIcon';
 import { FacebookIcon } from '../../assets/icons/facebookIcon';
 import { CheckIcon } from '../../assets/icons/checkIcon';
-import { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 import { achievementArr, ourTeams, paymentBoard, skillArr } from './data';
+import IUser from '../../interfaces/User';
+import { userInformation } from '../../store/slices/authSlice';
+import { useSelector } from 'react-redux';
 
 function HomePage() {
   const navigate = useNavigate();
+  const userInfo: IUser = useSelector(userInformation);
 
-  const userInfo: any = useMemo(() => {
-    if (typeof window !== 'undefined') {
-      return JSON.parse(localStorage.getItem('user') as string);
-    }
-  }, []);
-  console.log(userInfo);
   const handleNavigatePayment = () => {
     if (userInfo.name) {
       navigate('/users/payment');
@@ -31,6 +29,12 @@ function HomePage() {
       notify(NOTIFICATION_TYPE.INFO, 'Please login before you make payment');
     }
   };
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, []);
   return (
     <>
       <section
@@ -60,27 +64,40 @@ function HomePage() {
           >
             of your journey to success
           </p>
-          <button
-            data-aos="fade-up"
-            data-aos-anchor="#example-anchor"
-            data-aos-offset="500"
-            data-aos-duration="1000"
-            className="rounded-full border-4 bg-transparent text-[#fff] border-[#fff] px-[2rem] py-[.75rem] hover:bg-[#307ad5] hover:border-[#307ad5] hover:font-semibold"
-          >
-            Ready to get Started?
-          </button>
+          {userInfo != null ? (
+            <div
+              data-aos="fade-up"
+              data-aos-anchor="#example-anchor"
+              data-aos-offset="500"
+              data-aos-duration="1000"
+              className="rounded-full bg-transparent text-[#fff] px-[2rem] py-[.75rem] bg-[#307ad5] "
+            >
+              Welcome our Website
+            </div>
+          ) : (
+            <NavLink
+              to={'/login'}
+              data-aos="fade-up"
+              data-aos-anchor="#example-anchor"
+              data-aos-offset="500"
+              data-aos-duration="1000"
+              className="rounded-full border-4 bg-transparent text-[#fff] border-[#fff] px-[2rem] py-[.75rem] hover:bg-[#307ad5] hover:border-[#307ad5] hover:font-semibold"
+            >
+              Ready to get Started?
+            </NavLink>
+          )}
         </div>
       </section>
       <section
         id="ielts-skills"
-        className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-cover w-full py-[50px] shadow-2xl"
+        className="bg-gradient-to-r from-sky-500 sky-500/75 to-sky-500/50 bg-cover w-full py-[50px] shadow-2xl"
       >
         <div
           data-aos="fade-up"
           data-aos-offset="0"
           className="home-title w-full text-center font-extrabold text-8xl "
         >
-          <h1>Choose your favorite skill</h1>
+          <h1 className="my-[1rem] text-[#fff]"> Your favorite skill?</h1>
         </div>
         <div className="grid md:grid-cols-4 py-[32px] grid-cols-2 gap-4">
           {skillArr.map((item, index) => {
@@ -193,14 +210,14 @@ function HomePage() {
       </section>
       <section
         id="team-achievements"
-        className={`bg-[url('https://masterstudy.stylemixthemes.com/classic-lms-elementor/wp-content/uploads/sites/29/2018/09/achivements.jpg')] bg-cover bg-no-repeat	 w-full min-h-[40rem] h-fit flex text-[#fff] flex flex-col justify-center items-center py-[2rem]`}
+        className={`bg-[url('https://masterstudy.stylemixthemes.com/classic-lms-elementor/wp-content/uploads/sites/29/2018/09/achivements.jpg')] bg-cover bg-no-repeat	 w-full min-h-[40rem] h-fit flex text-[#fff] flex flex-col justify-center items-center py-[3rem]`}
       >
         <div
           data-aos="zoom-in"
           data-aos-offset="50"
           data-aos-duration="500"
           data-aos-delay="800"
-          className="text-[2rem] font-bold mb-[1rem]"
+          className="text-[3rem] font-bold mb-[1rem]"
         >
           OUR TEAMS ACHIEVEMENTS
         </div>
@@ -210,7 +227,7 @@ function HomePage() {
           data-aos-offset="50"
           data-aos-duration="500"
           data-aos-delay="800"
-          className="my-[rem]"
+          className="my-[1rem]"
         >
           Here you can review some statistics about our Education Center
         </div>
@@ -346,7 +363,7 @@ function HomePage() {
           })}
         </div>
       </section>
-      <section id="subcribe-email " className="bg-[#2c75e4] ">
+      {/* <section id="subcribe-email " className="bg-[#2c75e4] ">
         <div className="w-[80%] m-auto flex flex-col md:flex-row gap-[3rem] text-[#fff] py-[3.5rem] px-[1rem]">
           <div className="flex flex-col flex-1">
             <h4 className="pb-[1.25rem] text-[1.25rem]">
@@ -372,7 +389,7 @@ function HomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }
