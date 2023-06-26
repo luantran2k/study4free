@@ -1,6 +1,7 @@
 import { RouteObject } from 'react-router-dom';
 
 import { AnalyzeResults, Collection, DetailExam, ExamsPage, GrammarPage, HomePage, Payment, Reminder, SectionPage, UserInformation, UserProfilePage, VocabulariesPage, VocabularyDetail, Writing, DeleteAccount, RootLayout } from './imports';
+import NotFoundPage from '../pages/NotFound';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -20,7 +21,8 @@ export const mainRoute: RouteObject = {
         },
         {
           path: ':exam/:part/:section',
-          element: <Writing />,
+          // element: <Writing />,
+          element: <NotFoundPage/>
         },
         // {
         //   path: 'writing/:id',

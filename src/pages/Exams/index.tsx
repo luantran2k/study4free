@@ -1,9 +1,30 @@
-import React, { FormEvent, lazy, useEffect, useState } from 'react';
-import { Outlet, useLocation, useParams } from 'react-router-dom';
+import React, { lazy, useEffect, useState } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 import Thumb from '../../assets/images/thumbEnglish.jpg';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import Pagination from '../../components/common/Pagination';
 
 const ExamCard = lazy(() => import('../../components/common/ExamCard/ExamCard'));
+
+
+const newPag = {
+  totalPage: 5,
+  currentPage: 1,
+  quantity: 40,
+  quantityOptions: [1, 2, 3],
+  onChangePage: () => {
+    return;
+  },
+  onChangeQuantity: () => {
+    return;
+  },
+  onNextClick: () => {
+    return;
+  },
+  onPreviousClick: () => {
+    return;
+  },
+};
 
 export const mockDataExam: IMock[] = [
   {
@@ -243,7 +264,7 @@ function ExamsPage() {
           <div className="py-[40px] mb-[10px] text-white text-center font-bold text-[40px] bg-gradient-to-r from-cyan-500 to-blue-500">
             <h2 className="uppercase">Examination</h2>
           </div>
-          <div className="flex flex-col h-full relative p-[3rem]">
+          <div className="flex flex-col h-full relative py-[3rem]">
             <div className="container mx-auto mb-10">
               <img src={Thumb} alt="" className="w-[100%]" />
             </div>
@@ -273,8 +294,9 @@ function ExamsPage() {
               {filteredData.length ? (
                 <>
                   {filteredData.map((mock) => (
-                    <ExamCard {...mock} />
+                    <ExamCard {...mock} key={mock.id}/>
                   ))}
+                  <Pagination {...newPag}/>
                 </>
               ) : (
                 <h3 className="text-3xl text-center mx-auto mb-10 font-serif font-semibold text-sky-600">
