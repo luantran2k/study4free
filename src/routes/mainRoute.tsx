@@ -22,6 +22,7 @@ import {
 // import NotFoundPage from '../pages/NotFound';
 import Speaking from '../pages/Exams/Speaking';
 import Reading from '../pages/Exams/Reading';
+import Listening from '../pages/Exams/Listening';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -48,8 +49,8 @@ export const mainRoute: RouteObject = {
           element: <Reading />,
         },
         {
-          path: 'Writing/:skill',
-          element: <Writing />,
+          path: 'Listening/:skill',
+          element: <Listening />,
         },
         // {
         //   path: 'Speaking/:skill',
