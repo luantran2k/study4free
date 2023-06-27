@@ -39,7 +39,7 @@ const ExamCard = (props: any) => {
           return (
             <NavLink
               to={`${sectionType.toLowerCase()}/${section}`}
-              state={{ sectionType, section }}
+              state={{ sectionType, section, props }}
               className="bg-white rounded-2xl hover:shadow-xl shadow-md w-full hover:-translate-y-2 transition-all p-4 mt-4 flex flex-col justify-between"
             >
               <h6 className="text-black font-semibold text-xl mb-3">
