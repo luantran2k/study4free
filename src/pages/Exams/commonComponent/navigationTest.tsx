@@ -81,8 +81,7 @@ const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
         Submit
       </button>
       <p className="text-[#ffad3c] font-bold italic my-[0.75rem]">
-        Note: you can click on the question number in the article to mark the
-        review
+        You can click on the question number in the article to mark the review
       </p>
       {exams.task.map((_, index) => {
         return (

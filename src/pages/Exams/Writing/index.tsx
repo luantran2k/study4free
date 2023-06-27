@@ -17,7 +17,7 @@ const Writing = () => {
     setEssay(updatedArr);
     const a = e.target.value
       .trim()
-      .split(' ')
+      .split(/\s+/)
 
       .filter((item: string) => item !== '');
 
@@ -55,9 +55,9 @@ const Writing = () => {
       <div className="grid grid-cols-1 md:grid-cols-12 w-[90%] mx-auto py-[2rem] gap-[1rem] border-b-2 ">
         <div className="col-span-12 md:col-span-9 grid grid-cols-1 md:grid-cols-12 bg-[] bg-[#fff] rounded-xl shadow-2xl py-[2rem]">
           <div className="xl:col-span-7 col-span-12 px-[1rem] bg-[#f8f9fa]">
-            <p>
-              You should spend about 40 minutes on this task. Write about the
-              following topic:
+            <p className="text-[red] font-bold italic">
+              Note : You should spend about {index === 0 ? '20' : '40'} minutes
+              on this task. Write about the following topic:
             </p>
             <div className="font-bold my-[1.5rem]">
               {exams.task[index].topic}
@@ -80,6 +80,14 @@ const Writing = () => {
                 }
               ></textarea>
               <p>Word count : {countWord}</p>
+
+              <p className="text-[red] italic font-bold">
+                Note : Writing fewer than {index === 0 ? '150' : '250'} words
+                may result in a lower score as you may not provide sufficient
+                information. You should aim for
+                {index === 0 ? ' 150-170 ' : ' 250-275 '}
+                words in Task {index + 1}.
+              </p>
             </div>
           </div>
         </div>
@@ -91,5 +99,4 @@ const Writing = () => {
   );
 };
 
-
-export default Writing
+export default Writing;
