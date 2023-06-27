@@ -56,9 +56,9 @@ function ExamsAdminPage() {
 
   return (
     <>
-      <div className="flex justify-between mb-8 mt-4">
+      <div className="flex flex-col justify-between mb-8 mt-4 lg:flex-row">
         <h1 className="text-3xl font-medium">Exams</h1>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col md:flex-row  md:items-center gap-4 ">
           <input
             type="text"
             value={title}
@@ -69,9 +69,9 @@ function ExamsAdminPage() {
             placeholder="Enter exam title"
           />
           <div className="flex gap-2 items-center font-medium">
-            <label>Type</label>
+            <label>Type: </label>
             <select
-              className="select select-bordered"
+              className="select select-bordered w-full"
               value={type}
               onChange={(e) =>
                 setFilter((filter) => ({
@@ -88,9 +88,9 @@ function ExamsAdminPage() {
             </select>
           </div>
           <div className="flex gap-2 items-center font-medium">
-            <label>Paid</label>
+            <label>Paid: </label>
             <select
-              className="select select-bordered"
+              className="select select-bordered w-full"
               value={isNeedPaid}
               onChange={(e) =>
                 setFilter((filter) => ({
@@ -116,76 +116,78 @@ function ExamsAdminPage() {
           </Modal>
         </div>
       </div>
-      <div className="overflow-auto ">
-        <table className="table table-zebra table-pin-rows">
-          <thead>
-            <tr className="bg-blue-200 [&>th]:py-4 [&>th]:text-black [&>th]:text-[1rem]">
-              <th></th>
-              <th>Title</th>
-              <th>Type</th>
-              <th>Sections</th>
-              <th>Duration(minutes)</th>
-              <th>Is Paid</th>
-              <th>Upload Date</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {exams?.map((exam, index) => (
-              <tr key={exam.id}>
-                <td className="font-bold">{quantity * page + index + 1}</td>
-                <td>{exam.title}</td>
-                <td>{exam.type}</td>
-                <td className="flex gap-1 wrapper">
-                  {Object.keys(exam.sections || {})
-                    .filter(
-                      (key) =>
-                        key.includes('SectionId') &&
-                        exam.sections[key as keyof ExamSection]
-                    )
-                    .map((key, index) => (
-                      <span
-                        key={key}
-                        className={`bg-blue-${
-                          (index + 4) * 100
-                        } text-white py-1 rounded-box flex justify-center px-2  `}
-                      >
-                        {key.slice(0, -'SectionId'.length)[0].toUpperCase() +
-                          key.slice(1, -'SectionId'.length)}
-                      </span>
-                    ))}
-                  <span className="hidden bg-blue-700"></span>
-                </td>
-                <td>{exam.duration}</td>
-                <td>{exam.isNeedPaid ? 'Yes' : 'No'}</td>
-                <td>
-                  {new Date(exam.createdAt as string).toLocaleDateString(
-                    'vi-VN'
-                  )}
-                </td>
-                <td className="text-blue-500 cursor-pointer  active:[&_svg]:translate-y-1 [&_svg]:transition-all ">
-                  <button
-                    onClick={() => navigate(`/admin/exams/edit/${exam.id}`)}
-                  >
-                    <EditIcon />
-                  </button>
-                </td>
-                <td className="text-red-500 cursor-pointer  active:[&_svg]:translate-y-1 [&_svg]:transition-all ">
-                  <button
-                    onClick={() => {
-                      if (confirm('Are you sure to delete this exam?')) {
-                        removeExam(exam.id);
-                      }
-                    }}
-                  >
-                    <TrashIcon />
-                  </button>
-                </td>
+      <div>
+        <div className="overflow-auto">
+          <table className="table table-zebra">
+            <thead>
+              <tr className="bg-blue-200 [&>th]:py-4 [&>th]:text-black [&>th]:text-[1rem]">
+                <th></th>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Sections</th>
+                <th>Duration(minutes)</th>
+                <th>Is Paid</th>
+                <th>Upload Date</th>
+                <th></th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {exams?.map((exam, index) => (
+                <tr key={exam.id}>
+                  <td className="font-bold">{quantity * page + index + 1}</td>
+                  <td>{exam.title}</td>
+                  <td>{exam.type}</td>
+                  <td className="flex gap-1 wrapper">
+                    {Object.keys(exam.sections || {})
+                      .filter(
+                        (key) =>
+                          key.includes('SectionId') &&
+                          exam.sections[key as keyof ExamSection]
+                      )
+                      .map((key, index) => (
+                        <span
+                          key={key}
+                          className={`bg-blue-${
+                            (index + 4) * 100
+                          } text-white py-1 rounded-box flex justify-center px-2  `}
+                        >
+                          {key.slice(0, -'SectionId'.length)[0].toUpperCase() +
+                            key.slice(1, -'SectionId'.length)}
+                        </span>
+                      ))}
+                    <span className="hidden bg-blue-700"></span>
+                  </td>
+                  <td>{exam.duration}</td>
+                  <td>{exam.isNeedPaid ? 'Yes' : 'No'}</td>
+                  <td>
+                    {new Date(exam.createdAt as string).toLocaleDateString(
+                      'vi-VN'
+                    )}
+                  </td>
+                  <td className="text-blue-500 cursor-pointer  active:[&_svg]:translate-y-1 [&_svg]:transition-all ">
+                    <button
+                      onClick={() => navigate(`/admin/exams/edit/${exam.id}`)}
+                    >
+                      <EditIcon />
+                    </button>
+                  </td>
+                  <td className="text-red-500 cursor-pointer  active:[&_svg]:translate-y-1 [&_svg]:transition-all ">
+                    <button
+                      onClick={() => {
+                        if (confirm('Are you sure to delete this exam?')) {
+                          removeExam(exam.id);
+                        }
+                      }}
+                    >
+                      <TrashIcon />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <div className="mt-5 mx-auto w-fit">
           <Pagination
             totalPage={count?.count ? Math.ceil(count?.count / quantity) : 0}
