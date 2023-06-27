@@ -60,8 +60,8 @@ const Header = () => {
           </button>
           <div
             className={`${isOpenNavBar ? 'block' : 'hidden'
-              } w-full md:block md:w-auto max-md:absolute bottom-[-279%] left-0 bg-white transition-all z-10`}
-            id="navbar-dropdown "
+              } w-full md:block md:w-auto max-md:absolute top-[80px] left-0 bg-white transition-all z-10`}
+            id="navbar-dropdown"
           >
             <ul
               className="flex flex-col mt-0 uppercase font-semibold text-[#000] p-4 md:p-0 border text-[1rem]  md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
@@ -140,46 +140,89 @@ const Header = () => {
                   Grammar
                 </NavLink>
               </li>
+              <li className='mt-10 block md:hidden'>
+                <div className='w-fit'>
+                  {name ? (
+                    <NavLink
+                      to={'/users'}
+                      style={{
+                        display: 'flex',
+                        padding: '8px 1.75rem',
+                        borderRadius: '10px'
+                      }}
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                            ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
+                            : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
+                      }
+                    >
+                      {userInformation.roles.length > 1 ? userInformation.roles[1] : userInformation.roles[0]}
+                    </NavLink>
+                  ) : (
+                    <NavLink
+                      to={'/login'}
+                      style={{
+                        display: 'flex',
+                        padding: '8px 1.75rem',
+                        borderRadius: '10px'
+                      }}
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                            ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
+                            : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
+                      }
+                    >
+                      Login
+                    </NavLink>
+                  )}
+                </div>
+              </li>
             </ul>
           </div>
 
-          {name ? (
-            <NavLink
-              to={'/users'}
-              style={{
-                display: 'flex',
-                padding: '8px 1.75rem',
-                borderRadius: '10px'
-              }}
-              className={({ isActive, isPending }) =>
-                isPending
-                  ? 'pending'
-                  : isActive
-                    ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
-                    : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
-              }
-            >
-              {userInformation.roles.length > 1 ? userInformation.roles[1] : userInformation.roles[0]}
-            </NavLink>
-          ) : (
-            <NavLink
-              to={'/login'}
-              style={{
-                display: 'flex',
-                padding: '8px 1.75rem',
-                borderRadius: '10px'
-              }}
-              className={({ isActive, isPending }) =>
-                isPending
-                  ? 'pending'
-                  : isActive
-                    ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
-                    : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
-              }
-            >
-              Login
-            </NavLink>
-          )}
+          <div className='lg:block hidden'>
+            {name ? (
+              <NavLink
+                to={'/users'}
+                style={{
+                  display: 'flex',
+                  padding: '8px 1.75rem',
+                  borderRadius: '10px'
+                }}
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? 'pending'
+                    : isActive
+                      ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
+                      : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
+                }
+              >
+                {userInformation.roles.length > 1 ? userInformation.roles[1] : userInformation.roles[0]}
+              </NavLink>
+            ) : (
+              <NavLink
+                to={'/login'}
+                style={{
+                  display: 'flex',
+                  padding: '8px 1.75rem',
+                  borderRadius: '10px'
+                }}
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? 'pending'
+                    : isActive
+                      ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
+                      : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
+                }
+              >
+                Login
+              </NavLink>
+            )}
+          </div>
         </div>
       </nav>
       <Tools intersection={intersection} />
