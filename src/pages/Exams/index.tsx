@@ -9,11 +9,11 @@ const ExamCard = lazy(() => import('../../components/common/ExamCard/ExamCard'))
 
 const newPag = {
   totalPage: 5,
-  currentPage: 1,
+  currentPage: 0,
   quantity: 40,
   quantityOptions: [1, 2, 3],
   onChangePage: () => {
-    return;
+    return
   },
   onChangeQuantity: () => {
     return;
@@ -296,9 +296,11 @@ function ExamsPage() {
               {filteredData.length ? (
                 <>
                   {filteredData.map((mock) => (
-                    <ExamCard {...mock} key={mock.id}/>
+                    <ExamCard {...mock} key={mock.id} />
                   ))}
-                  <Pagination {...newPag}/>
+                  <div className='w-fit'>
+                    <Pagination {...newPag} />
+                  </div>
                 </>
               ) : (
                 <h3 className="text-3xl text-center mx-auto mb-10 font-serif font-semibold text-sky-600">
