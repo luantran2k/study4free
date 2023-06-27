@@ -8,7 +8,7 @@ const ExamCard = (props: IMock) => {
     <div className="mb-8">
       <div className="tabs ">
         <a
-          className="tab tab-lifted tab-lg tab-active text-xl font-semibold text-[#23085a] bg-[#e8f2ff]"
+          className="tab tab-lifted tab-lg tab-active text-xl font-semibold text-[#23085a] bg-[#e8f2ff] pointer-events-none"
           style={{ backgroundColor: '#e8f2ff' }}
         >
           {props.title}
@@ -16,6 +16,7 @@ const ExamCard = (props: IMock) => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-[#e8f2ff] p-4">
         {props.sections.map((section) => (
+
           <NavLink
             key={section.id}
             to={`${props.id}/${section.id}`}
