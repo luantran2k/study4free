@@ -1,5 +1,11 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import { useEffect, useState } from 'react';
+import {
+  Ref,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import AddIcon from '../../../../assets/icons/Add';
 import { useAppDispatch } from '../../../../hooks/redux';
 import IQuestion from '../../../../interfaces/Question';
@@ -20,7 +26,10 @@ type Props = {
   questionId: string;
 };
 
-function Question({ questionId, section }: Props) {
+function Question(
+  { questionId, section }: Props,
+  ref: Ref<{ currentQuestion?: IQuestion }>
+) {
   const {
     data: question,
     isLoading,
@@ -30,6 +39,9 @@ function Question({ questionId, section }: Props) {
     section,
   });
   const dispatch = useAppDispatch();
+  useImperativeHandle(ref, () => ({
+    currentQuestion: question,
+  }));
 
   const [updateTitle] = useUpdateQuestionByIdMutation();
   const [updateImage, { isLoading: isImageLoading, isError: isImageError }] =
@@ -64,12 +76,26 @@ function Question({ questionId, section }: Props) {
         <div className="mb-12">
           <label htmlFor="">Title</label>
           <TextEditor
-            defaultValue={question?.title as string}
+            defaultValue={question?.title || ''}
             onBlur={(value) => {
               updateTitle({
                 questionId,
                 section,
                 data: { title: value },
+              });
+            }}
+          />
+        </div>
+
+        <div className="mb-12">
+          <label htmlFor="">Description</label>
+          <TextEditor
+            defaultValue={question?.description || ''}
+            onBlur={(value) => {
+              updateTitle({
+                questionId,
+                section,
+                data: { description: value },
               });
             }}
           />
@@ -164,4 +190,4 @@ function Question({ questionId, section }: Props) {
   );
 }
 
-export default Question;
+export default forwardRef(Question);
