@@ -1,6 +1,6 @@
 import React, { lazy, useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import Thumb from '../../assets/images/thumbEnglish.jpg';
+import Thumb from '../../assets/images/study.jpg';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Pagination from '../../components/common/Pagination';
 
@@ -9,11 +9,11 @@ const ExamCard = lazy(() => import('../../components/common/ExamCard/ExamCard'))
 
 const newPag = {
   totalPage: 5,
-  currentPage: 1,
+  currentPage: 0,
   quantity: 40,
   quantityOptions: [1, 2, 3],
   onChangePage: () => {
-    return;
+    return
   },
   onChangeQuantity: () => {
     return;
@@ -265,8 +265,10 @@ function ExamsPage() {
             <h2 className="uppercase">Examination</h2>
           </div>
           <div className="flex flex-col h-full relative py-[3rem]">
-            <div className="container mx-auto mb-10">
-              <img src={Thumb} alt="" className="w-[100%]" />
+            <div className="container mx-auto mb-10 bg-center bg-cover bg-no-repeat h-[400px]" style={{
+              backgroundImage: `url(${Thumb})`
+            }}>
+              {/* <img src={Thumb} alt="" className="w-[100%] h-[100px]" /> */}
             </div>
             <div className="bg-transparent container mx-auto">
               <h3 className="text-4xl text-black font-bold my-8">
@@ -294,9 +296,11 @@ function ExamsPage() {
               {filteredData.length ? (
                 <>
                   {filteredData.map((mock) => (
-                    <ExamCard {...mock} key={mock.id}/>
+                    <ExamCard {...mock} key={mock.id} />
                   ))}
-                  <Pagination {...newPag}/>
+                  <div className='w-fit'>
+                    <Pagination {...newPag} />
+                  </div>
                 </>
               ) : (
                 <h3 className="text-3xl text-center mx-auto mb-10 font-serif font-semibold text-sky-600">
