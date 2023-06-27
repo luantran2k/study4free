@@ -63,16 +63,13 @@ const ExamCard = (props: IMock) => {
             </div>
             <div className="flex flex-col">
               <div className="flex flex-row gap-2 flex-wrap mb-8">
-                {section.tag.map((t) => (
-                  <button className="text-blue-500 w-fit rounded-xl p-2 bg-blue-100 text-sm ">
+                {section.tag.map((t, i) => (
+                  <button key={i} className="text-blue-500 w-fit rounded-xl p-2 bg-blue-100 text-sm ">
                     #{t}
                   </button>
                 ))}
               </div>
             </div>
-            <button className="text-blue-400 text-xl w-full rounded-xl py-2 border-2 border-blue-400 bg-white hover:bg-blue-400 hover:text-white transition-all">
-              Details
-            </button>
           </NavLink>
         ))}
       </div>

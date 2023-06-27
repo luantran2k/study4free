@@ -20,6 +20,7 @@ import {
 } from './imports';
 // import NotFoundPage from '../pages/NotFound';
 import Speaking from '../pages/Exams/Speaking';
+import NotFoundPage from '../pages/NotFound';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -43,6 +44,11 @@ export const mainRoute: RouteObject = {
         //   // element: <NotFoundPage/>
         // },
         {
+          path: ':exam/:part/:section',
+          // element: <Writing />,
+          element: <NotFoundPage title="404" subTitle="Upsie daisy" descript='the section you are looking for is not available' />
+        },
+        {
           path: ':exam/:part/writing',
           element: <Writing />,
         },
@@ -50,14 +56,6 @@ export const mainRoute: RouteObject = {
           path: ':exam/:part/speaking',
           element: <Speaking />,
         },
-        // {
-        //   path: 'writing/:id',
-        //   element: <Writing />,
-        // },
-        // {
-        //   path: 'speaking/:id',
-        //   element: <Speaking />,
-        // },
         // {
         //   path: 'listening/:id',
         //   element: <h1>Not Available</h1>,

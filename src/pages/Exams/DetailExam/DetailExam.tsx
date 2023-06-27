@@ -127,6 +127,7 @@ const DetailExam = () => {
                     className="btn btn-success text-white"
                     to={part?.split('-')[2] || ''}
                   >
+                  {/* <NavLink className="btn btn-success text-white" to={test.tag[1]}> */}
                     Start Exam
                   </NavLink>
                 </React.Fragment>
