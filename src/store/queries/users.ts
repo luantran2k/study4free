@@ -1,11 +1,15 @@
-import { RootState } from '..';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { RootState } from '..';
+import IUser from '../../interfaces/User';
+import BaseFilter from '../../interfaces/common/BaseFilter';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  tagTypes: ['User', 'Collection', 'Vocab'],
+  tagTypes: ['Users', 'CountUsers', 'User', 'Collection', 'Vocab'],
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://study4free-api.onrender.com/',
+    baseUrl:
+      import.meta.env.VITE_BASE_API_URL ||
+      'https://study4free-api.onrender.com/',
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
       if (token) {
@@ -16,9 +20,36 @@ export const userApi = createApi({
   }),
 
   endpoints: (builder) => ({
+    getUsers: builder.query<
+      Pick<IUser, 'id' | 'username' | 'avatar' | 'email' | 'gender'>[],
+      BaseFilter
+    >({
+      query: (params) => {
+        console.log('query all users');
+        return {
+          url: 'users',
+          params,
+        };
+      },
+      providesTags: () => ['Users'],
+    }),
+    countUsers: builder.query<{ count: number }, BaseFilter>({
+      query: (params) => ({
+        url: 'users/count',
+        params,
+      }),
+      providesTags: () => ['CountUsers'],
+    }),
     getUserById: builder.query<any, string>({
       query: (id) => `users/${id}`,
       providesTags: () => ['User'],
+    }),
+    removeUser: builder.mutation<IUser, string>({
+      query: (id) => ({
+        url: `users/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: () => ['Users', 'CountUsers'],
     }),
     updateInfor: builder.mutation({
       query: (data) => ({
@@ -56,30 +87,33 @@ export const userApi = createApi({
       query: (data) => ({
         url: 'todos',
         method: 'POST',
-        body: data
+        body: data,
       }),
-      invalidatesTags: () => ['User']
+      invalidatesTags: () => ['User'],
     }),
     deleteToDo: builder.mutation({
       query: (id) => ({
-          url: `todos/${id}`,
-          method: 'DELETE',
+        url: `todos/${id}`,
+        method: 'DELETE',
       }),
-      invalidatesTags: () => ['User']
+      invalidatesTags: () => ['User'],
     }),
     changeStatusToDo: builder.mutation({
       query: (data) => ({
         url: `todos/${data.id}`,
         method: 'PATCH',
-        body: data.newData
+        body: data.newData,
       }),
-      invalidatesTags: () => ['User']
-    })
+      invalidatesTags: () => ['User'],
+    }),
   }),
 });
 
 export const {
+  useGetUsersQuery,
+  useCountUsersQuery,
   useGetUserByIdQuery,
+  useRemoveUserMutation,
   useUpdateInforMutation,
   useGetAllCollectonQuery,
   useGetCollectionByIdQuery,
@@ -87,5 +121,5 @@ export const {
   useAddNewVocabularyMutation,
   useAddNewTodoMutation,
   useDeleteToDoMutation,
-  useChangeStatusToDoMutation
+  useChangeStatusToDoMutation,
 } = userApi;
