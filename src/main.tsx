@@ -16,14 +16,12 @@ const initialOptions = {
   intent: 'capture',
 };
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <PayPalScriptProvider deferLoading={true} options={initialOptions}>
-      <Provider store={store}>
-        <ToastContainer />
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </PayPalScriptProvider>
-  </React.StrictMode>
+  <PayPalScriptProvider deferLoading={true} options={initialOptions}>
+    <Provider store={store}>
+      <ToastContainer />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </PayPalScriptProvider>
 );
