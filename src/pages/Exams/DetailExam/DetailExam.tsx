@@ -17,13 +17,6 @@ const DetailExam = () => {
     setValue(newValue);
   };
 
-  useEffect(() => {
-    const selectedDetailExam = mockDataExam
-      .filter((detailExam) => detailExam.id === exam)
-      .map((ex) => ex.sections.filter((e) => e.id === part))[0];
-    setSelectedExam(selectedDetailExam);
-  }, [exam, part]);
-
   return (
     <div className="flex flex-col h-full relative">
       <div className="flex flex-row container mx-auto gap-5 my-10">
@@ -86,12 +79,6 @@ const DetailExam = () => {
                     </p>
                   </div>
                   <div className="gap-3 items-center w-fit mb-4">
-                    {/* <a
-                                            className={`tab tab-bordered tab-lg font-bold
-                                        text-lg hover:text-sky-700 text-sky-700 border-sky-700 hover:border-sky-700`}
-                                        >
-                                            Practice
-                                        </a> */}
                     <a
                       className={`tab tab-bordered tab-lg font-bold text-sky-700
                                              text-lg hover:text-sky-700 hover:border-sky-700`}
@@ -108,14 +95,7 @@ const DetailExam = () => {
                       Comments
                     </button>
                   </div>
-                  {/* <div className='w-full bg-green-200 p-4 text-green-700 rounded-lg mb-4'>
 
-                                        <p className='font-bold flex flex-row items-center gap-1'>
-                                            <LightOn width='20px' height='20px' fill='rgb(21 128 61)' />
-                                            Pro Tips:
-                                        </p>
-                                        The practice of each part and choosing the right amount of time will help you focus on solving the right questions instead of being completely pressured.
-                                    </div> */}
                   <div className="w-full bg-[#ffefd8] p-4 text-[#855a1f] rounded-lg mb-4">
                     <p className="font-bold flex flex-row items-center gap-1">
                       Note:
@@ -123,7 +103,7 @@ const DetailExam = () => {
                     Ready to start taking the full test? To get the best
                     results, you need to spend 40 minutes on this test.
                   </div>
-                  {/* <NavLink className="btn btn-success text-white" to={test.tag[1]}> */}
+
                   <NavLink
                     className="btn btn-success text-white"
                     to={part?.split('-')[2] || ''}

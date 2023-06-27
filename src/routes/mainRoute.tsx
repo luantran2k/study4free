@@ -22,7 +22,6 @@ import {
 // import NotFoundPage from '../pages/NotFound';
 import Speaking from '../pages/Exams/Speaking';
 
-
 export const mainRoute: RouteObject = {
   path: '/',
   element: <RootLayout />,
@@ -36,7 +35,7 @@ export const mainRoute: RouteObject = {
       element: <ExamsPage />,
       children: [
         {
-          path: ':exam/:part',
+          path: ':exam',
           element: <DetailExam />,
         },
         // {
@@ -47,7 +46,13 @@ export const mainRoute: RouteObject = {
         {
           path: ':exam/:part/:section',
           // element: <Writing />,
-          element: <NotFoundPage title="404" subTitle="Upsie daisy" descript='the section you are looking for is not available' />
+          element: (
+            <NotFoundPage
+              title="404"
+              subTitle="Upsie daisy"
+              descript="the section you are looking for is not available"
+            />
+          ),
         },
         // {
         //   path: ':exam/:part/writing',
@@ -97,7 +102,7 @@ export const mainRoute: RouteObject = {
     },
     {
       path: 'users',
-      element: <UserProfilePage/>,
+      element: <UserProfilePage />,
       children: [
         {
           path: 'analyzeResults',
