@@ -1,33 +1,28 @@
 import { lazy, useState } from 'react';
 import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
+import { useGetPartByIdQuery } from '../../../store/queries/exams';
 
 const NavigationTest = lazy(() => import('../commonComponent/navigationTest'));
 const NoteInfo = lazy(() => import('../commonComponent/noteInfo'));
 
-const exams = {
-  id: 1,
-  cambridge: 14,
-  test: 1,
-  skill: 'speaking',
-  task: [
-    {
-      topic:
-        'The graph below gives information about the percentage of the population in four Asian countries living in cities from 1970 to 2020, with predictions for 2030 and 2040.Summarise the information by selecting and reporting the main features, and make comparisons where relevant.',
-      imageTopic:
-        'https://study4.com/media/uploads/editor/study4/2023/06/09/screen-shot-2023-06-09-at-82718-pm.png',
-    },
-    {
-      topic: '',
-    },
-  ],
-};
-
-interface Props {
-  handleTask: (task: string) => void;
-  handleIndex: (index: number) => void;
-}
 const Speaking = () => {
+  const [index, setIndex] = useState<number>(0);
+  const [partId, setPartId] = useState<string>('');
   const [audioUrl, setAudioUrl] = useState('');
+
+  const { data, isSuccess, error, isLoading } = useGetPartByIdQuery({
+    section: 'Speaking',
+    partId: partId,
+  });
+
+  const handleTask = (task: string) => {
+    setPartId(task);
+  };
+
+  const handleIndex = (index: number) => {
+    setIndex(index);
+  };
+  console.log(index);
 
   const recorderControls = useAudioRecorder();
   const addAudioElement = (blob: any) => {
@@ -41,9 +36,7 @@ const Speaking = () => {
   return (
     <div className="bg-[#f8f9fa]">
       <div className="flex justify-center items-center gap-[1rem] p-[2rem]">
-        <p className="font-bold text-[1.5rem]">
-          C{exams.cambridge} IELTS speaking test {exams.test}
-        </p>
+        <p className="font-bold text-[1.5rem]">SPEAKING TEST EXAM</p>
         <button className="bg-[red] py-[.25rem] px-[1rem] rounded-full">
           Quit
         </button>
@@ -51,15 +44,23 @@ const Speaking = () => {
       <div className="grid grid-cols-1 md:grid-cols-12 w-[90%] mx-auto py-[2rem] gap-[1rem] border-b-2 ">
         <div className="col-span-12 md:col-span-9 grid grid-cols-1 md:grid-cols-12 bg-[] bg-[#fff] rounded-xl shadow-2xl py-[2rem]">
           <div className="xl:col-span-7 col-span-12 px-[1rem] bg-[#f8f9fa]">
-            <p>
-              You should spend about 20 minutes on this task. Write about the
-              following topic:
+            <p className="tex-[1rem] font-bold uppercase my-[1rem]">
+              {data?.description}
             </p>
-            <div className="font-bold my-[1.5rem]">{exams.task[0].topic}</div>
-            <img src={exams?.task[0].imageTopic} alt="" />
+            <p>
+              You should spend about 20 minutes on this task. Speaking about the
+              following point:
+            </p>
+            <div className="font-bold my-[1.5rem]">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: data?.questions[0].title || '',
+                }}
+              />
+            </div>{' '}
           </div>
           <div className="xl:col-span-5 col-span-12 flex flex-col p-[1rem]">
-            <NoteInfo index={0} />
+            <NoteInfo index={index} />
             <div className="my-[1rem]">
               <AudioRecorder
                 onRecordingComplete={addAudioElement}
@@ -77,9 +78,9 @@ const Speaking = () => {
         </div>
         <div className="col-span-12 md:col-span-3 ">
           <NavigationTest
-            handleTask={function (): void {
-              throw new Error('Function not implemented.');
-            }}
+            handleTask={handleTask}
+            handleIndex={handleIndex}
+            defaultPartId={partId}
           />
         </div>
       </div>

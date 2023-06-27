@@ -35,12 +35,12 @@ export const mainRoute: RouteObject = {
       element: <ExamsPage />,
       children: [
         {
-          path: 'Writing/:skill',
-          element: <Writing />,
+          path: 'Speaking/:skill',
+          element: <Speaking />,
           children: [
             {
               path: ':partId',
-              element: <Writing />,
+              element: <Speaking />,
             },
           ],
         },
