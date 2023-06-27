@@ -103,7 +103,7 @@ const Payment = () => {
       </div>
       <div className="flex flex-col items-center justify-center gap-1 flex-wrap">
         <p className="mt-8 font-medium max-sm:text-[20px] text-center text-[30px] text-warning">
-          UPCOMMING SOON
+          COMMING SOON
         </p>
         <div className="flex flex-row items-center justify-center gap-4 flex-wrap w-[60%] max-sm:w-[80%]">
           <div data-aos="zoom-in">

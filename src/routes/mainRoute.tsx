@@ -1,4 +1,4 @@
-import { RouteObject } from 'react-router-dom';
+import { Navigate, RouteObject } from 'react-router-dom';
 
 import {
   AnalyzeResults,
@@ -90,7 +90,7 @@ export const mainRoute: RouteObject = {
     },
     {
       path: 'users',
-      element: <UserProfilePage />,
+      element: <UserProfilePage/>,
       children: [
         {
           path: 'analyzeResults',

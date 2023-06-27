@@ -5,17 +5,21 @@ import { YoutubeIcon } from '../../assets/icons/youtubeIcon';
 import { GoogleIcon } from '../../assets/icons/googleIcon';
 import { FacebookIcon } from '../../assets/icons/facebookIcon';
 import { CheckIcon } from '../../assets/icons/checkIcon';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 import { achievementArr, ourTeams, paymentBoard, skillArr } from './data';
-import IUser from '../../interfaces/User';
-import { userInformation } from '../../store/slices/authSlice';
-import { useSelector } from 'react-redux';
+
 
 function HomePage() {
   const navigate = useNavigate();
-  const userInfo: IUser = useSelector(userInformation);
+  // const userInfo: IUser = useSelector(userInformation);
+
+  const userInfo: any = useMemo(() => {
+    if (typeof window !== 'undefined') {
+      return JSON.parse(localStorage.getItem('user') as string);
+    }
+  }, []);
 
   const handleNavigatePayment = () => {
     if (userInfo.name) {

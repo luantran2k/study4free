@@ -109,7 +109,7 @@ function UserInformation() {
               style={{ width: '100%' }}
               className=" py-[8px] px-[8px] rounded-lg text-[16px] border-[#ccc] border-[1px]"
               {...register('username', { required: true })}
-              id="username"
+              id="username" disabled
             />
             <p className="text-error font-medium mb-[20px]">
               {errors.username?.message}
@@ -195,12 +195,12 @@ function UserInformation() {
         </div>
         <div className="mt-[10px]">
           <button
-            className="btn btn-active btn-accent text-[#fff] me-[10px]"
+            className="btn btn-info text-[#fff] me-[10px]"
             type="submit"
           >
             Update
           </button>
-          <button className="btn btn-warning text-[#fff]">Cancel</button>
+          <button className="btn btn-error text-[#fff]">Cancel</button>
         </div>
       </form>
     </div>

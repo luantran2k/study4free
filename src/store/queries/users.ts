@@ -66,6 +66,14 @@ export const userApi = createApi({
           method: 'DELETE',
       }),
       invalidatesTags: () => ['User']
+    }),
+    changeStatusToDo: builder.mutation({
+      query: (data) => ({
+        url: `todos/${data.id}`,
+        method: 'PATCH',
+        body: data.newData
+      }),
+      invalidatesTags: () => ['User']
     })
   }),
 });
@@ -79,4 +87,5 @@ export const {
   useAddNewVocabularyMutation,
   useAddNewTodoMutation,
   useDeleteToDoMutation,
+  useChangeStatusToDoMutation
 } = userApi;

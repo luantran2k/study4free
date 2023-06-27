@@ -15,7 +15,6 @@ function Collection() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const user = useSelector((state: RootState) => state.auth.userInformation);
   const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id);
-
   let myCollection: IVocabulary[] = [];
 
   if (isLoading) {
@@ -53,8 +52,8 @@ function Collection() {
               Collection
             </h3>
             <div className="mb-4 flex justify-center">
-              <button className="btn btn-primary me-2">Review</button>
-              <button className="btn btn-neutral">Practice</button>
+              <button className="btn btn-accent me-2 text-white">Review</button>
+              <button className="btn btn-success text-white">Practice</button>
             </div>
             {myCollection.length === 0 ? (
               <div className="mt-10">
@@ -62,7 +61,7 @@ function Collection() {
                   You don't have any vocabularies. Let's make your Collection
                 </p>
                 <NavLink to={'/vocabularies'}>
-                  <button className="btn btn-accent">Go to Vocabulary</button>
+                  <button className="btn btn-info text-white">Go to Vocabulary</button>
                 </NavLink>
               </div>
             ) : (
@@ -91,13 +90,13 @@ function Collection() {
                   </div>
                   <div className="mb-6">
                     <button
-                      className="btn btn-secondary me-[10px] min-w-[100px]"
+                      className="btn btn-info text-white me-[10px] min-w-[100px]"
                       onClick={handlePrevious}
                     >
                       Previous
                     </button>
                     <button
-                      className="btn btn-accent min-w-[100px] text-[#fff]"
+                      className="btn btn-neutral min-w-[100px] text-[#fff]"
                       onClick={handleNext}
                     >
                       Next
@@ -107,7 +106,7 @@ function Collection() {
                 <div
                   data-aos="flip-left"
                   className="col-span-4 bg-[#fff] p-[20px] rounded-xl shadow-xl max-lg:col-span-12 
-                max-xl:col-span-12 max-md:col-span-12 max-md:pe-3 max-sm:col-span-9 h-[300px] overflow-y-scroll"
+                max-xl:col-span-12 max-md:col-span-12 max-md:pe-3 max-sm:col-span-9 h-[400px] overflow-y-scroll"
                 >
                   <h2 className="text-[30px] font-medium pb-[5px] border-b-[2px] border-[#ccc] mb-[20px]">
                     Word list
