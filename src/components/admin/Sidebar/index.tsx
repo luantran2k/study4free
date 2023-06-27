@@ -21,7 +21,7 @@ function AdminSideBar() {
             <NavLink to={'/admin/exams'}>Exams</NavLink>
           </li>
           <li>
-            <NavLink to={'/admin/users'}>Uses</NavLink>
+            <NavLink to={'/admin/users'}>Users</NavLink>
           </li>
         </ul>
       </nav>

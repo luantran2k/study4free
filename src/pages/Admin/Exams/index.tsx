@@ -2,12 +2,12 @@ import { lazy, useEffect, useId, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '../../../assets/icons/Edit';
 import TrashIcon from '../../../assets/icons/Trash';
+import { ExamFilter, ExamSection, ExamType } from '../../../interfaces/Exam';
 import {
   useCountExamsQuery,
   useGetExamsQuery,
   useRemoveExamMutation,
 } from '../../../store/queries/exams';
-import { ExamSection } from '../../../interfaces/Exam';
 
 const CreateExamForm = lazy(
   () => import('../../../components/admin/Exams/CreateExamForm')
@@ -20,30 +20,32 @@ function ExamsAdminPage() {
   const navigate = useNavigate();
 
   const createExamModalId = useId();
-  const [currentPage, setCurrentPage] = useState(0);
-  const [quantity, setQuantity] = useState(QuantityOption[0]);
-  const {
-    data: exams,
-    isError,
-    isLoading,
-  } = useGetExamsQuery({
-    page: currentPage,
-    quantity,
+  // const [currentPage, setCurrentPage] = useState(0);
+  // const [quantity, setQuantity] = useState(QuantityOption[0]);
+  const [filter, setFilter] = useState<ExamFilter>({
+    page: 0,
+    quantity: QuantityOption[0],
+    title: '',
+    type: 'All',
+    isNeedPaid: 'All',
   });
+  const { page, quantity, title, type, isNeedPaid } = filter;
+
+  const { data: exams, isError, isLoading } = useGetExamsQuery(filter);
   const {
     data: count,
     isLoading: isCountLoading,
     isError: isCountError,
   } = useCountExamsQuery({});
   useEffect(() => {
-    setCurrentPage(0);
+    setFilter((filter) => ({ ...filter, page: 0 }));
   }, [quantity]);
   const [removeExam, { isError: isRemoveError }] = useRemoveExamMutation();
   useEffect(() => {
-    if (exams?.length === 0 && currentPage !== 0) {
-      setCurrentPage(currentPage - 1);
+    if (exams?.length === 0 && page !== 0) {
+      setFilter((filter) => ({ ...filter, page: page - 1 }));
     }
-  }, [exams, currentPage]);
+  }, [exams, page]);
 
   if (isLoading && isCountLoading) {
     return <p>Loading...</p>;
@@ -59,16 +61,49 @@ function ExamsAdminPage() {
         <div className="flex items-center gap-4">
           <input
             type="text"
+            value={title}
+            onChange={(e) =>
+              setFilter((filter) => ({ ...filter, title: e.target.value }))
+            }
             className="input input-bordered"
             placeholder="Enter exam title"
           />
-          <select className="select select-bordered">
-            <option value="All">All</option>
-            <option value="IELTS">IELTS</option>
-            <option value="TOEIC">TOEIC</option>
-            <option value="TOEFL">TOEFL</option>
-            <option value="CEFR">CEFR</option>
-          </select>
+          <div className="flex gap-2 items-center font-medium">
+            <label>Type</label>
+            <select
+              className="select select-bordered"
+              value={type}
+              onChange={(e) =>
+                setFilter((filter) => ({
+                  ...filter,
+                  type: e.target.value as ExamType,
+                }))
+              }
+            >
+              <option value="All">All</option>
+              <option value="IELTS">IELTS</option>
+              <option value="TOEIC">TOEIC</option>
+              <option value="TOEFL">TOEFL</option>
+              <option value="CEFR">CEFR</option>
+            </select>
+          </div>
+          <div className="flex gap-2 items-center font-medium">
+            <label>Paid</label>
+            <select
+              className="select select-bordered"
+              value={isNeedPaid}
+              onChange={(e) =>
+                setFilter((filter) => ({
+                  ...filter,
+                  isNeedPaid: e.target.value as 'All' | 'true' | 'false',
+                }))
+              }
+            >
+              <option value="All">All</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
+          </div>
           <Modal
             trigger={
               <button className="btn bg-blue-500 text-white hover:bg-blue-500">
@@ -99,9 +134,7 @@ function ExamsAdminPage() {
           <tbody>
             {exams?.map((exam, index) => (
               <tr key={exam.id}>
-                <td className="font-bold">
-                  {quantity * currentPage + index + 1}
-                </td>
+                <td className="font-bold">{quantity * page + index + 1}</td>
                 <td>{exam.title}</td>
                 <td>{exam.type}</td>
                 <td className="flex gap-1 wrapper">
@@ -125,7 +158,7 @@ function ExamsAdminPage() {
                   <span className="hidden bg-blue-700"></span>
                 </td>
                 <td>{exam.duration}</td>
-                <td>No</td>
+                <td>{exam.isNeedPaid ? 'Yes' : 'No'}</td>
                 <td>
                   {new Date(exam.createdAt as string).toLocaleDateString(
                     'vi-VN'
@@ -139,7 +172,13 @@ function ExamsAdminPage() {
                   </button>
                 </td>
                 <td className="text-red-500 cursor-pointer  active:[&_svg]:translate-y-1 [&_svg]:transition-all ">
-                  <button onClick={() => removeExam(exam.id)}>
+                  <button
+                    onClick={() => {
+                      if (confirm('Are you sure to delete this exam?')) {
+                        removeExam(exam.id);
+                      }
+                    }}
+                  >
                     <TrashIcon />
                   </button>
                 </td>
@@ -150,19 +189,21 @@ function ExamsAdminPage() {
         <div className="mt-5 mx-auto w-fit">
           <Pagination
             totalPage={count?.count ? Math.ceil(count?.count / quantity) : 0}
-            currentPage={currentPage}
+            currentPage={page}
             quantity={quantity}
             onChangePage={(page) => {
-              setCurrentPage(page);
+              setFilter((filter) => ({ ...filter, page }));
             }}
             onChangeQuantity={(quantity: number) => {
-              setQuantity(quantity);
+              setFilter((filter) => ({ ...filter, quantity }));
             }}
             quantityOptions={QuantityOption}
             onNextClick={() => {
-              setCurrentPage(currentPage + 1);
+              setFilter((filter) => ({ ...filter, page: page + 1 }));
             }}
-            onPreviousClick={() => setCurrentPage(currentPage - 1)}
+            onPreviousClick={() =>
+              setFilter((filter) => ({ ...filter, page: page - 1 }))
+            }
           />
         </div>
       </div>

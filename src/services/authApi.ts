@@ -3,7 +3,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://study4free-api.onrender.com',
+    baseUrl:
+      import.meta.env.VITE_BASE_API_URL ||
+      'https://study4free-api.onrender.com',
   }),
   endpoints: (builder) => ({
     loginUser: builder.mutation({

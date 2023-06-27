@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from '..';
 import { SectionType } from '../../components/admin/Exams/Sections';
 import IAnswer from '../../interfaces/Answer';
-import IExam, { CreateExamFormData } from '../../interfaces/Exam';
+import IExam, { CreateExamFormData, ExamFilter } from '../../interfaces/Exam';
 import IPart from '../../interfaces/Part';
 import IQuestion from '../../interfaces/Question';
 import BaseFilter from '../../interfaces/common/BaseFilter';
@@ -24,13 +24,15 @@ export const examsApi = createApi({
   }),
   tagTypes: ['Exams', 'Exam', 'Part', 'CountExam', 'CountPart', 'Question'],
   endpoints: (builder) => ({
-    getExams: builder.query<IExam[], BaseFilter>({
-      query: ({ page, quantity, search }) => ({
+    getExams: builder.query<IExam[], ExamFilter>({
+      query: ({ page, quantity, isNeedPaid, title, type }) => ({
         url: '/exams',
         params: {
           page,
           quantity,
-          search,
+          title,
+          isNeedPaid: isNeedPaid === 'All' ? undefined : isNeedPaid,
+          type: type === 'All' ? undefined : type,
         },
       }),
       providesTags: () => ['Exams'],
