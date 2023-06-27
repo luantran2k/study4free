@@ -1,5 +1,11 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import { useEffect, useState } from 'react';
+import {
+  Ref,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import AddIcon from '../../../../assets/icons/Add';
 import { useAppDispatch } from '../../../../hooks/redux';
 import IQuestion from '../../../../interfaces/Question';
@@ -20,13 +26,23 @@ type Props = {
   questionId: string;
 };
 
-function Question({ questionId, section }: Props) {
-  const { data, isLoading, isError } = useGetQuestionByIdQuery({
+function Question(
+  { questionId, section }: Props,
+  ref: Ref<{ currentQuestion?: IQuestion }>
+) {
+  const {
+    data: question,
+    isLoading,
+    isError,
+  } = useGetQuestionByIdQuery({
     questionId,
     section,
   });
   const dispatch = useAppDispatch();
-  const [question, setQuestion] = useState<Partial<IQuestion>>({ title: '' });
+  useImperativeHandle(ref, () => ({
+    currentQuestion: question,
+  }));
+
   const [updateTitle] = useUpdateQuestionByIdMutation();
   const [updateImage, { isLoading: isImageLoading, isError: isImageError }] =
     useUpdateQuestionByIdMutation();
@@ -36,15 +52,14 @@ function Question({ questionId, section }: Props) {
   const [parent] = useAutoAnimate();
 
   useEffect(() => {
-    if (data) {
-      setQuestion(data);
+    if (question) {
       dispatch(
         updateExamEditInfo({
-          questionId: data.id,
+          questionId: question.id,
         })
       );
     }
-  }, [data]);
+  }, [question]);
 
   if (isLoading) {
     return <span className="loading loading-dots"></span>;
@@ -53,18 +68,34 @@ function Question({ questionId, section }: Props) {
     return <p className="text-error">Error</p>;
   }
 
+  if (!question) return <p>Invalid question</p>;
+
   return (
     <div className="flex gap-6">
       <div className="w-5/12 flex flex-col [&>div]:flex [&>div]:flex-col [&>div]:gap-2 gap-4">
         <div className="mb-12">
           <label htmlFor="">Title</label>
           <TextEditor
-            defaultValue={question?.title as string}
+            defaultValue={question?.title || ''}
             onBlur={(value) => {
               updateTitle({
                 questionId,
                 section,
                 data: { title: value },
+              });
+            }}
+          />
+        </div>
+
+        <div className="mb-12">
+          <label htmlFor="">Description</label>
+          <TextEditor
+            defaultValue={question?.description || ''}
+            onBlur={(value) => {
+              updateTitle({
+                questionId,
+                section,
+                data: { description: value },
               });
             }}
           />
@@ -99,28 +130,6 @@ function Question({ questionId, section }: Props) {
 
         <div>
           <label htmlFor="">Image</label>
-          {/* {isImageLoading ? (
-            <p>Loading...</p>
-          ) : typeof question?.image === 'string' ? (
-            <img src={question.image} alt="" />
-          ) : (
-            <>
-              {isImageError && <p>Error</p>}
-              <input
-                type="file"
-                className="file-input file-input-bordered w-full"
-                accept="image/*"
-                onChange={(e) => {
-                  setImage(e.target.files?.[0]);
-                  updateImage({
-                    questionId,
-                    section,
-                    data: { image: e.target.files?.[0] },
-                  });
-                }}
-              />
-            </>
-          )} */}
           <ImageUploadPreview
             isImageLoading={isImageLoading}
             isImageError={isImageError}
@@ -181,4 +190,4 @@ function Question({ questionId, section }: Props) {
   );
 }
 
-export default Question;
+export default forwardRef(Question);
