@@ -1,6 +1,5 @@
 import { lazy, useState } from 'react';
 import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
-import { useGetExamsQuery } from '../../../store/queries/exams';
 
 const NavigationTest = lazy(() => import('../commonComponent/navigationTest'));
 const NoteInfo = lazy(() => import('../commonComponent/noteInfo'));
@@ -22,6 +21,11 @@ const exams = {
     },
   ],
 };
+
+interface Props {
+  handleTask: (task: string) => void;
+  handleIndex: (index: number) => void;
+}
 const Speaking = () => {
   const [audioUrl, setAudioUrl] = useState('');
 
@@ -76,7 +80,6 @@ const Speaking = () => {
             handleTask={function (): void {
               throw new Error('Function not implemented.');
             }}
-            defaultIndex={0}
           />
         </div>
       </div>

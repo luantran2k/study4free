@@ -1,40 +1,38 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
 
 interface Props {
-  handleTask: (task: number) => void;
-  defaultIndex: number;
+  handleTask: (task: string) => void;
+  handleIndex: (index: number) => void;
 }
-const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
+const NavigationTest = ({ handleTask, handleIndex }: Props) => {
   const [time, setTime] = useState<number>(3600);
   const ref = useRef<NodeJS.Timer | null>(null);
-  const exams = {
-    id: 1,
-    cambridge: 14,
-    test: 1,
-    skill: 'writing',
-    task: [
-      {
-        topic:
-          'The graph below gives information about the percentage of the population in four Asian countries living in cities from 1970 to 2020, with predictions for 2030 and 2040.Summarise the information by selecting and reporting the main features, and make comparisons where relevant.',
-        imageTopic:
-          'https://study4.com/media/uploads/editor/study4/2023/06/09/screen-shot-2023-06-09-at-82718-pm.png',
-      },
-      {
-        topic: '',
-      },
-    ],
-  };
+  const { data, isSuccess, error, isLoading } = useGetPartIdsBySectionIdQuery({
+    section: 'Writing',
+    sectionId: '649a4f002cee64a48e0d8f8a',
+  });
+  console.log(data);
 
-  const getIndex = (e: ChangeEvent<HTMLInputElement>) => {
-    handleTask(Number(e.target.value));
-  };
   useEffect(() => {
-    ref.current = setInterval(() => {
-      setTime((prev) => prev - 1);
-    }, 1000);
+    if (isSuccess) {
+      handleTask(data.parts[0].id);
+    }
+  }, [isSuccess]);
+  const getPartId = (partId: string) => {
+    handleTask(partId);
+  };
 
-    return () => clearInterval(ref.current as NodeJS.Timer);
-  }, [time]);
+  const getPartIndex = (partIndex: number) => {
+    handleIndex(partIndex);
+  };
+  // useEffect(() => {
+  //   ref.current = setInterval(() => {
+  //     setTime((prev) => prev - 1);
+  //   }, 1000);
+
+  //   return () => clearInterval(ref.current as NodeJS.Timer);
+  // }, []);
   useEffect(() => {
     if (time === 0) {
       clearInterval(ref.current as NodeJS.Timer);
@@ -83,7 +81,7 @@ const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
       <p className="text-[#ffad3c] font-bold italic my-[0.75rem]">
         You can click on the question number in the article to mark the review
       </p>
-      {exams.task.map((_, index) => {
+      {data?.parts.map((item, index) => {
         return (
           <div
             key={index}
@@ -97,9 +95,11 @@ const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
                 className="radio checked:bg-red-500"
                 type="radio"
                 name="task"
-                onChange={getIndex}
+                onChange={() => {
+                  getPartId(item.id);
+                  getPartIndex(index);
+                }}
                 value={index}
-                checked={index === defaultIndex}
               />
             </label>
           </div>

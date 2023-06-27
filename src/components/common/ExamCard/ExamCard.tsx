@@ -43,7 +43,7 @@ const ExamCard = (props: any) => {
             }
             return (
               <NavLink
-                to={`${section}`}
+                to={`${sectionType}/${section}`}
                 state={{ sectionType, section }}
                 className="bg-white rounded-2xl hover:shadow-xl shadow-md w-full hover:-translate-y-2 transition-all p-4 mt-4 flex flex-col justify-between"
               >

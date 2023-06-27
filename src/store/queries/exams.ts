@@ -77,7 +77,7 @@ export const examsApi = createApi({
     }),
     getPartById: builder.query<IPart, { partId: string; section: string }>({
       query: ({ partId, section }) => ({
-        url: `/parts/${section}/${partId}`,
+        url: `/parts/${section}/${partId}?detail=true`,
       }),
       providesTags: () => ['Part'],
     }),

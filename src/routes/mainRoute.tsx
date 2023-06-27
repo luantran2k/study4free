@@ -36,14 +36,24 @@ export const mainRoute: RouteObject = {
       children: [
         {
           path: 'Writing/:skill',
-          element: <DetailExam />,
+          element: <Writing />,
           children: [
             {
-              path: ':detail',
+              path: ':partId',
               element: <Writing />,
             },
           ],
         },
+        // {
+        //   path: 'Speaking/:skill',
+        //   element: <DetailExam />,
+        //   children: [
+        //     {
+        //       path: ':detail',
+        //       element: <Speaking />,
+        //     },
+        //   ],
+        // },
 
         // {
         //   path: ':exam/:part/:section',

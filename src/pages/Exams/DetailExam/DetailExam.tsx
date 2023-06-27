@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation, useParams } from 'react-router-dom';
-import { mockDataExam, ISections } from '..';
 import ClockIcon from '../../../assets/icons/Clock';
 import WriteIcon from '../../../assets/icons/Write';
 import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
@@ -9,18 +8,21 @@ import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
 
 const DetailExam = () => {
   const params = useParams();
-  const [selectedExam, setSelectedExam] = useState<ISections[]>([]);
+  const [selectedExam, setSelectedExam] = useState([]);
   const [value, setValue] = React.useState(0);
   const ref = useRef<HTMLDivElement | null>(null);
   const { state } = useLocation();
+  const [paramData, setParamData] = useState({});
   console.log(state);
+  useEffect(() => {
+    setParamData({ section: state.sectionType, sectionId: state.section });
+  }, []);
   const { data, isSuccess, error, isLoading } = useGetPartIdsBySectionIdQuery({
     section: state.sectionType,
     sectionId: state.section,
   });
   console.log(data);
 
-  const { exam, part } = params;
   // const navigate = useNavigate();
   const handleChange = (newValue: number) => {
     setValue(newValue);
@@ -28,12 +30,12 @@ const DetailExam = () => {
 
   return (
     <div className="flex flex-col h-full relative">
-      <div className="flex flex-row container mx-auto gap-5 my-10">
+      {/* <div className="flex flex-row container mx-auto gap-5 my-10">
         {selectedExam.map((test) => (
           <div className="w-full md:w-3/4 relative">
             <div className="mb-5 p-5 border-2 rounded-2xl">
               <div className="flex flex-row flex-wrap w-full gap-3 mb-2">
-                {test.tag.map((t) => (
+                {test.tag.map((t: any) => (
                   <button className="bg-[#eeeeee] w-fit rounded-xl p-2 text-black text-sm ">
                     #{t}
                   </button>
@@ -157,7 +159,7 @@ const DetailExam = () => {
             <p className="text-xl lg:text-2xl uppercase ">Advertisement</p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
