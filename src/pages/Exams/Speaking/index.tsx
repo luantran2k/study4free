@@ -1,27 +1,33 @@
-import { lazy } from 'react';
+import { lazy, useState } from 'react';
 import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 
 const NavigationTest = lazy(() => import('../commonComponent/navigationTest'));
 const NoteInfo = lazy(() => import('../commonComponent/noteInfo'));
 
+const exams = {
+  id: 1,
+  cambridge: 14,
+  test: 1,
+  skill: 'speaking',
+  task: [
+    {
+      topic:
+        'The graph below gives information about the percentage of the population in four Asian countries living in cities from 1970 to 2020, with predictions for 2030 and 2040.Summarise the information by selecting and reporting the main features, and make comparisons where relevant.',
+      imageTopic:
+        'https://study4.com/media/uploads/editor/study4/2023/06/09/screen-shot-2023-06-09-at-82718-pm.png',
+    },
+    {
+      topic: '',
+    },
+  ],
+};
+
+interface Props {
+  handleTask: (task: string) => void;
+  handleIndex: (index: number) => void;
+}
 const Speaking = () => {
-  const exams = {
-    id: 1,
-    cambridge: 14,
-    test: 1,
-    skill: 'speaking',
-    task: [
-      {
-        topic:
-          'The graph below gives information about the percentage of the population in four Asian countries living in cities from 1970 to 2020, with predictions for 2030 and 2040.Summarise the information by selecting and reporting the main features, and make comparisons where relevant.',
-        imageTopic:
-          'https://study4.com/media/uploads/editor/study4/2023/06/09/screen-shot-2023-06-09-at-82718-pm.png',
-      },
-      {
-        topic: '',
-      },
-    ],
-  };
+  const [audioUrl, setAudioUrl] = useState('');
 
   const recorderControls = useAudioRecorder();
   const addAudioElement = (blob: any) => {
@@ -30,12 +36,13 @@ const Speaking = () => {
     audio.src = url;
     audio.controls = true;
     document.body.appendChild(audio);
+    setAudioUrl(audio.src);
   };
   return (
     <div className="bg-[#f8f9fa]">
       <div className="flex justify-center items-center gap-[1rem] p-[2rem]">
         <p className="font-bold text-[1.5rem]">
-          C{exams.cambridge} IELTS writing test {exams.test}
+          C{exams.cambridge} IELTS speaking test {exams.test}
         </p>
         <button className="bg-[red] py-[.25rem] px-[1rem] rounded-full">
           Quit
@@ -73,7 +80,6 @@ const Speaking = () => {
             handleTask={function (): void {
               throw new Error('Function not implemented.');
             }}
-            defaultIndex={0}
           />
         </div>
       </div>

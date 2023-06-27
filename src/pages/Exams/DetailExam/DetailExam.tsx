@@ -1,37 +1,41 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
-import { mockDataExam, ISections } from '..';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import ClockIcon from '../../../assets/icons/Clock';
 import WriteIcon from '../../../assets/icons/Write';
+import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
 
 // import LightOn from '../../../assets/icons/LightOn';
 
 const DetailExam = () => {
   const params = useParams();
-  const [selectedExam, setSelectedExam] = useState<ISections[]>([]);
+  const [selectedExam, setSelectedExam] = useState([]);
   const [value, setValue] = React.useState(0);
   const ref = useRef<HTMLDivElement | null>(null);
-  const { exam, part } = params;
+  const { state } = useLocation();
+  const [paramData, setParamData] = useState({});
+  console.log(state);
+  useEffect(() => {
+    setParamData({ section: state.sectionType, sectionId: state.section });
+  }, []);
+  const { data, isSuccess, error, isLoading } = useGetPartIdsBySectionIdQuery({
+    section: state.sectionType,
+    sectionId: state.section,
+  });
+  console.log(data);
+
   // const navigate = useNavigate();
   const handleChange = (newValue: number) => {
     setValue(newValue);
   };
 
-  useEffect(() => {
-    const selectedDetailExam = mockDataExam
-      .filter((detailExam) => detailExam.id === exam)
-      .map((ex) => ex.sections.filter((e) => e.id === part))[0];
-    setSelectedExam(selectedDetailExam);
-  }, [exam, part]);
-
   return (
     <div className="flex flex-col h-full relative">
-      <div className="flex flex-row container mx-auto gap-5 my-10">
+      {/* <div className="flex flex-row container mx-auto gap-5 my-10">
         {selectedExam.map((test) => (
           <div className="w-full md:w-3/4 relative">
             <div className="mb-5 p-5 border-2 rounded-2xl">
               <div className="flex flex-row flex-wrap w-full gap-3 mb-2">
-                {test.tag.map((t) => (
+                {test.tag.map((t: any) => (
                   <button className="bg-[#eeeeee] w-fit rounded-xl p-2 text-black text-sm ">
                     #{t}
                   </button>
@@ -86,12 +90,6 @@ const DetailExam = () => {
                     </p>
                   </div>
                   <div className="gap-3 items-center w-fit mb-4">
-                    {/* <a
-                                            className={`tab tab-bordered tab-lg font-bold
-                                        text-lg hover:text-sky-700 text-sky-700 border-sky-700 hover:border-sky-700`}
-                                        >
-                                            Practice
-                                        </a> */}
                     <a
                       className={`tab tab-bordered tab-lg font-bold text-sky-700
                                              text-lg hover:text-sky-700 hover:border-sky-700`}
@@ -108,14 +106,7 @@ const DetailExam = () => {
                       Comments
                     </button>
                   </div>
-                  {/* <div className='w-full bg-green-200 p-4 text-green-700 rounded-lg mb-4'>
 
-                                        <p className='font-bold flex flex-row items-center gap-1'>
-                                            <LightOn width='20px' height='20px' fill='rgb(21 128 61)' />
-                                            Pro Tips:
-                                        </p>
-                                        The practice of each part and choosing the right amount of time will help you focus on solving the right questions instead of being completely pressured.
-                                    </div> */}
                   <div className="w-full bg-[#ffefd8] p-4 text-[#855a1f] rounded-lg mb-4">
                     <p className="font-bold flex flex-row items-center gap-1">
                       Note:
@@ -123,7 +114,7 @@ const DetailExam = () => {
                     Ready to start taking the full test? To get the best
                     results, you need to spend 40 minutes on this test.
                   </div>
-                  {/* <NavLink className="btn btn-success text-white" to={test.tag[1]}> */}
+
                   <NavLink
                     className="btn btn-success text-white"
                     to={part?.split('-')[2] || ''}
@@ -168,7 +159,7 @@ const DetailExam = () => {
             <p className="text-xl lg:text-2xl uppercase ">Advertisement</p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
