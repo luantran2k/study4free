@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { NavLink, useParams, useNavigate } from 'react-router-dom'
+import React, { useEffect, useRef, useState } from 'react';
+import { NavLink, useParams } from 'react-router-dom';
 import { mockDataExam, ISections } from '..';
 import ClockIcon from '../../../assets/icons/Clock';
 import WriteIcon from '../../../assets/icons/Write';
 
 // import LightOn from '../../../assets/icons/LightOn';
-
 
 const DetailExam = () => {
   const params = useParams();
@@ -13,7 +12,7 @@ const DetailExam = () => {
   const [value, setValue] = React.useState(0);
   const ref = useRef<HTMLDivElement | null>(null);
   const { exam, part } = params;
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const handleChange = (newValue: number) => {
     setValue(newValue);
   };
@@ -43,15 +42,17 @@ const DetailExam = () => {
               </h3>
               <div className="gap-3 items-center w-fit mb-4">
                 <a
-                  className={`tab tab-lifted tab-lg  ${value === 0 && ' bg-[#e8f2ff] text-2xl font-bold'
-                    } text-lg text-black `}
+                  className={`tab tab-lifted tab-lg  ${
+                    value === 0 && ' bg-[#e8f2ff] text-2xl font-bold'
+                  } text-lg text-black `}
                   onClick={() => handleChange(0)}
                 >
                   Test Information
                 </a>
                 <a
-                  className={`tab tab-lifted tab-lg  ${value === 1 && ' bg-[#e8f2ff] text-2xl font-bold'
-                    } text-lg text-black `}
+                  className={`tab tab-lifted tab-lg  ${
+                    value === 1 && ' bg-[#e8f2ff] text-2xl font-bold'
+                  } text-lg text-black `}
                   onClick={() => handleChange(1)}
                 >
                   Correct Answers/stranscript
@@ -122,7 +123,11 @@ const DetailExam = () => {
                     Ready to start taking the full test? To get the best
                     results, you need to spend 40 minutes on this test.
                   </div>
-                  <NavLink className="btn btn-success text-white" to={test.tag[1]}>
+                  {/* <NavLink className="btn btn-success text-white" to={test.tag[1]}> */}
+                  <NavLink
+                    className="btn btn-success text-white"
+                    to={part?.split('-')[2] || ''}
+                  >
                     Start Exam
                   </NavLink>
                 </React.Fragment>

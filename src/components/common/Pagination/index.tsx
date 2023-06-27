@@ -21,41 +21,42 @@ const Pagination = (props: Props) => {
     quantityOptions,
   } = props;
   return (
-    <div className="join">
-      <button
-        className="btn"
-        disabled={currentPage === 0}
-        onClick={onPreviousClick}
-      >
-        Previous
-      </button>
-      {Array(totalPage)
-        .fill(undefined)
-        .map((_, index) => (
-          <button
-            key={index}
-            className={`join-item btn ${
-              currentPage === index ? 'btn-active' : ''
-            }`}
-            onClick={() => {
-              onChangePage(index);
-            }}
-          >
-            {index + 1}
-          </button>
-        ))}
-      <button
-        className="btn"
-        disabled={currentPage === totalPage - 1}
-        onClick={onNextClick}
-      >
-        Next
-      </button>
+    <div className="flex gap-4">
+      <div className="join">
+        <button
+          className="join-item btn"
+          disabled={currentPage === 0}
+          onClick={onPreviousClick}
+        >
+          Previous
+        </button>
+        {Array(totalPage)
+          .fill(undefined)
+          .map((_, index) => (
+            <button
+              key={index}
+              className={`join-item btn ${
+                currentPage === index ? 'btn-active bg-blue-500 text-white' : ''
+              }`}
+              onClick={() => {
+                onChangePage(index);
+              }}
+            >
+              {index + 1}
+            </button>
+          ))}
+        <button
+          className="join-item btn "
+          disabled={currentPage === totalPage - 1}
+          onClick={onNextClick}
+        >
+          Next
+        </button>
+      </div>
       <select
         className="select w-full max-w-xs"
         value={quantity}
         onChange={(e) => {
-          console.log(e.target.value);
           onChangeQuantity(Number(e.target.value));
         }}
       >

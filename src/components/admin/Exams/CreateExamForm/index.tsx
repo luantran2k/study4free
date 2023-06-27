@@ -7,6 +7,7 @@ import { useCreateExamMutation } from '../../../../store/queries/exams';
 import { NOTIFICATION_TYPE, notify } from '../../../../utils/notify';
 import LoadingButton from '../../../common/LoadingButton';
 import { hideModal } from '../../../../utils/modal';
+import { useEffect } from 'react';
 
 function CreateExamForm({ modalId }: { modalId: string }) {
   const navigate = useNavigate();
@@ -20,6 +21,9 @@ function CreateExamForm({ modalId }: { modalId: string }) {
       isNeedPaid: false,
     },
   });
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
 
   const [createExam, { isLoading }] = useCreateExamMutation();
 
@@ -39,11 +43,15 @@ function CreateExamForm({ modalId }: { modalId: string }) {
     <>
       <form
         onSubmit={onSubmit}
-        className="[&_label]:font-medium [&_input]:input [&_input]:input-bordered [&_input]:w-full [&>div]:flex [&>div]:flex-col [&>div]:gap-2 [&>div]:mb-4"
+        className="[&_label]:font-medium [&_input:not(type='checkbox')]:input [&_input:not(type='checkbox')]:input-bordered [&_input:not(type='checkbox')]:w-full [&>div]:flex [&>div]:flex-col [&>div]:gap-2 [&>div]:mb-4"
       >
         <div>
           <label htmlFor="">Title</label>
-          <input type="text" {...register('title')} />
+          <input
+            type="text"
+            {...register('title')}
+            className="input input-bordered"
+          />
           <p className="text-error">{errors.title?.message}</p>
         </div>
 
@@ -71,9 +79,9 @@ function CreateExamForm({ modalId }: { modalId: string }) {
           </select>
           <p className="text-error">{errors.type?.message}</p>
         </div>
-        <div>
+        <div className="[&_div_label]:font-normal">
           <label htmlFor="">Sections</label>
-          <select
+          {/* <select
             className="input input-bordered h-20"
             {...register('sections')}
             multiple
@@ -82,7 +90,55 @@ function CreateExamForm({ modalId }: { modalId: string }) {
             <option value="Reading">Reading</option>
             <option value="Writing">Writing</option>
             <option value="Speaking">Speaking</option>
-          </select>
+          </select> */}
+          <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
+              <label htmlFor="Listening">Listening</label>
+              <input
+                {...register('sections')}
+                type="checkbox"
+                className="checkbox"
+                name="sections"
+                value="Listening"
+                id="Listening"
+              />
+            </div>
+            <div className="flex gap-2 items-center">
+              <label htmlFor="Reading">Reading</label>
+              <input
+                {...register('sections')}
+                type="checkbox"
+                className="checkbox"
+                name="sections"
+                id="Reading"
+                value="Reading"
+              />
+            </div>
+
+            <div className="flex gap-2 items-center">
+              <label htmlFor="Speaking">Speaking</label>
+              <input
+                {...register('sections')}
+                type="checkbox"
+                className="checkbox"
+                name="sections"
+                id="Speaking"
+                value="Speaking"
+              />
+            </div>
+
+            <div className="flex gap-2 items-center">
+              <label htmlFor="Writing">Writing</label>
+              <input
+                {...register('sections')}
+                type="checkbox"
+                className="checkbox"
+                name="sections"
+                id="Writing"
+                value="Writing"
+              />
+            </div>
+          </div>
           <p className="text-error">{errors.sections?.message}</p>
         </div>
         <div>

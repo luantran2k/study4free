@@ -1,7 +1,25 @@
-import { RouteObject } from 'react-router-dom';
+import { Navigate, RouteObject } from 'react-router-dom';
 
-import { AnalyzeResults, Collection, DetailExam, ExamsPage, GrammarPage, HomePage, Payment, Reminder, SectionPage, UserInformation, UserProfilePage, VocabulariesPage, VocabularyDetail, Writing, DeleteAccount, RootLayout } from './imports';
 import NotFoundPage from '../pages/NotFound';
+import {
+  AnalyzeResults,
+  Collection,
+  DetailExam,
+  ExamsPage,
+  GrammarPage,
+  HomePage,
+  Payment,
+  Reminder,
+  SectionPage,
+  UserInformation,
+  UserProfilePage,
+  VocabulariesPage,
+  VocabularyDetail,
+  Writing,
+  DeleteAccount,
+  RootLayout,
+} from './imports';
+// import NotFoundPage from '../pages/NotFound';
 import Speaking from '../pages/Exams/Speaking';
 
 export const mainRoute: RouteObject = {
@@ -20,19 +38,24 @@ export const mainRoute: RouteObject = {
           path: ':exam/:part',
           element: <DetailExam />,
         },
+        // {
+        //   path: ':exam/:part/:section',
+        //   element: <Writing />,
+        //   // element: <NotFoundPage/>
+        // },
         {
           path: ':exam/:part/:section',
           // element: <Writing />,
           element: <NotFoundPage title="404" subTitle="Upsie daisy" descript='the section you are looking for is not available' />
         },
-        {
-          path: ':exam/:part/writing',
-          element: <Writing />,
-        },
-        {
-          path: ':exam/:part/speaking',
-          element: <Speaking />,
-        },
+        // {
+        //   path: ':exam/:part/writing',
+        //   element: <Writing />,
+        // },
+        // {
+        //   path: ':exam/:part/speaking',
+        //   element: <Speaking />,
+        // },
         // {
         //   path: 'listening/:id',
         //   element: <h1>Not Available</h1>,
@@ -65,7 +88,7 @@ export const mainRoute: RouteObject = {
     },
     {
       path: 'users',
-      element: <UserProfilePage />,
+      element: <UserProfilePage/>,
       children: [
         {
           path: 'analyzeResults',

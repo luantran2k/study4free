@@ -8,30 +8,9 @@ import {
 } from '../../store/queries/users';
 import ICollection from '../../interfaces/Collection';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
-
+import LoadingAnimate from '../../components/common/LoadingAnimate';
 
 const Pagination = lazy(() => import('../../components/common/Pagination'));
-
-// const vocabList: string[] = [
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-// ];
 
 const newPag = {
   totalPage: 5,
@@ -54,8 +33,7 @@ const newPag = {
 
 function VocabulariesPage() {
   const { pathname } = useLocation();
-  const { data, isSuccess } = useGetAllCollectonQuery();
-  if (isSuccess) console.log(data);
+  const { data, isSuccess } = useGetAllCollectonQuery({});
 
   const [addNewCollectionHook] = useAddNewCollectionMutation();
   const [inputContent, setInputContent] = useState<string>('');
@@ -66,15 +44,19 @@ function VocabulariesPage() {
   };
 
   const addNewCollection = async () => {
-    if (inputContent.trim() !== '') {
-      if (isSuccess) {
-        notify(NOTIFICATION_TYPE.SUCCESS, 'Add new library successfully');
-        await addNewCollectionHook({
-          title: inputContent,
-          image: '',
-        })
-          .unwrap()
-          .then((data) => console.log(data));
+    if(localStorage.getItem('user') === null) {
+      notify(NOTIFICATION_TYPE.ERROR, 'You have to log-in first!!!')
+    } else {
+      if (inputContent.trim() !== '') {
+        if (isSuccess) {
+          notify(NOTIFICATION_TYPE.SUCCESS, 'Add new library successfully');
+          await addNewCollectionHook({
+            title: inputContent,
+            image: '',
+          })
+            .unwrap()
+            .then((data) => console.log(data));
+        }
       }
     }
   };
@@ -84,6 +66,9 @@ function VocabulariesPage() {
       behavior: 'smooth',
     });
   }, [pathname]);
+  if(!isSuccess) {
+    return <LoadingAnimate />
+  }
 
   return (
     <React.Fragment>
@@ -106,7 +91,7 @@ function VocabulariesPage() {
                 onChange={handleInputTitle}
               />
             </div>
-            <button className="btn btn-secondary" onClick={addNewCollection}>
+            <button className="btn btn-info text-white" onClick={addNewCollection}>
               Make new vocabulary library
             </button>
           </div>
@@ -116,15 +101,16 @@ function VocabulariesPage() {
         <div className="mb-[20px] grid grid-cols-12 gap-[30px] max-sm:px-[10px] p-[3rem]">
           {pathname === '/vocabularies' ? (
             data?.map((item: ICollection, index: number) => {
-              return (
-                <div
-                  key={index}
-                  className="max-md:col-span-6 max-sm:col-span-12 p-[20px] bg-[#f8f9fa] col-span-3 font-medium text-[18px] cursor-pointer 
-                       rounded-xl shadow-md hover:shadow-lg transition-all"
-                >
-                  <Link to={item.title} state={item}>
+              if(item.title !== 'Vocabs from other users') {
+                return (
+                  <Link
+                    to={item.title}
+                    state={item}
+                    key={index}
+                    className="max-md:col-span-6 max-sm:col-span-12 p-[20px] bg-[#f8f9fa] col-span-3 font-medium text-[18px] cursor-pointer 
+                  rounded-xl shadow-md hover:shadow-lg transition-all"
+                  >
                     <span>{item.title}</span>
-                    <p className="text-[15px] opacity-[0.8]">100 words</p>
                     <div className="w-[60px] h-[60px] my-[20px]">
                       <img
                         className="w-[100%] h-[100%] object-contain"
@@ -133,8 +119,9 @@ function VocabulariesPage() {
                       />
                     </div>
                   </Link>
-                </div>
-              );
+                );
+              }
+              
             })
           ) : (
             <div className="col-span-12">

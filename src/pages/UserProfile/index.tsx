@@ -22,6 +22,7 @@ function UserProfilePage() {
     localStorage.getItem('user') as string
   ).userInfo;
   const { data } = useGetUserByIdQuery(dataStorage?.id);
+  console.log(data)
 
   useEffect(() => {
     window.scrollTo({
@@ -41,8 +42,8 @@ function UserProfilePage() {
   return (
     <div className="grid grid-rows-1 grid-cols-12">
       <div className="col-span-1 hidden max-lg:block min-h-[93vh] max-md:col-span-2">
-        <div className="p-3 mt-2">
-          <img src={data?.avatar} alt="" className="rounded-[50%]" />
+        <div className="p-3 mt-2 w-[80px] h-[80px]">
+          <img src={data?.avatar || avatarUser} alt="" className="rounded-[50%] w-[100%] h-[100%] object-cover" />
         </div>
         <div className="flex flex-col justify-center items-center mt-6">
           <NavLink
@@ -50,8 +51,8 @@ function UserProfilePage() {
             className="text-[24px] w-[100%] flex justify-center py-5"
             style={({ isActive }) => {
               return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
+                color: isActive ? '#fff' : '#000',
+                backgroundColor: isActive ? '#38bdf8' : '',
               };
             }}
           >
@@ -62,8 +63,8 @@ function UserProfilePage() {
             className="text-[24px] w-[100%] flex justify-center py-5"
             style={({ isActive }) => {
               return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
+                color: isActive ? '#fff' : '#000',
+                backgroundColor: isActive ? '#38bdf8' : '',
               };
             }}
           >
@@ -74,8 +75,8 @@ function UserProfilePage() {
             className="text-[24px] w-[100%] flex justify-center py-5"
             style={({ isActive }) => {
               return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
+                color: isActive ? '#fff' : '#000',
+                backgroundColor: isActive ? '#38bdf8' : '',
               };
             }}
           >
@@ -86,8 +87,8 @@ function UserProfilePage() {
             className="text-[24px] w-[100%] flex justify-center py-5"
             style={({ isActive }) => {
               return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
+                color: isActive ? '#fff' : '#000',
+                backgroundColor: isActive ? '#38bdf8' : '',
               };
             }}
           >
@@ -102,8 +103,8 @@ function UserProfilePage() {
             }`}
             style={({ isActive }) => {
               return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
+                color: isActive ? '#fff' : '#000',
+                backgroundColor: isActive ? '#38bdf8' : '',
               };
             }}
           >
@@ -114,8 +115,8 @@ function UserProfilePage() {
             className="text-[24px] w-[100%] flex justify-center py-5"
             style={({ isActive }) => {
               return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
+                color: isActive ? '#fff' : '#000',
+                backgroundColor: isActive ? '#38bdf8' : '',
               };
             }}
           >
@@ -127,8 +128,8 @@ function UserProfilePage() {
             className="text-[24px] w-[100%] flex justify-center py-5"
             style={({ isActive }) => {
               return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
+                color: isActive ? '#fff' : '#000',
+                backgroundColor: isActive ? '#38bdf8' : '',
               };
             }}
           >
@@ -138,10 +139,10 @@ function UserProfilePage() {
       </div>
       <div className="col-span-3 p-[10px] relative min-h-[93vh] max-lg:hidden">
         <div className="flex items-center flex-col gap-4 p-[10px] mb-[20px]">
-          <div className=" mb-[10px] relative">
+          <div className=" mb-[10px] relative w-[200px]">
             <img
               className="w-[100%] aspect-square object-cover rounded-full  shadow-2xl"
-              src={data?.user ? data?.avatar : avatarUser}
+              src={data?.avatar || avatarUser}
               alt=""
             />
             {data?.payment && (
@@ -160,8 +161,8 @@ function UserProfilePage() {
             className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
             style={({ isActive }) => {
               return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
+                color: isActive ? '#fff' : '#000',
+                backgroundColor: isActive ? '#38bdf8' : '',
               };
             }}
           >
@@ -172,8 +173,8 @@ function UserProfilePage() {
             className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
             style={({ isActive }) => {
               return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
+                color: isActive ? '#fff' : '#000',
+                backgroundColor: isActive ? '#38bdf8' : '',
               };
             }}
           >
@@ -184,8 +185,8 @@ function UserProfilePage() {
             className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
             style={({ isActive }) => {
               return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
+                color: isActive ? '#fff' : '#000',
+                backgroundColor: isActive ? '#38bdf8' : '',
               };
             }}
           >
@@ -196,8 +197,8 @@ function UserProfilePage() {
             className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
             style={({ isActive }) => {
               return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
+                color: isActive ? '#fff' : '#000',
+                backgroundColor: isActive ? '#38bdf8' : '',
               };
             }}
           >
@@ -209,7 +210,7 @@ function UserProfilePage() {
               to="payment"
               className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block pointer-events-none bg-gradient-to-r from-[#110f0e] to-[#f1e8bf] text-[#fff] font-semibold"
             >
-              You was VIP member
+              You are VIP member
             </NavLink>
           ) : (
             <NavLink
@@ -217,8 +218,8 @@ function UserProfilePage() {
               className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block "
               style={({ isActive }) => {
                 return {
-                  color: isActive ? '#fff' : '#40634d',
-                  backgroundColor: isActive ? '#40634d' : '',
+                  color: isActive ? '#fff' : '#000',
+                  backgroundColor: isActive ? '#38bdf8' : '',
                 };
               }}
             >
@@ -226,12 +227,12 @@ function UserProfilePage() {
             </NavLink>
           )}
           <NavLink
-            to="*"
+            to="delete"
             className="py-[10px] px-[5px] ms-[10px] text-[20px] cursor-pointer rounded-lg block"
             style={({ isActive }) => {
               return {
-                color: isActive ? '#fff' : '#40634d',
-                backgroundColor: isActive ? '#40634d' : '',
+                color: isActive ? '#fff' : '#000',
+                backgroundColor: isActive ? '#38bdf8' : '',
               };
             }}
           >

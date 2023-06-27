@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import IPart from '../interfaces/Part';
+import IPart, { PartType, partTypes } from '../interfaces/Part';
 export type CreatePartFormData = Pick<
   IPart,
   'title' | 'description' | 'type' | 'audio' | 'image'
@@ -10,7 +10,7 @@ export const createPartSchema: Yup.ObjectSchema<CreatePartFormData> =
       .min(5, 'Title must be at least 5 characters')
       .required('Title points is required'),
     description: Yup.string().required('Description is required'),
-    type: Yup.string().required(),
+    type: Yup.mixed<PartType>().oneOf(partTypes).required(),
     audio: Yup.string().optional(),
     image: Yup.string().optional(),
   });

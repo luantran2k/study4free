@@ -32,7 +32,7 @@ export const mockDataExam: IMock[] = [
     title: 'IELTS C18 Full Test 1',
     sections: [
       {
-        id: 'C18-1listening',
+        id: 'C18-1-listening',
         name: '18 IELTS listening test 1',
         parts: 4,
         type: 'listening',
@@ -42,7 +42,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Listening'],
       },
       {
-        id: 'C18-1reading',
+        id: 'C18-1-reading',
         name: '18 IELTS reading test 1',
         parts: 3,
         type: 'reading',
@@ -52,7 +52,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Reading'],
       },
       {
-        id: 'C18-1writing',
+        id: 'C18-1-writing',
         name: '18 IELTS writing test 1',
         parts: 2,
         type: 'writing',
@@ -62,7 +62,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Writing'],
       },
       {
-        id: 'C18-1speaking',
+        id: 'C18-1-speaking',
         name: '18 IELTS speaking test 1',
         parts: 3,
         type: 'speaking',
@@ -78,7 +78,7 @@ export const mockDataExam: IMock[] = [
     title: 'IELTS C18 Full Test 2',
     sections: [
       {
-        id: 'C18-1listening',
+        id: 'C18-1-listening',
         name: '18 IELTS listening test 2',
         parts: 4,
         type: 'listening',
@@ -88,7 +88,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Listening'],
       },
       {
-        id: 'C18-2reading',
+        id: 'C18-2-reading',
         name: '18 IELTS reading test 2',
         parts: 3,
         type: 'reading',
@@ -98,7 +98,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Reading'],
       },
       {
-        id: 'C18-2writing',
+        id: 'C18-2-writing',
         name: '18 IELTS writing test 2',
         parts: 2,
         type: 'writing',
@@ -108,7 +108,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Writing'],
       },
       {
-        id: 'C18-2speaking',
+        id: 'C18-2-speaking',
         name: '18 IELTS speaking test 2',
         parts: 3,
         type: 'speaking',
@@ -124,7 +124,7 @@ export const mockDataExam: IMock[] = [
     title: 'IELTS C18 Full Test 3',
     sections: [
       {
-        id: 'C18-3listening',
+        id: 'C18-3-listening',
         name: '18 IELTS listening test 3',
         parts: 4,
         type: 'listening',
@@ -134,7 +134,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Listening'],
       },
       {
-        id: 'C18-3reading',
+        id: 'C18-3-reading',
         name: '18 IELTS reading test 3',
         parts: 3,
         type: 'reading',
@@ -144,7 +144,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Reading'],
       },
       {
-        id: 'C18-3writing',
+        id: 'C18-3-writing',
         name: '18 IELTS writing test 3',
         parts: 2,
         type: 'writing',
@@ -154,7 +154,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Writing'],
       },
       {
-        id: 'C18-3speaking',
+        id: 'C18-3-speaking',
         name: '18 IELTS speaking test 3',
         parts: 3,
         type: 'speaking',
@@ -170,7 +170,7 @@ export const mockDataExam: IMock[] = [
     title: 'IELTS C18 Full Test 4',
     sections: [
       {
-        id: 'C18-4listening',
+        id: 'C18-4-listening',
         name: '18 IELTS listening test 4',
         parts: 4,
         type: 'listen',
@@ -180,7 +180,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Listening'],
       },
       {
-        id: 'C18-4reading',
+        id: 'C18-4-reading',
         name: '18 IELTS reading test 4',
         parts: 3,
         type: 'reading',
@@ -190,7 +190,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Reading'],
       },
       {
-        id: 'C18-4writing',
+        id: 'C18-4-writing',
         name: '18 IELTS writing test 4',
         parts: 2,
         type: 'writing',
@@ -200,7 +200,7 @@ export const mockDataExam: IMock[] = [
         tag: ['IELTS Academic', 'Writing'],
       },
       {
-        id: 'C18-4speaking',
+        id: 'C18-4-speaking',
         name: '18 IELTS speaking test 4',
         parts: 3,
         type: 'speaking',

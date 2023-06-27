@@ -50,8 +50,31 @@ export const userApi = createApi({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: () => ['Collection', 'Vocab'],
+      invalidatesTags: () => ['Collection', 'Vocab', 'User'],
     }),
+    addNewTodo: builder.mutation({
+      query: (data) => ({
+        url: 'todos',
+        method: 'POST',
+        body: data
+      }),
+      invalidatesTags: () => ['User']
+    }),
+    deleteToDo: builder.mutation({
+      query: (id) => ({
+          url: `todos/${id}`,
+          method: 'DELETE',
+      }),
+      invalidatesTags: () => ['User']
+    }),
+    changeStatusToDo: builder.mutation({
+      query: (data) => ({
+        url: `todos/${data.id}`,
+        method: 'PATCH',
+        body: data.newData
+      }),
+      invalidatesTags: () => ['User']
+    })
   }),
 });
 
@@ -62,4 +85,7 @@ export const {
   useGetCollectionByIdQuery,
   useAddNewCollectionMutation,
   useAddNewVocabularyMutation,
+  useAddNewTodoMutation,
+  useDeleteToDoMutation,
+  useChangeStatusToDoMutation
 } = userApi;

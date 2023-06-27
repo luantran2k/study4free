@@ -1,4 +1,6 @@
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
+import { useAppDispatch } from '../../../../hooks/redux';
+import { updateExamEditInfo } from '../../../../store/slices/examSlice';
 import Parts from '../Parts';
 
 export type SectionType = 'Listening' | 'Reading' | 'Writing' | 'Speaking';
@@ -10,11 +12,23 @@ type Props = {
 function Sections({ sections }: Props) {
   const [currentSection, setCurrentSection] = useState(sections[0]);
   const modalId = useId();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (currentSection?.id && currentSection?.name) {
+      dispatch(
+        updateExamEditInfo({
+          sectionId: currentSection.id,
+          section: currentSection.name,
+        })
+      );
+    }
+  }, [currentSection]);
 
   return (
     <>
       <ul className="flex gap-2 list-style-none">
-        {sections.map((section) => (
+        {sections.map((section, index) => (
           <li
             className={`rounded-box px-4 py-2 cursor-pointer active:translate-y-1 transition-all ${
               section.name === currentSection.name
@@ -24,7 +38,7 @@ function Sections({ sections }: Props) {
             onClick={() => setCurrentSection(section)}
             key={section.name}
           >
-            {sections[0].name}
+            {sections[index].name}
           </li>
         ))}
       </ul>

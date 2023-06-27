@@ -44,7 +44,7 @@ const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
     if (time > 0) {
       const realTime = Date.now();
       if (confirm('Do you want to submit answers?')) {
-        console.log('ss');
+        console.log('submit');
       }
       const realTime2 = Date.now();
       const subtract = Math.floor((realTime2 - realTime) / 1000);
@@ -54,7 +54,7 @@ const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
         setTime(0);
       }
     } else {
-      console.log('ss');
+      console.log('stop');
     }
   };
   return (
@@ -67,7 +67,8 @@ const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
             {time === 0 ? (
               <span className="end">End!</span>
             ) : (
-              `${Math.floor(time / 60)}:${time % 60 < 10 ? '0' : ''}${time % 60
+              `${Math.floor(time / 60)}:${time % 60 < 10 ? '0' : ''}${
+                time % 60
               }`
             )}
           </div>
@@ -109,5 +110,4 @@ const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
   );
 };
 
-
-export default NavigationTest
+export default NavigationTest;
