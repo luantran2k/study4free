@@ -324,7 +324,7 @@ const GrammarPage = () => {
                         </g>
                       </svg>
                       <NavLink
-                        to={section.to}
+                        to={"/404"}
                         className="text-md text-[#23085a] hover:underline hover:text-green-400"
                       >
                         {section.title}
@@ -368,8 +368,8 @@ const GrammarPage = () => {
                         </g>
                       </svg>
                       <NavLink
-                        key={section.id}
-                        to={section.to}
+
+                        to={"/404"}
                         className="text-md text-[#23085a] hover:underline hover:text-green-400"
                       >
                         {section.title}

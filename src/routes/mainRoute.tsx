@@ -1,5 +1,6 @@
 import { Navigate, RouteObject } from 'react-router-dom';
 
+import NotFoundPage from '../pages/NotFound';
 import {
   AnalyzeResults,
   Collection,
@@ -20,6 +21,7 @@ import {
 } from './imports';
 // import NotFoundPage from '../pages/NotFound';
 import Speaking from '../pages/Exams/Speaking';
+
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -43,19 +45,24 @@ export const mainRoute: RouteObject = {
         //   // element: <NotFoundPage/>
         // },
         {
-          path: ':exam/:part/writing',
-          element: <Writing />,
-        },
-        {
-          path: ':exam/:part/speaking',
-          element: <Speaking />,
+          path: ':exam/:part/:section',
+          // element: <Writing />,
+          element: <NotFoundPage title="404" subTitle="Upsie daisy" descript='the section you are looking for is not available' />
         },
         // {
-        //   path: 'writing/:id',
+        //   path: ':exam/:part/writing',
         //   element: <Writing />,
         // },
         // {
-        //   path: 'speaking/:id',
+        //   path: ':exam/:part/speaking',
+        //   element: <Speaking />,
+        // },
+        // {
+        //   path: ':exam/:part/writing',
+        //   element: <Writing />,
+        // },
+        // {
+        //   path: ':exam/:part/speaking',
         //   element: <Speaking />,
         // },
         // {

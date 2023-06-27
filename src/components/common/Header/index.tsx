@@ -11,7 +11,8 @@ const Chat = lazy(() => import('../Chat'))
 
 const Header = () => {
   const [isOpenNavBar, setOpenNavBar] = useState<boolean>(false);
-  const { name } = useAppSelector(selectAuth);
+  const { name, userInformation } = useAppSelector(selectAuth);
+
   const [intersection, setIntersection] = useState<boolean>(false);
   const toggleNavBar = () => {
     setOpenNavBar(!isOpenNavBar);
@@ -109,7 +110,6 @@ const Header = () => {
                   style={{
                     display: 'block',
                     padding: '8px 0.75rem',
-                    borderRadius: '0.75rem',
                   }}
                   className={({ isActive, isPending }) =>
                     isPending
@@ -140,45 +140,46 @@ const Header = () => {
                   Grammar
                 </NavLink>
               </li>
-              <li>
-                {name ? (
-                  <NavLink
-                    to={'/users'}
-                    style={{
-                      display: 'block',
-                      padding: '8px 0.75rem',
-                    }}
-                    className={({ isActive, isPending }) =>
-                      isPending
-                        ? 'pending'
-                        : isActive
-                          ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
-                          : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
-                    }
-                  >
-                    {name}
-                  </NavLink>
-                ) : (
-                  <NavLink
-                    to={'/login'}
-                    style={{
-                      display: 'block',
-                      padding: '8px 0.75rem',
-                    }}
-                    className={({ isActive, isPending }) =>
-                      isPending
-                        ? 'pending'
-                        : isActive
-                          ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
-                          : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
-                    }
-                  >
-                    Login
-                  </NavLink>
-                )}
-              </li>
             </ul>
           </div>
+
+          {name ? (
+            <NavLink
+              to={'/users'}
+              style={{
+                display: 'flex',
+                padding: '8px 1.75rem',
+                borderRadius: '10px'
+              }}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? 'pending'
+                  : isActive
+                    ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
+                    : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
+              }
+            >
+              {userInformation.roles.length > 1 ? userInformation.roles[1] : userInformation.roles[0]}
+            </NavLink>
+          ) : (
+            <NavLink
+              to={'/login'}
+              style={{
+                display: 'flex',
+                padding: '8px 1.75rem',
+                borderRadius: '10px'
+              }}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? 'pending'
+                  : isActive
+                    ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
+                    : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
+              }
+            >
+              Login
+            </NavLink>
+          )}
         </div>
       </nav>
       <Tools intersection={intersection} />

@@ -123,6 +123,7 @@ const DetailExam = () => {
                     Ready to start taking the full test? To get the best
                     results, you need to spend 40 minutes on this test.
                   </div>
+                  {/* <NavLink className="btn btn-success text-white" to={test.tag[1]}> */}
                   <NavLink
                     className="btn btn-success text-white"
                     to={part?.split('-')[2] || ''}
