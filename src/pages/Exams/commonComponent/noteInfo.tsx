@@ -27,7 +27,6 @@ const NoteInfo = ({ index }: Props) => {
 
   const openleNotes = () => {
     setIsOpenNote((prev) => !prev);
-    console.log(isOpenNotes);
   };
   const getNotes = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const updatedArr = [...(note || [])];

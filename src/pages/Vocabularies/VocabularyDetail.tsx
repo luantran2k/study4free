@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   useAddNewCollectionMutation,
   useAddNewVocabularyMutation,
@@ -6,92 +6,71 @@ import {
   useGetUserByIdQuery,
 } from '../../store/queries/users';
 import IVocabulary from '../../interfaces/Vocabulary';
-import ICollection from '../../interfaces/Collection';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import ICollection from '../../interfaces/Collection';
 
-// const vocabs: IVocabulary[] = [
-//   {
-//     vocabulary: 'abandon',
-//     meaning: 'từ bỏ, đầu hàng, không làm nữa dù chưa xong',
-//     image: '',
-//     spelling: '/əˈbændən/',
-//     synonyms: ['to stop doing an activity before you have finished it'],
-//   },
-// ];
-
-// 'ability',
-// 'able',
-// 'abortion',
-// 'about',
-// 'above',
-// 'abroad',
-// 'absence',
-// 'absolute',
-// 'absolutely',
-// 'absorb',
-// 'abuse',
-// 'academic',
-// 'accept',
-// 'access',
-// 'accident',
-// 'accompany',
-// 'accomplish',
-// 'according',
-// 'account',
-// 'accurate',
 
 function VocabularyDetail() {
-  const dataStorage = JSON.parse(
-    localStorage.getItem('user') as string
-  ).userInfo;
   const { state } = useLocation();
-  const { data, isSuccess } = useGetUserByIdQuery(dataStorage.id);
+  const navigate = useNavigate();
   const [AddVocab] = useAddNewVocabularyMutation();
   const [AddCollection] = useAddNewCollectionMutation();
-  const myCollections = data?.collections;
+  const user = useSelector((state: RootState) => state.auth.userInformation);
+  const { data: dataUser } = useGetUserByIdQuery(user?.id)
   const { data: dataVocab, isSuccess: isSuccessVocab } =
     useGetCollectionByIdQuery(state.id);
   const listVocabs: IVocabulary[] = dataVocab?.vocabularies;
 
-  if (isSuccessVocab) {
-    console.log(listVocabs);
-  }
-  const addToCollections = async (vocab: IVocabulary) => {
-    let checkExistTopic = false;
-    let duplicateCollection = '';
-    myCollections.forEach((value: ICollection) => {
-      if (value.title === state.title) {
-        checkExistTopic = true;
-        duplicateCollection = value.id;
-      }
-    });
-    if (checkExistTopic) {
-      if (isSuccess) {
-        notify(NOTIFICATION_TYPE.SUCCESS, 'Add to collections Successfully');
-        await AddVocab({
-          ...vocab,
+  const addToCollections = (vocab: IVocabulary) => {
+    if(localStorage.getItem('user') === null) {
+      notify(NOTIFICATION_TYPE.ERROR, 'You have to log-in first!!!')
+    } else {
+      if(dataUser.payment === false) {
+        if(confirm('You need to upgrade account to use this feature. Go to your account!!!')) {
+            navigate('/users/payment')
+        }
+      } else {
+        let checkExist: boolean = false
+      let duplicateCollection: string = ''
+      dataUser.collections.forEach((value: ICollection) => {
+        if(value.title === 'Vocabs from other users') {
+            checkExist = true
+            duplicateCollection = value.id
+        }
+      })
+      if(checkExist) {
+        notify(NOTIFICATION_TYPE.SUCCESS, 'add new word successfully')
+        AddVocab({
+          vocabulary: vocab.vocabulary,
+          meaning: vocab.meaning,
+          image: vocab.image,
+          spelling: vocab.spelling,
+          synonyms: vocab.synonyms,
           collectionId: duplicateCollection,
         });
-      }
-    } else {
-      if (isSuccess) {
-        notify(NOTIFICATION_TYPE.SUCCESS, 'Add to collections Successfully');
-        await AddCollection({
-          title: state.title,
+      } else {
+        notify(NOTIFICATION_TYPE.SUCCESS, 'add new word successfully');
+        AddCollection({
+          title: 'Vocabs from other users',
           image: '',
-        });
-
-        const newCollections = data.collections;
-        newCollections.forEach(async (value: ICollection) => {
-          if (value.title === state.title) {
-            await AddVocab({
-              ...vocab,
-              collectionId: value.id,
+        })
+          .unwrap()
+          .then((newCollection) => {
+            AddVocab({
+              vocabulary: vocab.vocabulary,
+              meaning: vocab.meaning,
+              image: vocab.image,
+              spelling: vocab.spelling,
+              synonyms: vocab.synonyms,
+              collectionId: newCollection.id,
             });
-          }
-        });
+          });
       }
+      }
+      
     }
   };
 
@@ -101,6 +80,7 @@ function VocabularyDetail() {
     formState: { errors },
   } = useForm();
   const onSubmit = handleSubmit((dataForm) => {
+    notify(NOTIFICATION_TYPE.SUCCESS, 'Add new word successfully')
     AddVocab({
       ...dataForm,
       synonyms: [dataForm.synonyms],
@@ -108,13 +88,17 @@ function VocabularyDetail() {
     });
   });
 
+  const handleHiddenModal = () => {
+    document.getElementById('btnClose')?.click();
+  }
+
   return (
     <div>
       <h2 className="text-center font-medium text-[40px] mb-[50px] border-[#ccc] border-b-[1px] pb-2">
-        Vocabulary: {state.title} (20 words)
+        Vocabulary: {state.title} ({listVocabs?.length} words)
       </h2>
       <button
-        className="btn btn-primary"
+        className="btn btn-info text-white"
         onClick={() => window.my_modal_2.showModal()}
       >
         Add new word
@@ -183,12 +167,20 @@ function VocabularyDetail() {
               </p>
             </div>
           </div>
-          <button type="submit" className="btn btn-secondary">
-            Add
-          </button>
+          <div className="flex gap-4">
+              <button type="submit" className="btn btn-info text-white">
+                Add
+              </button>
+              <button type="reset" className="btn btn-error text-white">
+                Reset
+              </button>
+              <button type="button" className="btn btn-neutral text-white" onClick={handleHiddenModal}>
+                Close
+              </button>
+            </div>
         </form>
         <form method="dialog" className="modal-backdrop">
-          <button>close</button>
+          <button id='btnClose'>close</button>
         </form>
       </dialog>
       <div>
@@ -207,9 +199,7 @@ function VocabularyDetail() {
                     </div>
                     <button
                       className="btn btn-accent text-white max-md:text-[12px]"
-                      onClick={() => {
-                        addToCollections(vocab);
-                      }}
+                      onClick={() => addToCollections(vocab)}
                     >
                       Add to collection
                     </button>

@@ -7,8 +7,8 @@ function DeleteAccount() {
                     <p>All data and configurations will be lost.</p>
                 </div>
                 <div className="flex gap-5 justify-center">
-                    <button className="btn btn-error">CANCEL</button>
-                    <button className="btn btn-primary">DELETE</button>
+                    <button className="btn btn-neutral text-white">CANCEL</button>
+                    <button className="btn btn-info text-white">DELETE</button>
                 </div>
             </div>
         </div>
