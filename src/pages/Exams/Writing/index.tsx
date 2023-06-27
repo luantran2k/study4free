@@ -1,4 +1,5 @@
 import { ChangeEvent, lazy, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 const NavigationTest = lazy(() => import('../commonComponent/navigationTest'));
 const NoteInfo = lazy(() => import('../commonComponent/noteInfo'));
 
@@ -10,6 +11,8 @@ const Writing = () => {
   const handleTask = (task: number) => {
     setIndex(task);
   };
+  const location = useLocation();
+  console.log(location);
 
   const handleWritingEssay = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const updatedArr = [...(essay || [])];

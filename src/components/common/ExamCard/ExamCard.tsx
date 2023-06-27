@@ -6,13 +6,13 @@ import { useEffect, useState } from 'react';
 import { useGetExamsQuery } from '../../../store/queries/exams';
 
 const ExamCard = (props: any) => {
-  console.log(props);
+  console.log(props.id);
 
   const [idSection, setIdSection] = useState('');
   const [IdArr, setIdArr] = useState([]);
 
   useEffect(() => {
-    const cutArr = Object.values(props?.props?.sections);
+    const cutArr = Object.values(props?.sections);
     cutArr.shift();
     setIdArr(cutArr);
   }, []);
@@ -24,20 +24,32 @@ const ExamCard = (props: any) => {
           className="tab tab-lifted tab-lg tab-active text-xl font-semibold text-[#23085a] bg-[#e8f2ff]"
           style={{ backgroundColor: '#e8f2ff' }}
         >
-          {props?.props?.title}
+          {props?.title}
         </a>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-[#e8f2ff] p-4">
         {IdArr &&
-          IdArr.map((section: any) => {
+          IdArr.map((section: any, index: number) => {
             console.log(section);
-
+            let sectionType: string = '';
+            if (index === 0) {
+              sectionType = 'Listening';
+            } else if (index === 1) {
+              sectionType = 'Reading';
+            } else if (index === 2) {
+              sectionType = 'Speaking';
+            } else {
+              sectionType = 'Writing';
+            }
             return (
               <NavLink
                 to={`${section}`}
+                state={{ sectionType, section }}
                 className="bg-white rounded-2xl hover:shadow-xl shadow-md w-full hover:-translate-y-2 transition-all p-4 mt-4 flex flex-col justify-between"
               >
-                <h6 className="text-black font-semibold text-xl mb-3">ss</h6>
+                <h6 className="text-black font-semibold text-xl mb-3">
+                  {sectionType}
+                </h6>
                 <p className="text-gray-400 text-lg mb-2 font-semibold">
                   Exam package: {props?.props?.title}
                 </p>

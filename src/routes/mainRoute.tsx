@@ -35,9 +35,16 @@ export const mainRoute: RouteObject = {
       element: <ExamsPage />,
       children: [
         {
-          path: ':exam',
+          path: 'Writing/:skill',
           element: <DetailExam />,
+          children: [
+            {
+              path: ':detail',
+              element: <Writing />,
+            },
+          ],
         },
+
         // {
         //   path: ':exam/:part/:section',
         //   element: <Writing />,

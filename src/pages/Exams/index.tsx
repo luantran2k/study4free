@@ -4,29 +4,11 @@ import Thumb from '../../assets/images/study.jpg';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Pagination from '../../components/common/Pagination';
 import { useGetExamsQuery } from '../../store/queries/exams';
+import LoadingAnimate from '../../components/common/LoadingAnimate';
 
 const ExamCard = lazy(
   () => import('../../components/common/ExamCard/ExamCard')
 );
-
-const newPag = {
-  totalPage: 5,
-  currentPage: 0,
-  quantity: 40,
-  quantityOptions: [1, 2, 3],
-  onChangePage: () => {
-    return;
-  },
-  onChangeQuantity: () => {
-    return;
-  },
-  onNextClick: () => {
-    return;
-  },
-  onPreviousClick: () => {
-    return;
-  },
-};
 
 interface ISearch {
   keyword: string;
@@ -39,15 +21,39 @@ function ExamsPage() {
     quantity: 4,
     search: '',
   });
-  useEffect(() => {
-    console.log(data);
-  }, [isLoading]);
 
+  const [filteredData, setFilteredData] = useState<any>([]);
   const [search, setSearch] = useState<string>('');
   const { register, handleSubmit } = useForm<ISearch>();
 
   const handleSearch: SubmitHandler<ISearch> = (data) =>
     setSearch(data.keyword.toLowerCase());
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handleQuantityChange = (quantity: number) => {
+    setQuantity(quantity);
+  };
+
+  const handleNextClick = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePreviousClick = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  // Paginated data based on current page and quantity
+  const paginatedData = filteredData.slice(
+    currentPage * quantity,
+    (currentPage + 1) * quantity
+  );
 
   useEffect(() => {
     window.scrollTo({
@@ -55,6 +61,17 @@ function ExamsPage() {
       behavior: 'smooth',
     });
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (isSuccess) setFilteredData(data);
+  }, [isSuccess]);
+  useEffect(() => {
+    // Reset the current page to 0 when the quantity option is changed
+    setCurrentPage(0);
+  }, [quantity]);
+  if (isLoading) {
+    return <LoadingAnimate />;
+  }
 
   return (
     <React.Fragment>
@@ -93,15 +110,29 @@ function ExamsPage() {
               </form>
             </div>
             <div className="flex-grow-[1] container mx-auto">
-              <>
-                {data &&
-                  data.map((items) => (
-                    <ExamCard props={items} key={items?.id} />
+              {isSuccess ? (
+                <>
+                  {paginatedData.map((mock: any) => (
+                    <ExamCard {...mock} key={mock.id} />
                   ))}
-                <div className="w-fit">
-                  <Pagination {...newPag} />
-                </div>
-              </>
+                </>
+              ) : (
+                <h3 className="text-3xl text-center mx-auto mb-10 font-serif font-semibold text-sky-600">
+                  No Data Found!!!
+                </h3>
+              )}
+              <div className="w-fit">
+                <Pagination
+                  totalPage={Math.ceil(filteredData.length / quantity)}
+                  currentPage={currentPage}
+                  quantity={quantity}
+                  quantityOptions={[1, 2, 3]}
+                  onChangePage={handlePageChange}
+                  onChangeQuantity={handleQuantityChange}
+                  onNextClick={handleNextClick}
+                  onPreviousClick={handlePreviousClick}
+                />
+              </div>
             </div>
           </div>
         </>

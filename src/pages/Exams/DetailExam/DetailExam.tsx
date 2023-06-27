@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { mockDataExam, ISections } from '..';
 import ClockIcon from '../../../assets/icons/Clock';
 import WriteIcon from '../../../assets/icons/Write';
+import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
 
 // import LightOn from '../../../assets/icons/LightOn';
 
@@ -11,6 +12,14 @@ const DetailExam = () => {
   const [selectedExam, setSelectedExam] = useState<ISections[]>([]);
   const [value, setValue] = React.useState(0);
   const ref = useRef<HTMLDivElement | null>(null);
+  const { state } = useLocation();
+  console.log(state);
+  const { data, isSuccess, error, isLoading } = useGetPartIdsBySectionIdQuery({
+    section: state.sectionType,
+    sectionId: state.section,
+  });
+  console.log(data);
+
   const { exam, part } = params;
   // const navigate = useNavigate();
   const handleChange = (newValue: number) => {
