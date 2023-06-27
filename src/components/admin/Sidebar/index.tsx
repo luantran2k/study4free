@@ -6,19 +6,24 @@ import UsersIcon from '../../../assets/icons/Users';
 import LogoutIcon from '../../../assets/icons/logoutIcon';
 import LogoImage from '../../../assets/images/logo.png';
 import { logOut } from '../../../store/slices/authSlice';
-function AdminSideBar() {
+
+type Props = {
+  hideSideBar?: () => void;
+};
+
+function AdminSideBar({ hideSideBar }: Props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   return (
-    <>
+    <div className="flex flex-col h-full bg-white">
       <Link to="/" className="flex  items-center h-20 p-4">
         <img src={LogoImage} alt="Logo" className="h-full  object-contain" />
       </Link>
-      <nav className="flex flex-col">
-        <ul className="menu rounded-box [&_a]:text-lg [&_a]:flex [&_a]:px-3 [&_a]:py-2 [&_a.active]:text-white [&_a.active]:bg-blue-500">
+      <nav className="flex-1">
+        <ul className="h-full menu rounded-box [&_a]:text-lg [&_a]:text-slate-600 [&_a]:flex [&_span]:w-6 [&_a]:gap-2 [&_a]:px-6 [&_a]:py-4 [&_a.active]:text-white [&_a.active]:bg-blue-500">
           <li>
-            <NavLink to={'/admin'} end>
+            <NavLink onClick={hideSideBar} to={'/admin'} end>
               <span>
                 <ChartLineIcon />
               </span>
@@ -26,7 +31,7 @@ function AdminSideBar() {
             </NavLink>
           </li>
           <li>
-            <NavLink to={'/admin/exams'}>
+            <NavLink onClick={hideSideBar} to={'/admin/exams'}>
               <span>
                 <FileIcon />
               </span>
@@ -34,7 +39,7 @@ function AdminSideBar() {
             </NavLink>
           </li>
           <li>
-            <NavLink to={'/admin/users'}>
+            <NavLink onClick={hideSideBar} to={'/admin/users'}>
               <span>
                 <UsersIcon />
               </span>
@@ -42,19 +47,23 @@ function AdminSideBar() {
             </NavLink>
           </li>
           <li
+            className="mt-auto"
             onClick={() => {
               dispatch(logOut());
               navigate('/');
             }}
           >
             <a>
-              <LogoutIcon />
+              <span>
+                {' '}
+                <LogoutIcon />
+              </span>
               Logout
             </a>
           </li>
         </ul>
       </nav>
-    </>
+    </div>
   );
 }
 
