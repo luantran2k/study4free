@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import Thumb from '../../assets/images/thumbEnglish.jpg';
+import Thumb from '../../assets/images/study.jpg';
 import Logo from '../../assets/images/logo.png';
 import React, { lazy, useEffect, useState } from 'react';
 import {
@@ -44,7 +44,7 @@ function VocabulariesPage() {
   };
 
   const addNewCollection = async () => {
-    if(localStorage.getItem('user') === null) {
+    if (localStorage.getItem('user') === null) {
       notify(NOTIFICATION_TYPE.ERROR, 'You have to log-in first!!!')
     } else {
       if (inputContent.trim() !== '') {
@@ -66,7 +66,7 @@ function VocabulariesPage() {
       behavior: 'smooth',
     });
   }, [pathname]);
-  if(!isSuccess) {
+  if (!isSuccess) {
     return <LoadingAnimate />
   }
 
@@ -76,7 +76,10 @@ function VocabulariesPage() {
         <h2>VOCABULARY</h2>
       </div>
       <div className="container mx-auto py-[3rem]">
-        <img src={Thumb} alt="" className="w-[100%]" />
+        <div className="mb-10 bg-center bg-cover bg-no-repeat h-[400px]" style={{
+          backgroundImage: `url(${Thumb})`
+        }}>
+        </div>
         {pathname === '/vocabularies' ? (
           <div className="max-sm:px-[10px] p-[3rem] flex gap-3 flex-col items-start">
             <div className="w-[100%]">
@@ -101,7 +104,7 @@ function VocabulariesPage() {
         <div className="mb-[20px] grid grid-cols-12 gap-[30px] max-sm:px-[10px] p-[3rem]">
           {pathname === '/vocabularies' ? (
             data?.map((item: ICollection, index: number) => {
-              if(item.title !== 'Vocabs from other users') {
+              if (item.title !== 'Vocabs from other users') {
                 return (
                   <Link
                     to={item.title}
@@ -121,7 +124,7 @@ function VocabulariesPage() {
                   </Link>
                 );
               }
-              
+
             })
           ) : (
             <div className="col-span-12">
