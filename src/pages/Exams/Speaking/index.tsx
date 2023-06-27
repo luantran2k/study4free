@@ -32,7 +32,7 @@ const Speaking = () => {
     audio.src = url;
     audio.controls = true;
     document.body.appendChild(audio);
-    console.log(audio);
+
   };
   return (
     <div className="bg-[#f8f9fa]">

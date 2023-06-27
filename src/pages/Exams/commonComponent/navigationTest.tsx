@@ -44,7 +44,7 @@ const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
     if (time > 0) {
       const realTime = Date.now();
       if (confirm('Do you want to submit answers?')) {
-        console.log('ss');
+
       }
       const realTime2 = Date.now();
       const subtract = Math.floor((realTime2 - realTime) / 1000);
@@ -54,7 +54,7 @@ const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
         setTime(0);
       }
     } else {
-      console.log('ss');
+      
     }
   };
   return (

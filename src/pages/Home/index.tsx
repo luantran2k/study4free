@@ -18,7 +18,7 @@ function HomePage() {
       return JSON.parse(localStorage.getItem('user') as string);
     }
   }, []);
-  console.log(userInfo);
+
   const handleNavigatePayment = () => {
     if (userInfo.name) {
       navigate('/users/payment');

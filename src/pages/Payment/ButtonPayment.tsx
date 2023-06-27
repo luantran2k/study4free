@@ -78,7 +78,7 @@ export const ButtonPayment = ({
         }}
         onApprove={onAccept}
         onShippingChange={async (data) => {
-          console.log(data);
+
         }}
         onCancel={onDenied}
       />
