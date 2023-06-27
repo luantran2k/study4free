@@ -66,7 +66,11 @@ function CreateExamForm({ modalId }: { modalId: string }) {
         </div>
         <div>
           <label htmlFor="">Duration</label>
-          <input type="number" {...register('duration')} />
+          <input
+            className="input input-bordered"
+            type="number"
+            {...register('duration')}
+          />
           <p className="text-error">{errors.duration?.message}</p>
         </div>
         <div>

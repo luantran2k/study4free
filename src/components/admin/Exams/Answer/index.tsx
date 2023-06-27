@@ -45,7 +45,7 @@ function Answer({
     updateAnswer({
       answerId: id,
       section,
-      data: { isTrue: !e.target.checked },
+      data: { isTrue: e.target.checked },
     });
   };
 
@@ -56,7 +56,7 @@ function Answer({
           type="checkbox"
           name={questionId}
           className="checkbox"
-          checked={isTrue}
+          defaultChecked={isTrue}
           onChange={(e) => {
             updateAnswer({
               answerId: id,
@@ -70,7 +70,7 @@ function Answer({
         <input
           type="radio"
           name={questionId}
-          checked={isTrue}
+          defaultChecked={isTrue}
           className="radio"
           onChange={updateSingleChoice}
         />
