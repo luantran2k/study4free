@@ -21,12 +21,16 @@ type Props = {
 };
 
 function Question({ questionId, section }: Props) {
-  const { data, isLoading, isError } = useGetQuestionByIdQuery({
+  const {
+    data: question,
+    isLoading,
+    isError,
+  } = useGetQuestionByIdQuery({
     questionId,
     section,
   });
   const dispatch = useAppDispatch();
-  const [question, setQuestion] = useState<Partial<IQuestion>>({ title: '' });
+
   const [updateTitle] = useUpdateQuestionByIdMutation();
   const [updateImage, { isLoading: isImageLoading, isError: isImageError }] =
     useUpdateQuestionByIdMutation();
@@ -36,15 +40,14 @@ function Question({ questionId, section }: Props) {
   const [parent] = useAutoAnimate();
 
   useEffect(() => {
-    if (data) {
-      setQuestion(data);
+    if (question) {
       dispatch(
         updateExamEditInfo({
-          questionId: data.id,
+          questionId: question.id,
         })
       );
     }
-  }, [data]);
+  }, [question]);
 
   if (isLoading) {
     return <span className="loading loading-dots"></span>;
@@ -52,6 +55,8 @@ function Question({ questionId, section }: Props) {
   if (isError) {
     return <p className="text-error">Error</p>;
   }
+
+  if (!question) return <p>Invalid question</p>;
 
   return (
     <div className="flex gap-6">
@@ -99,28 +104,6 @@ function Question({ questionId, section }: Props) {
 
         <div>
           <label htmlFor="">Image</label>
-          {/* {isImageLoading ? (
-            <p>Loading...</p>
-          ) : typeof question?.image === 'string' ? (
-            <img src={question.image} alt="" />
-          ) : (
-            <>
-              {isImageError && <p>Error</p>}
-              <input
-                type="file"
-                className="file-input file-input-bordered w-full"
-                accept="image/*"
-                onChange={(e) => {
-                  setImage(e.target.files?.[0]);
-                  updateImage({
-                    questionId,
-                    section,
-                    data: { image: e.target.files?.[0] },
-                  });
-                }}
-              />
-            </>
-          )} */}
           <ImageUploadPreview
             isImageLoading={isImageLoading}
             isImageError={isImageError}

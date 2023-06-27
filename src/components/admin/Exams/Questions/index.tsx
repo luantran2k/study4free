@@ -32,6 +32,13 @@ function Questions({ partId, questionIds, section }: Props) {
       setQuestionIndex((pre) => pre - 1);
     }
   }, [questionIds]);
+
+  const validateQuestion = (): boolean => {
+    // let isInvalid = false;
+    // if(quest)
+    return true;
+  };
+
   return (
     <>
       <div className="flex gap-2 items-center my-8" ref={parent}>
@@ -62,10 +69,12 @@ function Questions({ partId, questionIds, section }: Props) {
         <button
           className={`active:translate-y-1 transition-all cursor-pointer bg-blue-500 text-white w-8 h-8 rounded-box flex justify-center items-center`}
           onClick={() => {
-            createQuestion({
-              section,
-              partId,
-            });
+            if (validateQuestion()) {
+              createQuestion({
+                section,
+                partId,
+              });
+            }
           }}
         >
           <AddIcon />
