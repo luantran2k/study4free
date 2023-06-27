@@ -34,25 +34,25 @@ export const mainRoute: RouteObject = {
       path: 'exams',
       element: <ExamsPage />,
       children: [
+        // {
+        //   path: ':type/:partId',
+        //   element: <DetailExam />,
+        //   children: [
+        //     {
+        //       path: ':question',
+        //       element: <Writing />,
+        //     },
+        //   ],
+        // },
         {
-          path: ':type/:partId',
-          element: <DetailExam />,
+          path: 'Speaking/:skill',
+          element: <Speaking />,
           children: [
             {
-              path: ':question',
-              element: <Writing />,
+              path: ':partId',
+              element: <Speaking />,
             },
           ],
-        },
-        {
-          path: '*',
-          element: (
-            <NotFoundPage
-              title="404"
-              subTitle="Upsie daisy"
-              descript="the section you are looking for is not available"
-            />
-          ),
         },
       ],
     },
@@ -105,6 +105,16 @@ export const mainRoute: RouteObject = {
           element: <DeleteAccount />,
         },
       ],
+    },
+    {
+      path: '*',
+      element: (
+        <NotFoundPage
+          title="404"
+          subTitle="Upsie daisy"
+          descript="the section you are looking for is not available"
+        />
+      ),
     },
   ],
 };

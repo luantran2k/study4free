@@ -1,18 +1,20 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
+import { useLocation } from 'react-router-dom';
 
 interface Props {
   handleTask: (task: string) => void;
   handleIndex: (index: number) => void;
+  defaultPartId: string;
 }
-const NavigationTest = ({ handleTask, handleIndex }: Props) => {
+const NavigationTest = ({ handleTask, handleIndex, defaultPartId }: Props) => {
   const [time, setTime] = useState<number>(3600);
+  const location = useLocation();
   const ref = useRef<NodeJS.Timer | null>(null);
   const { data, isSuccess, error, isLoading } = useGetPartIdsBySectionIdQuery({
-    section: 'Writing',
-    sectionId: '649a4f002cee64a48e0d8f8a',
+    section: location.pathname.split('/')[2],
+    sectionId: location.pathname.split('/')[3],
   });
-  console.log(data);
 
   useEffect(() => {
     if (isSuccess) {
@@ -100,6 +102,7 @@ const NavigationTest = ({ handleTask, handleIndex }: Props) => {
                   getPartIndex(index);
                 }}
                 value={index}
+                checked={defaultPartId == item.id}
               />
             </label>
           </div>
