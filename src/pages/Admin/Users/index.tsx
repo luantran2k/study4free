@@ -43,66 +43,68 @@ function UsersAdminPage() {
           />
         </div>
       </div>
-      <div className="overflow-auto ">
-        <table className="table table-zebra table-pin-rows">
-          <thead>
-            <tr className="bg-blue-200 [&>th]:py-4 [&>th]:text-black [&>th]:text-[1rem]">
-              <th></th>
-              <th>Avatar</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Gender</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading
-              ? Array(filter.quantity)
-                  .fill(undefined)
-                  .map((_, index) => (
-                    <tr
-                      key={index}
-                      className="[&_td]:py-8 [&_td]:animate-pulse"
-                    >
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  ))
-              : users?.map((user, index) => (
-                  <tr key={user.id}>
-                    <td className="font-bold">
-                      {filter.quantity * filter.page + index + 1}
-                    </td>
-                    <td className="w-fit">
-                      <img src={user.avatar} alt="" className="w-12 h-12" />
-                    </td>
-                    <td>{user.username}</td>
-                    <td>{user.email}</td>
-                    <td>{user.gender}</td>
-
-                    <td className="text-red-500 cursor-pointer  active:[&_svg]:translate-y-1 [&_svg]:transition-all ">
-                      <button
-                        onClick={() => {
-                          if (
-                            confirm(
-                              'Are you sure you want to delete this user?'
-                            )
-                          ) {
-                            removeUser(user.id);
-                          }
-                        }}
+      <div>
+        <div className="overflow-auto">
+          <table className="table table-zebra table-pin-rows">
+            <thead>
+              <tr className="bg-blue-900 [&>th]:text-white  [&>th]:py-6  [&>th]:text-[1rem]">
+                <th></th>
+                <th>Avatar</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {isLoading
+                ? Array(filter.quantity)
+                    .fill(undefined)
+                    .map((_, index) => (
+                      <tr
+                        key={index}
+                        className="[&_td]:py-8 [&_td]:animate-pulse"
                       >
-                        <TrashIcon />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-          </tbody>
-        </table>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    ))
+                : users?.map((user, index) => (
+                    <tr key={user.id}>
+                      <td className="font-bold">
+                        {filter.quantity * filter.page + index + 1}
+                      </td>
+                      <td className="w-fit">
+                        <img src={user.avatar} alt="" className="w-12 h-12" />
+                      </td>
+                      <td>{user.username}</td>
+                      <td>{user.email}</td>
+                      <td>{user.gender}</td>
+
+                      <td className="text-red-500 cursor-pointer  active:[&_svg]:translate-y-1 [&_svg]:transition-all ">
+                        <button
+                          onClick={() => {
+                            if (
+                              confirm(
+                                'Are you sure you want to delete this user?'
+                              )
+                            ) {
+                              removeUser(user.id);
+                            }
+                          }}
+                        >
+                          <TrashIcon />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+            </tbody>
+          </table>
+        </div>
         <div className="mt-5 mx-auto w-fit">
           <Pagination
             totalPage={
