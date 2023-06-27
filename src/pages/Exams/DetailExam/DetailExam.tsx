@@ -2,27 +2,36 @@ import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation, useParams } from 'react-router-dom';
 import ClockIcon from '../../../assets/icons/Clock';
 import WriteIcon from '../../../assets/icons/Write';
-import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
+import { useGetExamByIdQuery, useGetExamsQuery, useGetPartByIdQuery, useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
 
 // import LightOn from '../../../assets/icons/LightOn';
 
 const DetailExam = () => {
-  const params = useParams();
+  const { type, partId } = useParams();
   const [selectedExam, setSelectedExam] = useState([]);
   const [value, setValue] = React.useState(0);
   const ref = useRef<HTMLDivElement | null>(null);
   const { state } = useLocation();
   const [paramData, setParamData] = useState({});
-  console.log(state);
+
   useEffect(() => {
     setParamData({ section: state.sectionType, sectionId: state.section });
   }, []);
+
   const { data, isSuccess, error, isLoading } = useGetPartIdsBySectionIdQuery({
     section: state.sectionType,
     sectionId: state.section,
   });
-  console.log(data);
 
+  // const { data } = useGetPartByIdQuery({
+  //   section: state.sectionType,
+  //   partId: state.section,
+  // })
+
+
+  console.log(data)
+
+  console.log(state)
   // const navigate = useNavigate();
   const handleChange = (newValue: number) => {
     setValue(newValue);
@@ -30,6 +39,7 @@ const DetailExam = () => {
 
   return (
     <div className="flex flex-col h-full relative">
+      <h2>DMM</h2>
       {/* <div className="flex flex-row container mx-auto gap-5 my-10">
         {selectedExam.map((test) => (
           <div className="w-full md:w-3/4 relative">

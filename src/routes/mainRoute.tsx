@@ -1,4 +1,4 @@
-import { Navigate, RouteObject } from 'react-router-dom';
+import { RouteObject } from 'react-router-dom';
 
 import NotFoundPage from '../pages/NotFound';
 import {
@@ -19,7 +19,7 @@ import {
   DeleteAccount,
   RootLayout,
 } from './imports';
-// import NotFoundPage from '../pages/NotFound';
+
 import Speaking from '../pages/Exams/Speaking';
 
 export const mainRoute: RouteObject = {
@@ -35,34 +35,17 @@ export const mainRoute: RouteObject = {
       element: <ExamsPage />,
       children: [
         {
-          path: 'Writing/:skill',
-          element: <Writing />,
+          path: ':type/:partId',
+          element: <DetailExam />,
           children: [
             {
-              path: ':partId',
+              path: ':question',
               element: <Writing />,
             },
           ],
         },
-        // {
-        //   path: 'Speaking/:skill',
-        //   element: <DetailExam />,
-        //   children: [
-        //     {
-        //       path: ':detail',
-        //       element: <Speaking />,
-        //     },
-        //   ],
-        // },
-
-        // {
-        //   path: ':exam/:part/:section',
-        //   element: <Writing />,
-        //   // element: <NotFoundPage/>
-        // },
         {
-          path: ':exam/:part/:section',
-          // element: <Writing />,
+          path: '*',
           element: (
             <NotFoundPage
               title="404"
@@ -71,30 +54,6 @@ export const mainRoute: RouteObject = {
             />
           ),
         },
-        // {
-        //   path: ':exam/:part/writing',
-        //   element: <Writing />,
-        // },
-        // {
-        //   path: ':exam/:part/speaking',
-        //   element: <Speaking />,
-        // },
-        // {
-        //   path: ':exam/:part/writing',
-        //   element: <Writing />,
-        // },
-        // {
-        //   path: ':exam/:part/speaking',
-        //   element: <Speaking />,
-        // },
-        // {
-        //   path: 'listening/:id',
-        //   element: <h1>Not Available</h1>,
-        // },
-        // {
-        //   path: 'reading/:id',
-        //   element: <h1>Not Available</h1>,
-        // },
       ],
     },
     {
