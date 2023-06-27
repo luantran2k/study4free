@@ -1,23 +1,5 @@
 import { ChangeEvent, useState } from 'react';
 
-// const exams = {
-//   id: 1,
-//   cambridge: 14,
-//   test: 1,
-//   skill: 'writing',
-//   task: [
-//     {
-//       topic:
-//         'The graph below gives information about the percentage of the population in four Asian countries living in cities from 1970 to 2020, with predictions for 2030 and 2040.Summarise the information by selecting and reporting the main features, and make comparisons where relevant.',
-//       imageTopic:
-//         'https://study4.com/media/uploads/editor/study4/2023/06/09/screen-shot-2023-06-09-at-82718-pm.png',
-//     },
-//     {
-//       topic:
-//         'The most important aim of science should be to improve people’s lives. To what extent do you agree or disagree with this statement?Give reasons for your answer and include any relevant examples from your own knowledge or experience.',
-//     },
-//   ],
-// };
 interface Props {
   index: number;
 }
@@ -33,6 +15,8 @@ const NoteInfo = ({ index }: Props) => {
     updatedArr[index] = e.target.value;
     setNote(updatedArr);
   };
+  console.log(note, index);
+
   return (
     <div>
       <button
@@ -59,4 +43,4 @@ const NoteInfo = ({ index }: Props) => {
   );
 };
 
-export default NoteInfo
+export default NoteInfo;
