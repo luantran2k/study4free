@@ -1,12 +1,13 @@
 import { RouteObject } from 'react-router-dom';
 import UsersAdminPage from '../pages/Admin/Users';
 import { AdminPage, EditExam, ExamsAdminPage } from './imports';
+import AdminDashboard from '../pages/Admin/Dashboard';
 
 export const adminRoutes: RouteObject = {
   path: '/admin',
   element: <AdminPage />,
   children: [
-    { index: true, element: <h1>Dashboard</h1> },
+    { index: true, element: <AdminDashboard /> },
     {
       path: 'users',
       element: <UsersAdminPage />,
@@ -14,7 +15,6 @@ export const adminRoutes: RouteObject = {
     {
       path: 'exams',
       element: <ExamsAdminPage />,
-      children: [{ path: ':id', element: <h1>Exam id</h1> }],
     },
     {
       path: 'exams/edit/:id',

@@ -120,12 +120,12 @@ function ExamsAdminPage() {
         <div className="overflow-auto">
           <table className="table table-zebra">
             <thead>
-              <tr className="bg-blue-200 [&>th]:py-4 [&>th]:text-black [&>th]:text-[1rem]">
+              <tr className="bg-blue-900 [&>th]:text-white [&>th]:py-6  [&>th]:text-[1rem]">
                 <th></th>
                 <th>Title</th>
                 <th>Type</th>
                 <th>Sections</th>
-                <th>Duration(minutes)</th>
+                <th>Duration(min)</th>
                 <th>Is Paid</th>
                 <th>Upload Date</th>
                 <th></th>
@@ -134,7 +134,7 @@ function ExamsAdminPage() {
             </thead>
             <tbody>
               {exams?.map((exam, index) => (
-                <tr key={exam.id}>
+                <tr key={exam.id} className="[&>td]:py-6 ">
                   <td className="font-bold">{quantity * page + index + 1}</td>
                   <td>{exam.title}</td>
                   <td>{exam.type}</td>
