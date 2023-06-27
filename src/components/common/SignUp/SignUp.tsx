@@ -57,14 +57,14 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
   return (
     <form
       onSubmit={handleSubmit(handleSignup)}
-      className="px-16 py-12  border-2 rounded-md shadow-lg bg-red-300"
+      className="px-16 py-12  border-2 rounded-xl w-full shadow-lg bg-white shadow-sky-300"
     >
-      <div className="flex flex-col gap-5 mb-6">
-        <div className="flex flex-col md:flex-row gap-5">
-          <div className="w-full md:w-1/2">
+      <div className="flex flex-col gap-5 mb-8">
+        <div className="flex flex-col xl:flex-row gap-5">
+          <div className="w-full xl:w-1/2">
             <div className="form-control">
               <label className="label">
-                <p className="label-text text-md text-white uppercase">
+                <p className="label-text text-md text-black font-semibold uppercase">
                   Username
                 </p>
               </label>
@@ -72,21 +72,21 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
                 <input
                   type="text"
                   placeholder="Enter Username"
-                  className="input input-bordered w-full"
+                  className={`input input-bordered focus:outline-none w-full ${errors.username?.message ? "border-red-400" : "border-sky-400"}`}
                   {...register('username')}
                 />
               </label>
             </div>
             {errors.username?.message && (
-              <p className="mt-2 text-xl italic text-green-600">
+              <p className="mt-2 text-lg italic text-red-400">
                 {errors.username?.message}
               </p>
             )}
           </div>
-          <div className="w-full md:w-1/2">
+          <div className="w-full xl:w-1/2">
             <div className="form-control">
               <label className="label">
-                <p className="label-text text-md text-white uppercase">
+                <p className="label-text text-md text-black font-semibold uppercase">
                   E-mail
                 </p>
               </label>
@@ -94,24 +94,24 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
                 <input
                   type="text"
                   placeholder="Enter your E-mail"
-                  className="input input-bordered w-full"
+                  className={`input input-bordered focus:outline-none w-full ${errors.email?.message ? "border-red-400" : "border-sky-400"}`}
                   {...register('email')}
                 />
               </label>
             </div>
             {errors.email?.message && (
-              <p className="mt-2 text-xl italic text-green-600">
+              <p className="mt-2 text-lg italic text-red-400">
                 {errors.email?.message}
               </p>
             )}
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-5 transition-all">
-          <div className="w-full md:w-1/2">
+        <div className="flex flex-col xl:flex-row gap-5 transition-all">
+          <div className="w-full xl:w-1/2">
             <div className="form-control">
               <label className="label">
-                <p className="label-text text-md text-white uppercase">
+                <p className="label-text text-md text-black font-semibold uppercase">
                   Password
                 </p>
               </label>
@@ -119,21 +119,21 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
                 <input
                   type="password"
                   placeholder="Enter password"
-                  className="input input-bordered w-full"
+                  className={`input input-bordered focus:outline-none w-full ${errors.password?.message ? "border-red-400" : "border-sky-400"}`}
                   {...register('password')}
                 />
               </label>
             </div>
             {errors.password?.message && (
-              <p className="mt-2 text-xl italic text-green-600">
+              <p className="mt-2 text-lg italic text-red-400">
                 {errors.password?.message}
               </p>
             )}
           </div>
-          <div className="w-full md:w-1/2">
+          <div className="w-full xl:w-1/2">
             <div className="form-control">
               <label className="label">
-                <p className="label-text text-md text-white uppercase">
+                <p className="label-text text-md text-black font-semibold uppercase">
                   Password Again{' '}
                 </p>
               </label>
@@ -141,13 +141,13 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
                 <input
                   type="password"
                   placeholder="Confirm password"
-                  className="input input-bordered w-full"
+                  className={`input input-bordered focus:outline-none w-full ${errors.repassword?.message ? "border-red-400" : "border-sky-400"}`}
                   {...register('repassword')}
                 />
               </label>
             </div>
             {errors.repassword?.message && (
-              <p className="mt-2 text-xl italic text-green-600">
+              <p className="mt-2 text-lg italic text-red-400">
                 {errors.repassword?.message}
               </p>
             )}
@@ -156,7 +156,7 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
       </div>
       <button
         type="submit"
-        className="px-8  transition-colors text-white bg-red-400 hover:bg-red-500 rounded-md hover:shadow-md py-2 text-lg font-semibold"
+        className="px-8  transition-colors text-white font-semibold bg-blue-400 hover:bg-blue-500 rounded-md hover:shadow-md py-2 text-lg w-full"
       >
         Register
       </button>

@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import Thumb from '../../assets/images/thumbEnglish.jpg';
+import Thumb from '../../assets/images/study.jpg';
 import Logo from '../../assets/images/logo.png';
 import React, { lazy, useEffect, useState } from 'react';
 import {
@@ -12,24 +12,6 @@ import LoadingAnimate from '../../components/common/LoadingAnimate';
 
 const Pagination = lazy(() => import('../../components/common/Pagination'));
 
-const newPag = {
-  totalPage: 5,
-  currentPage: 1,
-  quantity: 40,
-  quantityOptions: [1, 2, 3],
-  onChangePage: () => {
-    return;
-  },
-  onChangeQuantity: () => {
-    return;
-  },
-  onNextClick: () => {
-    return;
-  },
-  onPreviousClick: () => {
-    return;
-  },
-};
 
 function VocabulariesPage() {
   const { pathname } = useLocation();
@@ -37,6 +19,7 @@ function VocabulariesPage() {
 
   const [addNewCollectionHook] = useAddNewCollectionMutation();
   const [inputContent, setInputContent] = useState<string>('');
+  const [filteredData, setFilteredData] = useState<any[]>([]); // Initialize with an empty array
 
   const handleInputTitle = (e: any) => {
     // setInputContent(e.target.value)
@@ -44,7 +27,7 @@ function VocabulariesPage() {
   };
 
   const addNewCollection = async () => {
-    if(localStorage.getItem('user') === null) {
+    if (localStorage.getItem('user') === null) {
       notify(NOTIFICATION_TYPE.ERROR, 'You have to log-in first!!!')
     } else {
       if (inputContent.trim() !== '') {
@@ -60,15 +43,55 @@ function VocabulariesPage() {
       }
     }
   };
+
+  useEffect(() => {
+    // Update the filteredData state when data changes
+    if (isSuccess && data) {
+      setFilteredData(data);
+    }
+  }, [data, isSuccess]);
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(0);
+  const [quantity, setQuantity] = useState(4);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handleQuantityChange = (quantity: number) => {
+    setQuantity(quantity);
+  };
+
+  const handleNextClick = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePreviousClick = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  // Paginated data based on current page and quantity
+  const paginatedData = filteredData.slice(
+    currentPage * quantity,
+    (currentPage + 1) * quantity
+  );
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
   }, [pathname]);
-  if(!isSuccess) {
+  
+  useEffect(() => {
+    // Reset the current page to 0 when the quantity option is changed
+    setCurrentPage(0);
+  }, [quantity]);
+  if (!isSuccess) {
     return <LoadingAnimate />
   }
+
 
   return (
     <React.Fragment>
@@ -76,7 +99,10 @@ function VocabulariesPage() {
         <h2>VOCABULARY</h2>
       </div>
       <div className="container mx-auto py-[3rem]">
-        <img src={Thumb} alt="" className="w-[100%]" />
+        <div className="mb-10 bg-center bg-cover bg-no-repeat h-[400px]" style={{
+          backgroundImage: `url(${Thumb})`
+        }}>
+        </div>
         {pathname === '/vocabularies' ? (
           <div className="max-sm:px-[10px] p-[3rem] flex gap-3 flex-col items-start">
             <div className="w-[100%]">
@@ -100,29 +126,33 @@ function VocabulariesPage() {
         )}
         <div className="mb-[20px] grid grid-cols-12 gap-[30px] max-sm:px-[10px] p-[3rem]">
           {pathname === '/vocabularies' ? (
-            data?.map((item: ICollection, index: number) => {
-              if(item.title !== 'Vocabs from other users') {
-                return (
-                  <Link
-                    to={item.title}
-                    state={item}
-                    key={index}
-                    className="max-md:col-span-6 max-sm:col-span-12 p-[20px] bg-[#f8f9fa] col-span-3 font-medium text-[18px] cursor-pointer 
+            paginatedData?.length && (
+              <>
+                {paginatedData?.map((item: ICollection, index: number) => {
+                  if (item.title !== 'Vocabs from other users') {
+                    return (
+                      <Link
+                        to={item.title}
+                        state={item}
+                        key={index}
+                        className="max-md:col-span-6 max-sm:col-span-12 p-[20px] bg-[#f8f9fa] col-span-3 font-medium text-[18px] cursor-pointer 
                   rounded-xl shadow-md hover:shadow-lg transition-all"
-                  >
-                    <span>{item.title}</span>
-                    <div className="w-[60px] h-[60px] my-[20px]">
-                      <img
-                        className="w-[100%] h-[100%] object-contain"
-                        src={Logo}
-                        alt=""
-                      />
-                    </div>
-                  </Link>
-                );
-              }
-              
-            })
+                      >
+                        <span>{item.title}</span>
+                        <div className="w-[60px] h-[60px] my-[20px]">
+                          <img
+                            className="w-[100%] h-[100%] object-contain"
+                            src={Logo}
+                            alt=""
+                          />
+                        </div>
+                      </Link>
+                    );
+                  }
+
+                })}
+              </>
+            )
           ) : (
             <div className="col-span-12">
               <Outlet />
@@ -131,7 +161,14 @@ function VocabulariesPage() {
         </div>
 
         <div className="flex my-[30px] justify-center">
-          <Pagination {...newPag} />
+          <Pagination totalPage={filteredData ? Math.ceil(filteredData.length / quantity) : 0}
+            currentPage={currentPage}
+            quantity={quantity}
+            quantityOptions={[4, 8, 12]}
+            onChangePage={handlePageChange}
+            onChangeQuantity={handleQuantityChange}
+            onNextClick={handleNextClick}
+            onPreviousClick={handlePreviousClick} />
         </div>
       </div>
     </React.Fragment>
