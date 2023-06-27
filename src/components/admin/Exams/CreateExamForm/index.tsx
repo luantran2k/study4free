@@ -21,9 +21,6 @@ function CreateExamForm({ modalId }: { modalId: string }) {
       isNeedPaid: false,
     },
   });
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
 
   const [createExam, { isLoading }] = useCreateExamMutation();
 
@@ -65,7 +62,7 @@ function CreateExamForm({ modalId }: { modalId: string }) {
           <p className="text-error">{errors.description?.message}</p>
         </div>
         <div>
-          <label htmlFor="">Duration</label>
+          <label htmlFor="">Duration (Minutes)</label>
           <input
             className="input input-bordered"
             type="number"

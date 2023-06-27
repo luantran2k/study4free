@@ -21,6 +21,8 @@ import {
 } from './imports';
 
 import Speaking from '../pages/Exams/Speaking';
+import Reading from '../pages/Exams/Reading';
+import Listening from '../pages/Exams/Listening';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -35,25 +37,21 @@ export const mainRoute: RouteObject = {
       element: <ExamsPage />,
       children: [
         {
-          path: ':type/:partId',
-          element: <DetailExam />,
-          // children: [
-          //   {
-          //     path: ':question',
-          //     element: <Writing />,
-          //   },
-          // ],
+          path: 'writing/:skill',
+          element: <Writing />,
         },
-        // {
-        //   path: 'Speaking/:skill',
-        //   element: <Speaking />,
-        //   children: [
-        //     {
-        //       path: ':partId',
-        //       element: <Speaking />,
-        //     },
-        //   ],
-        // },
+        {
+          path: 'speaking/:skill',
+          element: <Speaking />,
+        },
+        {
+          path: 'reading/:skill',
+          element: <Reading />,
+        },
+        {
+          path: 'listening/:skill',
+          element: <Listening />,
+        },
       ],
     },
     {
