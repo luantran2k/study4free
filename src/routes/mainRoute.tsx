@@ -38,8 +38,13 @@ export const mainRoute: RouteObject = {
           element: <DetailExam />,
         },
         {
-          path: ':examId/:section/:sectionId/:partId', // "section/sectionId"
+          path: ':examId/:section/:sectionId', // "section/sectionId"
           element: <ExamPart />,
+          children: [
+            {
+              path: ':partId',
+            },
+          ],
         },
       ],
     },

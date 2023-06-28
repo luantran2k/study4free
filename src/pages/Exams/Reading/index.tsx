@@ -1,79 +1,65 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { IReadingAnswer } from '../../../interfaces/Reading';
-import { ISectionResponse } from '../../../interfaces/SectionResponse';
-import { useGetPartByIdQuery } from '../../../store/queries/exams';
+import { Outlet, useParams } from 'react-router-dom';
+import LoadingAnimate from '../../../components/common/LoadingAnimate';
+import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
 import NavigationTest from '../commonComponent/navigationTest';
+import ReadingPart from '../../../components/exam/ReadingPart';
 
 const Reading = () => {
-  const [index, setIndex] = useState<number>(0);
   const { sectionId = '', partId: partIdParam } = useParams();
-  const [partId, setPartId] = useState<string>(partIdParam as string);
-  const [answersArr, setAnswersArr] = useState<ISectionResponse>({
-    id: sectionId,
+  const {
+    data: sectionData,
+    isLoading,
+    isError,
+  } = useGetPartIdsBySectionIdQuery({
     section: 'Reading',
-    questions: [{ id: partId, answers: [] }],
+    sectionId,
   });
 
-  const { data, isSuccess, error, isLoading } = useGetPartByIdQuery({
-    section: 'Reading',
-    partId: partId,
-  });
+  console.log(sectionData);
 
-  const handleTask = (task: string) => {
-    console.log(task);
-    setPartId(task);
-  };
+  if (isLoading) {
+    return <LoadingAnimate />;
+  }
 
-  const handleIndex = (index: number) => {
-    setIndex(index);
-  };
-  useEffect(() => {
-    if (partId !== '') {
-      setAnswersArr((prev: ISectionResponse) => {
-        const questionExists = prev.questions.some(
-          (question) => question.id === partId
-        );
-        if (!questionExists) {
-          const updatedQuestions = [
-            ...prev.questions.filter((question) => {
-              return question.id !== '';
-            }),
-            { id: partId, answers: [], questionType: 'Gap filling' },
-          ];
-          return { ...prev, questions: updatedQuestions };
-        }
-        return prev;
-      });
-    }
-  }, [partId]);
+  if (isError || !sectionData) {
+    return <p>Error</p>;
+  }
 
-  const handleGetValue = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    item: IReadingAnswer
-  ) => {
-    setAnswersArr((prev: ISectionResponse) => {
-      const updatedQuestions = prev.questions.map((question) => {
-        if (question.id === partId) {
-          const updatedAnswers = question.answers;
-          const existingAnswerIndex = updatedAnswers.findIndex(
-            (answer) => answer.id === item.id
-          );
-          if (existingAnswerIndex !== -1) {
-            updatedAnswers[existingAnswerIndex] = {
-              id: item.id,
-              value: e.target.value.trim(),
-            };
-          } else {
-            updatedAnswers.push({ id: item.id, value: e.target.value.trim() });
-          }
-          return { ...question, answers: updatedAnswers };
-        }
-        return question;
-      });
-      return { ...prev, questions: updatedQuestions };
-    });
-  };
+  // const handleTask = (task: string) => {
+  //   console.log(task);
+  //   setPartId(task);
+  // };
+
+  // const handleIndex = (index: number) => {
+  //   setIndex(index);
+  // };
+
+  // const handleGetValue = (
+  //   e: React.ChangeEvent<HTMLInputElement>,
+  //   item: IReadingAnswer
+  // ) => {
+  //   setAnswersArr((prev: ISectionResponse) => {
+  //     const updatedQuestions = prev.questions.map((question) => {
+  //       if (question.id === partId) {
+  //         const updatedAnswers = question.answers;
+  //         const existingAnswerIndex = updatedAnswers.findIndex(
+  //           (answer) => answer.id === item.id
+  //         );
+  //         if (existingAnswerIndex !== -1) {
+  //           updatedAnswers[existingAnswerIndex] = {
+  //             id: item.id,
+  //             value: e.target.value.trim(),
+  //           };
+  //         } else {
+  //           updatedAnswers.push({ id: item.id, value: e.target.value.trim() });
+  //         }
+  //         return { ...question, answers: updatedAnswers };
+  //       }
+  //       return question;
+  //     });
+  //     return { ...prev, questions: updatedQuestions };
+  //   });
+  // };
 
   return (
     <div className="bg-[#f8f9fa]">
@@ -84,7 +70,7 @@ const Reading = () => {
         </button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-12 w-[90%] mx-auto py-[2rem] gap-[1rem] border-b-2 ">
-        <div className="col-span-12 md:col-span-9 grid grid-cols-1 md:grid-cols-12  bg-[#fff] rounded-xl shadow-2xl py-[2rem]">
+        {/* <div className="col-span-12 md:col-span-9 grid grid-cols-1 md:grid-cols-12  bg-[#fff] rounded-xl shadow-2xl py-[2rem]">
           <div className="xl:col-span-7 col-span-12 px-[1rem] bg-[#f8f9fa] h-[40rem] overflow-y-auto">
             <p className="tex-[1rem] font-bold uppercase my-[1rem]">
               {data?.title}
@@ -138,12 +124,14 @@ const Reading = () => {
               })}
             </div>
           </div>
-        </div>
+        </div> */}
+        <ReadingPart />
         <div className="col-span-12 md:col-span-3 ">
           <NavigationTest
-            handleTask={handleTask}
-            handleIndex={handleIndex}
-            defaultPartId={partId}
+            partIds={sectionData.parts.map((part) => part.id)}
+            // handleTask={handleTask}
+            // handleIndex={handleIndex}
+            // defaultPartId={partId}
           />
         </div>
       </div>

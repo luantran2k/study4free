@@ -6,6 +6,7 @@ import Writing from '../Writing';
 
 const ExamPart = () => {
   const { section } = useParams();
+  console.log(section);
   return (
     <>
       {section === 'Speaking' ? (

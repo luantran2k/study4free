@@ -119,7 +119,11 @@ const DetailExam = () => {
 
             <NavLink
               className="btn btn-success text-white"
-              to={`${exam.sections.id}`}
+              to={`${
+                exam.sections[
+                  (section?.toLowerCase() + 'SectionId') as keyof ExamSection
+                ]
+              }`}
             >
               Start Exam
             </NavLink>
