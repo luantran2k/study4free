@@ -158,9 +158,7 @@ const Header = () => {
                           : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
                       }
                     >
-                      {userInformation.roles.length > 1
-                        ? userInformation.roles[1]
-                        : userInformation.roles[0]}
+                      {name}
                     </NavLink>
                   ) : (
                     <NavLink
@@ -203,9 +201,7 @@ const Header = () => {
                     : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
                 }
               >
-                {userInformation.roles.length > 1
-                  ? userInformation.roles[1]
-                  : userInformation.roles[0]}
+                {name}
               </NavLink>
             ) : (
               <NavLink

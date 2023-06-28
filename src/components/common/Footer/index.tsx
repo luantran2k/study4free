@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import Cambridge from "../../../assets/images/Cambridge";
+import { Link } from 'react-router-dom';
+import Cambridge from '../../../assets/images/Cambridge';
 
 const Footer = () => {
   return (
@@ -19,39 +19,23 @@ const Footer = () => {
             Lorem ipsum dolor sit amet, onsectetur adipiscing elit. Morbi at
             egestas magna.
           </p>
-          <button className="border-2 px-[1rem] py-[0.5rem] my-[0.5rem]">
-            Learning now
-          </button>
         </div>
         <div className="flex flex-col gap-[1rem]">
           <div className="text-[1.25rem] font-bold uppercase">
             Popular examinations
           </div>
           <div className="flex items-center gap-[2rem]">
-            <img
-              className="w-[3rem] h-[3rem]"
-              alt=""
-              src={Cambridge}
-            />
+            <img className="w-[3rem] h-[3rem]" alt="" src={Cambridge} />
             Cambridge 15
           </div>
           <div className="flex items-center gap-[2rem]">
-            <img
-              className="w-[3rem] h-[3rem]"
-              alt=""
-              src={Cambridge}
-            />
+            <img className="w-[3rem] h-[3rem]" alt="" src={Cambridge} />
             Cambridge 15
           </div>
           <div className="flex items-center gap-[2rem]">
-            <img
-              className="w-[3rem] h-[3rem]"
-              alt=""
-              src={Cambridge}
-            />
+            <img className="w-[3rem] h-[3rem]" alt="" src={Cambridge} />
             Cambridge 15
           </div>
-     
         </div>
         <div className="flex flex-col gap-[0.5rem]">
           <div className="text-[1.25rem] font-bold uppercase ">Pages</div>

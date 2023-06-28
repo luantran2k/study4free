@@ -13,25 +13,25 @@ export const ourTeams = [
     name: 'LongDT29',
     role: 'Team leader',
     avatar: avatarUser,
-    animate: 'zoom-out-left',
+    animate: 'zoom-in-down',
   },
   {
     name: 'LuanTV9',
     role: 'Team member',
     avatar: avatarUser,
-    animate: 'zoom-out-up',
+    animate: 'zoom-in-down',
   },
   {
     name: 'MinhDV9',
     role: 'Team member',
     avatar: avatarUser,
-    animate: 'zoom-out-down',
+    animate: 'zoom-in-down',
   },
   {
     name: 'HuanNH6',
     role: 'Team member',
     avatar: avatarUser,
-    animate: 'zoom-out-right',
+    animate: 'zoom-in-down',
   },
 ];
 
@@ -48,7 +48,7 @@ export const paymentBoard = [
       'Score your answer',
       'Static your result',
     ],
-    animate: 'fade-left',
+    animate: 'zoom-in-left',
   },
   {
     package: 'Best seller',
@@ -62,7 +62,7 @@ export const paymentBoard = [
       'Score your answer',
       'Static your result',
     ],
-    animate: 'fade-up',
+    animate: 'zoom-in-up',
   },
   {
     package: 'Ultra package',
@@ -76,29 +76,29 @@ export const paymentBoard = [
       'Score your answer',
       'Static your result',
     ],
-    animate: 'fade-right',
+    animate: 'zoom-in-right',
   },
 ];
 export const skillArr = [
   {
     name: 'Listening',
     component: <ListeningIcon width={'6rem'} height={'6rem'} fill="" />,
-    animate: 'fade-right',
+    animate: 'zoom-in-up',
   },
   {
     name: 'Reading',
     component: <ReadingIcon width={'6rem'} height={'6rem'} fill="" />,
-    animate: 'fade-up',
+    animate: 'zoom-in-up',
   },
   {
     name: 'Writing',
     component: <WritingIcon width={'6rem'} height={'6rem'} fill="" />,
-    animate: 'fade-down',
+    animate: 'zoom-in-up',
   },
   {
     name: 'Speaking',
     component: <SpeakingIcon width={'6rem'} height={'6rem'} fill="" />,
-    animate: 'fade-left',
+    animate: 'zoom-in-up',
   },
 ];
 export const achievementArr = [
@@ -106,24 +106,24 @@ export const achievementArr = [
     icon: <EarthIcon width={'4rem'} height="4rem" fill="#fff" />,
     quantity: '94532',
     subtitle: 'Foreign Follower',
-    animate: 'fade-right',
+    animate: 'zoom-in-right',
   },
   {
     icon: <BellIcon width={'4rem'} height="4rem" fill="#fff" />,
     quantity: '  11223',
     subtitle: 'Student enrolled',
-    animate: 'fade-up',
+    animate: 'zoom-in-up',
   },
   {
     icon: <MultiUsersIcon width={'4rem'} height="4rem" fill="#fff" />,
     quantity: '415163',
     subtitle: 'Foreign Follower',
-    animate: 'fade-down',
+    animate: 'zoom-in-down',
   },
   {
     icon: <BagIcon width={'4rem'} height="4rem" fill="#fff" />,
     quantity: '69',
     subtitle: 'Certified teachers',
-    animate: 'fade-left',
+    animate: 'zoom-in-left',
   },
 ];
