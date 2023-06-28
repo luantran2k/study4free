@@ -11,6 +11,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 import { ChangeEvent, useState } from 'react';
+import ToDo from '../../interfaces/Todo';
 
 function Reminder() {
   const user = useSelector((state: RootState) => state.auth.userInformation);
@@ -39,6 +40,20 @@ function Reminder() {
 
   const handleHiddenModal = () => {
     document.getElementById('btnClose')?.click();
+  }
+
+  const bubbleSort = (array: ToDo[]) => {
+    console.log(array)
+    for (let i = 0; i < array.length; i++) {
+      for (let j = 0; j < array.length - i; j++) {
+        if(new Date(array[j].time) > new Date(array[i].time)) {
+          const temp = array[j]
+          array[j] = array[i]
+          array[i] = temp
+        }
+      }
+    }
+    return array;
   }
 
   const handleCompleteToDo = (e: any, value: any) => {
@@ -124,7 +139,7 @@ function Reminder() {
         </dialog>
 
         <div className="mt-[20px] flex flex-row ms-3 gap-3 flex-wrap">
-          {data.todos.map((value: any, index: number) => {
+          {data.todos.toSorted((todo1: ToDo, todo2: ToDo) => (new Date(todo1.time).getTime() - new Date(todo2.time).getTime())).map((value: ToDo, index: number) => {
             const date = new Date(value.time);
             const year = date.getFullYear();
             const month = date.getMonth() + 1;
