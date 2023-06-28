@@ -111,7 +111,7 @@ function HomePage() {
                 data-aos-offset="50"
                 data-aos-duration="500"
                 data-aos-delay="800"
-                className="m-auto cursor-pointer hover-scale flex flex-col px-[40px] py-[24px] bg-white rounded-full"
+                className="m-auto  flex flex-col px-[40px] py-[24px] bg-white rounded-full"
               >
                 {item.component}
                 <div className="text-center text-[24px] font-bold text-orange-500">
