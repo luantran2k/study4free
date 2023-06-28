@@ -27,6 +27,20 @@ const Authentication = lazy(
   () => import('../pages/Authentication/Authentication')
 );
 
+const Speaking = lazy(() => import('../pages/Exams/Speaking'));
+const Listening = lazy(() => import('../pages/Exams/Listening'));
+const Reading = lazy(() => import('../pages/Exams/Reading'));
+
+const NavigationTest = lazy(() => import('../pages/Exams/commonComponent/navigationTest'));
+const NoteInfo = lazy(() => import('../pages/Exams/commonComponent/noteInfo'));
+
+const CreateExamForm = lazy(
+  () => import('../components/admin/Exams/CreateExamForm')
+);
+const Modal = lazy(() => import('../components/common/Modal'));
+const Pagination = lazy(() => import('../components/common/Pagination'));
+
+
 // ADMIN ROUTE
 const AdminPage = lazy(() => import('../pages/Admin'));
 const ExamsAdminPage = lazy(() => import('../pages/Admin/Exams'));
@@ -53,4 +67,12 @@ export {
   VocabulariesPage,
   VocabularyDetail,
   Writing,
+  Speaking,
+  Listening,
+  Reading,
+  NavigationTest,
+  NoteInfo,
+  CreateExamForm,
+  Modal,
+  Pagination
 };

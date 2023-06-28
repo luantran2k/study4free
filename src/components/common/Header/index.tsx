@@ -11,7 +11,7 @@ const Chat = lazy(() => import('../Chat'));
 
 const Header = () => {
   const [isOpenNavBar, setOpenNavBar] = useState<boolean>(false);
-  const { name, userInformation } = useAppSelector(selectAuth);
+  const { name } = useAppSelector(selectAuth);
 
   const [intersection, setIntersection] = useState<boolean>(false);
   const toggleNavBar = () => {
@@ -33,6 +33,11 @@ const Header = () => {
     } else setIntersection(false);
   }, [inView]);
 
+
+  const navLinkItems = [
+    { to: '/', name: 'Home' }, { to: 'exams', name: 'Examinations' },
+    { to: 'vocabularies', name: 'Vocabulary' }, { to: 'grammar', name: 'Grammar' }
+  ]
   return (
     <>
       <nav
@@ -58,93 +63,39 @@ const Header = () => {
             <MenuIcon width={'16px'} height={'16px'} fill={'currentColor'} />
           </button>
           <div
-            className={`${
-              isOpenNavBar ? 'block' : 'hidden'
-            } w-full md:block md:w-auto max-md:absolute top-[80px] left-0 bg-white transition-all z-10`}
+            className={`${isOpenNavBar ? 'block' : 'hidden'
+              } w-full md:block md:w-auto max-md:absolute top-[80px] left-0 bg-white transition-all z-10`}
             id="navbar-dropdown"
           >
             <ul
               className="flex flex-col mt-0 uppercase font-semibold text-[#000] p-4 md:p-0 border text-[1rem]  md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
               onClick={closeNavBar}
             >
-              <li>
-                <NavLink
-                  to={'/'}
-                  style={{
-                    display: 'block',
-                    padding: '8px 0.75rem',
-                  }}
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? 'pending'
-                      : isActive
-                      ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
-                      : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
-                  }
-                >
-                  Home
-                </NavLink>
-              </li>
-
-              <li>
-                <NavLink
-                  to={'exams'}
-                  style={{
-                    display: 'block',
-                    padding: '8px 0.75rem',
-                  }}
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? 'pending'
-                      : isActive
-                      ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
-                      : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
-                  }
-                >
-                  Examinations
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to={'/vocabularies'}
-                  style={{
-                    display: 'block',
-                    padding: '8px 0.75rem',
-                  }}
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? 'pending'
-                      : isActive
-                      ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
-                      : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
-                  }
-                >
-                  Vocabulary
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to={'/grammar'}
-                  style={{
-                    display: 'block',
-                    padding: '8px 0.75rem',
-                  }}
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? 'pending'
-                      : isActive
-                      ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
-                      : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
-                  }
-                >
-                  Grammar
-                </NavLink>
-              </li>
+              {navLinkItems.map(({ name, to }, index) => (
+                <li key={index}>
+                  <NavLink
+                    to={to}
+                    style={{
+                      display: 'block',
+                      padding: '8px 0.75rem',
+                    }}
+                    className={({ isActive, isPending }) =>
+                      isPending
+                        ? 'pending'
+                        : isActive
+                          ? 'bg-sky-600 font-bold text-white md:bg-transparent md:text-blue-600 md:p-0'
+                          : 'text-black hover:bg-sky-300 hover:text-white md:hover:bg-transparent md:hover:rounded-none  md:hover:text-sky-400'
+                    }
+                  >
+                    {name}
+                  </NavLink>
+                </li>
+              ))}
               <li className="mt-10 block md:hidden">
                 <div className="w-fit">
                   {name ? (
                     <NavLink
-                      to={'/users'}
+                      to={'users'}
                       style={{
                         display: 'flex',
                         padding: '8px 1.75rem',
@@ -154,15 +105,15 @@ const Header = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
-                          : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
+                            ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
+                            : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
                       }
                     >
                       {name}
                     </NavLink>
                   ) : (
                     <NavLink
-                      to={'/login'}
+                      to={'login'}
                       style={{
                         display: 'flex',
                         padding: '8px 1.75rem',
@@ -172,8 +123,8 @@ const Header = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
-                          : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
+                            ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
+                            : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
                       }
                     >
                       Login
@@ -187,7 +138,7 @@ const Header = () => {
           <div className="lg:block hidden">
             {name ? (
               <NavLink
-                to={'/users'}
+                to={'users'}
                 style={{
                   display: 'flex',
                   padding: '8px 1.75rem',
@@ -197,15 +148,15 @@ const Header = () => {
                   isPending
                     ? 'pending'
                     : isActive
-                    ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
-                    : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
+                      ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
+                      : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
                 }
               >
                 {name}
               </NavLink>
             ) : (
               <NavLink
-                to={'/login'}
+                to={'login'}
                 style={{
                   display: 'flex',
                   padding: '8px 1.75rem',
@@ -215,8 +166,8 @@ const Header = () => {
                   isPending
                     ? 'pending'
                     : isActive
-                    ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
-                    : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
+                      ? 'bg-sky-400 text-white font-bold shadow-xl text-xl'
+                      : 'bg-gray-400 hover:bg-gray-500 text-white shadow-xl text-lg font-semibold'
                 }
               >
                 Login

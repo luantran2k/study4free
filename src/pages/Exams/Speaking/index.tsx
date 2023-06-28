@@ -1,16 +1,14 @@
-import { lazy, useState } from 'react';
+import { useState } from 'react';
 import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
 import { useGetPartByIdQuery } from '../../../store/queries/exams';
-
-const NavigationTest = lazy(() => import('../commonComponent/navigationTest'));
-const NoteInfo = lazy(() => import('../commonComponent/noteInfo'));
+import { NavigationTest, NoteInfo } from '../../../routes/imports';
 
 const Speaking = () => {
   const [index, setIndex] = useState<number>(0);
   const [partId, setPartId] = useState<string>('');
   const [audioUrl, setAudioUrl] = useState('');
 
-  const { data, isSuccess, error, isLoading } = useGetPartByIdQuery({
+  const { data } = useGetPartByIdQuery({
     section: 'Speaking',
     partId: partId,
   });
@@ -22,7 +20,6 @@ const Speaking = () => {
   const handleIndex = (index: number) => {
     setIndex(index);
   };
-  console.log(index);
 
   const recorderControls = useAudioRecorder();
   const addAudioElement = (blob: any) => {

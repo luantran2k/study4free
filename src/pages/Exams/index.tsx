@@ -19,7 +19,9 @@ function ExamsPage() {
   const { data, isSuccess, error, isLoading } = useGetExamsQuery({
     page: 0,
     quantity: 4,
-    search: '',
+    isNeedPaid: 'All',
+    title: '',
+    type: 'All'
   });
 
   const [filteredData, setFilteredData] = useState<any>([]);

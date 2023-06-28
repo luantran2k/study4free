@@ -366,33 +366,6 @@ function HomePage() {
           })}
         </div>
       </section>
-      {/* <section id="subcribe-email " className="bg-[#2c75e4] ">
-        <div className="w-[80%] m-auto flex flex-col md:flex-row gap-[3rem] text-[#fff] py-[3.5rem] px-[1rem]">
-          <div className="flex flex-col flex-1">
-            <h4 className="pb-[1.25rem] text-[1.25rem]">
-              Subscribe our newsletter
-            </h4>
-            <h5 className="pb-[1rem]">
-              There are many variations of passages of Lorem Ipsum available,
-              but the majority have suffered alteration in some form, by
-              injected humour, or randomised words
-            </h5>
-          </div>
-          <div className="flex-1">
-            <div className="mb-[1rem] text-[1.25rem]">YOUR E-MAIL ADDRESS</div>
-            <div className="flex flex-col md:flex-row gap-y-[1rem]">
-              <input
-                className=" py-[0.75rem] px-[0.5rem] md:flex-1"
-                type="text"
-                placeholder="Enter your E-mail"
-              />
-              <button className="bg-[#273044] py-[0.75rem] px-[0.5rem] md:flex-2">
-                SUBSCRIBES
-              </button>
-            </div>
-          </div>
-        </div>
-      </section> */}
     </>
   );
 }

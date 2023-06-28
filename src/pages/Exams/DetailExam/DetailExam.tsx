@@ -4,12 +4,10 @@ import ClockIcon from '../../../assets/icons/Clock';
 import WriteIcon from '../../../assets/icons/Write';
 import { useGetExamsQuery } from '../../../store/queries/exams';
 
-// import LightOn from '../../../assets/icons/LightOn';
 
 const DetailExam = () => {
   const { type } = useParams();
   const [selectedExam, setSelectedExam] = useState<any>({});
-  const [value, setValue] = React.useState(0);
   const ref = useRef<HTMLDivElement | null>(null);
 
   const { data, isLoading } = useGetExamsQuery({
@@ -17,7 +15,7 @@ const DetailExam = () => {
     quantity: 4,
     title: '',
     isNeedPaid: "All",
-    type:"All"
+    type: "All"
   });
 
   console.log(data);
@@ -86,15 +84,6 @@ const DetailExam = () => {
               >
                 Entry Full Test
               </a>
-              <button
-                className={`tab scroll-smooth tab-bordered tab-lg font-bold
-                                         text-lg hover:text-sky-700 hover:border-sky-700`}
-                onClick={() =>
-                  ref.current?.scrollIntoView({ behavior: 'smooth' })
-                }
-              >
-                Comments
-              </button>
             </div>
 
             <div className="w-full bg-[#ffefd8] p-4 text-[#855a1f] rounded-lg mb-4">
@@ -108,32 +97,6 @@ const DetailExam = () => {
             <NavLink className="btn btn-success text-white" to="asdasdasdas">
               Start Exam
             </NavLink>
-          </div>
-          <div className="p-5 border-2 rounded-2xl" ref={ref}>
-            <p className="text-xl font-bold mb-2">Comments</p>
-            <p className="mb-10">
-              Please{' '}
-              <NavLink className="hover:text-black text-blue-400" to="/login">
-                login
-              </NavLink>{' '}
-              to comment
-            </p>
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-row gap-2 justify-start">
-                <figure className="rounded-[50%] bg-gray-400 flex justify-center items-center p-3 font-bold w-8 h-8">
-                  T
-                </figure>
-                <div className="flex flex-col">
-                  <p>
-                    <span className="font-bold">tranyennhi2006vbhp</span>, June
-                    24, 2023
-                  </p>
-                  <p>
-                    ai giải thích dùm mình tsao câu 13 đáp án B lại sai với ạ
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div className="hidden md:block w-1/4 relative">

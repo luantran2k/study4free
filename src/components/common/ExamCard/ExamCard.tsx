@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import ChatIcon from '../../../assets/icons/Chat';
 import ClockIcon from '../../../assets/icons/Clock';
 import WriteIcon from '../../../assets/icons/Write';
@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 const ExamCard = (props: any) => {
   const [IdArr, setIdArr] = useState([]);
-  const location = useLocation();
+
 
   useEffect(() => {
     const cutArr: any = Object.values(props?.sections);
