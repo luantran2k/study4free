@@ -15,8 +15,6 @@ import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 
 function Collection() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [modeCollection, setModeCollection] = useState<string>('review')
-  const [myChoice, setMyChoice] = useState<number>()
   const user = useSelector((state: RootState) => state.auth.userInformation);
   const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id);
   const [ deleteVocabById ] = useDeleteVocabByIdMutation()
@@ -51,42 +49,6 @@ function Collection() {
     deleteVocabById(id)
   }
 
-  function shuffle(array: number []) {
-    let currentIndex = array.length,  randomIndex;
-  
-    // While there remain elements to shuffle.
-    while (currentIndex != 0) {
-  
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-  
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
-    }
-  
-    return array;
-  }
-
-  const getFourIndex = (firstIndex: number, array: IVocabulary []) => {
-      const store = new Set()
-      while(store.size < 4) {
-        store.clear()
-        store.add(firstIndex)
-        const secondIndex = Math.floor(Math.random() * array.length)
-        store.add(secondIndex)
-        const thirdIndex = Math.floor(Math.random() * array.length)
-        store.add(thirdIndex)
-        const fourIndex = Math.floor(Math.random() * array.length)
-        store.add(fourIndex)
-      }
-      return (shuffle([...store] as number []))
-  }
-  console.log(getFourIndex(currentIndex, myCollection), currentIndex)
-  const handlePracticeMode = () => {
-    setModeCollection('practice')
-  }
   if (isSuccess) {
     return (
       <div className="p-[20px]">
@@ -100,13 +62,11 @@ function Collection() {
             <div className="mb-4 flex justify-center">
               <button
                 className="btn btn-accent me-2 text-white"
-                onClick={() => setModeCollection('review')}
               >
                 Review
               </button>
               <button
                 className="btn btn-success text-white"
-                onClick={handlePracticeMode}
               >
                 Practice
               </button>
@@ -138,7 +98,6 @@ function Collection() {
                     <p className="text-[20px]">
                       {myCollection[currentIndex]?.spelling}
                     </p>
-                    {modeCollection === 'review' ? (
                       <div className="text-left mt-[50px]">
                         <p>
                           <strong>Định nghĩa:</strong>
@@ -146,25 +105,6 @@ function Collection() {
                         <p>{myCollection[currentIndex]?.meaning}</p>
                         <p>{myCollection[currentIndex]?.synonyms}</p>
                       </div>
-                    ) : (
-                      <div className='mt-6 grid grid-cols-12 grid-rows-2 gap-3'>
-                          {
-                            getFourIndex(currentIndex, myCollection).map((value, index) => {
-                              return (
-                                <div
-                                  className={`col-span-6 p-3 border-[#ccc] border-[1px] cursor-pointer rounded-lg ${
-                                    ''
-                                  }`}
-                                  key={index}
-                                  onClick={() => setMyChoice(index)}
-                                >
-                                  {myCollection[value].meaning}
-                                </div>
-                              );
-                            })
-                          }
-                      </div>
-                    )}
                   </div>
                   <div className="mb-6">
                     <button
