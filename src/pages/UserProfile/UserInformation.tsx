@@ -96,9 +96,11 @@ function UserInformation() {
               className="hidden"
               onChange={handleChangeImage}
             />
+            
           </label>
         </div>
       </div>
+      <p className='text-center my-4 text-[12px] text-error font-medium'>*3MB photo size limit</p>
       <form className="grid grid-rows-3" onSubmit={onSubmit}>
         <div className="grid gap-[40px] grid-cols-12 max-md:gap-0">
           <div className="col-span-6 max-md:col-span-12">
