@@ -22,8 +22,6 @@ function ExamsPage() {
     search: '',
   });
 
-
-
   const [filteredData, setFilteredData] = useState<any>([]);
   const [search, setSearch] = useState<string>('');
   const { register, handleSubmit } = useForm<ISearch>();

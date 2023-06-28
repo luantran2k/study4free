@@ -4,24 +4,22 @@ import PlusIcon from '../../assets/icons/plusIcon';
 import { RootState } from '../../store';
 import {
   useAddNewTodoMutation,
-  useChangeStatusToDoMutation,
   useDeleteToDoMutation,
   useGetUserByIdQuery,
 } from '../../store/queries/users';
 import { useForm } from 'react-hook-form';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
-import { ChangeEvent, useState } from 'react';
 
 function Reminder() {
   const user = useSelector((state: RootState) => state.auth.userInformation);
   const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id);
   const [addNewToDo] = useAddNewTodoMutation();
   const [deleteToDoList] = useDeleteToDoMutation();
-  const [changeStatusToDo] = useChangeStatusToDoMutation();
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
   const onSubmit = handleSubmit((dataForm) => {
     addNewToDo(dataForm);
@@ -37,44 +35,14 @@ function Reminder() {
     deleteToDoList(value.id);
   };
 
-  const handleHiddenModal = () => {
-    document.getElementById('btnClose')?.click();
-  }
-
-  const handleCompleteToDo = (e: any, value: any) => {
-      console.log(value)
-      const statusToDo: boolean = e.target.checked
-      if(statusToDo) {
-        changeStatusToDo({
-          id: value.id,
-          newData: {
-            time: value.time,
-            todo: value.todo,
-            completed: true 
-          }
-        })
-      } else {
-        changeStatusToDo({
-          id: value.id,
-          newData: {
-            time: value.time,
-            todo: value.todo,
-            completed: false 
-          }
-        })
-      }
-      console.log(e.target.checked)
-  }
-
   if (isSuccess) {
     return (
       <div className="py-[20px] px-[30px]">
         <h3 className="text-center text-[40px] font-medium my-[30px]">
           Calendar/ Reminder
         </h3>
-
         <button
-          className="btn btn-info text-white ms-3"
+          className="btn btn-primary ms-3"
           onClick={() => window.my_modal_2.showModal()}
         >
           Add new to-do list <PlusIcon />
@@ -106,20 +74,12 @@ function Reminder() {
                 id="todo"
               />
             </div>
-            <div className="flex gap-4">
-              <button type="submit" className="btn btn-info text-white">
-                Add
-              </button>
-              <button type="reset" className="btn btn-error text-white">
-                Reset
-              </button>
-              <button type="button" className="btn btn-neutral text-white" onClick={handleHiddenModal}>
-                Close
-              </button>
-            </div>
+            <button type="submit" className="btn btn-secondary">
+              Add
+            </button>
           </form>
           <form method="dialog" className="modal-backdrop">
-            <button id='btnClose'>close</button>
+            <button>close</button>
           </form>
         </dialog>
 
@@ -131,21 +91,13 @@ function Reminder() {
             const day = date.getDate();
             const hours = date.getHours();
             const minutes = date.getMinutes();
-            const dateNow = new Date()
             return (
               <div key={index} className="bg-white p-3 rounded-2xl shadow-md">
-                <div className='flex justify-between items-center mb-5'>
-                  <p className="text-warning font-medium text-[20px] ">
-                    {`${day}-${month}-${year}    ${hours}:${minutes}`}
-                  </p>
-                  {dateNow > date ? <div className='text-error border-[1px] rounded-3xl py-1 px-4 border-rose-500'>overdue</div> 
-                  : <div className='text-success border-green-500 border-[1px] rounded-3xl py-1 px-4'>undue</div>}
-                </div>
+                <p className="text-warning font-medium text-[20px] mb-5">
+                  {`${day}-${month}-${year}    ${hours}:${minutes}`}
+                </p>
                 <div className="flex justify-between items-center min-w-[250px]">
-                  <div className='flex gap-2'>
-                    <input type="checkbox" onChange={(e) => handleCompleteToDo(e, value)}/>
-                    <p className={`${value.completed ? 'line-through' : ''}`}>{value.todo}</p>
-                  </div>
+                  <p>{value.todo}</p>
                   <div
                     className="cursor-pointer text-error hover:[&_svg]:scale-150 
                   active:[&_svg]:scale-125 [&_svg]:transition-all"
