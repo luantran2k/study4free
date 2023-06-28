@@ -36,7 +36,7 @@ const Reading = () => {
         if (!questionExists) {
           const updatedQuestions = [
             ...prev.questions.filter((question) => question.id !== ''),
-            { id: partId, answers: [] },
+            { id: partId, answers: [], questionType: 'Gap filling' },
           ];
           return { ...prev, questions: updatedQuestions };
         }
