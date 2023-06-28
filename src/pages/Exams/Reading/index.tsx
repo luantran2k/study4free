@@ -9,7 +9,6 @@ const Reading = () => {
   const [index, setIndex] = useState<number>(0);
   const [partId, setPartId] = useState<string>('');
   const location = useLocation();
-  console.log(location);
 
   const [answersArr, setAnswersArr] = useState<ISectionResponse>({
     id: location.pathname.split('/')[3],
@@ -37,13 +36,17 @@ const Reading = () => {
         );
         if (!questionExists) {
           const updatedQuestions = [
-            ...prev.questions.filter((question) => question.id !== ''),
+            ...prev.questions.filter((question) => {
+              console.log(question);
+              return question.id !== '';
+            }),
             { id: partId, answers: [], questionType: 'Gap filling' },
           ];
           return { ...prev, questions: updatedQuestions };
         }
         return prev;
       });
+      console.log(data);
     }
   }, [partId]);
 
@@ -116,7 +119,7 @@ const Reading = () => {
                   <div className="flex gap-[1rem]">
                     <label
                       className="bg-[#e8f2ff] w-[35px] aspect-square flex justify-center items-center rounded-full text-[#35509a] font-bold"
-                      htmlFor={`${index + i}`}
+                      htmlFor={`${index + 1}-${i}`}
                     >
                       {i + 1}
                     </label>
@@ -131,7 +134,7 @@ const Reading = () => {
                           ?.value || ''
                       }
                       onChange={(e) => handleGetValue(e, item)}
-                      name={`${index + 1}`}
+                      name={`${index + 1}-${i}`}
                     />
                   </div>
                 );

@@ -9,11 +9,9 @@ import { useEffect, useMemo } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 import { achievementArr, ourTeams, paymentBoard, skillArr } from './data';
-import { useGetExamByIdQuery } from '../../store/queries/exams';
 
 function HomePage() {
   const navigate = useNavigate();
-  // const userInfo: IUser = useSelector(userInformation);
 
   const userInfo: any = useMemo(() => {
     if (typeof window !== 'undefined') {
