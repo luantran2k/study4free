@@ -15,7 +15,9 @@ const DetailExam = () => {
   const { data, isLoading } = useGetExamsQuery({
     page: 0,
     quantity: 4,
-    search: '',
+    title: '',
+    isNeedPaid: "All",
+    type:"All"
   });
 
   console.log(data);

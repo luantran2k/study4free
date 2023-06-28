@@ -60,8 +60,8 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
       className="px-16 py-12  border-2 rounded-xl w-full shadow-lg bg-white shadow-sky-300"
     >
       <div className="flex flex-col gap-5 mb-8">
-        <div className="flex flex-col xl:flex-row gap-5">
-          <div className="w-full xl:w-1/2">
+        <div className="flex flex-col gap-5">
+          <div className="w-full">
             <div className="form-control">
               <label className="label">
                 <p className="label-text text-md text-black font-semibold uppercase">
@@ -83,7 +83,7 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
               </p>
             )}
           </div>
-          <div className="w-full xl:w-1/2">
+          <div className="w-full">
             <div className="form-control">
               <label className="label">
                 <p className="label-text text-md text-black font-semibold uppercase">
@@ -107,8 +107,8 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
           </div>
         </div>
 
-        <div className="flex flex-col xl:flex-row gap-5 transition-all">
-          <div className="w-full xl:w-1/2">
+        <div className="flex flex-col gap-5 transition-all">
+          <div className="w-full">
             <div className="form-control">
               <label className="label">
                 <p className="label-text text-md text-black font-semibold uppercase">
@@ -130,7 +130,7 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
               </p>
             )}
           </div>
-          <div className="w-full xl:w-1/2">
+          <div className="w-full">
             <div className="form-control">
               <label className="label">
                 <p className="label-text text-md text-black font-semibold uppercase">

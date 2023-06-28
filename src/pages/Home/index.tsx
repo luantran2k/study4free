@@ -5,7 +5,7 @@ import { YoutubeIcon } from '../../assets/icons/youtubeIcon';
 import { GoogleIcon } from '../../assets/icons/googleIcon';
 import { FacebookIcon } from '../../assets/icons/facebookIcon';
 import { CheckIcon } from '../../assets/icons/checkIcon';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 import { achievementArr, ourTeams, paymentBoard, skillArr } from './data';
@@ -33,12 +33,12 @@ function HomePage() {
       notify(NOTIFICATION_TYPE.INFO, 'Please login before you make payment');
     }
   };
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: 'smooth',
+  //   });
+  // }, []);
   return (
     <>
       <section
