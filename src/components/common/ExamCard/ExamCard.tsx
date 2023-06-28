@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import ChatIcon from '../../../assets/icons/Chat';
 import ClockIcon from '../../../assets/icons/Clock';
 import WriteIcon from '../../../assets/icons/Write';
@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 const ExamCard = (props: any) => {
   const [IdArr, setIdArr] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     const cutArr: any = Object.values(props?.sections);
@@ -23,7 +24,6 @@ const ExamCard = (props: any) => {
         </a>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-[#e8f2ff] p-4">
-
         {IdArr?.map((section: any, index: number) => {
           let sectionType = '';
           if (index === 0) {
@@ -37,7 +37,7 @@ const ExamCard = (props: any) => {
           }
           return (
             <NavLink
-              to={`${sectionType.toLowerCase()}/${section}`}
+              to={`${sectionType}/${section}`}
               state={{ sectionType, section, props }}
               className="bg-white rounded-2xl hover:shadow-xl shadow-md w-full hover:-translate-y-2 transition-all p-4 mt-4 flex flex-col justify-between"
             >
@@ -45,7 +45,7 @@ const ExamCard = (props: any) => {
                 {props?.title} {sectionType}
               </h6>
               <p className="text-gray-400 text-lg mb-2 font-semibold">
-                Exam package:   {props?.title}
+                Exam package: {props?.title}
               </p>
               <div className="flex flex-row flex-wrap mb-2 font-medium">
                 <div className="flex flex-row items-center gap-2 border-r-2 border-r-gray-400 px-2">
