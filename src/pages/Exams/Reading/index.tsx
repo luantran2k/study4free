@@ -1,82 +1,63 @@
-import { useEffect, useState } from 'react';
-import { useGetPartByIdQuery } from '../../../store/queries/exams';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import LoadingAnimate from '../../../components/common/LoadingAnimate';
+import ReadingPart from '../../../components/exam/ReadingPart';
+import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
 import NavigationTest from '../commonComponent/navigationTest';
-import { IReadingAnswer } from '../../../interfaces/Reading';
-import { ISectionResponse } from '../../../interfaces/SectionResponse';
-import { useLocation } from 'react-router-dom';
 
 const Reading = () => {
-  const [index, setIndex] = useState<number>(0);
-  const [partId, setPartId] = useState<string>('');
-  const location = useLocation();
-
-  const [answersArr, setAnswersArr] = useState<ISectionResponse>({
-    id: location.pathname.split('/')[3],
+  const { sectionId = '', partId: partIdParam } = useParams();
+  const {
+    data: sectionData,
+    isLoading,
+    isError,
+  } = useGetPartIdsBySectionIdQuery({
     section: 'Reading',
-    questions: [{ id: partId, answers: [] }],
+    sectionId,
   });
 
-  const { data, isSuccess, error, isLoading } = useGetPartByIdQuery({
-    section: 'Reading',
-    partId: partId,
-  });
+  if (isLoading) {
+    return <LoadingAnimate />;
+  }
 
-  const handleTask = (task: string) => {
-    setPartId(task);
-  };
+  if (isError || !sectionData) {
+    return <p>Error</p>;
+  }
 
-  const handleIndex = (index: number) => {
-    setIndex(index);
-  };
-  useEffect(() => {
-    if (partId !== '') {
-      setAnswersArr((prev: ISectionResponse) => {
-        const questionExists = prev.questions.some(
-          (question) => question.id === partId
-        );
-        if (!questionExists) {
-          const updatedQuestions = [
-            ...prev.questions.filter((question) => {
-              console.log(question);
-              return question.id !== '';
-            }),
-            { id: partId, answers: [], questionType: 'Gap filling' },
-          ];
-          return { ...prev, questions: updatedQuestions };
-        }
-        return prev;
-      });
-      console.log(data);
-    }
-  }, [partId]);
+  // const handleTask = (task: string) => {
+  //   console.log(task);
+  //   setPartId(task);
+  // };
 
-  const handleGetValue = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    item: IReadingAnswer
-  ) => {
-    setAnswersArr((prev: ISectionResponse) => {
-      const updatedQuestions = prev.questions.map((question) => {
-        if (question.id === partId) {
-          const updatedAnswers = question.answers;
-          const existingAnswerIndex = updatedAnswers.findIndex(
-            (answer) => answer.id === item.id
-          );
-          if (existingAnswerIndex !== -1) {
-            updatedAnswers[existingAnswerIndex] = {
-              id: item.id,
-              value: e.target.value.trim(),
-            };
-          } else {
-            updatedAnswers.push({ id: item.id, value: e.target.value.trim() });
-          }
-          return { ...question, answers: updatedAnswers };
-        }
-        return question;
-      });
-      return { ...prev, questions: updatedQuestions };
-    });
-  };
-  console.log(answersArr);
+  // const handleIndex = (index: number) => {
+  //   setIndex(index);
+  // };
+
+  // const handleGetValue = (
+  //   e: React.ChangeEvent<HTMLInputElement>,
+  //   item: IReadingAnswer
+  // ) => {
+  //   setAnswersArr((prev: ISectionResponse) => {
+  //     const updatedQuestions = prev.questions.map((question) => {
+  //       if (question.id === partId) {
+  //         const updatedAnswers = question.answers;
+  //         const existingAnswerIndex = updatedAnswers.findIndex(
+  //           (answer) => answer.id === item.id
+  //         );
+  //         if (existingAnswerIndex !== -1) {
+  //           updatedAnswers[existingAnswerIndex] = {
+  //             id: item.id,
+  //             value: e.target.value.trim(),
+  //           };
+  //         } else {
+  //           updatedAnswers.push({ id: item.id, value: e.target.value.trim() });
+  //         }
+  //         return { ...question, answers: updatedAnswers };
+  //       }
+  //       return question;
+  //     });
+  //     return { ...prev, questions: updatedQuestions };
+  //   });
+  // };
 
   return (
     <div className="bg-[#f8f9fa]">
@@ -86,8 +67,8 @@ const Reading = () => {
           Quit
         </button>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-12 w-[90%] mx-auto py-[2rem] gap-[1rem] border-b-2 ">
-        <div className="col-span-12 md:col-span-9 grid grid-cols-1 md:grid-cols-12  bg-[#fff] rounded-xl shadow-2xl py-[2rem]">
+      <div className="flex w-[90%] mx-auto py-[2rem] gap-4 border-b-2 ">
+        {/* <div className="col-span-12 md:col-span-9 grid grid-cols-1 md:grid-cols-12  bg-[#fff] rounded-xl shadow-2xl py-[2rem]">
           <div className="xl:col-span-7 col-span-12 px-[1rem] bg-[#f8f9fa] h-[40rem] overflow-y-auto">
             <p className="tex-[1rem] font-bold uppercase my-[1rem]">
               {data?.title}
@@ -114,14 +95,14 @@ const Reading = () => {
               />
             </div>
             <div className="flex flex-col gap-[1rem] p-[1rem]">
-              {data?.questions[0].answers.map((item, i: number) => {
+              {data?.questions[0].answers.map((item, index: number) => {
                 return (
-                  <div className="flex gap-[1rem]">
+                  <div className="flex gap-[1rem]" key={index}>
                     <label
                       className="bg-[#e8f2ff] w-[35px] aspect-square flex justify-center items-center rounded-full text-[#35509a] font-bold"
-                      htmlFor={`${index + 1}-${i}`}
+                      htmlFor={`${index + 1}-${index}`}
                     >
-                      {i + 1}
+                      {index + 1}
                     </label>
                     <input
                       className="border-[#bdc5d1] border-2 rounded-xl px-[0.5rem]"
@@ -134,21 +115,22 @@ const Reading = () => {
                           ?.value || ''
                       }
                       onChange={(e) => handleGetValue(e, item)}
-                      name={`${index + 1}-${i}`}
+                      name={`${index + 1}-${index}`}
                     />
                   </div>
                 );
               })}
             </div>
           </div>
-        </div>
-        <div className="col-span-12 md:col-span-3 ">
+        </div> */}
+        <div className="flex-1">{partIdParam && <ReadingPart />}</div>
+        {sectionData && (
           <NavigationTest
-            handleTask={handleTask}
-            handleIndex={handleIndex}
-            defaultPartId={partId}
+          // handleTask={handleTask}
+          // handleIndex={handleIndex}
+          // defaultPartId={partId}
           />
-        </div>
+        )}
       </div>
     </div>
   );

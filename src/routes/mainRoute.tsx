@@ -4,22 +4,23 @@ import NotFoundPage from '../pages/NotFound';
 import {
   AnalyzeResults,
   Collection,
+  DeleteAccount,
   DetailExam,
   ExamsPage,
   GrammarPage,
   HomePage,
   Payment,
   Reminder,
+  RootLayout,
   SectionPage,
   UserInformation,
   UserProfilePage,
   VocabulariesPage,
   VocabularyDetail,
-  DeleteAccount,
-  RootLayout,
 } from './imports';
 
-import ExamPart from '../pages/Exams/ExamPart/ExamPart';
+import ExamPart from '../components/exam/ExamPart';
+import ExamSection from '../pages/Exams/ExamSection/ExamSection';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -34,12 +35,18 @@ export const mainRoute: RouteObject = {
       element: <ExamsPage />,
       children: [
         {
-          path: ':type/:skill',
+          path: ':examId/:section',
           element: <DetailExam />,
         },
         {
-          path: ':type/:skill/:part',
-          element: <ExamPart />,
+          path: ':examId/:section/:sectionId', // "section/sectionId"
+          element: <ExamSection />,
+          children: [
+            {
+              path: ':partId',
+              element: <ExamPart />,
+            },
+          ],
         },
       ],
     },
