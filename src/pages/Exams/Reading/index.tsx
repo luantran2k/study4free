@@ -9,6 +9,8 @@ const Reading = () => {
   const [index, setIndex] = useState<number>(0);
   const [partId, setPartId] = useState<string>('');
   const location = useLocation();
+  console.log(location);
+
   const [answersArr, setAnswersArr] = useState<ISectionResponse>({
     id: location.pathname.split('/')[3],
     section: 'Reading',

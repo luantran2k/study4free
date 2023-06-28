@@ -40,7 +40,7 @@ export const mainRoute: RouteObject = {
         {
           path: ':type/:skill/:part',
           element: <ExamPart />,
-        }
+        },
       ],
     },
     {
