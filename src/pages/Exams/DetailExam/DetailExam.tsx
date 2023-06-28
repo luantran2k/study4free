@@ -3,28 +3,23 @@ import { NavLink, useParams } from 'react-router-dom';
 import ClockIcon from '../../../assets/icons/Clock';
 import WriteIcon from '../../../assets/icons/Write';
 import { useGetExamsQuery } from '../../../store/queries/exams';
+import IExam from '../../../interfaces/Exam';
 
 // import LightOn from '../../../assets/icons/LightOn';
 
 const DetailExam = () => {
   const { type } = useParams();
-  const [selectedExam, setSelectedExam] = useState<any>({});
+  // const [selectedExam, setSelectedExam] = useState<IExam>();
   const [value, setValue] = React.useState(0);
   const ref = useRef<HTMLDivElement | null>(null);
 
-  const { data, isLoading } = useGetExamsQuery({
+  const { data: exams, isLoading } = useGetExamsQuery({
     page: 0,
     quantity: 4,
     title: '',
-    isNeedPaid: "All",
-    type:"All"
+    isNeedPaid: 'All',
+    type: 'All',
   });
-
-  console.log(data);
-
-  useEffect(() => {
-    setSelectedExam(data);
-  }, [isLoading]);
 
   useEffect(() => {
     window.scrollTo({
@@ -33,6 +28,10 @@ const DetailExam = () => {
     });
   }, [type]);
 
+  if (!exams) {
+    return <></>;
+  }
+
   return (
     <div className="flex flex-col h-full relative">
       <div className="flex flex-row container mx-auto gap-5 my-10">
@@ -40,15 +39,14 @@ const DetailExam = () => {
           <div className="mb-5 p-5 border-2 rounded-2xl">
             <div className="flex flex-row flex-wrap w-full gap-3 mb-2">
               <button className="bg-[#eeeeee] w-fit rounded-xl p-2 text-black text-sm pointer-events-none">
-                #{selectedExam[0]?.type}
+                #{exams[0].type}
               </button>
               <button className="bg-[#eeeeee] w-fit rounded-xl p-2 text-black text-sm pointer-events-none">
                 #{type?.replace(type[0], type[0].toUpperCase())}
               </button>
             </div>
             <h3 className="text-4xl text-black font-bold mb-4">
-              {selectedExam[0]?.title}{' '}
-              {type?.replace(type[0], type[0].toUpperCase())}
+              {exams[0].title} {type?.replace(type[0], type[0].toUpperCase())}
             </h3>
             <div className="gap-3 items-center w-fit mb-4">
               <a
@@ -60,7 +58,7 @@ const DetailExam = () => {
             </div>
             <div className="flex flex-col mb-6">
               <p className="mb-1 font-bold text-lg text-black">
-                Exam package: {selectedExam[0]?.title}
+                Exam package: {exams[0].title}
               </p>
               <div className="flex flex-row items-center gap-2 mb-1">
                 <p>

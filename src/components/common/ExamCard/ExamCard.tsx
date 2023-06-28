@@ -24,7 +24,7 @@ const ExamCard = (props: any) => {
         </a>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-[#e8f2ff] p-4">
-        {IdArr?.map((section: any, index: number) => {
+        {IdArr?.map((sectionId: string, index: number) => {
           let sectionType = '';
           if (index === 0) {
             sectionType = 'Listening';
@@ -37,8 +37,9 @@ const ExamCard = (props: any) => {
           }
           return (
             <NavLink
-              to={`${sectionType}/${section}`}
-              state={{ sectionType, section, props }}
+              key={index}
+              to={`${sectionType}/${sectionId}`}
+              state={{ sectionType, sectionId, props }}
               className="bg-white rounded-2xl hover:shadow-xl shadow-md w-full hover:-translate-y-2 transition-all p-4 mt-4 flex flex-col justify-between"
             >
               <h6 className="text-black font-semibold text-xl mb-3">

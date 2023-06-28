@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Pagination from '../../components/common/Pagination';
 import { useGetExamsQuery } from '../../store/queries/exams';
 import LoadingAnimate from '../../components/common/LoadingAnimate';
+import IExam from '../../interfaces/Exam';
 
 const ExamCard = lazy(
   () => import('../../components/common/ExamCard/ExamCard')
@@ -19,7 +20,9 @@ function ExamsPage() {
   const { data, isSuccess, error, isLoading } = useGetExamsQuery({
     page: 0,
     quantity: 4,
-    search: '',
+    title: '',
+    isNeedPaid: 'All',
+    type: 'All',
   });
 
   const [filteredData, setFilteredData] = useState<any>([]);
@@ -112,9 +115,9 @@ function ExamsPage() {
             <div className="flex-grow-[1] container mx-auto">
               {isSuccess ? (
                 <>
-                  {paginatedData.map((mock: any) => (
-                    <ExamCard {...mock} key={mock.id} />
-                  ))}
+                  {paginatedData.map((exam: IExam, index: number) => {
+                    return <ExamCard {...exam} key={index} />;
+                  })}
                 </>
               ) : (
                 <h3 className="text-3xl text-center mx-auto mb-10 font-serif font-semibold text-sky-600">
