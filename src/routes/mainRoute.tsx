@@ -15,14 +15,11 @@ import {
   UserProfilePage,
   VocabulariesPage,
   VocabularyDetail,
-  Writing,
   DeleteAccount,
   RootLayout,
 } from './imports';
 
-import Speaking from '../pages/Exams/Speaking';
-import Reading from '../pages/Exams/Reading';
-import Listening from '../pages/Exams/Listening';
+import ExamPart from '../pages/Exams/ExamPart/ExamPart';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -37,21 +34,13 @@ export const mainRoute: RouteObject = {
       element: <ExamsPage />,
       children: [
         {
-          path: 'writing/:skill',
-          element: <Writing />,
+          path: ':type/:skill',
+          element: <DetailExam />,
         },
         {
-          path: 'speaking/:skill',
-          element: <Speaking />,
-        },
-        {
-          path: 'reading/:skill',
-          element: <Reading />,
-        },
-        {
-          path: 'listening/:skill',
-          element: <Listening />,
-        },
+          path: ':type/:skill/:part',
+          element: <ExamPart />,
+        }
       ],
     },
     {
