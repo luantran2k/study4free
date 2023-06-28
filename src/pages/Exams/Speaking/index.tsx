@@ -48,8 +48,9 @@ const Speaking = () => {
               {data?.description}
             </p>
             <p>
-              You should spend about 20 minutes on this task. Speaking about the
-              following point:
+              You should spend about{' '}
+              {index === 0 ? '5' : index === 1 ? '2' : '5'} minutes on this
+              task. Speaking about the following point:
             </p>
             <div className="font-bold my-[1.5rem]">
               <div
