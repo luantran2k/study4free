@@ -1,8 +1,8 @@
-import { Outlet, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import LoadingAnimate from '../../../components/common/LoadingAnimate';
+import ReadingPart from '../../../components/exam/ReadingPart';
 import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
 import NavigationTest from '../commonComponent/navigationTest';
-import ReadingPart from '../../../components/exam/ReadingPart';
 
 const Reading = () => {
   const { sectionId = '', partId: partIdParam } = useParams();
@@ -14,8 +14,6 @@ const Reading = () => {
     section: 'Reading',
     sectionId,
   });
-
-  console.log(sectionData);
 
   if (isLoading) {
     return <LoadingAnimate />;
@@ -69,7 +67,7 @@ const Reading = () => {
           Quit
         </button>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-12 w-[90%] mx-auto py-[2rem] gap-[1rem] border-b-2 ">
+      <div className="flex w-[90%] mx-auto py-[2rem] gap-4 border-b-2 ">
         {/* <div className="col-span-12 md:col-span-9 grid grid-cols-1 md:grid-cols-12  bg-[#fff] rounded-xl shadow-2xl py-[2rem]">
           <div className="xl:col-span-7 col-span-12 px-[1rem] bg-[#f8f9fa] h-[40rem] overflow-y-auto">
             <p className="tex-[1rem] font-bold uppercase my-[1rem]">
@@ -125,15 +123,14 @@ const Reading = () => {
             </div>
           </div>
         </div> */}
-        <ReadingPart />
-        <div className="col-span-12 md:col-span-3 ">
+        <div className="flex-1">{partIdParam && <ReadingPart />}</div>
+        {sectionData && (
           <NavigationTest
-            partIds={sectionData.parts.map((part) => part.id)}
-            // handleTask={handleTask}
-            // handleIndex={handleIndex}
-            // defaultPartId={partId}
+          // handleTask={handleTask}
+          // handleIndex={handleIndex}
+          // defaultPartId={partId}
           />
-        </div>
+        )}
       </div>
     </div>
   );

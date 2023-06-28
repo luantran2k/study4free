@@ -38,6 +38,7 @@ const DetailExam = () => {
   const sectionDetail: IExamSection = exam.sections[
     (section as SectionType)?.toLowerCase() as keyof ExamSection
   ] as IExamSection;
+  const defaultPartId = sectionDetail.parts[0]?.id;
 
   return (
     <div className="flex flex-col h-full relative">
@@ -123,7 +124,7 @@ const DetailExam = () => {
                 exam.sections[
                   (section?.toLowerCase() + 'SectionId') as keyof ExamSection
                 ]
-              }`}
+              }/${defaultPartId}`}
             >
               Start Exam
             </NavLink>
