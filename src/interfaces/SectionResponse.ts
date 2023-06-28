@@ -4,7 +4,7 @@ export interface ISectionResponse {
   questions: {
     id: string;
     answers: {
-      id: string;
+      id?: string;
       value?: string;
       audio?: File;
     }[];
