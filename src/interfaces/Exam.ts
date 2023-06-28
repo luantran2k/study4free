@@ -15,6 +15,9 @@ export default interface IExam {
   tags?: string[];
   image?: string;
   sections: ExamSection;
+  _count?: {
+    UserDoingExam: number;
+  };
   createdAt?: string;
   updatedAt?: string;
 }
@@ -29,6 +32,11 @@ export interface CreateExamFormData {
 }
 
 export interface ExamSection {
+  id?: string;
+  listeningSectionId?: string;
+  readingSectionId?: string;
+  speakingSectionId?: string;
+  writingSectionId?: string;
   listening?: IExamSection;
   reading?: IExamSection;
   writing?: IExamSection;

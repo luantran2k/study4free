@@ -34,11 +34,11 @@ export const mainRoute: RouteObject = {
       element: <ExamsPage />,
       children: [
         {
-          path: ':type/:skill',
+          path: ':examId/:section',
           element: <DetailExam />,
         },
         {
-          path: ':type/:skill/:part',
+          path: ':examId/:section/:sectionId/:partId', // "section/sectionId"
           element: <ExamPart />,
         },
       ],

@@ -5,14 +5,14 @@ import Reading from '../Reading';
 import Writing from '../Writing';
 
 const ExamPart = () => {
-  const { type } = useParams();
+  const { section } = useParams();
   return (
     <>
-      {type === 'Speaking' ? (
+      {section === 'Speaking' ? (
         <Speaking />
-      ) : type === 'Listening' ? (
+      ) : section === 'Listening' ? (
         <Listening />
-      ) : type === 'Reading' ? (
+      ) : section === 'Reading' ? (
         <Reading />
       ) : (
         <Writing />

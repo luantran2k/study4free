@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useGetPartByIdQuery } from '../../../store/queries/exams';
-import NavigationTest from '../commonComponent/navigationTest';
+import { useParams } from 'react-router-dom';
 import { IReadingAnswer } from '../../../interfaces/Reading';
 import { ISectionResponse } from '../../../interfaces/SectionResponse';
-import { useLocation } from 'react-router-dom';
+import { useGetPartByIdQuery } from '../../../store/queries/exams';
+import NavigationTest from '../commonComponent/navigationTest';
 
 const Reading = () => {
   const [index, setIndex] = useState<number>(0);
-  const [partId, setPartId] = useState<string>('');
-  const location = useLocation();
-
+  const { sectionId = '', partId: partIdParam } = useParams();
+  const [partId, setPartId] = useState<string>(partIdParam as string);
   const [answersArr, setAnswersArr] = useState<ISectionResponse>({
-    id: location.pathname.split('/')[3],
+    id: sectionId,
     section: 'Reading',
     questions: [{ id: partId, answers: [] }],
   });
@@ -22,6 +21,7 @@ const Reading = () => {
   });
 
   const handleTask = (task: string) => {
+    console.log(task);
     setPartId(task);
   };
 
@@ -37,7 +37,6 @@ const Reading = () => {
         if (!questionExists) {
           const updatedQuestions = [
             ...prev.questions.filter((question) => {
-              console.log(question);
               return question.id !== '';
             }),
             { id: partId, answers: [], questionType: 'Gap filling' },
@@ -46,7 +45,6 @@ const Reading = () => {
         }
         return prev;
       });
-      console.log(data);
     }
   }, [partId]);
 
@@ -76,7 +74,6 @@ const Reading = () => {
       return { ...prev, questions: updatedQuestions };
     });
   };
-  console.log(answersArr);
 
   return (
     <div className="bg-[#f8f9fa]">
@@ -114,14 +111,14 @@ const Reading = () => {
               />
             </div>
             <div className="flex flex-col gap-[1rem] p-[1rem]">
-              {data?.questions[0].answers.map((item, i: number) => {
+              {data?.questions[0].answers.map((item, index: number) => {
                 return (
-                  <div className="flex gap-[1rem]">
+                  <div className="flex gap-[1rem]" key={index}>
                     <label
                       className="bg-[#e8f2ff] w-[35px] aspect-square flex justify-center items-center rounded-full text-[#35509a] font-bold"
-                      htmlFor={`${index + 1}-${i}`}
+                      htmlFor={`${index + 1}-${index}`}
                     >
-                      {i + 1}
+                      {index + 1}
                     </label>
                     <input
                       className="border-[#bdc5d1] border-2 rounded-xl px-[0.5rem]"
@@ -134,7 +131,7 @@ const Reading = () => {
                           ?.value || ''
                       }
                       onChange={(e) => handleGetValue(e, item)}
-                      name={`${index + 1}-${i}`}
+                      name={`${index + 1}-${index}`}
                     />
                   </div>
                 );
