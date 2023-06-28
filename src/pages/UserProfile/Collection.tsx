@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import TrashIcon from '../../assets/icons/Trash';
 import {
+  useDeleteVocabByIdMutation,
   useGetCollectionByIdQuery,
   useGetUserByIdQuery,
 } from '../../store/queries/users';
@@ -10,11 +11,15 @@ import { RootState } from '../../store';
 import ICollection from '../../interfaces/Collection';
 import IVocabulary from '../../interfaces/Vocabulary';
 import NotVipPlayer from '../NotFound/NotVipPlayer';
+import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 
 function Collection() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [modeCollection, setModeCollection] = useState<string>('review')
+  const [myChoice, setMyChoice] = useState<number>()
   const user = useSelector((state: RootState) => state.auth.userInformation);
   const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id);
+  const [ deleteVocabById ] = useDeleteVocabByIdMutation()
   let myCollection: IVocabulary[] = [];
 
   if (isLoading) {
@@ -41,6 +46,47 @@ function Collection() {
     }
   };
 
+  const deleteVocab = (id: string) => {
+    notify(NOTIFICATION_TYPE.SUCCESS, 'delete word successfully')
+    deleteVocabById(id)
+  }
+
+  function shuffle(array: number []) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+  }
+
+  const getFourIndex = (firstIndex: number, array: IVocabulary []) => {
+      const store = new Set()
+      while(store.size < 4) {
+        store.clear()
+        store.add(firstIndex)
+        const secondIndex = Math.floor(Math.random() * array.length)
+        store.add(secondIndex)
+        const thirdIndex = Math.floor(Math.random() * array.length)
+        store.add(thirdIndex)
+        const fourIndex = Math.floor(Math.random() * array.length)
+        store.add(fourIndex)
+      }
+      return (shuffle([...store] as number []))
+  }
+  console.log(getFourIndex(currentIndex, myCollection), currentIndex)
+  const handlePracticeMode = () => {
+    setModeCollection('practice')
+  }
   if (isSuccess) {
     return (
       <div className="p-[20px]">
@@ -52,8 +98,18 @@ function Collection() {
               Collection
             </h3>
             <div className="mb-4 flex justify-center">
-              <button className="btn btn-accent me-2 text-white">Review</button>
-              <button className="btn btn-success text-white">Practice</button>
+              <button
+                className="btn btn-accent me-2 text-white"
+                onClick={() => setModeCollection('review')}
+              >
+                Review
+              </button>
+              <button
+                className="btn btn-success text-white"
+                onClick={handlePracticeMode}
+              >
+                Practice
+              </button>
             </div>
             {myCollection.length === 0 ? (
               <div className="mt-10">
@@ -61,7 +117,9 @@ function Collection() {
                   You don't have any vocabularies. Let's make your Collection
                 </p>
                 <NavLink to={'/vocabularies'}>
-                  <button className="btn btn-info text-white">Go to Vocabulary</button>
+                  <button className="btn btn-info text-white">
+                    Go to Vocabulary
+                  </button>
                 </NavLink>
               </div>
             ) : (
@@ -80,13 +138,33 @@ function Collection() {
                     <p className="text-[20px]">
                       {myCollection[currentIndex]?.spelling}
                     </p>
-                    <div className="text-left mt-[50px]">
-                      <p>
-                        <strong>Định nghĩa:</strong>
-                      </p>
-                      <p>{myCollection[currentIndex]?.meaning}</p>
-                      <p>{myCollection[currentIndex]?.synonyms}</p>
-                    </div>
+                    {modeCollection === 'review' ? (
+                      <div className="text-left mt-[50px]">
+                        <p>
+                          <strong>Định nghĩa:</strong>
+                        </p>
+                        <p>{myCollection[currentIndex]?.meaning}</p>
+                        <p>{myCollection[currentIndex]?.synonyms}</p>
+                      </div>
+                    ) : (
+                      <div className='mt-6 grid grid-cols-12 grid-rows-2 gap-3'>
+                          {
+                            getFourIndex(currentIndex, myCollection).map((value, index) => {
+                              return (
+                                <div
+                                  className={`col-span-6 p-3 border-[#ccc] border-[1px] cursor-pointer rounded-lg ${
+                                    ''
+                                  }`}
+                                  key={index}
+                                  onClick={() => setMyChoice(index)}
+                                >
+                                  {myCollection[value].meaning}
+                                </div>
+                              );
+                            })
+                          }
+                      </div>
+                    )}
                   </div>
                   <div className="mb-6">
                     <button
@@ -121,7 +199,9 @@ function Collection() {
                           className="cursor-pointer text-error hover:[&_svg]:scale-150 
                                       active:[&_svg]:scale-125 [&_svg]:transition-all"
                         >
-                          <TrashIcon />
+                          <div onClick={() => deleteVocab(item.id)}>
+                            <TrashIcon />
+                          </div>
                         </div>
                       </div>
                     );
