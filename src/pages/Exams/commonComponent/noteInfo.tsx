@@ -15,7 +15,6 @@ const NoteInfo = ({ index }: Props) => {
     updatedArr[index] = e.target.value;
     setNote(updatedArr);
   };
-  console.log(note, index);
 
   return (
     <div>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import TrashIcon from '../../assets/icons/Trash';
 import {
+  useDeleteVocabByIdMutation,
   useGetCollectionByIdQuery,
   useGetUserByIdQuery,
 } from '../../store/queries/users';
@@ -10,11 +11,13 @@ import { RootState } from '../../store';
 import ICollection from '../../interfaces/Collection';
 import IVocabulary from '../../interfaces/Vocabulary';
 import NotVipPlayer from '../NotFound/NotVipPlayer';
+import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 
 function Collection() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const user = useSelector((state: RootState) => state.auth.userInformation);
   const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id);
+  const [ deleteVocabById ] = useDeleteVocabByIdMutation()
   let myCollection: IVocabulary[] = [];
 
   if (isLoading) {
@@ -41,6 +44,11 @@ function Collection() {
     }
   };
 
+  const deleteVocab = (id: string) => {
+    notify(NOTIFICATION_TYPE.SUCCESS, 'delete word successfully')
+    deleteVocabById(id)
+  }
+
   if (isSuccess) {
     return (
       <div className="p-[20px]">
@@ -52,8 +60,16 @@ function Collection() {
               Collection
             </h3>
             <div className="mb-4 flex justify-center">
-              <button className="btn btn-accent me-2 text-white">Review</button>
-              <button className="btn btn-success text-white">Practice</button>
+              <button
+                className="btn btn-accent me-2 text-white"
+              >
+                Review
+              </button>
+              <button
+                className="btn btn-success text-white"
+              >
+                Practice
+              </button>
             </div>
             {myCollection.length === 0 ? (
               <div className="mt-10">
@@ -61,7 +77,9 @@ function Collection() {
                   You don't have any vocabularies. Let's make your Collection
                 </p>
                 <NavLink to={'/vocabularies'}>
-                  <button className="btn btn-info text-white">Go to Vocabulary</button>
+                  <button className="btn btn-info text-white">
+                    Go to Vocabulary
+                  </button>
                 </NavLink>
               </div>
             ) : (
@@ -80,13 +98,13 @@ function Collection() {
                     <p className="text-[20px]">
                       {myCollection[currentIndex]?.spelling}
                     </p>
-                    <div className="text-left mt-[50px]">
-                      <p>
-                        <strong>Định nghĩa:</strong>
-                      </p>
-                      <p>{myCollection[currentIndex]?.meaning}</p>
-                      <p>{myCollection[currentIndex]?.synonyms}</p>
-                    </div>
+                      <div className="text-left mt-[50px]">
+                        <p>
+                          <strong>Định nghĩa:</strong>
+                        </p>
+                        <p>{myCollection[currentIndex]?.meaning}</p>
+                        <p>{myCollection[currentIndex]?.synonyms}</p>
+                      </div>
                   </div>
                   <div className="mb-6">
                     <button
@@ -121,7 +139,9 @@ function Collection() {
                           className="cursor-pointer text-error hover:[&_svg]:scale-150 
                                       active:[&_svg]:scale-125 [&_svg]:transition-all"
                         >
-                          <TrashIcon />
+                          <div onClick={() => deleteVocab(item.id)}>
+                            <TrashIcon />
+                          </div>
                         </div>
                       </div>
                     );
