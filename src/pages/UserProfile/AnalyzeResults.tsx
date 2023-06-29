@@ -29,35 +29,38 @@ ChartJS.register(
   Legend
 );
 
-
 function AnalyzeResults() {
   const user = useSelector((state: RootState) => state.auth.userInformation);
-  const [section, setSection] = useState<string>('Listening')
-  const [numberExam, setNumberExam] = useState<number>(0)
+  const [section, setSection] = useState<string>('Listening');
+  const [numberExam, setNumberExam] = useState<number>(0);
   const { data, isSuccess } = useGetUserByIdQuery(user?.id);
 
-  const dataExam = data?.userDoingExam.filter((exam: any) => {
-    return exam.section === section
-  })
+  const dataExam = data?.userDoingExam.filter((exam: IExamResult) => {
+    return exam.section === section;
+  });
 
-  const dateData = dataExam?.map((value: any) => {
-    const date = new Date(value.createdAt)
+  const dateData = dataExam?.map((value: IExamResult) => {
+    const date = new Date(value.createdAt);
     const day = date.getDate();
     const month = date.getMonth() + 1; // Note: January is represented by 0, so we add 1 to get the actual month
     const year = date.getFullYear();
-    return `${day}/${month}/${year}`
-  })
-  const scoreData = dataExam?.map((value: any) => {
-    return value.score
-  })
+    return `${day}/${month}/${year}`;
+  });
+  const scoreData = dataExam?.map((value: IExamResult) => {
+    console.log(value);
 
-  const averageScore = scoreData?.reduce((accumulator: number, currentValue: number) => {
-    return accumulator + currentValue
-  }, 0)
+    return value.score;
+  });
 
-  const finalResult: number = (averageScore / scoreData.length)
+  const averageScore = scoreData?.reduce(
+    (accumulator: number, currentValue: number) => {
+      return accumulator + currentValue;
+    },
+    0
+  );
 
-  console.log(dataExam)
+  const finalResult: number = averageScore / scoreData?.length;
+
   const options = {
     responsive: true,
     plugins: {
@@ -70,9 +73,9 @@ function AnalyzeResults() {
       },
     },
   };
-  
-  const labels = dateData
-  
+
+  const labels = dateData;
+
   const dataForLine = {
     labels,
     datasets: [
@@ -84,7 +87,7 @@ function AnalyzeResults() {
       },
     ],
   };
-  
+
   const dataForPie = {
     labels: dateData,
     datasets: [
@@ -111,136 +114,135 @@ function AnalyzeResults() {
       },
     ],
   };
-  const array: number [] = [1, 2]
-  console.log(array.length)
+  const array: number[] = [1, 2];
+  console.log(array.length);
 
   useEffect(() => {
-    const set = new Set()
-    dataExam.map((value: any) => {
-      set.add(value.title)
-    })
-    setNumberExam(set.size)
-  }, [section])
-  if(isSuccess)
-  return (
-    <div>
-      {!data?.payment ? (
-        <NotVipPlayer />
-      ) : (
-        <>
-          <h3 className="text-center text-[40px] font-medium my-[20px]">
-            Analyze Results
-          </h3>
-          <div className="flex justify-around text-[30px] flex-wrap gap-5">
-            <span
-              className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
+    const set = new Set();
+    dataExam?.map((value: IExamResult) => {
+      set.add(value.title);
+    });
+    setNumberExam(set.size);
+  }, [section]);
+  if (isSuccess)
+    return (
+      <div>
+        {!data?.payment ? (
+          <NotVipPlayer />
+        ) : (
+          <>
+            <h3 className="text-center text-[40px] font-medium my-[20px]">
+              Analyze Results
+            </h3>
+            <div className="flex justify-around text-[30px] flex-wrap gap-5">
+              <span
+                className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
               cursor-pointer min-w-[200px] hover:bg-[#38bdf8] hover:text-[#fff] ${
                 section == 'Listening' ? 'bg-[#38bdf8] text-white' : ''
               }`}
-              onClick={() => setSection('Listening')}
-            >
-              Listening
-            </span>
-            <span
-              className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
+                onClick={() => setSection('Listening')}
+              >
+                Listening
+              </span>
+              <span
+                className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
               cursor-pointer min-w-[200px] hover:bg-[#38bdf8] hover:text-[#fff] ${
                 section == 'Reading' ? 'bg-[#38bdf8] text-white' : ''
               }`}
-              onClick={() => setSection('Reading')}
-            >
-              Reading
-            </span>
-            <span
-              className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
+                onClick={() => setSection('Reading')}
+              >
+                Reading
+              </span>
+              <span
+                className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
               cursor-pointer min-w-[200px] hover:bg-[#38bdf8] hover:text-[#fff] ${
                 section == 'Speaking' ? 'bg-[#38bdf8] text-white' : ''
               }`}
-              onClick={() => setSection('Speaking')}
-            >
-              Speaking
-            </span>
-            <span
-              className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
+                onClick={() => setSection('Speaking')}
+              >
+                Speaking
+              </span>
+              <span
+                className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
               cursor-pointer min-w-[200px] hover:bg-[#38bdf8] hover:text-[#fff] ${
                 section == 'Writing' ? 'bg-[#38bdf8] text-white' : ''
               }`}
-              onClick={() => setSection('Writing')}
-            >
-              Writing
-            </span>
-          </div>
-          <div className="grid grid-rows-1 grid-cols-12 px-[40px] pt-[50px] gap-[20px]">
-            <div className="col-span-9 max-lg:col-span-12 max-lg:flex max-lg:flex-col max-lg:items-center">
-              <div className="mb-[30px] max-lg:hidden">
-                <Line options={options} data={dataForLine} />
-              </div>
-              <div className="mb-[30px] hidden max-lg:block">
-                <Pie data={dataForPie} />
-              </div>
-              <div className="flex justify-around gap-[10px] mb-6 flex-wrap">
-                <span
-                  className="bg-[#fff]  text-center px-[10px] py-[20px] rounded-xl 
-              shadow-md min-w-[180px]"
-                >
-                  <p className="text-[20px]">Number exams</p>
-                  <p className="font-bold text-[30px]">{numberExam}</p>
-                </span>
-                <span
-                  className="bg-[#fff] text-center px-[10px] py-[20px] rounded-xl 
-              shadow-md min-w-[180px]"
-                >
-                  <p className="text-[20px]">Accuracy</p>
-                  <p className="font-bold text-[30px]">
-                    { numberExam > 0 ? (
-                      (finalResult / 9) *
-                      100
-                    ).toFixed(2): 0}
-                    %
-                  </p>
-                </span>
-                <span
-                  className="bg-[#fff] text-center px-[10px] py-[20px] rounded-xl 
-              shadow-md min-w-[180px]"
-                >
-                  <p className="text-[20px]">Average score</p>
-                  <p className="font-bold text-[30px]">
-                    {numberExam > 0 ? finalResult.toFixed(1): 0}
-                  </p>
-                </span>
-              </div>
-            </div>
-            <div className="mt-12 col-span-3 max-h-[400px] overflow-auto max-lg:hidden">
-              <table
-                className="shadow-lg table-auto border-collapse
-            border border-slate-500 w-[100%]"
+                onClick={() => setSection('Writing')}
               >
-                <thead className="bg-info text-white">
-                  <tr>
-                    <th className="border border-slate-600">Exams</th>
-                    <th className="border border-slate-600">Results</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dataExam.map((exam: any, index: number) => {
-                    return (
-                      <tr key={index}>
-                        <td className="border border-slate-700 text-center py-[10px]">
-                          {`${section} ${exam.title}`}
-                        </td>
-                        <td className="border border-slate-700 text-center py-[10px]">
-                          {`${exam.numberOfTrueQuestion}/${exam.totalQuestion}`}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+                Writing
+              </span>
             </div>
-          </div>
-        </>
-      )}
-    </div>
-  );
+            <div className="grid grid-rows-1 grid-cols-12 px-[40px] pt-[50px] gap-[20px]">
+              <div className="col-span-9 max-lg:col-span-12 max-lg:flex max-lg:flex-col max-lg:items-center">
+                <div className="mb-[30px] max-lg:hidden">
+                  <Line options={options} data={dataForLine} />
+                </div>
+                <div className="mb-[30px] hidden max-lg:block">
+                  <Pie data={dataForPie} />
+                </div>
+                <div className="flex justify-around gap-[10px] mb-6 flex-wrap">
+                  <span
+                    className="bg-[#fff]  text-center px-[10px] py-[20px] rounded-xl 
+              shadow-md min-w-[180px]"
+                  >
+                    <p className="text-[20px]">Number exams</p>
+                    <p className="font-bold text-[30px]">{numberExam}</p>
+                  </span>
+                  <span
+                    className="bg-[#fff] text-center px-[10px] py-[20px] rounded-xl 
+              shadow-md min-w-[180px]"
+                  >
+                    <p className="text-[20px]">Accuracy</p>
+                    <p className="font-bold text-[30px]">
+                      {numberExam > 0
+                        ? ((finalResult / 9) * 100).toFixed(2)
+                        : 0}
+                      %
+                    </p>
+                  </span>
+                  <span
+                    className="bg-[#fff] text-center px-[10px] py-[20px] rounded-xl 
+              shadow-md min-w-[180px]"
+                  >
+                    <p className="text-[20px]">Average score</p>
+                    <p className="font-bold text-[30px]">
+                      {numberExam > 0 ? finalResult.toFixed(1) : 0}
+                    </p>
+                  </span>
+                </div>
+              </div>
+              <div className="mt-12 col-span-3 max-h-[400px] overflow-auto max-lg:hidden">
+                <table
+                  className="shadow-lg table-auto border-collapse
+            border border-slate-500 w-[100%]"
+                >
+                  <thead className="bg-info text-white">
+                    <tr>
+                      <th className="border border-slate-600">Exams</th>
+                      <th className="border border-slate-600">Results</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dataExam.map((exam: any, index: number) => {
+                      return (
+                        <tr key={index}>
+                          <td className="border border-slate-700 text-center py-[10px]">
+                            {`${section} ${exam.title}`}
+                          </td>
+                          <td className="border border-slate-700 text-center py-[10px]">
+                            {`${exam.numberOfTrueQuestion}/${exam.totalQuestion}`}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    );
 }
 
 export default AnalyzeResults;
