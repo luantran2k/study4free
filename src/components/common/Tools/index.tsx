@@ -1,7 +1,7 @@
-import Dictionary from '../../../assets/icons/Dictionary';
-import ArrowDown from '../../../assets/icons/ArrowDown';
 import { lazy, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import ArrowDown from '../../../assets/icons/ArrowDown';
+import Dictionary from '../../../assets/icons/Dictionary';
 
 const DictionaryComponent = lazy(() => import('./DictionaryComponent'));
 
@@ -14,7 +14,6 @@ const Tools = (props: ITools) => {
   const [clicked, setClicked] = useState(false);
   return (
     <>
-
       {section && partId ? (
         ''
       ) : (

@@ -77,8 +77,8 @@ export const ButtonPayment = ({
           });
         }}
         onApprove={onAccept}
-        onShippingChange={async (data) => {
-
+        onShippingChange={async (_) => {
+          return;
         }}
         onCancel={onDenied}
       />

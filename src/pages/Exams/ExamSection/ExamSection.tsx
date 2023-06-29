@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Navigate, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { SectionType } from '../../../components/admin/Exams/Sections';
 import { useAppDispatch } from '../../../hooks/redux';
 import {

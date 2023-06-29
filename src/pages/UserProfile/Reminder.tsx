@@ -19,11 +19,7 @@ function Reminder() {
   const [deleteToDoList] = useDeleteToDoMutation();
 
   const [changeStatusToDo] = useChangeStatusToDoMutation();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const onSubmit = handleSubmit((dataForm) => {
     addNewToDo(dataForm);
     notify(NOTIFICATION_TYPE.SUCCESS, 'Add new to-do successfully');

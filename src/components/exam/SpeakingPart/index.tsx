@@ -1,4 +1,5 @@
 import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder';
+import ReactQuill from 'react-quill';
 import { useParams } from 'react-router-dom';
 import NoteInfo from '../../../pages/Exams/commonComponent/noteInfo';
 import {
@@ -6,7 +7,6 @@ import {
   useGetPartIdsBySectionIdQuery,
 } from '../../../store/queries/exams';
 import { SectionType } from '../../admin/Exams/Sections';
-import ReactQuill from 'react-quill';
 
 function SpeakingPart() {
   const { partId = '', section = '', sectionId = '' } = useParams();
@@ -24,7 +24,7 @@ function SpeakingPart() {
     document.body.appendChild(audio);
     // setAudioUrl(audio.src);
   };
-  const { data, isSuccess, error, isLoading } = useGetPartByIdQuery({
+  const { data } = useGetPartByIdQuery({
     section: 'Speaking',
     partId: partId,
   });

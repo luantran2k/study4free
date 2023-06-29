@@ -7,7 +7,6 @@ import {
   ISectionResponse,
   QuestionType,
 } from '../../interfaces/SectionResponse';
-import SingleChoice from '../../components/exam/Question/SingleChoice';
 
 interface ExamEditInfo {
   examId?: string;

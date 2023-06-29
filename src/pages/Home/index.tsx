@@ -1,15 +1,15 @@
-import BgImage1 from '../../assets/images/becomepro.jpg';
-import EarthImg from '../../assets/images/earthImg.png';
+import { useMemo } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { CheckIcon } from '../../assets/icons/checkIcon';
+import { FacebookIcon } from '../../assets/icons/facebookIcon';
+import { GoogleIcon } from '../../assets/icons/googleIcon';
 import { InstaIcon } from '../../assets/icons/instaIcon';
 import { YoutubeIcon } from '../../assets/icons/youtubeIcon';
-import { GoogleIcon } from '../../assets/icons/googleIcon';
-import { FacebookIcon } from '../../assets/icons/facebookIcon';
-import { CheckIcon } from '../../assets/icons/checkIcon';
-import { useEffect, useMemo, useRef } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import BgImage1 from '../../assets/images/becomepro.jpg';
+import EarthImg from '../../assets/images/earthImg.png';
+import IUser from '../../interfaces/User';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 import { achievementArr, ourTeams, paymentBoard, skillArr } from './data';
-import IUser from '../../interfaces/User';
 
 function HomePage() {
   const navigate = useNavigate();
