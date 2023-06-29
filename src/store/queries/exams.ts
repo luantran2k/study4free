@@ -88,6 +88,11 @@ export const examsApi = createApi({
         body,
       }),
     }),
+    getSectionResultById: builder.query<ISectionResult, string>({
+      query: (resultId) => ({
+        url: `/sections/results/${resultId}`,
+      }),
+    }),
     getPartById: builder.query<IPart, { partId: string; section: string }>({
       query: ({ partId, section }) => ({
         url: `/parts/${section}/${partId}?detail=true`,
@@ -241,6 +246,7 @@ export const {
   useCreateExamMutation,
   useRemoveExamMutation,
   useGetSectionResultMutation,
+  useGetSectionResultByIdQuery,
   useGetPartIdsBySectionIdQuery,
   useCreatePartMutation,
   useUpdatePartMutation,
