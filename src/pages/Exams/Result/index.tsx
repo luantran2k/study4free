@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
-import { useGetSectionResultByIdQuery } from '../../../store/queries/exams';
 import LoadingAnimate from '../../../components/common/LoadingAnimate';
 import { ISectionResult } from '../../../interfaces/SectionResponse';
+import { useGetSectionResultByIdQuery } from '../../../store/queries/exams';
 
 function ResultPage() {
   const { resultId = '' } = useParams();
@@ -18,7 +18,7 @@ function ResultPage() {
     return <p className="text-red-500">Error</p>;
   }
 
-  const { title, score, numberOfTrueQuestion, totalQuestion, examId, section } =
+  const { title, score, numberOfTrueQuestion, totalQuestion, section } =
     result as ISectionResult;
   return (
     <div className="flex  items-center justify-center h-full my-16">

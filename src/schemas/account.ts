@@ -8,14 +8,12 @@ export const accountSchema: Yup.ObjectSchema<Account> = Yup.object({
   password: Yup.string().required('Password is required'),
 });
 
-
 export const loginSchema = Yup.object()
   .shape({
     username: Yup.string().required('Username is required'),
     password: Yup.string().required('Password is required'),
   })
   .required();
-
 
 export const signUpSchema = Yup.object()
   .shape({

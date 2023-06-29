@@ -17,7 +17,7 @@ const ExamCard = (exam: IExam) => {
   const dataStorage = JSON.parse(
     localStorage.getItem('user') as string
   )?.userInfo;
-  const { data: userData, isSuccess } = useGetUserByIdQuery(dataStorage?.id);
+  const { data: userData } = useGetUserByIdQuery(dataStorage?.id);
 
   // console.log(data);
 

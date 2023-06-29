@@ -1,14 +1,13 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import PencilIcon from '../../assets/icons/PencilIcon';
+import Avatar from '../../assets/images/avataruser.png';
 import {
   useGetUserByIdQuery,
   useUpdateInforMutation,
 } from '../../store/queries/users';
-import Avatar from '../../assets/images/avataruser.png';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
-import PencilIcon from '../../assets/icons/PencilIcon';
-import { useState } from 'react';
 interface IFormInput {
   username: string;
   email: string;

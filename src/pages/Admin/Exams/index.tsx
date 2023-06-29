@@ -1,16 +1,14 @@
-import { lazy, useEffect, useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '../../../assets/icons/Edit';
 import TrashIcon from '../../../assets/icons/Trash';
 import { ExamFilter, ExamSection, ExamType } from '../../../interfaces/Exam';
+import { CreateExamForm, Modal, Pagination } from '../../../routes/imports';
 import {
   useCountExamsQuery,
   useGetExamsQuery,
   useRemoveExamMutation,
 } from '../../../store/queries/exams';
-import { CreateExamForm, Modal, Pagination } from '../../../routes/imports';
-
-
 
 function ExamsAdminPage() {
   const QuantityOption = [10, 15, 20];
@@ -143,8 +141,9 @@ function ExamsAdminPage() {
                       .map((key, index) => (
                         <span
                           key={key}
-                          className={`bg-blue-${(index + 4) * 100
-                            } text-white py-1 rounded-box flex justify-center px-2  `}
+                          className={`bg-blue-${
+                            (index + 4) * 100
+                          } text-white py-1 rounded-box flex justify-center px-2  `}
                         >
                           {key.slice(0, -'SectionId'.length)[0].toUpperCase() +
                             key.slice(1, -'SectionId'.length)}

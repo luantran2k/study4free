@@ -1,17 +1,16 @@
+import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ICollection from '../../interfaces/Collection';
+import IVocabulary from '../../interfaces/Vocabulary';
+import { RootState } from '../../store';
 import {
   useAddNewCollectionMutation,
   useAddNewVocabularyMutation,
   useGetCollectionByIdQuery,
   useGetUserByIdQuery,
 } from '../../store/queries/users';
-import IVocabulary from '../../interfaces/Vocabulary';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
-import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import ICollection from '../../interfaces/Collection';
-import { useEffect } from 'react';
 
 function VocabularyDetail() {
   const { state } = useLocation();
@@ -20,7 +19,7 @@ function VocabularyDetail() {
   const [AddVocab] = useAddNewVocabularyMutation();
   const [AddCollection] = useAddNewCollectionMutation();
   const user = useSelector((state: RootState) => state.auth.userInformation);
-  const { data: dataUser, isLoading, isSuccess } = useGetUserByIdQuery(user?.id);
+  const { data: dataUser } = useGetUserByIdQuery(user?.id);
   const { data: dataVocab, isSuccess: isSuccessVocab } =
     useGetCollectionByIdQuery(state.id);
   const listVocabs: IVocabulary[] = dataVocab?.vocabularies;
@@ -205,7 +204,7 @@ function VocabularyDetail() {
       </dialog>
       <div>
         <div className="grid grid-cols-12 gap-[40px] mt-[10px] max-sm:pe-[8px] ">
-          {isSuccessVocab && 
+          {isSuccessVocab &&
             listVocabs?.map((vocab: IVocabulary, index: number) => {
               // if (listVocabs) {
               //   console.log(myCollection.some(data => vocab.vocabulary.includes(data.vocabulary)));

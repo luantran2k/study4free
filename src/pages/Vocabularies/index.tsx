@@ -1,36 +1,13 @@
+import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import Thumb from '../../assets/images/study.jpg';
 import Logo from '../../assets/images/logo.png';
-import React, { lazy, useEffect, useState } from 'react';
+import Thumb from '../../assets/images/study.jpg';
+import ICollection from '../../interfaces/Collection';
 import {
   useAddNewCollectionMutation,
   useGetAllCollectonQuery,
-  useGetCollectionByIdQuery,
 } from '../../store/queries/users';
-import ICollection, { VocabFilter } from '../../interfaces/Collection';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
-
-const Pagination = lazy(() => import('../../components/common/Pagination'));
-
-
-const newPag = {
-  totalPage: 5,
-  currentPage: 1,
-  quantity: 40,
-  quantityOptions: [1, 2, 3],
-  onChangePage: () => {
-    return;
-  },
-  onChangeQuantity: () => {
-    return;
-  },
-  onNextClick: () => {
-    return;
-  },
-  onPreviousClick: () => {
-    return;
-  },
-};
 
 function VocabulariesPage() {
   const { pathname } = useLocation();
@@ -115,7 +92,6 @@ function VocabulariesPage() {
         <div className="mb-[20px] grid grid-cols-12 gap-[30px] max-sm:px-[10px] p-[3rem]">
           {pathname === '/vocabularies' ? (
             data?.map((item: ICollection, index: number) => {
-
               return (
                 <div
                   key={index}

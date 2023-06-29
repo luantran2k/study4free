@@ -1,22 +1,21 @@
 import {
-  Chart as ChartJS,
   ArcElement,
   CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LineElement,
   LinearScale,
   PointElement,
-  LineElement,
   Title,
   Tooltip,
-  Legend,
 } from 'chart.js';
 
-import { Line } from 'react-chartjs-2';
-import { Pie } from 'react-chartjs-2';
-import { useSelector } from 'react-redux';
-import { useGetUserByIdQuery } from '../../store/queries/users';
-import { RootState } from '../../store';
-import NotVipPlayer from '../NotFound/NotVipPlayer';
 import { useEffect, useState } from 'react';
+import { Line, Pie } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { useGetUserByIdQuery } from '../../store/queries/users';
+import NotVipPlayer from '../NotFound/NotVipPlayer';
 
 ChartJS.register(
   CategoryScale,
@@ -115,8 +114,6 @@ function AnalyzeResults() {
       },
     ],
   };
-  const array: number[] = [1, 2];
-  console.log(section);
 
   useEffect(() => {
     const set = new Set();

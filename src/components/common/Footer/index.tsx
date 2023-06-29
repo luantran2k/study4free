@@ -1,8 +1,6 @@
-import { Link, NavLink, useLocation } from 'react-router-dom';
 import Cambridge from '../../../assets/images/Cambridge';
 
 const Footer = () => {
-  const location = useLocation();
   const { pathname } = location;
 
   const pagesArr = [
@@ -84,7 +82,7 @@ const Footer = () => {
           <p>study4free@gmail.com</p>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

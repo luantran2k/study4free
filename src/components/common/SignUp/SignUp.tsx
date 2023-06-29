@@ -3,16 +3,14 @@ import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../../hooks/redux';
 import { SignUpInputs } from '../../../interfaces/Auth';
+import { signUpSchema } from '../../../schemas/account';
 import { useRegisterMutation } from '../../../services/authApi';
 import { setUser } from '../../../store/slices/authSlice';
 import { NOTIFICATION_TYPE, notify } from '../../../utils/notify';
-import { signUpSchema } from '../../../schemas/account';
-import { NavLink } from 'react-router-dom';
 
 type SignUpProps = {
   handleChange: (newValue: number) => void;
 };
-
 
 const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
   const dispatch = useAppDispatch();
@@ -64,7 +62,11 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
                 <input
                   type="text"
                   placeholder="Enter Username"
-                  className={`input input-bordered focus:outline-none w-full ${errors.username?.message ? "border-red-400" : "border-sky-400"}`}
+                  className={`input input-bordered focus:outline-none w-full ${
+                    errors.username?.message
+                      ? 'border-red-400'
+                      : 'border-sky-400'
+                  }`}
                   {...register('username')}
                 />
               </label>
@@ -86,7 +88,9 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
                 <input
                   type="text"
                   placeholder="Enter your E-mail"
-                  className={`input input-bordered focus:outline-none w-full ${errors.email?.message ? "border-red-400" : "border-sky-400"}`}
+                  className={`input input-bordered focus:outline-none w-full ${
+                    errors.email?.message ? 'border-red-400' : 'border-sky-400'
+                  }`}
                   {...register('email')}
                 />
               </label>
@@ -111,7 +115,11 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
                 <input
                   type="password"
                   placeholder="Enter password"
-                  className={`input input-bordered focus:outline-none w-full ${errors.password?.message ? "border-red-400" : "border-sky-400"}`}
+                  className={`input input-bordered focus:outline-none w-full ${
+                    errors.password?.message
+                      ? 'border-red-400'
+                      : 'border-sky-400'
+                  }`}
                   {...register('password')}
                 />
               </label>
@@ -133,7 +141,11 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
                 <input
                   type="password"
                   placeholder="Confirm password"
-                  className={`input input-bordered focus:outline-none w-full ${errors.repassword?.message ? "border-red-400" : "border-sky-400"}`}
+                  className={`input input-bordered focus:outline-none w-full ${
+                    errors.repassword?.message
+                      ? 'border-red-400'
+                      : 'border-sky-400'
+                  }`}
                   {...register('repassword')}
                 />
               </label>

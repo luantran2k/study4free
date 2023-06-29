@@ -1,15 +1,15 @@
+import axios from 'axios';
+import { useState } from 'react';
+import { API_DICTIONARY_URL } from '../../../api';
 import SearchIcon from '../../../assets/icons/SearchIcon';
 import SearchImg from '../../../assets/images/SearchImg.png';
-import { lazy, useState } from 'react';
-import axios from 'axios';
-import { API_DICTIONARY_URL } from '../../../api';
 import {
   IAudioData,
   IDefinition,
   IPartOfSpeech,
   IPhonetics,
 } from '../../../interfaces/DictionaryData';
-const LoadingAnimate = lazy(() => import('../LoadingAnimate'));
+
 interface Props {
   clicked: boolean;
 }
