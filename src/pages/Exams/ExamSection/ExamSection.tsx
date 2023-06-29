@@ -11,6 +11,7 @@ import NavigationTest from '../commonComponent/navigationTest';
 const ExamSection = () => {
   const { section = '', sectionId = '' } = useParams();
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(
       updateSectionResponse({
