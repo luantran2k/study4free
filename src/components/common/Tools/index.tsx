@@ -14,6 +14,7 @@ const Tools = (props: ITools) => {
   const [clicked, setClicked] = useState(false);
   return (
     <>
+
       {section && partId ? (
         ''
       ) : (
