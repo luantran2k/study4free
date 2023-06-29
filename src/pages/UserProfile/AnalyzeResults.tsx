@@ -141,9 +141,9 @@ function AnalyzeResults() {
               cursor-pointer min-w-[200px] hover:bg-[#38bdf8] hover:text-[#fff] ${
                 section == 'Speaking' ? 'bg-[#38bdf8] text-white' : ''
               }`}
-                onClick={() => setSection('Speaking')}
+                onClick={() => setSection('Listening')}
               >
-                Speaking
+                Listening
               </span>
               <span
                 className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
