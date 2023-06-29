@@ -1,22 +1,17 @@
-import { useState } from 'react';
-import { NavLink, useLocation, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { SectionType } from '../../../components/admin/Exams/Sections';
 import { useAppSelector } from '../../../hooks/redux';
 import {
   useGetPartIdsBySectionIdQuery,
   useGetSectionResultMutation,
 } from '../../../store/queries/exams';
+import { NOTIFICATION_TYPE, notify } from '../../../utils/notify';
 
-// interface Props {
-//   handleTask: (task: string) => void;
-//   handleIndex: (index: number) => void;
-//   defaultPartId: string;
-// }
-
-//{ handleTask, handleIndex, defaultPartId }: Props
 const NavigationTest = () => {
   const { state } = useLocation();
-  const [time] = useState(state?.sectionDuration * 60 || 3600);
+  const navigate = useNavigate();
+  const [time, setTime] = useState(state?.sectionDuration * 60 || 3600);
   const examSectionResponse = useAppSelector(
     (state) => state.exam.examSectionResponse
   );
@@ -28,29 +23,31 @@ const NavigationTest = () => {
 
   const [getSectionResult] = useGetSectionResultMutation(undefined);
 
-  const handleSunmit = () => {
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (time > 0) {
+        setTime((time) => {
+          return time - 1;
+        });
+      } else {
+        handleSubmit();
+        clearInterval(id);
+      }
+    }, 1000);
+    return () => {
+      clearInterval(id);
+    };
+  }, [time, setTime]);
+
+  const handleSubmit = () => {
     if (examSectionResponse) {
       getSectionResult(examSectionResponse)
         .unwrap()
-        .then((res) => {
-          console.log(res);
-        });
+        .then((result) => {
+          navigate('/results/' + result.id);
+        })
+        .catch((e) => notify(NOTIFICATION_TYPE.ERROR, e.message));
     }
-    // if (time > 0) {
-    //   const realTime = Date.now();
-    //   if (confirm('Do you want to submit answers?')) {
-    //     console.log('submit');
-    //   }
-    //   const realTime2 = Date.now();
-    //   const subtract = Math.floor((realTime2 - realTime) / 1000);
-    //   if (time > subtract) {
-    //     setTime((prev) => prev - subtract);
-    //   } else {
-    //     setTime(0);
-    //   }
-    // } else {
-    //   console.log('stop');
-    // }
   };
 
   return (
@@ -71,7 +68,7 @@ const NavigationTest = () => {
         </span>
       </div>
       <button
-        onClick={handleSunmit}
+        onClick={handleSubmit}
         className="border-2 border-[#35509a] text-[#35509a] py-[0.5rem] px-[1rem] rounded-xl font-medium hover:bg-[#35509a] hover:text-[#fff]"
       >
         Submit
@@ -88,27 +85,6 @@ const NavigationTest = () => {
             >
               Part {index + 1}
             </NavLink>
-            // <div
-            //   key={index}
-            //   className="my-[1rem] flex justify-center items-center"
-            // >
-            //   <label className=" flex items-center gap-[1rem]">
-            //     <span className="label-text font-bold text-[1.25rem]">
-            //       Task {index + 1}
-            //     </span>
-            //     <input
-            //       className="radio checked:bg-red-500"
-            //       type="radio"
-            //       name="task"
-            //       // onChange={() => {
-            //       //   getPartId(item.id);
-            //       //   getPartIndex(index);
-            //       // }}
-            //       value={index}
-            //       checked={partId == item.id}
-            //     />
-            //   </label>
-            // </div>
           );
         })}
       </div>

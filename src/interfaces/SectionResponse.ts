@@ -29,7 +29,13 @@ export type QuestionType =
   | 'Summary completion';
 
 export interface ISectionResult {
+  createdAt: string;
+  examId: string;
+  id: string;
   numberOfTrueQuestion: number;
-  totalQuestion: number;
   score: number;
+  section: string;
+  title: string;
+  totalQuestion: number;
+  userId: string;
 }

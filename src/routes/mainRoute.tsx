@@ -51,7 +51,7 @@ export const mainRoute: RouteObject = {
       ],
     },
     {
-      path: 'result',
+      path: 'results/:resultId',
       element: <ResultPage />,
     },
     {

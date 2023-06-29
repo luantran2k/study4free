@@ -67,19 +67,23 @@ function Collection() {
             ) : (
               <div>
                 <div className="mb-4 flex justify-center">
-                  <button
-                    onClick={() => setRollback((prev) => !prev)}
-                    className="btn btn-accent me-2 text-white"
-                  >
-                    {!rollBack ? 'Word' : 'Defination'}
-                  </button>
-                  <NavLink
-                    state={myCollection}
-                    to="minigame"
-                    className="btn btn-success text-white"
-                  >
-                    Practice
-                  </NavLink>
+                  {!!myCollection.length && (
+                    <button
+                      onClick={() => setRollback((prev) => !prev)}
+                      className="btn btn-accent me-2 text-white"
+                    >
+                      {!rollBack ? 'Word' : 'Defination'}
+                    </button>
+                  )}
+                  {!!myCollection.length && (
+                    <NavLink
+                      state={myCollection}
+                      to={`minigame`}
+                      className="btn btn-success text-white"
+                    >
+                      Practice
+                    </NavLink>
+                  )}
                 </div>
                 {myCollection.length === 0 ? (
                   <div className="mt-10">
