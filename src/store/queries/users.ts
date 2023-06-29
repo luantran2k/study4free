@@ -50,12 +50,28 @@ export const userApi = createApi({
       }),
       invalidatesTags: () => ['Users', 'CountUsers'],
     }),
-    updateInfor: builder.mutation({
-      query: (data) => ({
-        url: `users/${data.id}`,
-        method: 'PATCH',
-        body: data.newdata,
-      }),
+    updateInfor: builder.mutation<
+      IUser,
+      {
+        id: string;
+        newdata: Partial<Omit<IUser, 'avatar'>> & { avatar?: File };
+      }
+    >({
+      query: ({ id, newdata }) => {
+        const formData = new FormData();
+        Object.keys(newdata).forEach((key) => {
+          formData.append(
+            key,
+            newdata[key as keyof Partial<IUser>] as string | Blob
+          );
+        });
+        return {
+          url: `users/${id}`,
+          method: 'PATCH',
+          body: formData,
+          formData: true,
+        };
+      },
       invalidatesTags: () => ['User'],
     }),
     getAllCollecton: builder.query({

@@ -36,12 +36,18 @@ function UserInformation() {
     localStorage.getItem('user') as string
   ).userInfo;
   const { data, isSuccess } = useGetUserByIdQuery(dataStorage?.id);
-  const [imageChange, setImageChange] = useState<string>(data?.avatar);
   const [updateInfor] = useUpdateInforMutation();
 
   const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement> | null) => {
     if (e?.target.files && e.target.files.length > 0) {
-      setImageChange(URL.createObjectURL(e.target.files[0]));
+      if (data?.id) {
+        updateInfor({
+          id: data.id,
+          newdata: {
+            avatar: e.target.files[0],
+          },
+        });
+      }
     }
   };
 
@@ -62,12 +68,12 @@ function UserInformation() {
     resolver: yupResolver(schema),
   });
   const onSubmit = handleSubmit((dataForm) => {
+    const { avatar, ...newData } = dataForm;
     if (isSuccess) {
       notify(NOTIFICATION_TYPE.SUCCESS, 'Update Successfully');
       updateInfor({
         newdata: {
-          ...dataForm,
-          avatar: imageChange,
+          ...newData,
         },
         id: data.id,
       });
@@ -81,7 +87,7 @@ function UserInformation() {
       <div className="flex justify-center mb-5">
         <div className="w-[200px] h-[200px] rounded-[50%] relative">
           <img
-            src={imageChange || Avatar}
+            src={data?.avatar || Avatar}
             alt=""
             className="rounded-[50%] w-[100%] h-[100%] object-cover"
           />
@@ -94,13 +100,15 @@ function UserInformation() {
               id="file-upload"
               type="file"
               className="hidden"
+              accept="image/*"
               onChange={handleChangeImage}
             />
-            
           </label>
         </div>
       </div>
-      <p className='text-center my-4 text-[12px] text-error font-medium'>*3MB photo size limit</p>
+      <p className="text-center my-4 text-[12px] text-error font-medium">
+        *3MB photo size limit
+      </p>
       <form className="grid grid-rows-3" onSubmit={onSubmit}>
         <div className="grid gap-[40px] grid-cols-12 max-md:gap-0">
           <div className="col-span-6 max-md:col-span-12">
@@ -111,7 +119,8 @@ function UserInformation() {
               style={{ width: '100%' }}
               className=" py-[8px] px-[8px] rounded-lg text-[16px] border-[#ccc] border-[1px]"
               {...register('username', { required: true })}
-              id="username" disabled
+              id="username"
+              disabled
             />
             <p className="text-error font-medium mb-[20px]">
               {errors.username?.message}
@@ -196,10 +205,7 @@ function UserInformation() {
           </div>
         </div>
         <div className="mt-[10px]">
-          <button
-            className="btn btn-info text-[#fff] me-[10px]"
-            type="submit"
-          >
+          <button className="btn btn-info text-[#fff] me-[10px]" type="submit">
             Update
           </button>
           <button className="btn btn-error text-[#fff]">Cancel</button>
