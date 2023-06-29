@@ -1,26 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import * as Yup from 'yup';
 import { useAppDispatch } from '../../../hooks/redux';
 import { SignUpInputs } from '../../../interfaces/Auth';
 import { useRegisterMutation } from '../../../services/authApi';
 import { setUser } from '../../../store/slices/authSlice';
 import { NOTIFICATION_TYPE, notify } from '../../../utils/notify';
+import { signUpSchema } from '../../../schemas/account';
+import { NavLink } from 'react-router-dom';
 
 type SignUpProps = {
   handleChange: (newValue: number) => void;
 };
-const signUpSchema = Yup.object()
-  .shape({
-    username: Yup.string().required('Username is required'),
-    password: Yup.string().required('Password is required'),
-    email: Yup.string()
-      .email('Email must be a valid email')
-      .required('Email is required'),
-    repassword: Yup.string().required('Password does not match'),
-  })
-  .required();
+
 
 const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
   const dispatch = useAppDispatch();

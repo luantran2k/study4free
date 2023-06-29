@@ -22,7 +22,8 @@
 
     "paths": {
       "react-audio-voice-recorder": ["./global.d.ts"]
-    }
+    },
+    "types": ["vitest/globals"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

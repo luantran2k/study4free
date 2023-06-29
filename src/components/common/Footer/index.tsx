@@ -4,7 +4,6 @@ import Cambridge from '../../../assets/images/Cambridge';
 const Footer = () => {
   const location = useLocation();
   const { pathname } = location;
-  console.log(pathname);
 
   const pagesArr = [
     {
@@ -85,7 +84,7 @@ const Footer = () => {
           <p>study4free@gmail.com</p>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

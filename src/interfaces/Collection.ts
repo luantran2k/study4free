@@ -1,3 +1,4 @@
+import BaseFilter from './common/BaseFilter';
 export default interface ICollection {
   id: string;
   imgage: string;
@@ -13,4 +14,9 @@ export interface IVocabularyItem {
   spelling: string;
   synonyms: string[];
   collectionId: string;
+}
+
+
+export interface VocabFilter {
+  id: string
 }
