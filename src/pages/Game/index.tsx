@@ -7,8 +7,12 @@ import HeartIcon from '../../assets/images/HeartIcon.gif';
 
 const MiniGame = () => {
   const location = useLocation();
-  const storeVocabs = new Set<number>()
-  const [wordToGuess, setWordToGuess] = useState<IVocabularyItem>(location.state[0]);
+  const [collectionArr, setCollectionArr] = useState<IVocabularyItem[]>([
+    ...location.state,
+  ]);
+  const [wordToGuess, setWordToGuess] = useState<IVocabularyItem>(
+    collectionArr[0]
+  );
 
   const [heart, setHeart] = useState<string[]>(['3', '2', '1']);
 
@@ -20,7 +24,15 @@ const MiniGame = () => {
     },
     [guessedLetters]
   );
-
+  useEffect(() => {
+    if (collectionArr.length >= 1) {
+      setCollectionArr((prev) =>
+        prev.filter((item) => item.id !== wordToGuess.id)
+      );
+    } else {
+      setCollectionArr([...location.state]);
+    }
+  }, [wordToGuess]);
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const key = e.key;
@@ -53,25 +65,8 @@ const MiniGame = () => {
   }, [inCorrectLetter.length]);
 
   const handleTryAgain = () => {
-    let indexToPresent: number = 0
-    storeVocabs.add(0)
-    while(true) {
-      if(storeVocabs.size === location.state.length) {
-        storeVocabs.clear()
-      }
-      const newIndex = Math.floor(Math.random() * location.state.length)
-      const remainSize = storeVocabs.size
-      console.log(remainSize)
-      storeVocabs.add(newIndex)
-      // console.log(newIndex, remainSize, storeVocabs)
-      if(storeVocabs.size === remainSize + 1) {
-        indexToPresent = newIndex
-        console.log(indexToPresent, storeVocabs)
-        break
-      }
-    }
     setWordToGuess(
-      location.state[Math.floor(Math.random() * location.state.length)]
+      collectionArr[Math.floor(Math.random() * collectionArr.length)]
     );
     setGuessedLetter([]);
   };
@@ -79,6 +74,9 @@ const MiniGame = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <h4 className="text-sky-400 font-bold text-[2rem] uppercase">Practice</h4>
+      <button className="btn btn-info text-white me-[10px] min-w-[100px]">
+        Previous
+      </button>
       <div className="w-[60%] mx-auto ">
         <p className="text-[red] italic font-bold">
           Note : You only have 3 chances, check carefully, if you get it wrong
