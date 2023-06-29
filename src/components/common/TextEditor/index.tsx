@@ -9,9 +9,6 @@ type Props = {
 
 function TextEditor(props: Props) {
   const [value, setValue] = useState(props.defaultValue);
-  //   useImperativeHandle(ref, () => ({
-  //     value,
-  //   }));
   useEffect(() => {
     setValue(props.defaultValue);
   }, [props.defaultValue]);
@@ -27,7 +24,6 @@ function TextEditor(props: Props) {
   ];
   return (
     <>
-      {/* <ReactQuill theme="bubble" value={value} readOnly={true} /> */}
       <ReactQuill
         modules={{ toolbar: toolbarOptions }}
         theme="snow"

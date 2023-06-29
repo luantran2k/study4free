@@ -14,6 +14,7 @@ import ICollection from '../../interfaces/Collection';
 
 function VocabularyDetail() {
   const { state } = useLocation();
+
   const navigate = useNavigate();
   const [AddVocab] = useAddNewVocabularyMutation();
   const [AddCollection] = useAddNewCollectionMutation();

@@ -8,20 +8,15 @@ import {
   useGetExamsQuery,
   useRemoveExamMutation,
 } from '../../../store/queries/exams';
+import { CreateExamForm, Modal, Pagination } from '../../../routes/imports';
 
-const CreateExamForm = lazy(
-  () => import('../../../components/admin/Exams/CreateExamForm')
-);
-const Modal = lazy(() => import('../../../components/common/Modal'));
-const Pagination = lazy(() => import('../../../components/common/Pagination'));
+
 
 function ExamsAdminPage() {
   const QuantityOption = [10, 15, 20];
   const navigate = useNavigate();
 
   const createExamModalId = useId();
-  // const [currentPage, setCurrentPage] = useState(0);
-  // const [quantity, setQuantity] = useState(QuantityOption[0]);
   const [filter, setFilter] = useState<ExamFilter>({
     page: 0,
     quantity: QuantityOption[0],
@@ -148,9 +143,8 @@ function ExamsAdminPage() {
                       .map((key, index) => (
                         <span
                           key={key}
-                          className={`bg-blue-${
-                            (index + 4) * 100
-                          } text-white py-1 rounded-box flex justify-center px-2  `}
+                          className={`bg-blue-${(index + 4) * 100
+                            } text-white py-1 rounded-box flex justify-center px-2  `}
                         >
                           {key.slice(0, -'SectionId'.length)[0].toUpperCase() +
                             key.slice(1, -'SectionId'.length)}

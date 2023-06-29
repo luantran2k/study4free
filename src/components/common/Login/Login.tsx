@@ -2,19 +2,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
 import { useAppDispatch } from '../../../hooks/redux';
 import { LoginInputs } from '../../../interfaces/Auth';
 import { useLoginUserMutation } from '../../../services/authApi';
 import { setUser } from '../../../store/slices/authSlice';
 import { NOTIFICATION_TYPE, notify } from '../../../utils/notify';
+import { loginSchema } from '../../../schemas/account';
 
-const loginSchema = Yup.object()
-  .shape({
-    username: Yup.string().required('Username is required'),
-    password: Yup.string().required('Password is required'),
-  })
-  .required();
+
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -28,7 +23,6 @@ const Login = () => {
   const [loginUser, { data: loginData, isSuccess: isLoginSuccess }] =
     useLoginUserMutation();
   const handleLogin: SubmitHandler<LoginInputs> = async (data) => {
-    // if (data.username.trim() != '' && data.password!.trim() != '')
 
     const username = data.username;
     const password = data.password;
