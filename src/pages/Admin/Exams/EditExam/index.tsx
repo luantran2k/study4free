@@ -36,12 +36,12 @@ function EditExam() {
 
   const sections = Object.keys(exam.sections)
     .filter((key) => {
-      return (exam.sections[key as keyof ExamSection] as IExamSection).id;
+      return (exam.sections[key as keyof ExamSection] as IExamSection)?.id;
     })
     .map((key) => ({
       name: (key[0].toUpperCase() + key.slice(1)) as SectionType,
       id: (exam.sections[key as keyof ExamSection] as IExamSection)
-        .id as string,
+        ?.id as string,
     }));
   return (
     <div>

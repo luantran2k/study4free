@@ -19,7 +19,7 @@ function VocabularyDetail() {
   const [AddVocab] = useAddNewVocabularyMutation();
   const [AddCollection] = useAddNewCollectionMutation();
   const user = useSelector((state: RootState) => state.auth.userInformation);
-  const { data: dataUser } = useGetUserByIdQuery(user?.id);
+  const { data: dataUser } = useGetUserByIdQuery(user?.id || '');
   const { data: dataVocab, isSuccess: isSuccessVocab } =
     useGetCollectionByIdQuery(state.id);
   const listVocabs: IVocabulary[] = dataVocab?.vocabularies;

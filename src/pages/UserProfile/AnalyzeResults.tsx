@@ -32,11 +32,13 @@ function AnalyzeResults() {
   const user = useSelector((state: RootState) => state.auth.userInformation);
   const [section, setSection] = useState<string>('Listening');
   const [numberExam, setNumberExam] = useState<number>(0);
-  const { data, isSuccess } = useGetUserByIdQuery(user?.id);
+  const { data, isSuccess } = useGetUserByIdQuery(user?.id as string);
 
-  const dataExam = data?.userDoingExam.filter((exam: IExamResult) => {
-    return exam.section === section;
-  });
+  const dataExam: IExamResult[] = data?.userDoingExam.filter(
+    (exam: IExamResult) => {
+      return exam.section === section;
+    }
+  );
 
   const dateData = dataExam?.map((value: IExamResult) => {
     const date = new Date(value.createdAt);

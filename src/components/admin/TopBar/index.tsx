@@ -6,10 +6,8 @@ type Props = {
 };
 
 function AdminTopBar({ toggleSidebar }: Props) {
-  const {
-    name,
-    userInformation: { avatar },
-  } = useAppSelector((state) => state.auth);
+  const { name, userInformation } = useAppSelector((state) => state.auth);
+  const avatar = userInformation?.avatar || '';
   return (
     <div className="flex justify-between px-4 items-center border-b-2 h-20 ">
       <button onClick={toggleSidebar}>

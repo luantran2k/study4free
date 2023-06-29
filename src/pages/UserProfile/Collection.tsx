@@ -1,22 +1,22 @@
 import { useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import TrashIcon from '../../assets/icons/Trash';
+import { useAppSelector } from '../../hooks/redux';
+import ICollection from '../../interfaces/Collection';
+import IVocabulary from '../../interfaces/Vocabulary';
+import { RootState } from '../../store';
 import {
   useDeleteVocabByIdMutation,
   useGetCollectionByIdQuery,
   useGetUserByIdQuery,
 } from '../../store/queries/users';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import ICollection from '../../interfaces/Collection';
-import IVocabulary from '../../interfaces/Vocabulary';
-import NotVipPlayer from '../NotFound/NotVipPlayer';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
+import NotVipPlayer from '../NotFound/NotVipPlayer';
 
 function Collection() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const user = useSelector((state: RootState) => state.auth.userInformation);
-  const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id);
+  const user = useAppSelector((state: RootState) => state.auth.userInformation);
+  const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id || '');
   const [deleteVocabById] = useDeleteVocabByIdMutation();
   let myCollection: IVocabulary[] = [];
   const [rollBack, setRollback] = useState<boolean>(false);
@@ -28,12 +28,15 @@ function Collection() {
   if (isSuccess) {
     data.collections.forEach((value: ICollection) => {
       const { data: dataVocab, isSuccess: isSuccessVocabs } =
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         useGetCollectionByIdQuery(value.id);
       if (isSuccessVocabs) {
         myCollection = [...myCollection, ...dataVocab.vocabularies];
       }
     });
   }
+
+  console.log(myCollection);
 
   const handlePrevious = () => {
     if (currentIndex > 0) {

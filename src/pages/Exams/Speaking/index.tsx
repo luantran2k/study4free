@@ -22,14 +22,7 @@
 //   };
 
 //   const recorderControls = useAudioRecorder();
-//   const addAudioElement = (blob: any) => {
-//     const url = URL.createObjectURL(blob);
-//     const audio = document.createElement('audio');
-//     audio.src = url;
-//     audio.controls = true;
-//     document.body.appendChild(audio);
-//     setAudioUrl(audio.src);
-//   };
+
 //   return (
 //     <div className="bg-[#f8f9fa]">
 //       <div className="flex justify-center items-center gap-[1rem] p-[2rem]">
@@ -90,5 +83,4 @@ const Speaking = () => {
   return <h1>Speaking</h1>;
 };
 
-
-export default Speaking
+export default Speaking;

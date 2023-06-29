@@ -14,7 +14,7 @@ import { IToDo } from '../../interfaces/Todo';
 
 function Reminder() {
   const user = useSelector((state: RootState) => state.auth.userInformation);
-  const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id);
+  const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id || '');
   const [addNewToDo] = useAddNewTodoMutation();
   const [deleteToDoList] = useDeleteToDoMutation();
 

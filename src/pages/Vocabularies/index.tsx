@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
 import Thumb from '../../assets/images/study.jpg';
@@ -26,7 +26,7 @@ function VocabulariesPage() {
 
   // const { page, quantity, title } = vocabFilter;
 
-  const handleInputTitle = (e: any) => {
+  const handleInputTitle = (e: ChangeEvent<HTMLInputElement>) => {
     setInputContent(e.target.value);
   };
 

@@ -7,6 +7,7 @@ import { signUpSchema } from '../../../schemas/account';
 import { useRegisterMutation } from '../../../services/authApi';
 import { setUser } from '../../../store/slices/authSlice';
 import { NOTIFICATION_TYPE, notify } from '../../../utils/notify';
+import IUser from '../../../interfaces/User';
 
 type SignUpProps = {
   handleChange: (newValue: number) => void;
@@ -38,7 +39,7 @@ const SignUp: React.FC<SignUpProps> = ({ handleChange }) => {
         setUser({
           name: registerData?.username,
           token: registerData?.tokens?.accessToken,
-          userInfo: {},
+          userInfo: {} as IUser,
         })
       );
       handleChange(0);
