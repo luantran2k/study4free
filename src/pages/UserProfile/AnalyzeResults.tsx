@@ -139,7 +139,9 @@ function AnalyzeResults() {
               <span
                 className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
               cursor-pointer min-w-[200px] hover:bg-[#38bdf8] hover:text-[#fff] ${
-                section == 'Listening' ? 'bg-[#38bdf8] text-white' : 'text-black'
+                section == 'Listening'
+                  ? 'bg-[#38bdf8] text-white'
+                  : 'text-black'
               }`}
                 onClick={() => setSection('Listening')}
               >
