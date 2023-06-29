@@ -1,19 +1,20 @@
 import { RouteObject } from 'react-router-dom';
-import { AdminLayout, EditExam, ExamsAdminPage } from './imports';
+import UsersAdminPage from '../pages/Admin/Users';
+import { AdminPage, EditExam, ExamsAdminPage } from './imports';
+import AdminDashboard from '../pages/Admin/Dashboard';
 
 export const adminRoutes: RouteObject = {
   path: '/admin',
-  element: <AdminLayout />,
+  element: <AdminPage />,
   children: [
-    { index: true, element: <h1>Dashboard</h1> },
+    { index: true, element: <AdminDashboard /> },
     {
       path: 'users',
-      element: <h1>Users</h1>,
+      element: <UsersAdminPage />,
     },
     {
       path: 'exams',
       element: <ExamsAdminPage />,
-      children: [{ path: ':id', element: <h1>Exam id</h1> }],
     },
     {
       path: 'exams/edit/:id',

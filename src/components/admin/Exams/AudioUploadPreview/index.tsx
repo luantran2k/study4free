@@ -21,10 +21,10 @@ function AudioUploadPreview(props: Props) {
           <span className="loading loading-dots loading-lg"></span>
         </p>
       ) : audioUrl != '' && audioUrl != null ? (
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           <audio
             src={audioUrl}
-            className="block object-cover w-full h-full"
+            className="block object-cover w-full"
             controls
           />
           <button
@@ -50,7 +50,7 @@ function AudioUploadPreview(props: Props) {
             ref={input}
             type="file"
             className="file-input file-input-bordered w-full hidden"
-            accept="image/*"
+            accept="audio/*"
             onChange={onChange}
           />
         </div>

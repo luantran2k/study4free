@@ -1,27 +1,28 @@
-import { Navigate, RouteObject } from 'react-router-dom';
+import { RouteObject } from 'react-router-dom';
 
 import NotFoundPage from '../pages/NotFound';
 import {
   AnalyzeResults,
   Collection,
+  DeleteAccount,
   DetailExam,
   ExamsPage,
   GrammarPage,
   HomePage,
   Payment,
   Reminder,
+  RootLayout,
   SectionPage,
   UserInformation,
   UserProfilePage,
   VocabulariesPage,
   VocabularyDetail,
-  Writing,
-  DeleteAccount,
-  RootLayout,
 } from './imports';
-// import NotFoundPage from '../pages/NotFound';
-import Speaking from '../pages/Exams/Speaking';
 
+import ExamPart from '../components/exam/ExamPart';
+import ExamSection from '../pages/Exams/ExamSection/ExamSection';
+import MiniGame from '../pages/Game';
+import ResultPage from '../pages/Exams/Result';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -34,46 +35,24 @@ export const mainRoute: RouteObject = {
     {
       path: 'exams',
       element: <ExamsPage />,
+    },
+    {
+      path: 'exams/:examId/:section',
+      element: <DetailExam />,
+    },
+    {
+      path: 'exams/:examId/:section/:sectionId',
+      element: <ExamSection />,
       children: [
         {
-          path: ':exam/:part',
-          element: <DetailExam />,
+          path: ':partId',
+          element: <ExamPart />,
         },
-        // {
-        //   path: ':exam/:part/:section',
-        //   element: <Writing />,
-        //   // element: <NotFoundPage/>
-        // },
-        {
-          path: ':exam/:part/:section',
-          // element: <Writing />,
-          element: <NotFoundPage title="404" subTitle="Upsie daisy" descript='the section you are looking for is not available' />
-        },
-        // {
-        //   path: ':exam/:part/writing',
-        //   element: <Writing />,
-        // },
-        // {
-        //   path: ':exam/:part/speaking',
-        //   element: <Speaking />,
-        // },
-        // {
-        //   path: ':exam/:part/writing',
-        //   element: <Writing />,
-        // },
-        // {
-        //   path: ':exam/:part/speaking',
-        //   element: <Speaking />,
-        // },
-        // {
-        //   path: 'listening/:id',
-        //   element: <h1>Not Available</h1>,
-        // },
-        // {
-        //   path: 'reading/:id',
-        //   element: <h1>Not Available</h1>,
-        // },
       ],
+    },
+    {
+      path: 'result',
+      element: <ResultPage />,
     },
     {
       path: 'vocabularies',
@@ -97,7 +76,7 @@ export const mainRoute: RouteObject = {
     },
     {
       path: 'users',
-      element: <UserProfilePage/>,
+      element: <UserProfilePage />,
       children: [
         {
           path: 'analyzeResults',
@@ -110,6 +89,12 @@ export const mainRoute: RouteObject = {
         {
           path: 'collection',
           element: <Collection />,
+          children: [
+            {
+              path: 'minigame',
+              element: <MiniGame />,
+            },
+          ],
         },
         {
           path: 'reminder',
@@ -124,6 +109,16 @@ export const mainRoute: RouteObject = {
           element: <DeleteAccount />,
         },
       ],
+    },
+    {
+      path: '*',
+      element: (
+        <NotFoundPage
+          title="404"
+          subTitle="Upsie daisy"
+          descript="the section you are looking for is not available"
+        />
+      ),
     },
   ],
 };

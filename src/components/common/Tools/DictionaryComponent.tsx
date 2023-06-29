@@ -1,4 +1,5 @@
 import SearchIcon from '../../../assets/icons/SearchIcon';
+import SearchImg from '../../../assets/images/SearchImg.png';
 import { lazy, useState } from 'react';
 import axios from 'axios';
 import { API_DICTIONARY_URL } from '../../../api';
@@ -16,6 +17,7 @@ interface Props {
 const DictionaryComponent = ({ clicked }: Props) => {
   const [keyWord, setKeyWord] = useState('false');
   const [word, setWord] = useState<any>([]);
+  const [errorMess, setErrorMess] = useState<boolean>(false);
 
   const handleSetKeyWord = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyWord(e.target.value);
@@ -25,8 +27,10 @@ const DictionaryComponent = ({ clicked }: Props) => {
       const response = await axios.get(`${API_DICTIONARY_URL}${keyWord}`);
 
       setWord(response.data);
+      setErrorMess(false);
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      setErrorMess(true);
     }
   };
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -56,19 +60,19 @@ const DictionaryComponent = ({ clicked }: Props) => {
           <SearchIcon />
         </div>
       </div>
-      {word.length !== 0 ? (
+      {word.length !== 0 && !errorMess ? (
         <div className="absolute top-[80px] overflow-y-scroll h-[70%]">
           <div>
             <div className="font-bold ">Pronunciation:</div>
             {word &&
               word[0]?.phonetics.map((spelling: IAudioData, index: number) => {
-                return <div key={`spelling ${index}`}>{spelling.text}</div>;
+                return <div key={`spelling-${index}`}>{spelling.text}</div>;
               })}
           </div>
           {word &&
             word[0]?.meanings.map((mean: IPartOfSpeech, index: number) => {
               return (
-                <div key={`word ${index}`}>
+                <div key={`word-${index}`}>
                   <div className="font-bold">{mean?.partOfSpeech}:</div>
                   <div>
                     {mean?.definitions.map((define: IDefinition) => {
@@ -81,7 +85,7 @@ const DictionaryComponent = ({ clicked }: Props) => {
           {word &&
             word[0]?.phonetics.map((voice: IPhonetics, index: number) => {
               return (
-                <div className="my-[16px]" key={`voice ${index}`}>
+                <div className="my-[16px]" key={`voice-${index}`}>
                   {voice.audio != '' && (
                     <>
                       <div className="font-bold text-blue-800">Spelling:</div>
@@ -96,8 +100,16 @@ const DictionaryComponent = ({ clicked }: Props) => {
             })}
         </div>
       ) : (
-        <div className="m-auto w-fit">
-          <LoadingAnimate />
+        <div className="m-auto ">
+          <p className="absolute top-[70%] right-[50%] translate-x-[50%] text-[red]">
+            {errorMess &&
+              'The word you searched for is not syntactically correct, please re-enter it'}
+          </p>
+          <img
+            className="absolute top-[50%] right-[50%] translate-x-[50%] -translate-y-[50%] w-[6rem] animate-pulse	"
+            src={SearchImg}
+            alt=""
+          />
         </div>
       )}
     </div>

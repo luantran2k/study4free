@@ -1,21 +1,20 @@
-import BgImage1 from '../../assets/images/becomepro.jpg';
-import EarthImg from '../../assets/images/earthImg.png';
+import { useMemo } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { CheckIcon } from '../../assets/icons/checkIcon';
+import { FacebookIcon } from '../../assets/icons/facebookIcon';
+import { GoogleIcon } from '../../assets/icons/googleIcon';
 import { InstaIcon } from '../../assets/icons/instaIcon';
 import { YoutubeIcon } from '../../assets/icons/youtubeIcon';
-import { GoogleIcon } from '../../assets/icons/googleIcon';
-import { FacebookIcon } from '../../assets/icons/facebookIcon';
-import { CheckIcon } from '../../assets/icons/checkIcon';
-import { useEffect, useMemo } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import BgImage1 from '../../assets/images/becomepro.jpg';
+import EarthImg from '../../assets/images/earthImg.png';
+import IUser from '../../interfaces/User';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 import { achievementArr, ourTeams, paymentBoard, skillArr } from './data';
 
-
 function HomePage() {
   const navigate = useNavigate();
-  // const userInfo: IUser = useSelector(userInformation);
 
-  const userInfo: any = useMemo(() => {
+  const userInfo: IUser = useMemo(() => {
     if (typeof window !== 'undefined') {
       return JSON.parse(localStorage.getItem('user') as string);
     }
@@ -33,12 +32,12 @@ function HomePage() {
       notify(NOTIFICATION_TYPE.INFO, 'Please login before you make payment');
     }
   };
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: 'smooth',
+  //   });
+  // }, []);
   return (
     <>
       <section
@@ -50,7 +49,7 @@ function HomePage() {
       >
         <div className="m-auto flex flex-col items-center justify-center text-center">
           <h2
-            data-aos="fade-left"
+            data-aos="zoom-in-up"
             data-aos-anchor="#example-anchor"
             data-aos-offset="500"
             data-aos-duration="1000"
@@ -60,7 +59,7 @@ function HomePage() {
             Take the first step
           </h2>
           <p
-            data-aos="fade-right"
+            data-aos="zoom-in-up"
             data-aos-anchor="#example-anchor"
             data-aos-offset="500"
             data-aos-duration="1000"
@@ -70,7 +69,7 @@ function HomePage() {
           </p>
           {userInfo != null ? (
             <div
-              data-aos="fade-up"
+              data-aos="zoom-in-up"
               data-aos-anchor="#example-anchor"
               data-aos-offset="500"
               data-aos-duration="1000"
@@ -81,7 +80,7 @@ function HomePage() {
           ) : (
             <NavLink
               to={'/login'}
-              data-aos="fade-up"
+              data-aos="zoom-in-up"
               data-aos-anchor="#example-anchor"
               data-aos-offset="500"
               data-aos-duration="1000"
@@ -97,7 +96,7 @@ function HomePage() {
         className="bg-gradient-to-r from-sky-500 sky-500/75 to-sky-500/50 bg-cover w-full py-[50px] shadow-2xl"
       >
         <div
-          data-aos="fade-up"
+          data-aos="zoom-in-up"
           data-aos-offset="0"
           className="home-title w-full text-center font-extrabold text-8xl "
         >
@@ -112,7 +111,7 @@ function HomePage() {
                 data-aos-offset="50"
                 data-aos-duration="500"
                 data-aos-delay="800"
-                className="m-auto cursor-pointer hover-scale flex flex-col px-[40px] py-[24px] bg-white rounded-full"
+                className="m-auto  flex flex-col px-[40px] py-[24px] bg-white rounded-full"
               >
                 {item.component}
                 <div className="text-center text-[24px] font-bold text-orange-500">
@@ -123,7 +122,7 @@ function HomePage() {
           })}
         </div>
       </section>
-      <section id="ielts-levels" className="py-[30px]">
+      <section id="ielts-levels" className="py-[30px] md:block hidden">
         <div className="relative w-fit h-fit mx-auto pl-[100px]">
           <div className="absolute z-40 left-[-50px] top-[30px]">
             <div className="text-[48px] font-extrabold">
@@ -217,7 +216,7 @@ function HomePage() {
         className={`bg-[url('https://masterstudy.stylemixthemes.com/classic-lms-elementor/wp-content/uploads/sites/29/2018/09/achivements.jpg')] bg-cover bg-no-repeat	 w-full min-h-[40rem] h-fit flex text-[#fff] flex flex-col justify-center items-center py-[3rem]`}
       >
         <div
-          data-aos="zoom-in"
+          data-aos="zoom-in-up"
           data-aos-offset="50"
           data-aos-duration="500"
           data-aos-delay="800"
@@ -227,7 +226,7 @@ function HomePage() {
         </div>
 
         <div
-          data-aos="zoom-out"
+          data-aos="zoom-in-up"
           data-aos-offset="50"
           data-aos-duration="500"
           data-aos-delay="800"
@@ -259,7 +258,7 @@ function HomePage() {
       </section>
       <section id="our-teams" className="p-[2rem]">
         <h2
-          data-aos="zoom-out"
+          data-aos="zoom-in-up"
           data-aos-offset="50"
           data-aos-duration="500"
           data-aos-delay="800"
@@ -304,7 +303,7 @@ function HomePage() {
         className="bg-[#f3f6fb] flex flex-col justify-center items-center py-[3rem]"
       >
         <h3
-          data-aos="flip-left"
+          data-aos="zoom-in-up"
           data-aos-offset="50"
           data-aos-duration="500"
           data-aos-delay="800"
@@ -313,7 +312,7 @@ function HomePage() {
           Ready to be our teams ?
         </h3>
         <p
-          data-aos="flip-right"
+          data-aos="zoom-in-up"
           data-aos-offset="50"
           data-aos-duration="500"
           data-aos-delay="800"

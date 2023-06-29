@@ -4,10 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { CreateExamFormData } from '../../../../interfaces/Exam';
 import { createExamSchema } from '../../../../schemas/createExam';
 import { useCreateExamMutation } from '../../../../store/queries/exams';
+import { hideModal } from '../../../../utils/modal';
 import { NOTIFICATION_TYPE, notify } from '../../../../utils/notify';
 import LoadingButton from '../../../common/LoadingButton';
-import { hideModal } from '../../../../utils/modal';
-import { useEffect } from 'react';
 
 function CreateExamForm({ modalId }: { modalId: string }) {
   const navigate = useNavigate();
@@ -21,9 +20,6 @@ function CreateExamForm({ modalId }: { modalId: string }) {
       isNeedPaid: false,
     },
   });
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
 
   const [createExam, { isLoading }] = useCreateExamMutation();
 
@@ -65,7 +61,7 @@ function CreateExamForm({ modalId }: { modalId: string }) {
           <p className="text-error">{errors.description?.message}</p>
         </div>
         <div>
-          <label htmlFor="">Duration</label>
+          <label htmlFor="">Duration (Minutes)</label>
           <input
             className="input input-bordered"
             type="number"

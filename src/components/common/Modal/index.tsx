@@ -2,7 +2,10 @@ import { ReactElement } from 'react';
 
 declare global {
   interface Window {
-    [key: string]: any;
+    [key: string]: {
+      showModal: () => void;
+      close: () => void;
+    };
   }
 }
 

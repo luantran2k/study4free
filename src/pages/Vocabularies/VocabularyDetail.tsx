@@ -12,65 +12,68 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import ICollection from '../../interfaces/Collection';
 
-
 function VocabularyDetail() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const [AddVocab] = useAddNewVocabularyMutation();
   const [AddCollection] = useAddNewCollectionMutation();
   const user = useSelector((state: RootState) => state.auth.userInformation);
-  const { data: dataUser } = useGetUserByIdQuery(user?.id)
+  const { data: dataUser } = useGetUserByIdQuery(user?.id);
   const { data: dataVocab, isSuccess: isSuccessVocab } =
     useGetCollectionByIdQuery(state.id);
   const listVocabs: IVocabulary[] = dataVocab?.vocabularies;
 
   const addToCollections = (vocab: IVocabulary) => {
-    if(localStorage.getItem('user') === null) {
-      notify(NOTIFICATION_TYPE.ERROR, 'You have to log-in first!!!')
+    if (localStorage.getItem('user') === null) {
+      notify(NOTIFICATION_TYPE.ERROR, 'You have to log-in first!!!');
     } else {
-      if(dataUser.payment === false) {
-        if(confirm('You need to upgrade account to use this feature. Go to your account!!!')) {
-            navigate('/users/payment')
+      if (dataUser.payment === false) {
+        if (
+          confirm(
+            'You need to upgrade account to use this feature. Go to your account!!!'
+          )
+        ) {
+          navigate('/users/payment');
         }
       } else {
-        let checkExist: boolean = false
-      let duplicateCollection: string = ''
-      dataUser.collections.forEach((value: ICollection) => {
-        if(value.title === 'Vocabs from other users') {
-            checkExist = true
-            duplicateCollection = value.id
-        }
-      })
-      if(checkExist) {
-        notify(NOTIFICATION_TYPE.SUCCESS, 'add new word successfully')
-        AddVocab({
-          vocabulary: vocab.vocabulary,
-          meaning: vocab.meaning,
-          image: vocab.image,
-          spelling: vocab.spelling,
-          synonyms: vocab.synonyms,
-          collectionId: duplicateCollection,
+        let checkExist = false;
+        let duplicateCollection = '';
+        dataUser.collections.forEach((value: ICollection) => {
+          if (value.title === 'Vocabs from other users') {
+            checkExist = true;
+            duplicateCollection = value.id;
+          }
         });
-      } else {
-        notify(NOTIFICATION_TYPE.SUCCESS, 'add new word successfully');
-        AddCollection({
-          title: 'Vocabs from other users',
-          image: '',
-        })
-          .unwrap()
-          .then((newCollection) => {
-            AddVocab({
-              vocabulary: vocab.vocabulary,
-              meaning: vocab.meaning,
-              image: vocab.image,
-              spelling: vocab.spelling,
-              synonyms: vocab.synonyms,
-              collectionId: newCollection.id,
-            });
+        if (checkExist) {
+          notify(NOTIFICATION_TYPE.SUCCESS, 'add new word successfully');
+          AddVocab({
+            vocabulary: vocab.vocabulary,
+            meaning: vocab.meaning,
+            image: vocab.image,
+            spelling: vocab.spelling,
+            synonyms: vocab.synonyms,
+            collectionId: duplicateCollection,
           });
+          window.my_modal_2.close();
+        } else {
+          notify(NOTIFICATION_TYPE.SUCCESS, 'add new word successfully');
+          AddCollection({
+            title: 'Vocabs from other users',
+            image: '',
+          })
+            .unwrap()
+            .then((newCollection) => {
+              AddVocab({
+                vocabulary: vocab.vocabulary,
+                meaning: vocab.meaning,
+                image: vocab.image,
+                spelling: vocab.spelling,
+                synonyms: vocab.synonyms,
+                collectionId: newCollection.id,
+              });
+            });
+        }
       }
-      }
-      
     }
   };
 
@@ -80,7 +83,7 @@ function VocabularyDetail() {
     formState: { errors },
   } = useForm();
   const onSubmit = handleSubmit((dataForm) => {
-    notify(NOTIFICATION_TYPE.SUCCESS, 'Add new word successfully')
+    notify(NOTIFICATION_TYPE.SUCCESS, 'Add new word successfully');
     AddVocab({
       ...dataForm,
       synonyms: [dataForm.synonyms],
@@ -90,7 +93,7 @@ function VocabularyDetail() {
 
   const handleHiddenModal = () => {
     document.getElementById('btnClose')?.click();
-  }
+  };
 
   return (
     <div>
@@ -168,19 +171,23 @@ function VocabularyDetail() {
             </div>
           </div>
           <div className="flex gap-4">
-              <button type="submit" className="btn btn-info text-white">
-                Add
-              </button>
-              <button type="reset" className="btn btn-error text-white">
-                Reset
-              </button>
-              <button type="button" className="btn btn-neutral text-white" onClick={handleHiddenModal}>
-                Close
-              </button>
-            </div>
+            <button type="submit" className="btn btn-info text-white">
+              Add
+            </button>
+            <button type="reset" className="btn btn-error text-white">
+              Reset
+            </button>
+            <button
+              type="button"
+              className="btn btn-neutral text-white"
+              onClick={handleHiddenModal}
+            >
+              Close
+            </button>
+          </div>
         </form>
         <form method="dialog" className="modal-backdrop">
-          <button id='btnClose'>close</button>
+          <button id="btnClose">close</button>
         </form>
       </dialog>
       <div>

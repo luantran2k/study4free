@@ -2,12 +2,14 @@ import { useAutoAnimate } from '@formkit/auto-animate/react';
 import {
   useCreateQuestionMutation,
   useGetPartByIdQuery,
+  useUpdatePartMutation,
 } from '../../../../store/queries/exams';
 import Questions from '../Questions';
 import { SectionType } from '../Sections';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../../../hooks/redux';
 import { updateExamEditInfo } from '../../../../store/slices/examSlice';
+import AudioUploadPreview from '../AudioUploadPreview';
 
 type Props = {
   section: SectionType;
@@ -23,6 +25,10 @@ function Part({ partId, section }: Props) {
   const [createQuestion] = useCreateQuestionMutation();
   const [parent] = useAutoAnimate();
   const dispatch = useAppDispatch();
+  const [
+    updatePart,
+    { isLoading: isUpdatePartLoading, isError: isUpdatePartError },
+  ] = useUpdatePartMutation();
 
   useEffect(() => {
     if (part?.id) {
@@ -46,6 +52,29 @@ function Part({ partId, section }: Props) {
     <div className="my-4" ref={parent}>
       <h3 className="text-2xl">{part?.title}</h3>
       <p>{part?.description}</p>
+      {section === 'Listening' && (
+        <div className="max-w-sm my-4">
+          <AudioUploadPreview
+            isAudioLoading={isUpdatePartLoading}
+            isAudioError={isUpdatePartError}
+            audioUrl={part?.audio}
+            onChange={(e) => {
+              updatePart({
+                partId: part?.id as string,
+                section,
+                data: { audio: e.target.files?.[0] as File },
+              });
+            }}
+            onDelete={() => {
+              updatePart({
+                partId: part?.id as string,
+                section,
+                data: { audio: '' },
+              });
+            }}
+          />
+        </div>
+      )}
       {part?.questions && part.questions.length > 0 ? (
         <Questions
           section={section}

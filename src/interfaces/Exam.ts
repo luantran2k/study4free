@@ -1,4 +1,5 @@
 import IExamSection from './ExamSection';
+import BaseFilter from './common/BaseFilter';
 
 export const skills = ['Listening', 'Reading', 'Writing', 'Speaking'] as const;
 
@@ -28,8 +29,22 @@ export interface CreateExamFormData {
 }
 
 export interface ExamSection {
+  id?: string;
+  listeningSectionId?: string;
+  readingSectionId?: string;
+  speakingSectionId?: string;
+  writingSectionId?: string;
   listening?: IExamSection;
   reading?: IExamSection;
   writing?: IExamSection;
   speaking?: IExamSection;
 }
+
+export interface ExamFilter
+  extends Required<Pick<BaseFilter, 'page' | 'quantity'>> {
+  title: string;
+  isNeedPaid: 'All' | 'true' | 'false';
+  type: ExamType;
+}
+
+export type ExamType = 'All' | 'IELTS' | 'TOEIC' | 'TOEFL' | 'CEFR';

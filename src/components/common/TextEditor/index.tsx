@@ -15,11 +15,21 @@ function TextEditor(props: Props) {
   useEffect(() => {
     setValue(props.defaultValue);
   }, [props.defaultValue]);
-
+  const toolbarOptions = [
+    [{ header: [1, 2, false] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    [{ size: ['small', false, 'large', 'huge'] }],
+    [{ color: [] }, { background: [] }],
+    [{ align: [] }],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    ['link', 'image'],
+    ['clean'],
+  ];
   return (
     <>
       {/* <ReactQuill theme="bubble" value={value} readOnly={true} /> */}
       <ReactQuill
+        modules={{ toolbar: toolbarOptions }}
         theme="snow"
         value={value}
         onChange={setValue}

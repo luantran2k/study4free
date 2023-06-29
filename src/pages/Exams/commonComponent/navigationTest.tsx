@@ -1,64 +1,60 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
+import { SectionType } from '../../../components/admin/Exams/Sections';
+import { useAppSelector } from '../../../hooks/redux';
+import {
+  useGetPartIdsBySectionIdQuery,
+  useGetSectionResultMutation,
+} from '../../../store/queries/exams';
 
-interface Props {
-  handleTask: (task: number) => void;
-  defaultIndex: number;
-}
-const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
-  const [time, setTime] = useState<number>(3600);
-  const ref = useRef<NodeJS.Timer | null>(null);
-  const exams = {
-    id: 1,
-    cambridge: 14,
-    test: 1,
-    skill: 'writing',
-    task: [
-      {
-        topic:
-          'The graph below gives information about the percentage of the population in four Asian countries living in cities from 1970 to 2020, with predictions for 2030 and 2040.Summarise the information by selecting and reporting the main features, and make comparisons where relevant.',
-        imageTopic:
-          'https://study4.com/media/uploads/editor/study4/2023/06/09/screen-shot-2023-06-09-at-82718-pm.png',
-      },
-      {
-        topic: '',
-      },
-    ],
-  };
+// interface Props {
+//   handleTask: (task: string) => void;
+//   handleIndex: (index: number) => void;
+//   defaultPartId: string;
+// }
 
-  const getIndex = (e: ChangeEvent<HTMLInputElement>) => {
-    handleTask(Number(e.target.value));
-  };
-  useEffect(() => {
-    ref.current = setInterval(() => {
-      setTime((prev) => prev - 1);
-    }, 1000);
+//{ handleTask, handleIndex, defaultPartId }: Props
+const NavigationTest = () => {
+  const { state } = useLocation();
+  const [time] = useState(state?.sectionDuration * 60 || 3600);
+  const examSectionResponse = useAppSelector(
+    (state) => state.exam.examSectionResponse
+  );
+  const { section = '', sectionId = '', examId } = useParams();
+  const { data: sectionData } = useGetPartIdsBySectionIdQuery({
+    section: section as SectionType,
+    sectionId,
+  });
 
-    return () => clearInterval(ref.current as NodeJS.Timer);
-  }, [time]);
-  useEffect(() => {
-    if (time === 0) {
-      clearInterval(ref.current as NodeJS.Timer);
-    }
-  }, [time]);
+  const [getSectionResult] = useGetSectionResultMutation(undefined);
+
   const handleSunmit = () => {
-    if (time > 0) {
-      const realTime = Date.now();
-      if (confirm('Do you want to submit answers?')) {
-        console.log('submit');
-      }
-      const realTime2 = Date.now();
-      const subtract = Math.floor((realTime2 - realTime) / 1000);
-      if (time > subtract) {
-        setTime((prev) => prev - subtract);
-      } else {
-        setTime(0);
-      }
-    } else {
-      console.log('stop');
+    if (examSectionResponse) {
+      getSectionResult(examSectionResponse)
+        .unwrap()
+        .then((res) => {
+          console.log(res);
+        });
     }
+    // if (time > 0) {
+    //   const realTime = Date.now();
+    //   if (confirm('Do you want to submit answers?')) {
+    //     console.log('submit');
+    //   }
+    //   const realTime2 = Date.now();
+    //   const subtract = Math.floor((realTime2 - realTime) / 1000);
+    //   if (time > subtract) {
+    //     setTime((prev) => prev - subtract);
+    //   } else {
+    //     setTime(0);
+    //   }
+    // } else {
+    //   console.log('stop');
+    // }
   };
+
   return (
-    <div className="rounded-xl shadow-2xl p-[2rem] flex flex-col ">
+    <div className="rounded- shadow-2xl p-[2rem] flex flex-col w-3/12 ">
       <div className="flex flex-row md:flex-col items-center my-[.75rem]">
         <div className="">Time left :</div>
         <span className="font-bold text-[1.5rem]">
@@ -81,31 +77,41 @@ const NavigationTest = ({ handleTask, defaultIndex }: Props) => {
         Submit
       </button>
       <p className="text-[#ffad3c] font-bold italic my-[0.75rem]">
-        Note: you can click on the question number in the article to mark the
-        review
+        You can click on the question number in the article to mark the review
       </p>
-      {exams.task.map((_, index) => {
-        return (
-          <div
-            key={index}
-            className="my-[1rem] flex justify-center items-center"
-          >
-            <label className=" flex items-center gap-[1rem]">
-              <span className="label-text font-bold text-[1.25rem]">
-                Task {index + 1}
-              </span>
-              <input
-                className="radio checked:bg-red-500"
-                type="radio"
-                name="task"
-                onChange={getIndex}
-                value={index}
-                checked={index === defaultIndex}
-              />
-            </label>
-          </div>
-        );
-      })}
+      <div className="flex flex-col [&_a]:p-2 [&_a]:rounded-md [&_.active]:bg-blue-600 [&_.active]:text-white">
+        {sectionData?.parts?.map(({ id: partId }, index) => {
+          return (
+            <NavLink
+              to={`/exams/${examId}/${section}/${sectionId}/${partId}`}
+              key={index}
+            >
+              Part {index + 1}
+            </NavLink>
+            // <div
+            //   key={index}
+            //   className="my-[1rem] flex justify-center items-center"
+            // >
+            //   <label className=" flex items-center gap-[1rem]">
+            //     <span className="label-text font-bold text-[1.25rem]">
+            //       Task {index + 1}
+            //     </span>
+            //     <input
+            //       className="radio checked:bg-red-500"
+            //       type="radio"
+            //       name="task"
+            //       // onChange={() => {
+            //       //   getPartId(item.id);
+            //       //   getPartIndex(index);
+            //       // }}
+            //       value={index}
+            //       checked={partId == item.id}
+            //     />
+            //   </label>
+            // </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

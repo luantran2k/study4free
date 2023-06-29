@@ -1,13 +1,13 @@
-import React from 'react';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import ReactDOM from 'react-dom/client';
+import 'react-quill/dist/quill.bubble.css';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import App from './App.tsx';
 import './index.css';
 import { store } from './store/index.ts';
-import { PayPalScriptProvider } from '@paypal/react-paypal-js';
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
 
 const initialOptions = {
   clientId:
@@ -16,14 +16,12 @@ const initialOptions = {
   intent: 'capture',
 };
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <PayPalScriptProvider deferLoading={true} options={initialOptions}>
-      <Provider store={store}>
-        <ToastContainer />
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </PayPalScriptProvider>
-  </React.StrictMode>
+  <PayPalScriptProvider deferLoading={true} options={initialOptions}>
+    <Provider store={store}>
+      <ToastContainer />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </PayPalScriptProvider>
 );

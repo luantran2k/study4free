@@ -6,6 +6,7 @@ import { ExamSection } from '../../../../interfaces/Exam';
 import { useGetExamByIdQuery } from '../../../../store/queries/exams';
 import { useAppDispatch } from '../../../../hooks/redux';
 import { updateExamEditInfo } from '../../../../store/slices/examSlice';
+import IExamSection from '../../../../interfaces/ExamSection';
 
 const Sections = lazy(
   () => import('../../../../components/admin/Exams/Sections')
@@ -35,11 +36,12 @@ function EditExam() {
 
   const sections = Object.keys(exam.sections)
     .filter((key) => {
-      return exam.sections[key as keyof ExamSection]?.id;
+      return (exam.sections[key as keyof ExamSection] as IExamSection).id;
     })
     .map((key) => ({
       name: (key[0].toUpperCase() + key.slice(1)) as SectionType,
-      id: exam.sections[key as keyof ExamSection]?.id as string,
+      id: (exam.sections[key as keyof ExamSection] as IExamSection)
+        .id as string,
     }));
   return (
     <div>
