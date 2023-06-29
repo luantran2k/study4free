@@ -22,9 +22,7 @@ function ExamSubCard(props: SubCardProps) {
   )?.userInfo;
   const { data: userData, isSuccess } = useGetUserByIdQuery(dataStorage?.id);
   const handleDoExam = () => {
-    if (userData && isSuccess) {
-      console.log();
-    } else {
+    if (!(userData && isSuccess)) {
       notify(NOTIFICATION_TYPE.ERROR, 'Please login before do exam');
     }
   };

@@ -29,7 +29,6 @@ const DictionaryComponent = ({ clicked }: Props) => {
       setWord(response.data);
       setErrorMess(false);
     } catch (error) {
-      console.log(error);
       setErrorMess(true);
     }
   };

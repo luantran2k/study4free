@@ -46,8 +46,6 @@ function AnalyzeResults() {
     return `${day}/${month}/${year}`;
   });
   const scoreData = dataExam?.map((value: IExamResult) => {
-    console.log(value);
-
     return value.score;
   });
 
@@ -60,7 +58,6 @@ function AnalyzeResults() {
 
   const finalResult: number = averageScore / scoreData?.length;
 
-  console.log(dataExam);
   const options = {
     responsive: true,
     plugins: {

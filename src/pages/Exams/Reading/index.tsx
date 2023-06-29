@@ -23,42 +23,6 @@ const Reading = () => {
     return <p>Error</p>;
   }
 
-  // const handleTask = (task: string) => {
-  //   console.log(task);
-  //   setPartId(task);
-  // };
-
-  // const handleIndex = (index: number) => {
-  //   setIndex(index);
-  // };
-
-  // const handleGetValue = (
-  //   e: React.ChangeEvent<HTMLInputElement>,
-  //   item: IReadingAnswer
-  // ) => {
-  //   setAnswersArr((prev: ISectionResponse) => {
-  //     const updatedQuestions = prev.questions.map((question) => {
-  //       if (question.id === partId) {
-  //         const updatedAnswers = question.answers;
-  //         const existingAnswerIndex = updatedAnswers.findIndex(
-  //           (answer) => answer.id === item.id
-  //         );
-  //         if (existingAnswerIndex !== -1) {
-  //           updatedAnswers[existingAnswerIndex] = {
-  //             id: item.id,
-  //             value: e.target.value.trim(),
-  //           };
-  //         } else {
-  //           updatedAnswers.push({ id: item.id, value: e.target.value.trim() });
-  //         }
-  //         return { ...question, answers: updatedAnswers };
-  //       }
-  //       return question;
-  //     });
-  //     return { ...prev, questions: updatedQuestions };
-  //   });
-  // };
-
   return (
     <div className="bg-[#f8f9fa]">
       <div className="flex justify-center items-center gap-[1rem] p-[2rem]">

@@ -43,7 +43,6 @@ function Reminder() {
     e: React.ChangeEvent<HTMLInputElement>,
     value: IToDo
   ) => {
-    console.log(value);
     const statusToDo: boolean = e.target.checked;
     if (statusToDo) {
       changeStatusToDo({

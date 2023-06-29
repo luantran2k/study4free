@@ -206,9 +206,6 @@ function VocabularyDetail() {
         <div className="grid grid-cols-12 gap-[40px] mt-[10px] max-sm:pe-[8px] ">
           {isSuccessVocab &&
             listVocabs?.map((vocab: IVocabulary, index: number) => {
-              // if (listVocabs) {
-              //   console.log(myCollection.some(data => vocab.vocabulary.includes(data.vocabulary)));
-              // }
               return (
                 <div
                   key={index}

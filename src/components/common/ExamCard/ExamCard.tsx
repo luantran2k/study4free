@@ -19,8 +19,6 @@ const ExamCard = (exam: IExam) => {
   )?.userInfo;
   const { data: userData } = useGetUserByIdQuery(dataStorage?.id);
 
-  // console.log(data);
-
   return (
     <div className="mb-8">
       <div className="tabs ">

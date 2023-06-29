@@ -37,9 +37,7 @@ function VocabulariesPage() {
         await addNewCollectionHook({
           title: inputContent,
           image: '',
-        })
-          .unwrap()
-          .then((data) => console.log(data));
+        });
       }
     }
   };
