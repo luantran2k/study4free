@@ -1,36 +1,17 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import Thumb from '../../assets/images/thumbEnglish.jpg';
+import Thumb from '../../assets/images/study.jpg';
 import Logo from '../../assets/images/logo.png';
 import React, { lazy, useEffect, useState } from 'react';
 import {
   useAddNewCollectionMutation,
   useGetAllCollectonQuery,
+  useGetCollectionByIdQuery,
 } from '../../store/queries/users';
-import ICollection from '../../interfaces/Collection';
+import ICollection, { VocabFilter } from '../../interfaces/Collection';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 
 const Pagination = lazy(() => import('../../components/common/Pagination'));
 
-// const vocabList: string[] = [
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-// ];
 
 const newPag = {
   totalPage: 5,
@@ -58,8 +39,17 @@ function VocabulariesPage() {
   const [addNewCollectionHook] = useAddNewCollectionMutation();
   const [inputContent, setInputContent] = useState<string>('');
 
+  // const [vocabFilter, setVocabFilter] = useState<any>({
+  //   page: 0,
+  //   quantity: 1,
+  //   title: '',
+  //   isNeedPaid: 'All',
+  //   type: 'All',
+  // });
+
+  // const { page, quantity, title } = vocabFilter;
+
   const handleInputTitle = (e: any) => {
-    // setInputContent(e.target.value)
     setInputContent(e.target.value);
   };
 
@@ -76,6 +66,12 @@ function VocabulariesPage() {
       }
     }
   };
+
+  // useEffect(() => {
+  //   // Reset the current page to 0 when the quantity option is changed
+  //   setVocabFilter((filter) => ({ ...filter, page: 0 }));
+  // }, [quantity]);
+
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -89,7 +85,12 @@ function VocabulariesPage() {
         <h2>VOCABULARY</h2>
       </div>
       <div className="container mx-auto py-[3rem]">
-        <img src={Thumb} alt="" className="w-[100%]" />
+        <div
+          className="container mx-auto mb-10 bg-center bg-cover bg-no-repeat h-[400px]"
+          style={{
+            backgroundImage: `url(${Thumb})`,
+          }}
+        ></div>
         {pathname === '/vocabularies' ? (
           <div className="max-sm:px-[10px] p-[3rem] flex gap-3 flex-col items-start">
             <div className="w-[100%]">
@@ -114,6 +115,7 @@ function VocabulariesPage() {
         <div className="mb-[20px] grid grid-cols-12 gap-[30px] max-sm:px-[10px] p-[3rem]">
           {pathname === '/vocabularies' ? (
             data?.map((item: ICollection, index: number) => {
+
               return (
                 <div
                   key={index}
@@ -122,7 +124,6 @@ function VocabulariesPage() {
                 >
                   <Link to={item.title} state={item}>
                     <span>{item.title}</span>
-                    <p className="text-[15px] opacity-[0.8]">100 words</p>
                     <div className="w-[60px] h-[60px] my-[20px]">
                       <img
                         className="w-[100%] h-[100%] object-contain"
@@ -142,7 +143,24 @@ function VocabulariesPage() {
         </div>
 
         <div className="flex my-[30px] justify-center">
-          <Pagination {...newPag} />
+          {/* <Pagination
+            totalPage={Math.ceil(data.count / 100)}
+            currentPage={page}
+            quantity={quantity}
+            quantityOptions={[1, 2, 3]}
+            onChangePage={(page) => {
+              setExamFilter({ ...examFilter, page });
+            }}
+            onChangeQuantity={(quantity) => {
+              setExamFilter({ ...examFilter, quantity });
+            }}
+            onNextClick={() =>
+              setExamFilter({ ...examFilter, page: page + 1 })
+            }
+            onPreviousClick={() =>
+              setExamFilter({ ...examFilter, page: page - 1 })
+            }
+          /> */}
         </div>
       </div>
     </React.Fragment>

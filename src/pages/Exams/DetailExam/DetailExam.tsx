@@ -9,7 +9,6 @@ import { useGetExamByIdQuery } from '../../../store/queries/exams';
 import { countQuestion, getSectionTime } from '../../../utils/exam';
 import { useEffect } from 'react';
 
-// import LightOn from '../../../assets/icons/LightOn';
 
 const DetailExam = () => {
   const { examId, section } = useParams();
@@ -97,15 +96,6 @@ const DetailExam = () => {
               >
                 Entry Full Test
               </a>
-              {/* <button
-                className={`tab scroll-smooth tab-bordered tab-lg font-bold
-                                         text-lg hover:text-sky-700 hover:border-sky-700`}
-                onClick={() =>
-                  ref.current?.scrollIntoView({ behavior: 'smooth' })
-                }
-              >
-                Comments
-              </button> */}
             </div>
 
             <div className="w-full bg-[#ffefd8] p-4 text-[#855a1f] rounded-lg mb-4">

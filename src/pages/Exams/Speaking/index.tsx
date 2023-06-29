@@ -86,6 +86,9 @@
 //   );
 // };
 
-export const Speaking = () => {
+const Speaking = () => {
   return <h1>Speaking</h1>;
 };
+
+
+export default Speaking

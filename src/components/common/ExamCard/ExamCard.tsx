@@ -25,22 +25,21 @@ const ExamCard = (exam: IExam) => {
     <div className="mb-8">
       <div className="tabs ">
         <a
-          className="tab tab-lifted tab-lg tab-active text-xl font-semibold text-[#23085a] bg-[#e8f2ff]"
+          className="tab tab-lifted tab-lg tab-active text-xl font-semibold text-[#23085a] bg-[#e8f2ff] pointer-events-none"
           style={{ backgroundColor: '#e8f2ff' }}
         >
           {exam?.title}
         </a>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-[#e8f2ff] p-4">
-        {subCardProps.map((props: SubCardProps) => {
-          console.log(props);
+        {subCardProps.map((props: SubCardProps, i) => {
           if (
             userData &&
             userData.payment == false &&
             props.section === 'Speaking'
           )
             return (
-              <div className="m-auto font-bold">
+              <div className="m-auto font-bold" key={`${props.sectionId}-${i}`}>
                 Paid to unlock Speaking skill
               </div>
             );
@@ -50,12 +49,12 @@ const ExamCard = (exam: IExam) => {
             props.section === 'Writing'
           )
             return (
-              <div className="m-auto font-bold">
+              <div className="m-auto font-bold" key={`${props.sectionId}-${i}`}>
                 Paid to unlock Wrting skill
               </div>
             );
           else {
-            return <ExamSubCard key={props.sectionId} {...props} />;
+            return <ExamSubCard key={`${i}-${props.sectionId}`} {...props} />;
           }
         })}
       </div>

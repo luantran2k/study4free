@@ -40,7 +40,7 @@ function SingleChoice(question: IQuestion & { index: number }) {
         <ReactQuill value={title} readOnly={true} theme="bubble" />
       </div>
       <MediaViewer audio={audio as string} image={image as string} />
-      {answers.map((answer, answerIndex) => {
+      {answers?.map((answer, answerIndex) => {
         return (
           <div className="flex items-center gap-[0.5rem]" key={answerIndex}>
             <input
