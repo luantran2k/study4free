@@ -1,8 +1,27 @@
+import { useEffect } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
+import { SectionType } from '../../../components/admin/Exams/Sections';
+import { useAppDispatch } from '../../../hooks/redux';
+import {
+  resetSectionResponse,
+  updateSectionResponse,
+} from '../../../store/slices/examSlice';
 import NavigationTest from '../commonComponent/navigationTest';
 
 const ExamSection = () => {
-  const { section, sectionId } = useParams();
+  const { section = '', sectionId = '' } = useParams();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(
+      updateSectionResponse({
+        section: section as SectionType,
+        sectionId,
+      })
+    );
+    return () => {
+      dispatch(resetSectionResponse());
+    };
+  }, []);
 
   return (
     <div className="bg-[#f8f9fa]">

@@ -13,18 +13,7 @@ import WritingPart from '../WritingPart';
 
 function ExamPart() {
   const { section = '', sectionId = '' } = useParams();
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(
-      updateSectionResponse({
-        section: section as SectionType,
-        sectionId,
-      })
-    );
-    () => {
-      dispatch(resetSectionResponse());
-    };
-  }, []);
+
   const getSection = (section: SectionType) => {
     switch (section) {
       case 'Listening':

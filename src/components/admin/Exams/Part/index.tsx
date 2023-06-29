@@ -47,7 +47,7 @@ function Part({ partId, section }: Props) {
   if (isError) {
     return <p className="text-error">Error</p>;
   }
-  console.log(part);
+
   return (
     <div className="my-4" ref={parent}>
       <h3 className="text-2xl">{part?.title}</h3>

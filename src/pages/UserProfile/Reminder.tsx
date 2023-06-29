@@ -65,7 +65,6 @@ function Reminder() {
         },
       });
     }
-    console.log(e.target.checked);
   };
 
   if (isSuccess) {
