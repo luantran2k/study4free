@@ -26,7 +26,7 @@ const Footer = () => {
           </div>
           <div className="flex items-center gap-[2rem]">
             <img className="w-[3rem] h-[3rem]" alt="" src={Cambridge} />
-            Cambridge 15
+            Cambridge 14
           </div>
           <div className="flex items-center gap-[2rem]">
             <img className="w-[3rem] h-[3rem]" alt="" src={Cambridge} />
@@ -34,7 +34,7 @@ const Footer = () => {
           </div>
           <div className="flex items-center gap-[2rem]">
             <img className="w-[3rem] h-[3rem]" alt="" src={Cambridge} />
-            Cambridge 15
+            Cambridge 16
           </div>
         </div>
         <div className="flex flex-col gap-[0.5rem]">
