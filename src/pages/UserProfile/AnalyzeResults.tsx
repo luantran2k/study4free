@@ -119,7 +119,7 @@ function AnalyzeResults() {
 
   useEffect(() => {
     const set = new Set();
-    dataExam?.map((value: IExamResult) => {
+    dataExam?.map((value: any) => {
       set.add(value.title);
     });
     setNumberExam(set.size);
@@ -138,7 +138,9 @@ function AnalyzeResults() {
               <span
                 className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
               cursor-pointer min-w-[200px] hover:bg-[#38bdf8] hover:text-[#fff] ${
-                section == 'Listening' ? 'bg-[#38bdf8] text-white' : ''
+                section == 'Listening'
+                  ? 'bg-[#38bdf8] text-white'
+                  : 'text-black'
               }`}
                 onClick={() => setSection('Listening')}
               >
@@ -147,7 +149,7 @@ function AnalyzeResults() {
               <span
                 className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
               cursor-pointer min-w-[200px] hover:bg-[#38bdf8] hover:text-[#fff] ${
-                section == 'Reading' ? 'bg-[#38bdf8] text-white' : ''
+                section == 'Reading' ? 'bg-[#38bdf8] text-white' : 'text-black'
               }`}
                 onClick={() => setSection('Reading')}
               >
@@ -156,7 +158,7 @@ function AnalyzeResults() {
               <span
                 className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
               cursor-pointer min-w-[200px] hover:bg-[#38bdf8] hover:text-[#fff] ${
-                section == 'Speaking' ? 'bg-[#38bdf8] text-white' : ''
+                section == 'Speaking' ? 'bg-[#38bdf8] text-white' : 'text-black'
               }`}
                 onClick={() => setSection('Speaking')}
               >
@@ -165,7 +167,7 @@ function AnalyzeResults() {
               <span
                 className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
               cursor-pointer min-w-[200px] hover:bg-[#38bdf8] hover:text-[#fff] ${
-                section == 'Writing' ? 'bg-[#38bdf8] text-white' : ''
+                section == 'Writing' ? 'bg-[#38bdf8] text-white' : 'text-black'
               }`}
                 onClick={() => setSection('Writing')}
               >
