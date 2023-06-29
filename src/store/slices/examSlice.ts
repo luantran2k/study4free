@@ -38,10 +38,13 @@ const examSlice = createSlice({
 
     updateSectionResponse: (
       state: ExamSliceState,
-      action: PayloadAction<{ section: SectionType }>
+      action: PayloadAction<{ section: SectionType; sectionId: string }>
     ) => {
-      if (state.examSectionResponse?.section) {
+      if (state.examSectionResponse) {
         state.examSectionResponse.section = action.payload.section;
+      }
+      if (state.examSectionResponse) {
+        state.examSectionResponse.id = action.payload.sectionId;
       }
     },
     updateQuestionResponse: (
@@ -58,6 +61,10 @@ const examSlice = createSlice({
       } else {
         state.examSectionResponse?.questions.push(action.payload);
       }
+    },
+
+    resetSectionResponse: (state) => {
+      state.examSectionResponse = undefined;
     },
 
     // updateAnswerResponse: (
@@ -82,5 +89,6 @@ export const {
   updateExamEditInfo,
   updateSectionResponse,
   updateQuestionResponse,
+  resetSectionResponse,
 } = examSlice.actions;
 export const examReducer = examSlice.reducer;

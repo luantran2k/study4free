@@ -15,7 +15,7 @@ function SingleChoice(question: IQuestion & { index: number }) {
       <MediaViewer audio={audio as string} image={image as string} />
       {answers.map((answer, answerIndex) => {
         return (
-          <div className="flex items-center gap-[0.5rem]">
+          <div className="flex items-center gap-[0.5rem]" key={answerIndex}>
             <input
               type="radio"
               name={`${index}`}

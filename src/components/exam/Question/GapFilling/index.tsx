@@ -13,21 +13,21 @@ function GapFilling(question: IQuestion & { index: number }) {
         <MediaViewer audio={audio as string} image={image as string} />
       </div>
       <div className="flex flex-col gap-4">
-        {answers.map((a, i: number) => {
+        {answers?.map((_, index: number) => {
           return (
-            <div className="flex gap-[1rem]">
+            <div className="flex gap-[1rem]" key={index}>
               <label
                 className="bg-[#e8f2ff] w-[35px] aspect-square flex justify-center items-center rounded-full text-[#35509a] font-bold"
-                htmlFor={`${id + i}-${i}`}
+                htmlFor={`${id + index}-${index}`}
               >
-                {i + 1}
+                {index + 1}
               </label>
               <input
                 className="border-[#bdc5d1] border-2 rounded-xl px-[0.5rem]"
                 key={id}
                 type="text"
-                id={`${id + 1}-${i}`}
-                name={`${id + 1}-${i}`}
+                id={`${id + 1}-${index}`}
+                name={`${id + 1}-${index}`}
               />
             </div>
           );

@@ -1,11 +1,10 @@
-import { useState } from 'react';
-import ReactQuill from 'react-quill';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetPartByIdQuery } from '../../../store/queries/exams';
-import QUestionNumberList from '../QuestionIndexList';
-import SingleChoice from '../Question/SingleChoice';
-import GapFilling from '../Question/GapFilling';
 import MediaViewer from '../MediaViewer';
+import GapFilling from '../Question/GapFilling';
+import SingleChoice from '../Question/SingleChoice';
+import QUestionNumberList from '../QuestionIndexList';
 
 function ListeningPart() {
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -14,6 +13,9 @@ function ListeningPart() {
     section: 'Listening',
     partId,
   });
+  useEffect(() => {
+    setQuestionIndex(0);
+  }, [partId]);
   return (
     <>
       <MediaViewer audio={part?.audio} />
