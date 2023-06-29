@@ -1,5 +1,4 @@
 import { Outlet, useParams } from 'react-router-dom';
-import ExamPart from '../../../components/exam/ExamPart';
 import NavigationTest from '../commonComponent/navigationTest';
 
 const ExamSection = () => {
