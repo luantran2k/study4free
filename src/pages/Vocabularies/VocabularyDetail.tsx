@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import ICollection from '../../interfaces/Collection';
+import { useEffect } from 'react';
 
 function VocabularyDetail() {
   const { state } = useLocation();
@@ -19,10 +20,11 @@ function VocabularyDetail() {
   const [AddVocab] = useAddNewVocabularyMutation();
   const [AddCollection] = useAddNewCollectionMutation();
   const user = useSelector((state: RootState) => state.auth.userInformation);
-  const { data: dataUser } = useGetUserByIdQuery(user?.id);
+  const { data: dataUser, isLoading, isSuccess } = useGetUserByIdQuery(user?.id);
   const { data: dataVocab, isSuccess: isSuccessVocab } =
     useGetCollectionByIdQuery(state.id);
   const listVocabs: IVocabulary[] = dataVocab?.vocabularies;
+  // let myCollection: IVocabulary[] = [];
 
   const addToCollections = (vocab: IVocabulary) => {
     if (localStorage.getItem('user') === null) {
@@ -77,6 +79,16 @@ function VocabularyDetail() {
       }
     }
   };
+
+  // if (isSuccess && dataUser) {
+  //   dataUser?.collections.forEach((value: ICollection) => {
+  //     const { data: dataVocab, isSuccess: isSuccessVocabs } =
+  //       useGetCollectionByIdQuery(value.id);
+  //     if (isSuccessVocabs) {
+  //       myCollection = [...myCollection, ...dataVocab.vocabularies];
+  //     }
+  //   });
+  // }
 
   const {
     register,
@@ -193,8 +205,11 @@ function VocabularyDetail() {
       </dialog>
       <div>
         <div className="grid grid-cols-12 gap-[40px] mt-[10px] max-sm:pe-[8px] ">
-          {isSuccessVocab &&
+          {isSuccessVocab && 
             listVocabs?.map((vocab: IVocabulary, index: number) => {
+              // if (listVocabs) {
+              //   console.log(myCollection.some(data => vocab.vocabulary.includes(data.vocabulary)));
+              // }
               return (
                 <div
                   key={index}

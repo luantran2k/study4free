@@ -53,13 +53,13 @@ const SectionPage = () => {
                       className=" flex flex-row relative pb-10 sm:mb-10 mb-24"
                       key={id}
                     >
-                      <NavLink to={'/404'} className="w-full">
+                      <NavLink to={'/404'} className="w-full pointer-events-none">
                         <img src={imgUrl} className="h-full w-full sm:w-3/5" />
                       </NavLink>
                       <div className=" bg-white w-[90vw]  sm:w-[350px] lg:w-[400px] h-3/4 xl:w-[500px] p-6 lg:p-10 absolute bottom-[-70px] right-0 left-0 m-auto sm:m-0 sm:left-auto sm:bottom-0 sm:right-[100px] md:rounded-tl-3xl rounded-3xl">
                         <NavLink
                           to="/404"
-                          className="mb-1 lg:mb-3 block text-2xl font-bold text-[#23085a] hover:underline hover:text-green-400"
+                          className="mb-1 lg:mb-3 block text-2xl font-bold text-[#23085a] hover:underline hover:text-green-400 pointer-events-none"
                         >
                           {lesson}
                         </NavLink>
@@ -177,7 +177,7 @@ const SectionPage = () => {
                       </svg>
                       <NavLink
                         to={section.to}
-                        className="text-md text-[#23085a] hover:underline hover:text-green-400"
+                        className="text-md text-[#23085a] hover:underline hover:text-green-400 pointer-events-none"
                       >
                         {section.title}
                       </NavLink>
@@ -222,7 +222,7 @@ const SectionPage = () => {
                       <NavLink
                         key={section.id}
                         to={section.to}
-                        className="text-md text-[#23085a] hover:underline hover:text-green-400"
+                        className="text-md text-[#23085a] hover:underline hover:text-green-400 pointer-events-none"
                       >
                         {section.title}
                       </NavLink>
