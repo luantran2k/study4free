@@ -1,10 +1,9 @@
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Cambridge from '../../../assets/images/Cambridge';
 
 const Footer = () => {
   const location = useLocation();
   const { pathname } = location;
-  console.log(pathname)
 
   const pagesArr = [
     {

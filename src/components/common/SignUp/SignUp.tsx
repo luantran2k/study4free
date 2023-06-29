@@ -7,6 +7,7 @@ import { useRegisterMutation } from '../../../services/authApi';
 import { setUser } from '../../../store/slices/authSlice';
 import { NOTIFICATION_TYPE, notify } from '../../../utils/notify';
 import { signUpSchema } from '../../../schemas/account';
+import { NavLink } from 'react-router-dom';
 
 type SignUpProps = {
   handleChange: (newValue: number) => void;

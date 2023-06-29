@@ -1,5 +1,4 @@
 import { lazy, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import Thumb from '../../assets/images/study.jpg';
 import LoadingAnimate from '../../components/common/LoadingAnimate';
 import Pagination from '../../components/common/Pagination';
@@ -14,7 +13,7 @@ const ExamCard = lazy(
 );
 
 function ExamsPage() {
-  const location = useLocation();
+
   const [examFilter, setExamFilter] = useState<ExamFilter>({
     page: 0,
     quantity: 1,
@@ -23,7 +22,7 @@ function ExamsPage() {
     type: 'All',
   });
 
-  const { page, quantity, title, isNeedPaid, type } = examFilter;
+  const { page, quantity, title } = examFilter;
 
   const {
     data: exams,
