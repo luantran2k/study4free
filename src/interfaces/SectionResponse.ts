@@ -1,6 +1,8 @@
 export interface ISectionResponse {
   id: string;
   section: 'Listening' | 'Reading' | 'Writing' | 'Speaking';
+  examId: string;
+  title: string;
   questions: IQuestionResponse[];
 }
 

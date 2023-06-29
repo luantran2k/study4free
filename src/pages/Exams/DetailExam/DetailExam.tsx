@@ -83,9 +83,7 @@ const DetailExam = () => {
                 <p>
                   <WriteIcon />
                 </p>
-                <p>
-                  {exam._count?.UserDoingExam || 0} competitors use this test
-                </p>
+                <p>{0} competitors use this test</p>
               </div>
               <p className="italic font-normal text-red-500">
                 Note: to be converted to a scale (for example, on a scale of 990
@@ -130,6 +128,7 @@ const DetailExam = () => {
                   exam.duration,
                   section as SectionType
                 ),
+                title: exam.title,
               }}
             >
               Start Exam
