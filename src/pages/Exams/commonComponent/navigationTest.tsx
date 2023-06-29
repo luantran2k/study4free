@@ -12,7 +12,7 @@ import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
 //{ handleTask, handleIndex, defaultPartId }: Props
 const NavigationTest = () => {
   const { state } = useLocation();
-  const [time, setTime] = useState<number>(state.sectionDuration * 60 || 3600);
+  const [time, setTime] = useState<number>(state?.sectionDuration * 60 || 3600);
   const {
     section = '',
     sectionId = '',
