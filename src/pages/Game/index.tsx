@@ -7,12 +7,9 @@ import HeartIcon from '../../assets/images/HeartIcon.gif';
 
 const MiniGame = () => {
   const location = useLocation();
-  console.log(location.state);
-  const [wordToGuess, setWordToGuess] = useState<IVocabularyItem>(() => {
-    return location.state[Math.floor(Math.random() * location.state.length)];
-  });
+  const storeVocabs = new Set<number>()
+  const [wordToGuess, setWordToGuess] = useState<IVocabularyItem>(location.state[0]);
 
-  console.log(wordToGuess);
   const [heart, setHeart] = useState<string[]>(['3', '2', '1']);
 
   const [guessedLetters, setGuessedLetter] = useState<string[]>([]);
@@ -56,6 +53,23 @@ const MiniGame = () => {
   }, [inCorrectLetter.length]);
 
   const handleTryAgain = () => {
+    let indexToPresent: number = 0
+    storeVocabs.add(0)
+    while(true) {
+      if(storeVocabs.size === location.state.length) {
+        storeVocabs.clear()
+      }
+      const newIndex = Math.floor(Math.random() * location.state.length)
+      const remainSize = storeVocabs.size
+      console.log(remainSize)
+      storeVocabs.add(newIndex)
+      // console.log(newIndex, remainSize, storeVocabs)
+      if(storeVocabs.size === remainSize + 1) {
+        indexToPresent = newIndex
+        console.log(indexToPresent, storeVocabs)
+        break
+      }
+    }
     setWordToGuess(
       location.state[Math.floor(Math.random() * location.state.length)]
     );
