@@ -15,9 +15,6 @@ export default interface IExam {
   tags?: string[];
   image?: string;
   sections: ExamSection;
-  _count?: {
-    UserDoingExam: number;
-  };
   createdAt?: string;
   updatedAt?: string;
 }

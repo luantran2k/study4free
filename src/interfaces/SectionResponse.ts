@@ -1,6 +1,8 @@
 export interface ISectionResponse {
   id: string;
   section: 'Listening' | 'Reading' | 'Writing' | 'Speaking';
+  examId: string;
+  title: string;
   questions: IQuestionResponse[];
 }
 
@@ -25,3 +27,9 @@ export type QuestionType =
   | 'Head Matching'
   | 'Sentence completion'
   | 'Summary completion';
+
+export interface ISectionResult {
+  numberOfTrueQuestion: number;
+  totalQuestion: number;
+  score: number;
+}

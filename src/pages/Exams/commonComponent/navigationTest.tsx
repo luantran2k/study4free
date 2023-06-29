@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink, useLocation, useParams } from 'react-router-dom';
+import { NavLink, Navigate, useLocation, useParams } from 'react-router-dom';
 import { SectionType } from '../../../components/admin/Exams/Sections';
 import { useAppSelector } from '../../../hooks/redux';
 import {
@@ -16,7 +16,7 @@ import {
 //{ handleTask, handleIndex, defaultPartId }: Props
 const NavigationTest = () => {
   const { state } = useLocation();
-  const [time, setTime] = useState<number>(state?.sectionDuration * 60 || 3600);
+  const [time, setTime] = useState(state?.sectionDuration * 60 || 3600);
   const examSectionResponse = useAppSelector(
     (state) => state.exam.examSectionResponse
   );
@@ -57,6 +57,7 @@ const NavigationTest = () => {
     //   console.log('stop');
     // }
   };
+
   return (
     <div className="rounded- shadow-2xl p-[2rem] flex flex-col w-3/12 ">
       <div className="flex flex-row md:flex-col items-center my-[.75rem]">
