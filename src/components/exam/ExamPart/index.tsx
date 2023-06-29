@@ -1,4 +1,10 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../../hooks/redux';
+import {
+  resetSectionResponse,
+  updateSectionResponse,
+} from '../../../store/slices/examSlice';
 import { SectionType } from '../../admin/Exams/Sections';
 import ListeningPart from '../ListeningPart';
 import ReadingPart from '../ReadingPart';
@@ -6,7 +12,19 @@ import SpeakingPart from '../SpeakingPart';
 import WritingPart from '../WritingPart';
 
 function ExamPart() {
-  const { section } = useParams();
+  const { section = '', sectionId = '' } = useParams();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(
+      updateSectionResponse({
+        section: section as SectionType,
+        sectionId,
+      })
+    );
+    () => {
+      dispatch(resetSectionResponse());
+    };
+  }, []);
   const getSection = (section: SectionType) => {
     switch (section) {
       case 'Listening':

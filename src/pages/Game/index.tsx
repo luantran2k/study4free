@@ -65,6 +65,23 @@ const MiniGame = () => {
   }, [inCorrectLetter.length]);
 
   const handleTryAgain = () => {
+    let indexToPresent: number = 0;
+    storeVocabs.add(0);
+    while (true) {
+      if (storeVocabs.size === location.state.length) {
+        storeVocabs.clear();
+      }
+      const newIndex = Math.floor(Math.random() * location.state.length);
+      const remainSize = storeVocabs.size;
+      console.log(remainSize);
+      storeVocabs.add(newIndex);
+      // console.log(newIndex, remainSize, storeVocabs)
+      if (storeVocabs.size === remainSize + 1) {
+        indexToPresent = newIndex;
+        console.log(indexToPresent, storeVocabs);
+        break;
+      }
+    }
     setWordToGuess(
       collectionArr[Math.floor(Math.random() * collectionArr.length)]
     );

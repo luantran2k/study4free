@@ -94,6 +94,35 @@ export const examsApi = createApi({
       }),
       invalidatesTags: () => ['CountPart'],
     }),
+    updatePart: builder.mutation<
+      IPart,
+      {
+        partId: string;
+        section: string;
+        data: Partial<CreateExamFormData & { audio?: File | string }>;
+      }
+    >({
+      query: ({ partId, section, data }) => {
+        const formData = new FormData();
+        Object.keys(data).forEach((key) => {
+          formData.append(
+            key,
+            data[
+              key as keyof Partial<
+                Partial<CreateExamFormData & { audio?: File }>
+              >
+            ] as string | Blob
+          );
+        });
+        return {
+          url: `/parts/${section}/${partId}`,
+          method: 'PATCH',
+          body: formData,
+          formData: true,
+        };
+      },
+      invalidatesTags: () => ['Part'],
+    }),
     removePart: builder.mutation<IPart, { partId: string; section: string }>({
       query: ({ partId, section }) => ({
         url: `/parts/${section}/${partId}`,
@@ -202,6 +231,7 @@ export const {
   useRemoveExamMutation,
   useGetPartIdsBySectionIdQuery,
   useCreatePartMutation,
+  useUpdatePartMutation,
   useGetPartByIdQuery,
   useRemovePartMutation,
   useGetQuestionByIdQuery,
