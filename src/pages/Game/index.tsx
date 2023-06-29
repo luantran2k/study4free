@@ -7,12 +7,13 @@ import HeartIcon from '../../assets/images/HeartIcon.gif';
 
 const MiniGame = () => {
   const location = useLocation();
-  console.log(location.state);
-  const [wordToGuess, setWordToGuess] = useState<IVocabularyItem>(() => {
-    return location.state[Math.floor(Math.random() * location.state.length)];
-  });
+  const [collectionArr, setCollectionArr] = useState<IVocabularyItem[]>([
+    ...location.state,
+  ]);
+  const [wordToGuess, setWordToGuess] = useState<IVocabularyItem>(
+    collectionArr[0]
+  );
 
-  console.log(wordToGuess);
   const [heart, setHeart] = useState<string[]>(['3', '2', '1']);
 
   const [guessedLetters, setGuessedLetter] = useState<string[]>([]);
@@ -23,7 +24,15 @@ const MiniGame = () => {
     },
     [guessedLetters]
   );
-
+  useEffect(() => {
+    if (collectionArr.length >= 1) {
+      setCollectionArr((prev) =>
+        prev.filter((item) => item.id !== wordToGuess.id)
+      );
+    } else {
+      setCollectionArr([...location.state]);
+    }
+  }, [wordToGuess]);
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const key = e.key;
@@ -57,7 +66,7 @@ const MiniGame = () => {
 
   const handleTryAgain = () => {
     setWordToGuess(
-      location.state[Math.floor(Math.random() * location.state.length)]
+      collectionArr[Math.floor(Math.random() * collectionArr.length)]
     );
     setGuessedLetter([]);
   };
@@ -65,6 +74,9 @@ const MiniGame = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <h4 className="text-sky-400 font-bold text-[2rem] uppercase">Practice</h4>
+      <button className="btn btn-info text-white me-[10px] min-w-[100px]">
+        Previous
+      </button>
       <div className="w-[60%] mx-auto ">
         <p className="text-[red] italic font-bold">
           Note : You only have 3 chances, check carefully, if you get it wrong

@@ -30,7 +30,7 @@ const priceBoard = [
 ];
 
 const Payment = () => {
-  const [money, setMoney] = useState(10);
+  const [money, setMoney] = useState(9.99);
   const currency = 'USD';
   const [updateInfor] = useUpdateInforMutation();
 
@@ -139,5 +139,4 @@ const Payment = () => {
   );
 };
 
-
-export default Payment
+export default Payment;
