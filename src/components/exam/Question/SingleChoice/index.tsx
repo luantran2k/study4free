@@ -10,7 +10,7 @@ import {
 import MediaViewer from '../../MediaViewer';
 
 function SingleChoice(question: IQuestion & { index: number }) {
-  const { title, description, audio, answers, id, image, index } = question;
+  const { title, audio, answers, id, image, index } = question;
   const answersResponse: IAnswerResponse[] | undefined = useAppSelector(
     (state) =>
       state.exam.examSectionResponse?.questions.find(

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink, Navigate, useLocation, useParams } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { SectionType } from '../../../components/admin/Exams/Sections';
 import { useAppSelector } from '../../../hooks/redux';
 import {
@@ -16,16 +16,11 @@ import {
 //{ handleTask, handleIndex, defaultPartId }: Props
 const NavigationTest = () => {
   const { state } = useLocation();
-  const [time, setTime] = useState(state?.sectionDuration * 60 || 3600);
+  const [time] = useState(state?.sectionDuration * 60 || 3600);
   const examSectionResponse = useAppSelector(
     (state) => state.exam.examSectionResponse
   );
-  const {
-    section = '',
-    sectionId = '',
-    examId,
-    partId: partIdParam,
-  } = useParams();
+  const { section = '', sectionId = '', examId } = useParams();
   const { data: sectionData } = useGetPartIdsBySectionIdQuery({
     section: section as SectionType,
     sectionId,
