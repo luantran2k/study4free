@@ -25,3 +25,9 @@ export type QuestionType =
   | 'Head Matching'
   | 'Sentence completion'
   | 'Summary completion';
+
+export interface ISectionResult {
+  numberOfTrueQuestion: number;
+  totalQuestion: number;
+  score: number;
+}
