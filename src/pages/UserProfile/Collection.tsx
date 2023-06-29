@@ -19,6 +19,7 @@ function Collection() {
   const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id);
   const [deleteVocabById] = useDeleteVocabByIdMutation();
   let myCollection: IVocabulary[] = [];
+  const [rollBack, setRollback] = useState<boolean>(false);
   const location = useLocation();
 
   if (isLoading) {
@@ -66,8 +67,11 @@ function Collection() {
             ) : (
               <div>
                 <div className="mb-4 flex justify-center">
-                  <button className="btn btn-accent me-2 text-white">
-                    Review
+                  <button
+                    onClick={() => setRollback((prev) => !prev)}
+                    className="btn btn-accent me-2 text-white"
+                  >
+                    {!rollBack ? 'Word' : 'Defination'}
                   </button>
                   <NavLink
                     state={myCollection}
@@ -97,21 +101,40 @@ function Collection() {
                     >
                       <div
                         className="bg-[#fff] mb-[20px] max-lg:px-[40px] px-[90px] max-lg:py-[40px] py-[70px] 
-                  rounded-2xl shadow-xl w-[692px] h-[376px] max-lg:w-[100%] max-lg:h-[340px] max-md:h-fit"
+                  rounded-2xl shadow-xl w-[692px] h-[376px] max-lg:w-[100%] max-lg:h-[340px] max-md:h-fit relative"
                       >
-                        <h2 className="text-[40px] font-medium">
-                          {myCollection[currentIndex]?.vocabulary}
-                        </h2>
-                        <p className="text-[20px]">
-                          {myCollection[currentIndex]?.spelling}
-                        </p>
-                        <div className="text-left mt-[50px]">
-                          <p>
-                            <strong>Defination:</strong>
-                          </p>
-                          <p>{myCollection[currentIndex]?.meaning}</p>
-                          <p>{myCollection[currentIndex]?.synonyms}</p>
-                        </div>
+                        {rollBack ? (
+                          <>
+                            <h2 className="text-[2rem] font-medium">
+                              {myCollection[currentIndex]?.vocabulary}
+                            </h2>
+                            <p className="text-[20px]">
+                              {myCollection[currentIndex]?.spelling}
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <div className=" m-auto">
+                              <p>
+                                <strong className="text-[2rem] font-medium">
+                                  Defination:
+                                </strong>
+                              </p>
+                              <p className="">
+                                {myCollection[currentIndex]?.meaning}
+                              </p>
+                              <p>
+                                <span className="font-bold">Synonyms: </span>
+                                {myCollection[currentIndex]?.synonyms}
+                              </p>
+                            </div>
+                          </>
+                        )}
+                        {myCollection.length && (
+                          <div className="absolute bottom-[1rem] left-[50%]">
+                            {currentIndex}/{myCollection.length}
+                          </div>
+                        )}
                       </div>
                       <div className="mb-6">
                         <button

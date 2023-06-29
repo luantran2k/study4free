@@ -9,12 +9,14 @@ import {
 } from '../../store/queries/users';
 import { useForm } from 'react-hook-form';
 import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
+import { useState } from 'react';
 
 function Reminder() {
   const user = useSelector((state: RootState) => state.auth.userInformation);
   const { data, isLoading, isSuccess } = useGetUserByIdQuery(user?.id);
   const [addNewToDo] = useAddNewTodoMutation();
   const [deleteToDoList] = useDeleteToDoMutation();
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const {
     register,
@@ -24,6 +26,7 @@ function Reminder() {
   const onSubmit = handleSubmit((dataForm) => {
     addNewToDo(dataForm);
     notify(NOTIFICATION_TYPE.SUCCESS, 'Add new to-do successfully');
+    window.my_modal_2.close();
   });
 
   if (isLoading) {

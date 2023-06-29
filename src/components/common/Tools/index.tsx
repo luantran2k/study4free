@@ -14,10 +14,10 @@ const Tools = (props: ITools) => {
   const [clicked, setClicked] = useState(false);
   return (
     <>
-      {location.pathname.includes('reading') ||
-      location.pathname.includes('writing') ||
-      location.pathname.includes('speaking') ||
-      location.pathname.includes('listening') ? (
+      {location.pathname.includes('Reading') ||
+      location.pathname.includes('Writing') ||
+      location.pathname.includes('Speaking') ||
+      location.pathname.includes('Listening') ? (
         ''
       ) : (
         <div
