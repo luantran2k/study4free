@@ -1,16 +1,30 @@
+import { Suspense, lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
-import UsersAdminPage from '../pages/Admin/Users';
+
+import LoadingAnimate from '../components/common/LoadingAnimate';
 import { AdminPage, EditExam, ExamsAdminPage } from './imports';
-import AdminDashboard from '../pages/Admin/Dashboard';
+const UsersAdminPage = lazy(() => import('../pages/Admin/Users'));
+const AdminDashboard = lazy(() => import('../pages/Admin/Dashboard'));
 
 export const adminRoutes: RouteObject = {
   path: '/admin',
   element: <AdminPage />,
   children: [
-    { index: true, element: <AdminDashboard /> },
+    {
+      index: true,
+      element: (
+        <Suspense fallback={<LoadingAnimate />}>
+          <AdminDashboard />
+        </Suspense>
+      ),
+    },
     {
       path: 'users',
-      element: <UsersAdminPage />,
+      element: (
+        <Suspense fallback={<LoadingAnimate />}>
+          <UsersAdminPage />
+        </Suspense>
+      ),
     },
     {
       path: 'exams',

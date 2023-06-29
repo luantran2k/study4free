@@ -31,7 +31,9 @@ const Speaking = lazy(() => import('../pages/Exams/Speaking'));
 const Listening = lazy(() => import('../pages/Exams/Listening'));
 const Reading = lazy(() => import('../pages/Exams/Reading'));
 
-const NavigationTest = lazy(() => import('../pages/Exams/commonComponent/navigationTest'));
+const NavigationTest = lazy(
+  () => import('../pages/Exams/commonComponent/navigationTest')
+);
 const NoteInfo = lazy(() => import('../pages/Exams/commonComponent/noteInfo'));
 
 const CreateExamForm = lazy(
@@ -39,7 +41,6 @@ const CreateExamForm = lazy(
 );
 const Modal = lazy(() => import('../components/common/Modal'));
 const Pagination = lazy(() => import('../components/common/Pagination'));
-
 
 // ADMIN ROUTE
 const AdminPage = lazy(() => import('../pages/Admin'));
@@ -74,5 +75,5 @@ export {
   NoteInfo,
   CreateExamForm,
   Modal,
-  Pagination
+  Pagination,
 };

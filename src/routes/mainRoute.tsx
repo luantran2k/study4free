@@ -1,5 +1,7 @@
 import { RouteObject } from 'react-router-dom';
 
+import { Suspense, lazy } from 'react';
+import LoadingAnimate from '../components/common/LoadingAnimate';
 import NotFoundPage from '../pages/NotFound';
 import {
   AnalyzeResults,
@@ -19,10 +21,12 @@ import {
   VocabularyDetail,
 } from './imports';
 
-import ExamPart from '../components/exam/ExamPart';
-import ExamSection from '../pages/Exams/ExamSection/ExamSection';
-import MiniGame from '../pages/Game';
-import ResultPage from '../pages/Exams/Result';
+const ExamPart = lazy(() => import('../components/exam/ExamPart'));
+const ExamSection = lazy(
+  () => import('../pages/Exams/ExamSection/ExamSection')
+);
+const MiniGame = lazy(() => import('../pages/Game'));
+const ResultPage = lazy(() => import('../pages/Exams/Result'));
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -42,17 +46,29 @@ export const mainRoute: RouteObject = {
     },
     {
       path: 'exams/:examId/:section/:sectionId',
-      element: <ExamSection />,
+      element: (
+        <Suspense fallback={<LoadingAnimate />}>
+          <ExamSection />
+        </Suspense>
+      ),
       children: [
         {
           path: ':partId',
-          element: <ExamPart />,
+          element: (
+            <Suspense fallback={<LoadingAnimate />}>
+              <ExamPart />
+            </Suspense>
+          ),
         },
       ],
     },
     {
       path: 'results/:resultId',
-      element: <ResultPage />,
+      element: (
+        <Suspense fallback={<LoadingAnimate />}>
+          <ResultPage />
+        </Suspense>
+      ),
     },
     {
       path: 'vocabularies',
@@ -92,7 +108,11 @@ export const mainRoute: RouteObject = {
           children: [
             {
               path: 'minigame',
-              element: <MiniGame />,
+              element: (
+                <Suspense fallback={<LoadingAnimate />}>
+                  <MiniGame />
+                </Suspense>
+              ),
             },
           ],
         },
