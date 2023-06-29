@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import TrashIcon from '../../../../assets/icons/Trash';
 import { useAppSelector } from '../../../../hooks/redux';
 import IAnswer from '../../../../interfaces/Answer';
@@ -35,7 +35,7 @@ function Answer({
       await Promise.all(
         previousTrueAnswers.map(async (answer) => {
           return updateAnswer({
-            answerId: answer.id,
+            answerId: answer.id as string,
             section,
             data: { isTrue: false },
           });
@@ -43,7 +43,7 @@ function Answer({
       );
     }
     updateAnswer({
-      answerId: id,
+      answerId: id as string,
       section,
       data: { isTrue: e.target.checked },
     });
@@ -59,7 +59,7 @@ function Answer({
           defaultChecked={isTrue}
           onChange={(e) => {
             updateAnswer({
-              answerId: id,
+              answerId: id as string,
               section,
               data: { isTrue: e.target.checked },
             });
@@ -82,10 +82,12 @@ function Answer({
         value={value}
         className="input input-bordered flex-1"
         onChange={(e) => setValue(e.target.value)}
-        onBlur={() => updateAnswer({ answerId: id, section, data: { value } })}
+        onBlur={() =>
+          updateAnswer({ answerId: id as string, section, data: { value } })
+        }
       />
       <span
-        onClick={() => removeAnswer({ answerId: id, section })}
+        onClick={() => removeAnswer({ answerId: id as string, section })}
         className="active:translate-y-1 transition-all cursor-pointer bg-red-500 text-white w-8 h-8 rounded-box flex justify-center items-center"
       >
         <TrashIcon />

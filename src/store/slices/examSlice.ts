@@ -7,7 +7,6 @@ import {
   ISectionResponse,
   QuestionType,
 } from '../../interfaces/SectionResponse';
-import SingleChoice from '../../components/exam/Question/SingleChoice';
 
 interface ExamEditInfo {
   examId?: string;
@@ -20,11 +19,18 @@ interface ExamEditInfo {
 
 interface ExamSliceState {
   examEditInfo: ExamEditInfo;
-  examSectionResponse?: ISectionResponse;
+  examSectionResponse: ISectionResponse;
 }
 
 const initialState: ExamSliceState = {
   examEditInfo: {},
+  examSectionResponse: {
+    section: '' as SectionType,
+    id: '',
+    questions: [],
+    examId: '',
+    title: '',
+  },
 };
 
 const examSlice = createSlice({
@@ -41,30 +47,18 @@ const examSlice = createSlice({
 
     updateSectionResponse: (
       state: ExamSliceState,
-      action: PayloadAction<{ section: SectionType; sectionId: string }>
+      action: PayloadAction<Omit<ISectionResponse, 'questions'>>
     ) => {
-      if (!state.examSectionResponse) {
-        state.examSectionResponse = {
-          section: '' as SectionType,
-          id: '',
-          questions: [],
-        };
-      }
-      state.examSectionResponse.section = action.payload.section;
-      state.examSectionResponse.id = action.payload.sectionId;
+      const { section, id, examId, title } = action.payload;
+      state.examSectionResponse.section = section;
+      state.examSectionResponse.id = id;
+      state.examSectionResponse.examId = examId;
+      state.examSectionResponse.title = title;
     },
     updateQuestionResponse: (
       state,
       action: PayloadAction<IQuestionResponse>
     ) => {
-      if (!state.examSectionResponse) {
-        state.examSectionResponse = {
-          section: '' as SectionType,
-          id: '',
-          questions: [],
-        };
-      }
-
       const questionIndex = state.examSectionResponse.questions.findIndex(
         (question: IQuestionResponse) => {
           return question.id === action.payload.id;
@@ -78,7 +72,7 @@ const examSlice = createSlice({
     },
 
     resetSectionResponse: (state) => {
-      state.examSectionResponse = undefined;
+      state.examSectionResponse = initialState.examSectionResponse;
     },
 
     updateAnswerResponse: (
@@ -89,13 +83,6 @@ const examSlice = createSlice({
         answer: IAnswerResponse;
       }>
     ) => {
-      if (!state.examSectionResponse) {
-        state.examSectionResponse = {
-          section: '' as SectionType,
-          id: '',
-          questions: [],
-        };
-      }
       const question = state.examSectionResponse.questions.find(
         (question: IQuestionResponse) => {
           return question.id === action.payload.questionId;

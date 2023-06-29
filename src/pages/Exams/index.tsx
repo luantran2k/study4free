@@ -13,7 +13,6 @@ const ExamCard = lazy(
 );
 
 function ExamsPage() {
-
   const [examFilter, setExamFilter] = useState<ExamFilter>({
     page: 0,
     quantity: 1,

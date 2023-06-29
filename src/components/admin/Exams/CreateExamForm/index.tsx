@@ -4,10 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { CreateExamFormData } from '../../../../interfaces/Exam';
 import { createExamSchema } from '../../../../schemas/createExam';
 import { useCreateExamMutation } from '../../../../store/queries/exams';
+import { hideModal } from '../../../../utils/modal';
 import { NOTIFICATION_TYPE, notify } from '../../../../utils/notify';
 import LoadingButton from '../../../common/LoadingButton';
-import { hideModal } from '../../../../utils/modal';
-import { useEffect } from 'react';
 
 function CreateExamForm({ modalId }: { modalId: string }) {
   const navigate = useNavigate();

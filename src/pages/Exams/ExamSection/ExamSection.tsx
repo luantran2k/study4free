@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { SectionType } from '../../../components/admin/Exams/Sections';
 import { useAppDispatch } from '../../../hooks/redux';
 import {
@@ -9,14 +9,24 @@ import {
 import NavigationTest from '../commonComponent/navigationTest';
 
 const ExamSection = () => {
-  const { section = '', sectionId = '' } = useParams();
+  const { state } = useLocation();
+  const [title, setTitle] = useState(state?.title || '');
+  const { examId = '', section = '', sectionId = '' } = useParams();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (state?.title) {
+      setTitle(state?.title);
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(
       updateSectionResponse({
         section: section as SectionType,
-        sectionId,
+        id: sectionId,
+        examId,
+        title,
       })
     );
     return () => {

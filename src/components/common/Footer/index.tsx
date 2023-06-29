@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import Cambridge from '../../../assets/images/Cambridge';
 
 const Footer = () => {
@@ -8,37 +8,39 @@ const Footer = () => {
   const pagesArr = [
     {
       href: '#slide-introduction',
-      title: 'Introduction'
+      title: 'Introduction',
     },
     {
       href: '#ielts-levels',
-      title: 'English level'
+      title: 'English level',
     },
     {
       href: '#team-achievements',
-      title: 'Our achievement'
+      title: 'Our achievement',
     },
     {
       href: '#our-teams',
-      title: 'About us'
+      title: 'About us',
     },
     {
       href: '#payment',
-      title: 'Become VIP member'
+      title: 'Become VIP member',
     },
-
-  ]
+  ];
   return (
     <div className="bg-[#273044] py-[2rem]">
       <div className="w-[80%] px-2 sm:px-0 hx-auto mx-auto  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1rem] text-[#fff]">
         <div className="">
           <div className="text-[1.25rem] font-bold uppercase mb-3">About</div>
-          <p className='mb-2'>
-            <a href='/' className="text-sky-500 hover:text-sky-600"> Study4Free</a> is Education
-            WordPress theme featured by Learning Management System (LMS) for
-            online education.
+          <p className="mb-2">
+            <a href="/" className="text-sky-500 hover:text-sky-600">
+              {' '}
+              Study4Free
+            </a>{' '}
+            is Education WordPress theme featured by Learning Management System
+            (LMS) for online education.
           </p>
-          <p className='mb-2'>
+          <p className="mb-2">
             Developed by: <br />
             <span className="text-sky-500">
               LongDT29, MinhDV9, LuanTV9, HuanNH6
@@ -66,7 +68,9 @@ const Footer = () => {
             <a
               key={index}
               href={href}
-              className={`border-b-2 border-b-[#525969] py-[0.5rem] hover:text-[#d17643] ${pathname !== "/" && "pointer-events-none"}`}
+              className={`border-b-2 border-b-[#525969] py-[0.5rem] hover:text-[#d17643] ${
+                pathname !== '/' && 'pointer-events-none'
+              }`}
             >
               {title}
             </a>

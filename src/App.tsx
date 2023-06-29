@@ -13,13 +13,7 @@ function App() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   useEffect(() => {
     dispatch(setUser(user));
-    if (
-      user &&
-      user?.userInfo?.roles.includes('ADMIN') &&
-      !location?.pathname?.includes('admin')
-    ) {
-      navigate('/admin');
-    }
+
     if (
       user &&
       !user?.userInfo?.roles.includes('ADMIN') &&

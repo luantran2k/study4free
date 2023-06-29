@@ -132,7 +132,7 @@ function Collection() {
                         )}
                         {myCollection.length && (
                           <div className="absolute bottom-[1rem] left-[50%]">
-                            {currentIndex}/{myCollection.length}
+                            {currentIndex + 1}/{myCollection.length}
                           </div>
                         )}
                       </div>

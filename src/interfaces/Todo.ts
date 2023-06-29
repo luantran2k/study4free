@@ -1,6 +1,7 @@
-export default interface ToDo {
+export interface IToDo {
   id: string;
-  time: Date;
+  time: string;
   todo: string;
   completed: boolean;
+  userId: string;
 }

@@ -1,4 +1,4 @@
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import LoadingAnimate from '../../../components/common/LoadingAnimate';
 import ReadingPart from '../../../components/exam/ReadingPart';
 import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';

@@ -25,7 +25,7 @@ function UsersAdminPage() {
   const defferFilter = useDeferredValue(filter);
   const QuantityOption = [10, 15, 20];
 
-  const { data: users, isLoading, isError } = useGetUsersQuery(defferFilter);
+  const { data: users, isLoading } = useGetUsersQuery(defferFilter);
   const { data: userCount } = useCountUsersQuery(filter);
   return (
     <div>
