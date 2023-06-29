@@ -1,11 +1,5 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import {
-  Ref,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from 'react';
+import { Ref, forwardRef, useEffect, useImperativeHandle } from 'react';
 import AddIcon from '../../../../assets/icons/Add';
 import { useAppDispatch } from '../../../../hooks/redux';
 import IQuestion from '../../../../interfaces/Question';

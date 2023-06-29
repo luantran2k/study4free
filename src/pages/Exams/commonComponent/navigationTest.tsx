@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { SectionType } from '../../../components/admin/Exams/Sections';
-import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
+import { useAppSelector } from '../../../hooks/redux';
+import {
+  useGetPartIdsBySectionIdQuery,
+  useGetSectionResultMutation,
+} from '../../../store/queries/exams';
 
 // interface Props {
 //   handleTask: (task: string) => void;
@@ -12,35 +16,43 @@ import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
 //{ handleTask, handleIndex, defaultPartId }: Props
 const NavigationTest = () => {
   const { state } = useLocation();
-  const [time, setTime] = useState<number>(state?.sectionDuration * 60 || 3600);
-  const {
-    section = '',
-    sectionId = '',
-    examId,
-    partId: partIdParam,
-  } = useParams();
+  const [time] = useState(state?.sectionDuration * 60 || 3600);
+  const examSectionResponse = useAppSelector(
+    (state) => state.exam.examSectionResponse
+  );
+  const { section = '', sectionId = '', examId } = useParams();
   const { data: sectionData } = useGetPartIdsBySectionIdQuery({
     section: section as SectionType,
     sectionId,
   });
 
+  const [getSectionResult] = useGetSectionResultMutation(undefined);
+
   const handleSunmit = () => {
-    if (time > 0) {
-      const realTime = Date.now();
-      if (confirm('Do you want to submit answers?')) {
-        console.log('submit');
-      }
-      const realTime2 = Date.now();
-      const subtract = Math.floor((realTime2 - realTime) / 1000);
-      if (time > subtract) {
-        setTime((prev) => prev - subtract);
-      } else {
-        setTime(0);
-      }
-    } else {
-      console.log('stop');
+    if (examSectionResponse) {
+      getSectionResult(examSectionResponse)
+        .unwrap()
+        .then((res) => {
+          console.log(res);
+        });
     }
+    // if (time > 0) {
+    //   const realTime = Date.now();
+    //   if (confirm('Do you want to submit answers?')) {
+    //     console.log('submit');
+    //   }
+    //   const realTime2 = Date.now();
+    //   const subtract = Math.floor((realTime2 - realTime) / 1000);
+    //   if (time > subtract) {
+    //     setTime((prev) => prev - subtract);
+    //   } else {
+    //     setTime(0);
+    //   }
+    // } else {
+    //   console.log('stop');
+    // }
   };
+
   return (
     <div className="rounded- shadow-2xl p-[2rem] flex flex-col w-3/12 ">
       <div className="flex flex-row md:flex-col items-center my-[.75rem]">

@@ -12,7 +12,7 @@ const ExamCard = (exam: IExam) => {
       section: getSectionName(key),
       sectionId: exam.sections[key as keyof ExamSection] as string,
       time: getSectionTime(exam.duration, getSectionName(key)),
-      numberOfCompleted: exam._count?.UserDoingExam || 0,
+      numberOfCompleted: 0,
     }));
   const dataStorage = JSON.parse(
     localStorage.getItem('user') as string

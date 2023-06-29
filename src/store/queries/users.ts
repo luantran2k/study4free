@@ -25,7 +25,6 @@ export const userApi = createApi({
       BaseFilter
     >({
       query: (params) => {
-        console.log('query all users');
         return {
           url: 'users',
           params,
@@ -111,15 +110,15 @@ export const userApi = createApi({
         url: `vocabularies/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: () => ['User', 'Collection']
+      invalidatesTags: () => ['User', 'Collection'],
     }),
     deleteAccountById: builder.mutation({
       query: (id) => ({
         url: `users/${id}`,
-        method: 'DELETE'
+        method: 'DELETE',
       }),
-      invalidatesTags: () => ['User']
-    })
+      invalidatesTags: () => ['User'],
+    }),
   }),
 });
 
@@ -137,5 +136,5 @@ export const {
   useDeleteToDoMutation,
   useChangeStatusToDoMutation,
   useDeleteVocabByIdMutation,
-  useDeleteAccountByIdMutation
+  useDeleteAccountByIdMutation,
 } = userApi;

@@ -2,8 +2,10 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { SectionType } from '../../components/admin/Exams/Sections';
 import { PartType } from '../../interfaces/Part';
 import {
+  IAnswerResponse,
   IQuestionResponse,
   ISectionResponse,
+  QuestionType,
 } from '../../interfaces/SectionResponse';
 
 interface ExamEditInfo {
@@ -17,11 +19,18 @@ interface ExamEditInfo {
 
 interface ExamSliceState {
   examEditInfo: ExamEditInfo;
-  examSectionResponse?: ISectionResponse;
+  examSectionResponse: ISectionResponse;
 }
 
 const initialState: ExamSliceState = {
   examEditInfo: {},
+  examSectionResponse: {
+    section: '' as SectionType,
+    id: '',
+    questions: [],
+    examId: '',
+    title: '',
+  },
 };
 
 const examSlice = createSlice({
@@ -38,50 +47,67 @@ const examSlice = createSlice({
 
     updateSectionResponse: (
       state: ExamSliceState,
-      action: PayloadAction<{ section: SectionType; sectionId: string }>
+      action: PayloadAction<Omit<ISectionResponse, 'questions'>>
     ) => {
-      if (state.examSectionResponse) {
-        state.examSectionResponse.section = action.payload.section;
-      }
-      if (state.examSectionResponse) {
-        state.examSectionResponse.id = action.payload.sectionId;
-      }
+      const { section, id, examId, title } = action.payload;
+      state.examSectionResponse.section = section;
+      state.examSectionResponse.id = id;
+      state.examSectionResponse.examId = examId;
+      state.examSectionResponse.title = title;
     },
     updateQuestionResponse: (
       state,
       action: PayloadAction<IQuestionResponse>
     ) => {
-      const questionIndex = state.examSectionResponse?.questions.findIndex(
+      const questionIndex = state.examSectionResponse.questions.findIndex(
         (question: IQuestionResponse) => {
           return question.id === action.payload.id;
         }
       );
-      if (questionIndex && state.examSectionResponse) {
-        state.examSectionResponse.questions[questionIndex] = action.payload;
+      if (questionIndex != -1) {
+        return;
       } else {
         state.examSectionResponse?.questions.push(action.payload);
       }
     },
 
     resetSectionResponse: (state) => {
-      state.examSectionResponse = undefined;
+      state.examSectionResponse = initialState.examSectionResponse;
     },
 
-    // updateAnswerResponse: (
-    //   state,
-    //   action: PayloadAction<{ questionId: string; answer: IAnswerResponse }>
-    // ) => {
-    //   const question = state.examSectionResponse?.questions.find(
-    //     (question: IQuestionResponse) => {
-    //       return question.id === action.payload.questionId;
-    //     }
-    //   );
-    //   if (question) {
-    //     question.answers
-    //   } else {
-    //     state.examSectionResponse?.questions.push(action.payload);
-    //   }
-    // },
+    updateAnswerResponse: (
+      state,
+      action: PayloadAction<{
+        questionId: string;
+        questionType: QuestionType;
+        answer: IAnswerResponse;
+      }>
+    ) => {
+      const question = state.examSectionResponse.questions.find(
+        (question: IQuestionResponse) => {
+          return question.id === action.payload.questionId;
+        }
+      );
+
+      if (question) {
+        const answerIndex = question.answers.findIndex(
+          (answer: IAnswerResponse) => {
+            return answer.id === action.payload.answer.id;
+          }
+        );
+        if (answerIndex != -1) {
+          if (action.payload.questionType === 'Single choice') {
+            question.answers = question.answers.map((answer) => ({
+              ...answer,
+              isTrue: false,
+            }));
+          }
+          question.answers[answerIndex] = action.payload.answer;
+        } else {
+          question.answers.push(action.payload.answer);
+        }
+      }
+    },
   },
 });
 
@@ -90,5 +116,6 @@ export const {
   updateSectionResponse,
   updateQuestionResponse,
   resetSectionResponse,
+  updateAnswerResponse,
 } = examSlice.actions;
 export const examReducer = examSlice.reducer;

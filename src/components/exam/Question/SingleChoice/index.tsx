@@ -1,9 +1,36 @@
+import { useEffect } from 'react';
 import ReactQuill from 'react-quill';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
 import IQuestion from '../../../../interfaces/Question';
+import { IAnswerResponse } from '../../../../interfaces/SectionResponse';
+import {
+  updateAnswerResponse,
+  updateQuestionResponse,
+} from '../../../../store/slices/examSlice';
 import MediaViewer from '../../MediaViewer';
 
 function SingleChoice(question: IQuestion & { index: number }) {
-  const { title, description, audio, answers, id, image, index } = question;
+  const { title, audio, answers, id, image, index } = question;
+  const answersResponse: IAnswerResponse[] | undefined = useAppSelector(
+    (state) =>
+      state.exam.examSectionResponse?.questions.find(
+        (question) => question.id === id
+      )?.answers
+  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(
+      updateQuestionResponse({
+        questionType: 'Single choice',
+        answers: answers.map((answer) => ({
+          id: answer.id,
+          value: answer.value,
+        })),
+        id,
+      })
+    );
+  }, [id]);
   return (
     <div className="flex gap-[0.5rem] flex-col">
       <div className="flex gap-[1rem] ">
@@ -18,14 +45,44 @@ function SingleChoice(question: IQuestion & { index: number }) {
           <div className="flex items-center gap-[0.5rem]" key={answerIndex}>
             <input
               type="radio"
-              name={`${index}`}
-              //   onClick={(e) => handleGetValue(e, answer)}
-              //   value={answer.value}
-              //   defaultChecked={answersArr?.questions
-              //     .find((question) => question?.id === partId)
-              //     ?.answers.some((item) => item.id === answer.id)}
+              checked={
+                answersResponse?.find(
+                  (answerResponse) => answerResponse.id === answer.id
+                )?.isTrue || false
+              }
+              onChange={(e) => {
+                dispatch(
+                  updateAnswerResponse({
+                    questionType: 'Single choice',
+                    questionId: id,
+                    answer: {
+                      ...(answersResponse?.find(
+                        (answerResponse) => answerResponse.id === answer.id
+                      ) || {}),
+                      isTrue: e.target.checked,
+                    },
+                  })
+                );
+              }}
             ></input>
-            <label htmlFor={`${id + 1}-${answerIndex}`}>{answer.value}</label>
+            <label
+              onClick={() => {
+                dispatch(
+                  updateAnswerResponse({
+                    questionType: 'Single choice',
+                    questionId: id,
+                    answer: {
+                      ...(answersResponse?.find(
+                        (answerResponse) => answerResponse.id === answer.id
+                      ) || {}),
+                      isTrue: true,
+                    },
+                  })
+                );
+              }}
+            >
+              {answer.value}
+            </label>
           </div>
         );
       })}

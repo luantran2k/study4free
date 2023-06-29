@@ -1,17 +1,17 @@
-import { NavLink } from 'react-router-dom';
-import LogoIcon from '../../../assets/images/logo.png';
 import { lazy, useEffect, useState } from 'react';
-import { MenuIcon } from '../../../assets/icons/MenuIcon';
 import { useInView } from 'react-intersection-observer';
+import { NavLink } from 'react-router-dom';
+import { MenuIcon } from '../../../assets/icons/MenuIcon';
+import LogoIcon from '../../../assets/images/logo.png';
 import { useAppSelector } from '../../../hooks/redux';
 import { selectAuth } from '../../../store/slices/authSlice';
 
 const Tools = lazy(() => import('../Tools'));
-const Chat = lazy(() => import('../Chat'));
+// const Chat = lazy(() => import('../Chat'));
 
 const Header = () => {
   const [isOpenNavBar, setOpenNavBar] = useState<boolean>(false);
-  const { name, userInformation } = useAppSelector(selectAuth);
+  const { name } = useAppSelector(selectAuth);
 
   const [intersection, setIntersection] = useState<boolean>(false);
   const toggleNavBar = () => {

@@ -5,6 +5,10 @@ import IAnswer from '../../interfaces/Answer';
 import IExam, { CreateExamFormData, ExamFilter } from '../../interfaces/Exam';
 import IPart from '../../interfaces/Part';
 import IQuestion from '../../interfaces/Question';
+import {
+  ISectionResponse,
+  ISectionResult,
+} from '../../interfaces/SectionResponse';
 import BaseFilter from '../../interfaces/common/BaseFilter';
 import { CreatePartFormData } from '../../schemas/part';
 
@@ -76,6 +80,13 @@ export const examsApi = createApi({
         url: `/sections/${section}/${sectionId}`,
       }),
       providesTags: () => ['CountPart'],
+    }),
+    getSectionResult: builder.mutation<ISectionResult, ISectionResponse>({
+      query: (body) => ({
+        url: `/sections/result`,
+        method: 'POST',
+        body,
+      }),
     }),
     getPartById: builder.query<IPart, { partId: string; section: string }>({
       query: ({ partId, section }) => ({
@@ -229,6 +240,7 @@ export const {
   useGetExamByIdQuery,
   useCreateExamMutation,
   useRemoveExamMutation,
+  useGetSectionResultMutation,
   useGetPartIdsBySectionIdQuery,
   useCreatePartMutation,
   useUpdatePartMutation,
