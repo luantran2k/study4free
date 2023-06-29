@@ -22,7 +22,6 @@ const Speaking = () => {
   const handleIndex = (index: number) => {
     setIndex(index);
   };
-  console.log(index);
 
   const recorderControls = useAudioRecorder();
   const addAudioElement = (blob: any) => {

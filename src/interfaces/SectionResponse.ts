@@ -5,12 +5,23 @@ export interface ISectionResponse {
 }
 
 export interface IQuestionResponse {
-  questionType?: string;
+  questionType?: QuestionType;
   id: string;
   answers: IAnswerResponse[];
 }
 export interface IAnswerResponse {
   id?: string;
   value?: string;
+  isTrue?: boolean;
   audio?: File;
 }
+
+export type QuestionType =
+  | 'Single choice'
+  | 'Multiple choice'
+  | 'Gap filling'
+  | 'Information identification'
+  | 'Information matching'
+  | 'Head Matching'
+  | 'Sentence completion'
+  | 'Summary completion';

@@ -13,8 +13,6 @@ const ExamCard = (exam: IExam) => {
       time: getSectionTime(exam.duration, getSectionName(key)),
       numberOfCompleted: exam._count?.UserDoingExam || 0,
     }));
-  // console.log(data);
-
   return (
     <div className="mb-8">
       <div className="tabs ">

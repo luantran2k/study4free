@@ -44,8 +44,6 @@ const Listening = () => {
     }
   }, [partId]);
 
-  console.log(answersArr);
-
   const handleGetValue = (
     e: React.ChangeEvent<HTMLInputElement>,
     item: IListeningAnswer
