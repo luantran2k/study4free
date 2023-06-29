@@ -116,7 +116,7 @@ function AnalyzeResults() {
     ],
   };
   const array: number[] = [1, 2];
-  console.log(array.length);
+  console.log(section);
 
   useEffect(() => {
     const set = new Set();
@@ -137,38 +137,44 @@ function AnalyzeResults() {
             </h3>
             <div className="flex justify-around text-[30px] flex-wrap gap-5">
               <span
-                className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
+                className={` shadow-xl py-[20px] px-[40px] rounded-3xl 
               cursor-pointer min-w-[200px] hover:bg-[#38bdf8] hover:text-[#fff] ${
                 section == 'Listening'
                   ? 'bg-[#38bdf8] text-white'
-                  : 'text-black'
+                  : 'text-black bg-[#fff]'
               }`}
                 onClick={() => setSection('Listening')}
               >
                 Listening
               </span>
               <span
-                className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
+                className={` shadow-xl py-[20px] px-[40px] rounded-3xl 
               cursor-pointer min-w-[200px] hover:bg-[#38bdf8] hover:text-[#fff] ${
-                section == 'Reading' ? 'bg-[#38bdf8] text-white' : 'text-black'
+                section == 'Reading'
+                  ? 'bg-[#38bdf8] text-white'
+                  : 'text-black bg-[#fff]'
               }`}
                 onClick={() => setSection('Reading')}
               >
                 Reading
               </span>
               <span
-                className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
+                className={` shadow-xl py-[20px] px-[40px] rounded-3xl 
               cursor-pointer min-w-[200px] hover:bg-[#38bdf8] hover:text-[#fff] ${
-                section == 'Speaking' ? 'bg-[#38bdf8] text-white' : 'text-black'
+                section == 'Speaking'
+                  ? 'bg-[#38bdf8] text-white'
+                  : 'text-black bg-[#fff]'
               }`}
                 onClick={() => setSection('Speaking')}
               >
                 Speaking
               </span>
               <span
-                className={`bg-[#fff] shadow-xl py-[20px] px-[40px] rounded-3xl 
+                className={`shadow-xl py-[20px] px-[40px] rounded-3xl 
               cursor-pointer min-w-[200px] hover:bg-[#38bdf8] hover:text-[#fff] ${
-                section == 'Writing' ? 'bg-[#38bdf8] text-white' : 'text-black'
+                section == 'Writing'
+                  ? 'bg-[#38bdf8] text-white'
+                  : 'text-black bg-[#fff]'
               }`}
                 onClick={() => setSection('Writing')}
               >
