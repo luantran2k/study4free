@@ -1,5 +1,5 @@
-import React, { lazy, useEffect, useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { lazy, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Thumb from '../../assets/images/study.jpg';
 import LoadingAnimate from '../../components/common/LoadingAnimate';
 import Pagination from '../../components/common/Pagination';
@@ -50,68 +50,60 @@ function ExamsPage() {
   }
 
   return (
-    <React.Fragment>
-      {location.pathname === '/exams' ? (
-        <>
-          <div className="py-[40px] mb-[10px] text-white text-center font-bold text-[40px] bg-gradient-to-r from-cyan-500 to-blue-500">
-            <h2 className="uppercase">Examination</h2>
-          </div>
-          <div className="flex flex-col h-full relative py-[3rem]">
-            <div
-              className="container mx-auto mb-10 bg-center bg-cover bg-no-repeat h-[400px]"
-              style={{
-                backgroundImage: `url(${Thumb})`,
-              }}
-            ></div>
-            <div className="bg-transparent container mx-auto">
-              <h3 className="text-4xl text-black font-bold my-8">
-                Exam Libraries
-              </h3>
-              <input
-                type="text"
-                value={title}
-                placeholder="Input keyword you want to search"
-                className="input input-bordered w-full max-w-xs mb-8"
-                onChange={(e) =>
-                  setExamFilter((filter) => ({
-                    ...filter,
-                    title: e.target.value,
-                  }))
-                }
-              />
-            </div>
-            <div className="flex-grow-[1] container mx-auto">
-              {exams.map((exam: IExam, index: number) => {
-                return <ExamCard {...exam} key={index} />;
-              })}
+    <>
+      <div className="py-[40px] mb-[10px] text-white text-center font-bold text-[40px] bg-gradient-to-r from-cyan-500 to-blue-500">
+        <h2 className="uppercase">Examination</h2>
+      </div>
+      <div className="flex flex-col h-full relative py-[3rem]">
+        <div
+          className="container mx-auto mb-10 bg-center bg-cover bg-no-repeat h-[400px]"
+          style={{
+            backgroundImage: `url(${Thumb})`,
+          }}
+        ></div>
+        <div className="bg-transparent container mx-auto">
+          <h3 className="text-4xl text-black font-bold my-8">Exam Libraries</h3>
+          <input
+            type="text"
+            value={title}
+            placeholder="Input keyword you want to search"
+            className="input input-bordered w-full max-w-xs mb-8"
+            onChange={(e) =>
+              setExamFilter((filter) => ({
+                ...filter,
+                title: e.target.value,
+              }))
+            }
+          />
+        </div>
+        <div className="flex-grow-[1] container mx-auto">
+          {exams.map((exam: IExam, index: number) => {
+            return <ExamCard {...exam} key={index} />;
+          })}
 
-              <div className="w-fit">
-                <Pagination
-                  totalPage={Math.ceil(countData.count / quantity)}
-                  currentPage={page}
-                  quantity={quantity}
-                  quantityOptions={[1, 2, 3]}
-                  onChangePage={(page) => {
-                    setExamFilter({ ...examFilter, page });
-                  }}
-                  onChangeQuantity={(quantity) => {
-                    setExamFilter({ ...examFilter, quantity });
-                  }}
-                  onNextClick={() =>
-                    setExamFilter({ ...examFilter, page: page + 1 })
-                  }
-                  onPreviousClick={() =>
-                    setExamFilter({ ...examFilter, page: page - 1 })
-                  }
-                />
-              </div>
-            </div>
+          <div className="w-fit">
+            <Pagination
+              totalPage={Math.ceil(countData.count / quantity)}
+              currentPage={page}
+              quantity={quantity}
+              quantityOptions={[1, 2, 3]}
+              onChangePage={(page) => {
+                setExamFilter({ ...examFilter, page });
+              }}
+              onChangeQuantity={(quantity) => {
+                setExamFilter({ ...examFilter, quantity });
+              }}
+              onNextClick={() =>
+                setExamFilter({ ...examFilter, page: page + 1 })
+              }
+              onPreviousClick={() =>
+                setExamFilter({ ...examFilter, page: page - 1 })
+              }
+            />
           </div>
-        </>
-      ) : (
-        <Outlet />
-      )}
-    </React.Fragment>
+        </div>
+      </div>
+    </>
   );
 }
 export default ExamsPage;

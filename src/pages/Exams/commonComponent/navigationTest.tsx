@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { SectionType } from '../../../components/admin/Exams/Sections';
 import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
 
@@ -11,7 +11,8 @@ import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
 
 //{ handleTask, handleIndex, defaultPartId }: Props
 const NavigationTest = () => {
-  const [time, setTime] = useState<number>(3600);
+  const { state } = useLocation();
+  const [time, setTime] = useState<number>(state?.sectionDuration * 60 || 3600);
   const {
     section = '',
     sectionId = '',
@@ -41,7 +42,7 @@ const NavigationTest = () => {
     }
   };
   return (
-    <div className="rounded-xl shadow-2xl p-[2rem] flex flex-col w-3/12 ">
+    <div className="rounded- shadow-2xl p-[2rem] flex flex-col w-3/12 ">
       <div className="flex flex-row md:flex-col items-center my-[.75rem]">
         <div className="">Time left :</div>
         <span className="font-bold text-[1.5rem]">
@@ -69,7 +70,10 @@ const NavigationTest = () => {
       <div className="flex flex-col [&_a]:p-2 [&_a]:rounded-md [&_.active]:bg-blue-600 [&_.active]:text-white">
         {sectionData?.parts?.map(({ id: partId }, index) => {
           return (
-            <NavLink to={`/exams/${examId}/${section}/${sectionId}/${partId}`}>
+            <NavLink
+              to={`/exams/${examId}/${section}/${sectionId}/${partId}`}
+              key={index}
+            >
               Part {index + 1}
             </NavLink>
             // <div

@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 const AdminSideBar = lazy(() => import('../../components/admin/Sidebar'));
 const AdminTopBar = lazy(() => import('../../components/admin/TopBar'));
 function AdminPage() {
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className="flex h-screen overflow-hidden ">

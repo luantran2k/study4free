@@ -1,7 +1,7 @@
 import Dictionary from '../../../assets/icons/Dictionary';
 import ArrowDown from '../../../assets/icons/ArrowDown';
 import { lazy, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 const DictionaryComponent = lazy(() => import('./DictionaryComponent'));
 
@@ -10,14 +10,12 @@ interface ITools {
 }
 
 const Tools = (props: ITools) => {
-  const location = useLocation();
+  const { section, partId } = useParams();
   const [clicked, setClicked] = useState(false);
   return (
     <>
-      {location.pathname.includes('Reading') ||
-      location.pathname.includes('Writing') ||
-      location.pathname.includes('Speaking') ||
-      location.pathname.includes('Listening') ? (
+
+      {section && partId ? (
         ''
       ) : (
         <div

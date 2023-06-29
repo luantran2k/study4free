@@ -125,6 +125,12 @@ const DetailExam = () => {
                   (section?.toLowerCase() + 'SectionId') as keyof ExamSection
                 ]
               }/${defaultPartId}`}
+              state={{
+                sectionDuration: getSectionTime(
+                  exam.duration,
+                  section as SectionType
+                ),
+              }}
             >
               Start Exam
             </NavLink>

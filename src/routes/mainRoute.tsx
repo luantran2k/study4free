@@ -34,20 +34,18 @@ export const mainRoute: RouteObject = {
     {
       path: 'exams',
       element: <ExamsPage />,
+    },
+    {
+      path: 'exams/:examId/:section',
+      element: <DetailExam />,
+    },
+    {
+      path: 'exams/:examId/:section/:sectionId',
+      element: <ExamSection />,
       children: [
         {
-          path: ':examId/:section',
-          element: <DetailExam />,
-        },
-        {
-          path: ':examId/:section/:sectionId', // "section/sectionId"
-          element: <ExamSection />,
-          children: [
-            {
-              path: ':partId',
-              element: <ExamPart />,
-            },
-          ],
+          path: ':partId',
+          element: <ExamPart />,
         },
       ],
     },
