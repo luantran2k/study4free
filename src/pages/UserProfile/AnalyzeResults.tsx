@@ -191,10 +191,10 @@ function AnalyzeResults() {
                 >
                   <p className="text-[20px]">Accuracy</p>
                   <p className="font-bold text-[30px]">
-                    {(
+                    { numberExam > 0 ? (
                       (finalResult / 9) *
                       100
-                    ).toFixed(2)}
+                    ).toFixed(2): 0}
                     %
                   </p>
                 </span>
@@ -204,7 +204,7 @@ function AnalyzeResults() {
                 >
                   <p className="text-[20px]">Average score</p>
                   <p className="font-bold text-[30px]">
-                    {finalResult.toFixed(1)}
+                    {numberExam > 0 ? finalResult.toFixed(1): 0}
                   </p>
                 </span>
               </div>
