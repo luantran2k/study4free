@@ -3,7 +3,6 @@ interface Props {
   wordToGuess: string;
 }
 export const FillWord = ({ guessedLetters, wordToGuess }: Props) => {
-  console.log(wordToGuess);
   return (
     <div className="flex justify-center">
       {wordToGuess && (
