@@ -7,6 +7,7 @@ import { store } from './store/index.ts';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import 'react-quill/dist/quill.bubble.css';
 
 const initialOptions = {
   clientId:

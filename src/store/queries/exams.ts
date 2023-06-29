@@ -5,6 +5,7 @@ import IAnswer from '../../interfaces/Answer';
 import IExam, { CreateExamFormData, ExamFilter } from '../../interfaces/Exam';
 import IPart from '../../interfaces/Part';
 import IQuestion from '../../interfaces/Question';
+import { ISectionResponse } from '../../interfaces/SectionResponse';
 import BaseFilter from '../../interfaces/common/BaseFilter';
 import { CreatePartFormData } from '../../schemas/part';
 
@@ -77,6 +78,19 @@ export const examsApi = createApi({
       }),
       providesTags: () => ['CountPart'],
     }),
+    getSectionResult: builder.mutation<
+      {
+        numberOfTrueQuestion: number;
+        totalQuestion: number;
+      },
+      ISectionResponse
+    >({
+      query: (body) => ({
+        url: `/sections/result`,
+        method: 'POST',
+        body,
+      }),
+    }),
     getPartById: builder.query<IPart, { partId: string; section: string }>({
       query: ({ partId, section }) => ({
         url: `/parts/${section}/${partId}?detail=true`,
@@ -93,6 +107,35 @@ export const examsApi = createApi({
         body: { ...data, sectionId },
       }),
       invalidatesTags: () => ['CountPart'],
+    }),
+    updatePart: builder.mutation<
+      IPart,
+      {
+        partId: string;
+        section: string;
+        data: Partial<CreateExamFormData & { audio?: File | string }>;
+      }
+    >({
+      query: ({ partId, section, data }) => {
+        const formData = new FormData();
+        Object.keys(data).forEach((key) => {
+          formData.append(
+            key,
+            data[
+              key as keyof Partial<
+                Partial<CreateExamFormData & { audio?: File }>
+              >
+            ] as string | Blob
+          );
+        });
+        return {
+          url: `/parts/${section}/${partId}`,
+          method: 'PATCH',
+          body: formData,
+          formData: true,
+        };
+      },
+      invalidatesTags: () => ['Part'],
     }),
     removePart: builder.mutation<IPart, { partId: string; section: string }>({
       query: ({ partId, section }) => ({
@@ -200,8 +243,10 @@ export const {
   useGetExamByIdQuery,
   useCreateExamMutation,
   useRemoveExamMutation,
+  useGetSectionResultMutation,
   useGetPartIdsBySectionIdQuery,
   useCreatePartMutation,
+  useUpdatePartMutation,
   useGetPartByIdQuery,
   useRemovePartMutation,
   useGetQuestionByIdQuery,

@@ -177,7 +177,7 @@ const Header = () => {
         </div>
       </nav>
       <Tools intersection={intersection} />
-      <Chat />
+      {/* <Chat /> */}
     </>
   );
 };

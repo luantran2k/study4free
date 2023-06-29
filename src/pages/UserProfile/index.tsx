@@ -22,8 +22,6 @@ function UserProfilePage() {
     localStorage.getItem('user') as string
   ).userInfo;
   const { data } = useGetUserByIdQuery(dataStorage?.id);
-  console.log(data)
-
   useEffect(() => {
     window.scrollTo({
       top: 0,

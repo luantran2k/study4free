@@ -4,22 +4,25 @@ import NotFoundPage from '../pages/NotFound';
 import {
   AnalyzeResults,
   Collection,
+  DeleteAccount,
   DetailExam,
   ExamsPage,
   GrammarPage,
   HomePage,
   Payment,
   Reminder,
+  RootLayout,
   SectionPage,
   UserInformation,
   UserProfilePage,
   VocabulariesPage,
   VocabularyDetail,
-  DeleteAccount,
-  RootLayout,
 } from './imports';
 
-import ExamPart from '../pages/Exams/ExamPart/ExamPart';
+import ExamPart from '../components/exam/ExamPart';
+import ExamSection from '../pages/Exams/ExamSection/ExamSection';
+import MiniGame from '../pages/Game';
+import ResultPage from '../pages/Exams/Result';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -32,16 +35,24 @@ export const mainRoute: RouteObject = {
     {
       path: 'exams',
       element: <ExamsPage />,
+    },
+    {
+      path: 'exams/:examId/:section',
+      element: <DetailExam />,
+    },
+    {
+      path: 'exams/:examId/:section/:sectionId',
+      element: <ExamSection />,
       children: [
         {
-          path: ':type/:skill',
-          element: <DetailExam />,
-        },
-        {
-          path: ':type/:skill/:part',
+          path: ':partId',
           element: <ExamPart />,
         },
       ],
+    },
+    {
+      path: 'result',
+      element: <ResultPage />,
     },
     {
       path: 'vocabularies',
@@ -78,6 +89,12 @@ export const mainRoute: RouteObject = {
         {
           path: 'collection',
           element: <Collection />,
+          children: [
+            {
+              path: 'minigame',
+              element: <MiniGame />,
+            },
+          ],
         },
         {
           path: 'reminder',

@@ -1,64 +1,64 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
-import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
+import { SectionType } from '../../../components/admin/Exams/Sections';
+import { useAppSelector } from '../../../hooks/redux';
+import {
+  useGetPartIdsBySectionIdQuery,
+  useGetSectionResultMutation,
+} from '../../../store/queries/exams';
 
-interface Props {
-  handleTask: (task: string) => void;
-  handleIndex: (index: number) => void;
-  defaultPartId: string;
-}
-const NavigationTest = ({ handleTask, handleIndex, defaultPartId }: Props) => {
-  const [time, setTime] = useState<number>(3600);
-  const location = useLocation();
-  const ref = useRef<NodeJS.Timer | null>(null);
-  const { data, isSuccess, error, isLoading } = useGetPartIdsBySectionIdQuery({
-    section: location.pathname.split('/')[2],
-    sectionId: location.pathname.split('/')[3],
+// interface Props {
+//   handleTask: (task: string) => void;
+//   handleIndex: (index: number) => void;
+//   defaultPartId: string;
+// }
+
+//{ handleTask, handleIndex, defaultPartId }: Props
+const NavigationTest = () => {
+  const { state } = useLocation();
+  const [time, setTime] = useState<number>(state?.sectionDuration * 60 || 3600);
+  const examSectionResponse = useAppSelector(
+    (state) => state.exam.examSectionResponse
+  );
+  const {
+    section = '',
+    sectionId = '',
+    examId,
+    partId: partIdParam,
+  } = useParams();
+  const { data: sectionData } = useGetPartIdsBySectionIdQuery({
+    section: section as SectionType,
+    sectionId,
   });
 
-  useEffect(() => {
-    if (isSuccess) {
-      handleTask(data.parts[0].id);
-    }
-  }, [isSuccess]);
-  const getPartId = (partId: string) => {
-    handleTask(partId);
-  };
+  const [getSectionResult] = useGetSectionResultMutation(undefined);
 
-  const getPartIndex = (partIndex: number) => {
-    handleIndex(partIndex);
-  };
-  // useEffect(() => {
-  //   ref.current = setInterval(() => {
-  //     setTime((prev) => prev - 1);
-  //   }, 1000);
-
-  //   return () => clearInterval(ref.current as NodeJS.Timer);
-  // }, []);
-  useEffect(() => {
-    if (time === 0) {
-      clearInterval(ref.current as NodeJS.Timer);
-    }
-  }, [time]);
   const handleSunmit = () => {
-    if (time > 0) {
-      const realTime = Date.now();
-      if (confirm('Do you want to submit answers?')) {
-        console.log('submit');
-      }
-      const realTime2 = Date.now();
-      const subtract = Math.floor((realTime2 - realTime) / 1000);
-      if (time > subtract) {
-        setTime((prev) => prev - subtract);
-      } else {
-        setTime(0);
-      }
-    } else {
-      console.log('stop');
+    if (examSectionResponse) {
+      getSectionResult(examSectionResponse)
+        .unwrap()
+        .then((res) => {
+          console.log(res);
+        });
     }
+    // if (time > 0) {
+    //   const realTime = Date.now();
+    //   if (confirm('Do you want to submit answers?')) {
+    //     console.log('submit');
+    //   }
+    //   const realTime2 = Date.now();
+    //   const subtract = Math.floor((realTime2 - realTime) / 1000);
+    //   if (time > subtract) {
+    //     setTime((prev) => prev - subtract);
+    //   } else {
+    //     setTime(0);
+    //   }
+    // } else {
+    //   console.log('stop');
+    // }
   };
   return (
-    <div className="rounded-xl shadow-2xl p-[2rem] flex flex-col ">
+    <div className="rounded- shadow-2xl p-[2rem] flex flex-col w-3/12 ">
       <div className="flex flex-row md:flex-col items-center my-[.75rem]">
         <div className="">Time left :</div>
         <span className="font-bold text-[1.5rem]">
@@ -83,31 +83,39 @@ const NavigationTest = ({ handleTask, handleIndex, defaultPartId }: Props) => {
       <p className="text-[#ffad3c] font-bold italic my-[0.75rem]">
         You can click on the question number in the article to mark the review
       </p>
-      {data?.parts.map((item, index) => {
-        return (
-          <div
-            key={index}
-            className="my-[1rem] flex justify-center items-center"
-          >
-            <label className=" flex items-center gap-[1rem]">
-              <span className="label-text font-bold text-[1.25rem]">
-                Task {index + 1}
-              </span>
-              <input
-                className="radio checked:bg-red-500"
-                type="radio"
-                name="task"
-                onChange={() => {
-                  getPartId(item.id);
-                  getPartIndex(index);
-                }}
-                value={index}
-                checked={defaultPartId == item.id}
-              />
-            </label>
-          </div>
-        );
-      })}
+      <div className="flex flex-col [&_a]:p-2 [&_a]:rounded-md [&_.active]:bg-blue-600 [&_.active]:text-white">
+        {sectionData?.parts?.map(({ id: partId }, index) => {
+          return (
+            <NavLink
+              to={`/exams/${examId}/${section}/${sectionId}/${partId}`}
+              key={index}
+            >
+              Part {index + 1}
+            </NavLink>
+            // <div
+            //   key={index}
+            //   className="my-[1rem] flex justify-center items-center"
+            // >
+            //   <label className=" flex items-center gap-[1rem]">
+            //     <span className="label-text font-bold text-[1.25rem]">
+            //       Task {index + 1}
+            //     </span>
+            //     <input
+            //       className="radio checked:bg-red-500"
+            //       type="radio"
+            //       name="task"
+            //       // onChange={() => {
+            //       //   getPartId(item.id);
+            //       //   getPartIndex(index);
+            //       // }}
+            //       value={index}
+            //       checked={partId == item.id}
+            //     />
+            //   </label>
+            // </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

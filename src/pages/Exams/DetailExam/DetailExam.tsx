@@ -1,35 +1,43 @@
-import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import ClockIcon from '../../../assets/icons/Clock';
 import WriteIcon from '../../../assets/icons/Write';
-import { useGetExamsQuery } from '../../../store/queries/exams';
+import { SectionType } from '../../../components/admin/Exams/Sections';
+import LoadingAnimate from '../../../components/common/LoadingAnimate';
+import { ExamSection } from '../../../interfaces/Exam';
+import IExamSection from '../../../interfaces/ExamSection';
+import { useGetExamByIdQuery } from '../../../store/queries/exams';
+import { countQuestion, getSectionTime } from '../../../utils/exam';
+import { useEffect } from 'react';
 
 
 const DetailExam = () => {
-  const { type } = useParams();
-  const [selectedExam, setSelectedExam] = useState<any>({});
-  const ref = useRef<HTMLDivElement | null>(null);
+  const { examId, section } = useParams();
 
-  const { data, isLoading } = useGetExamsQuery({
-    page: 0,
-    quantity: 4,
-    title: '',
-    isNeedPaid: "All",
-    type: "All"
-  });
-
-  console.log(data);
+  const {
+    data: exam,
+    isLoading,
+    isError,
+  } = useGetExamByIdQuery(examId as string);
 
   useEffect(() => {
-    setSelectedExam(data);
-  }, [isLoading]);
-
-  useEffect(() => {
-    window.scrollTo({
+    window.scroll({
       top: 0,
       behavior: 'smooth',
     });
-  }, [type]);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingAnimate />;
+  }
+
+  if (isError || !exam) {
+    return <p className="text-red-500">Error</p>;
+  }
+
+  const sectionDetail: IExamSection = exam.sections[
+    (section as SectionType)?.toLowerCase() as keyof ExamSection
+  ] as IExamSection;
+  const defaultPartId = sectionDetail.parts[0]?.id;
 
   return (
     <div className="flex flex-col h-full relative">
@@ -37,16 +45,16 @@ const DetailExam = () => {
         <div className="w-full md:w-3/4 relative">
           <div className="mb-5 p-5 border-2 rounded-2xl">
             <div className="flex flex-row flex-wrap w-full gap-3 mb-2">
-              <button className="bg-[#eeeeee] w-fit rounded-xl p-2 text-black text-sm pointer-events-none">
-                #{selectedExam[0]?.type}
+              {/* <button className="bg-[#eeeeee] w-fit rounded-xl p-2 text-black text-sm pointer-events-none">
+                #{}
               </button>
               <button className="bg-[#eeeeee] w-fit rounded-xl p-2 text-black text-sm pointer-events-none">
-                #{type?.replace(type[0], type[0].toUpperCase())}
-              </button>
+                #{section?.replace(section[0], section[0].toUpperCase())}
+              </button> */}
             </div>
             <h3 className="text-4xl text-black font-bold mb-4">
-              {selectedExam[0]?.title}{' '}
-              {type?.replace(type[0], type[0].toUpperCase())}
+              {exam.title}{' '}
+              {section?.replace(section[0], section[0].toUpperCase())}
             </h3>
             <div className="gap-3 items-center w-fit mb-4">
               <a
@@ -58,23 +66,29 @@ const DetailExam = () => {
             </div>
             <div className="flex flex-col mb-6">
               <p className="mb-1 font-bold text-lg text-black">
-                Exam package: {selectedExam[0]?.title}
+                Exam package: {exam.title}
               </p>
               <div className="flex flex-row items-center gap-2 mb-1">
                 <p>
                   <ClockIcon />
                 </p>
-                <p>Time: 60 mins | 4 parts | 40 questions | 3211 comments</p>
+                <p>
+                  Time: {getSectionTime(exam.duration, section as SectionType)}{' '}
+                  mins | {sectionDetail.parts.length} parts |{' '}
+                  {countQuestion(sectionDetail)} questions
+                </p>
               </div>
               <div className="flex flex-row items-center gap-2 mb-1">
                 <p>
                   <WriteIcon />
                 </p>
-                <p>212 competitors use this test</p>
+                <p>
+                  {exam._count?.UserDoingExam || 0} competitors use this test
+                </p>
               </div>
               <p className="italic font-normal text-red-500">
                 Note: to be converted to a scale (for example, on a scale of 990
-                for TOEIC or 9.0 for IELTS), please choose FULL TEST mode.
+                for TOEIC or 9.0 for IELTS), please complete all section.
               </p>
             </div>
             <div className="gap-3 items-center w-fit mb-4">
@@ -94,10 +108,49 @@ const DetailExam = () => {
               need to spend 60 minutes on this test.
             </div>
 
-            <NavLink className="btn btn-success text-white" to="asdasdasdas">
+            <NavLink
+              className="btn btn-success text-white"
+              to={`${
+                exam.sections[
+                  (section?.toLowerCase() + 'SectionId') as keyof ExamSection
+                ]
+              }/${defaultPartId}`}
+              state={{
+                sectionDuration: getSectionTime(
+                  exam.duration,
+                  section as SectionType
+                ),
+              }}
+            >
               Start Exam
             </NavLink>
           </div>
+          {/* <div className="p-5 border-2 rounded-2xl" ref={ref}>
+            <p className="text-xl font-bold mb-2">Comments</p>
+            <p className="mb-10">
+              Please{' '}
+              <NavLink className="hover:text-black text-blue-400" to="/login">
+                login
+              </NavLink>{' '}
+              to comment
+            </p>
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-row gap-2 justify-start">
+                <figure className="rounded-[50%] bg-gray-400 flex justify-center items-center p-3 font-bold w-8 h-8">
+                  T
+                </figure>
+                <div className="flex flex-col">
+                  <p>
+                    <span className="font-bold">tranyennhi2006vbhp</span>, June
+                    24, 2023
+                  </p>
+                  <p>
+                    ai giải thích dùm mình tsao câu 13 đáp án B lại sai với ạ
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div> */}
         </div>
         <div className="hidden md:block w-1/4 relative">
           <div className="flex flex-col border-2 border-gray-200 rounded-2xl items-center justify-center gap-3 w-full min-h-[60vh] mx-auto">

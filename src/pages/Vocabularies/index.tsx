@@ -11,26 +11,6 @@ import { NOTIFICATION_TYPE, notify } from '../../utils/notify';
 
 const Pagination = lazy(() => import('../../components/common/Pagination'));
 
-// const vocabList: string[] = [
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-//   'Family',
-//   'Business',
-//   'Marketing',
-// ];
 
 const newPag = {
   totalPage: 5,
