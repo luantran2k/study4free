@@ -22,6 +22,7 @@ import {
 import ExamPart from '../components/exam/ExamPart';
 import ExamSection from '../pages/Exams/ExamSection/ExamSection';
 import MiniGame from '../pages/Game';
+import ResultPage from '../pages/Exams/Result';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -48,6 +49,10 @@ export const mainRoute: RouteObject = {
           element: <ExamPart />,
         },
       ],
+    },
+    {
+      path: 'result',
+      element: <ResultPage />,
     },
     {
       path: 'vocabularies',

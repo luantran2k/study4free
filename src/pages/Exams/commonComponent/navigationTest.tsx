@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { SectionType } from '../../../components/admin/Exams/Sections';
-import { useGetPartIdsBySectionIdQuery } from '../../../store/queries/exams';
 import { useAppSelector } from '../../../hooks/redux';
+import {
+  useGetPartIdsBySectionIdQuery,
+  useGetSectionResultMutation,
+} from '../../../store/queries/exams';
 
 // interface Props {
 //   handleTask: (task: string) => void;
@@ -28,8 +31,16 @@ const NavigationTest = () => {
     sectionId,
   });
 
+  const [getSectionResult] = useGetSectionResultMutation(undefined);
+
   const handleSunmit = () => {
-    console.log(examSectionResponse);
+    if (examSectionResponse) {
+      getSectionResult(examSectionResponse)
+        .unwrap()
+        .then((res) => {
+          console.log(res);
+        });
+    }
     // if (time > 0) {
     //   const realTime = Date.now();
     //   if (confirm('Do you want to submit answers?')) {
