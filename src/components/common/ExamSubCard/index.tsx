@@ -2,6 +2,8 @@ import { NavLink } from 'react-router-dom';
 import ClockIcon from '../../../assets/icons/Clock';
 import WriteIcon from '../../../assets/icons/Write';
 import { SectionType } from '../../admin/Exams/Sections';
+import { useGetUserByIdQuery } from '../../../store/queries/users';
+import { NOTIFICATION_TYPE, notify } from '../../../utils/notify';
 
 export type SubCardProps = {
   examId: string;
@@ -14,9 +16,23 @@ export type SubCardProps = {
 
 function ExamSubCard(props: SubCardProps) {
   const { examId, title, section, time, numberOfCompleted } = props;
+
+  const dataStorage = JSON.parse(
+    localStorage.getItem('user') as string
+  )?.userInfo;
+  const { data: userData, isSuccess } = useGetUserByIdQuery(dataStorage?.id);
+  const handleDoExam = () => {
+    if (userData && isSuccess) {
+      console.log();
+    } else {
+      notify(NOTIFICATION_TYPE.ERROR, 'Please login before do exam');
+    }
+  };
+
   return (
     <NavLink
-      to={`${examId}/${section}`}
+      onClick={handleDoExam}
+      to={userData && `${examId}/${section}`}
       //   state={{ sectionType, sectionId, props }}
       className="bg-white rounded-2xl hover:shadow-xl shadow-md w-full hover:-translate-y-2 transition-all p-4 mt-4 flex flex-col justify-between"
     >
@@ -39,21 +55,7 @@ function ExamSubCard(props: SubCardProps) {
           </span>
           <p className="text-gray-400">{numberOfCompleted}</p>
         </div>
-        {/* <div className="flex flex-row items-center gap-2  px-2">
-          <span className="text-white">
-            <ChatIcon />
-          </span>
-          <p className="text-gray-400">258</p>
-        </div> */}
       </div>
-      {/* <div className="flex flex-row flex-wrap mb-6 font-medium">
-        <div className="flex w-1/3 flex-row items-center gap-2 border-r-2 border-r-gray-400 px-2">
-          <p className="text-gray-400">{numberOfPart} parts</p>
-        </div>
-        <div className="flex w-2/3 flex-row items-center gap-2 px-2">
-          <p className="text-gray-400">{numberOfQuestion} questions</p>
-        </div>
-      </div> */}
     </NavLink>
   );
 }

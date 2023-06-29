@@ -54,6 +54,7 @@ function VocabularyDetail() {
             synonyms: vocab.synonyms,
             collectionId: duplicateCollection,
           });
+          window.my_modal_2.close();
         } else {
           notify(NOTIFICATION_TYPE.SUCCESS, 'add new word successfully');
           AddCollection({
