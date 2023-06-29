@@ -21,6 +21,7 @@ import {
 
 import ExamPart from '../components/exam/ExamPart';
 import ExamSection from '../pages/Exams/ExamSection/ExamSection';
+import MiniGame from '../pages/Game';
 
 export const mainRoute: RouteObject = {
   path: '/',
@@ -85,6 +86,12 @@ export const mainRoute: RouteObject = {
         {
           path: 'collection',
           element: <Collection />,
+          children: [
+            {
+              path: 'minigame',
+              element: <MiniGame />,
+            },
+          ],
         },
         {
           path: 'reminder',
